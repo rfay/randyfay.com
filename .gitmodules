@@ -12,7 +12,7 @@
 	url = git://git.drupal.org/project/token
 [submodule "sites/all/modules/codefilter"]
 	path = sites/all/modules/codefilter
-	url = git://git.drupal.org/project/codefilter
+	url = git://git.drupal.org/project/codefilter.git
 [submodule "sites/all/modules/markdown"]
 	path = sites/all/modules/markdown
 	url = git://git.drupal.org/project/markdown.git
