@@ -1,0 +1,57 @@
+[submodule "sites/all/modules/ctools"]
+	path = sites/all/modules/ctools
+	url = git://git.drupal.org/project/ctools
+[submodule "sites/all/modules/context"]
+	path = sites/all/modules/context
+	url = git://git.drupal.org/project/context
+[submodule "sites/all/modules/comment_notify"]
+	path = sites/all/modules/comment_notify
+	url = git://git.drupal.org/project/comment_notify.git
+[submodule "sites/all/modules/token"]
+	path = sites/all/modules/token
+	url = git://git.drupal.org/project/token
+[submodule "sites/all/modules/codefilter"]
+	path = sites/all/modules/codefilter
+	url = git://git.drupal.org/project/codefilter
+[submodule "sites/all/modules/markdown"]
+	path = sites/all/modules/markdown
+	url = git://git.drupal.org/project/markdown.git
+[submodule "sites/all/modules/rules"]
+	path = sites/all/modules/rules
+	url = git://git.drupal.org/project/rules.git
+[submodule "sites/all/modules/git_deploy"]
+	path = sites/all/modules/git_deploy
+	url = git://git.drupal.org/project/git_deploy.git
+[submodule "sites/all/modules/entity"]
+	path = sites/all/modules/entity
+	url = git://git.drupal.org/project/entity.git
+[submodule "sites/all/modules/admin_menu"]
+	path = sites/all/modules/admin_menu
+	url = git://git.drupal.org/project/admin_menu.git
+[submodule "sites/all/modules/module_filter"]
+	path = sites/all/modules/module_filter
+	url = git://git.drupal.org/project/module_filter.git
+[submodule "sites/all/modules/backup_migrate"]
+	path = sites/all/modules/backup_migrate
+	url = git://git.drupal.org/project/backup_migrate.git
+[submodule "sites/all/modules/reroute_email"]
+	path = sites/all/modules/reroute_email
+	url = git://git.drupal.org/project/reroute_email.git
+[submodule "sites/all/modules/views"]
+	path = sites/all/modules/views
+	url = git://git.drupal.org/project/views.git
+[submodule "sites/all/modules/views_bulk_operations"]
+	path = sites/all/modules/views_bulk_operations
+	url = git://git.drupal.org/project/views_bulk_operations.git
+[submodule "sites/all/modules/environment_indicator"]
+	path = sites/all/modules/environment_indicator
+	url = git://git.drupal.org/project/environment_indicator.git
+[submodule "sites/all/libraries/glip"]
+	path = sites/all/libraries/glip
+	url = git://github.com/halstead/glip.git
+[submodule "sites/all/modules/insert"]
+	path = sites/all/modules/insert
+	url = git://git.drupal.org/project/insert.git
+[submodule "sites/all/modules/filefield_sources"]
+	path = sites/all/modules/filefield_sources
+	url = git://git.drupal.org/project/filefield_sources.git
