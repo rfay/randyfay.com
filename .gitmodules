@@ -55,3 +55,12 @@
 [submodule "sites/all/modules/filefield_sources"]
 	path = sites/all/modules/filefield_sources
 	url = git://git.drupal.org/project/filefield_sources.git
+[submodule "sites/all/modules/gist_filter"]
+	path = sites/all/modules/gist_filter
+	url = git://git.drupal.org/project/gist_filter.git
+[submodule "sites/all/modules/recaptcha"]
+	path = sites/all/modules/recaptcha
+	url = git://git.drupal.org/project/recaptcha.git
+[submodule "sites/all/modules/translatableregions"]
+	path = sites/all/modules/translatableregions
+	url = git://git.drupal.org/project/translatableregions.git

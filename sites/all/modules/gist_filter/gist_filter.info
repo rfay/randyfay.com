@@ -1,6 +1,0 @@
-name = Gist Input Filter
-description = "Provides the ability to embed gists from Github.com."
-
-; Core version (required)
-core = 7.x
-
