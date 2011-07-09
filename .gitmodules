@@ -64,3 +64,6 @@
 [submodule "sites/all/modules/translatableregions"]
 	path = sites/all/modules/translatableregions
 	url = git://git.drupal.org/project/translatableregions.git
+[submodule "sites/all/modules/spambot"]
+	path = sites/all/modules/spambot
+	url = git://git.drupal.org/project/spambot.git
