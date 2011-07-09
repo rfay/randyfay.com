@@ -67,3 +67,9 @@
 [submodule "sites/all/modules/spambot"]
 	path = sites/all/modules/spambot
 	url = git://git.drupal.org/project/spambot.git
+[submodule "sites/all/modules/riddler"]
+	path = sites/all/modules/riddler
+	url = git://git.drupal.org/project/riddler.git
+[submodule "sites/all/modules/mollom"]
+	path = sites/all/modules/mollom
+	url = git://git.drupal.org/project/mollom.git
