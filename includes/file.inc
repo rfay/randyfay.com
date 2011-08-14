@@ -906,7 +906,7 @@ function file_unmanaged_copy($source, $destination = NULL, $replace = FILE_EXIST
   file_ensure_htaccess();
   // Perform the copy operation.
   if (!@copy($source, $destination)) {
-    watchdog('file', 'The specified file %file could not be copied to %destination.', array('%file' => $source, '%destination' => $destination), WATCHDOG_ERR);
+    watchdog('file', 'The specified file %file could not be copied to %destination.', array('%file' => $source, '%destination' => $destination), WATCHDOG_ERROR);
     return FALSE;
   }
 
@@ -1902,10 +1902,11 @@ function file_transfer($uri, $headers) {
  * Menu handler for private file transfers.
  *
  * Call modules that implement hook_file_download() to find out if a file is
- * accessible and what headers it should be transferred with. If a module
- * returns -1 drupal_access_denied() will be returned. If one or more modules
- * returned headers the download will start with the returned headers. If no
- * modules respond drupal_not_found() will be returned.
+ * accessible and what headers it should be transferred with. If one or more
+ * modules returned headers the download will start with the returned headers.
+ * If a module returns -1 drupal_access_denied() will be returned. If the file
+ * exists but no modules responded drupal_access_denied() will be returned.
+ * If the file does not exist drupal_not_found() will be returned.
  *
  * @see hook_file_download()
  */
@@ -1934,6 +1935,7 @@ function file_download() {
     if (count($headers)) {
       file_transfer($uri, $headers);
     }
+    return drupal_access_denied();
   }
   return drupal_not_found();
 }
@@ -2348,11 +2350,9 @@ function file_directory_temp() {
     if (substr(PHP_OS, 0, 3) == 'WIN') {
       $directories[] = 'c:\\windows\\temp';
       $directories[] = 'c:\\winnt\\temp';
-      $path_delimiter = '\\';
     }
     else {
       $directories[] = '/tmp';
-      $path_delimiter = '/';
     }
     // PHP may be able to find an alternative tmp directory.
     // This function exists in PHP 5 >= 5.2.1, but Drupal
@@ -2369,8 +2369,14 @@ function file_directory_temp() {
     }
 
     if (empty($temporary_directory)) {
-      // If no directory has been found default to 'files/tmp' or 'files\\tmp'.
-      $temporary_directory = variable_get('file_public_path', conf_path() . '/files') . $path_delimiter . 'tmp';
+      // If no directory has been found default to 'files/tmp'.
+      $temporary_directory = variable_get('file_public_path', conf_path() . '/files') . '/tmp';
+
+      // Windows accepts paths with either slash (/) or backslash (\), but will
+      // not accept a path which contains both a slash and a backslash. Since
+      // the 'file_public_path' variable may have either format, we sanitize
+      // everything to use slash which is supported on all platforms.
+      $temporary_directory = str_replace('\\', '/', $temporary_directory);
     }
     // Save the path of the discovered directory.
     variable_set('file_temporary_path', $temporary_directory);
