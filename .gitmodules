@@ -76,3 +76,6 @@
 [submodule "sites/all/modules/diff"]
 	path = sites/all/modules/diff
 	url = git://git.drupal.org/project/diff.git
+[submodule "sites/all/modules/css_injector"]
+	path = sites/all/modules/css_injector
+	url = git://git.drupal.org/project/css_injector.git
