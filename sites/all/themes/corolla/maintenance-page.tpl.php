@@ -1,5 +1,5 @@
 <?php
-// $Id: maintenance-page.tpl.php,v 1.12 2010/07/06 21:48:44 jarek Exp $
+// $Id: maintenance-page.tpl.php,v 1.13 2011/01/01 13:20:14 jarek Exp $
 
 /**
  * @file
@@ -23,23 +23,6 @@
 </head>
 
 <body class="<?php print $classes; ?>">
-<?php if ($main_menu): ?>
-  <div id="navigation" class="clearfix">
-    <?php print theme('links__system_main_menu', array(
-      'links' => $main_menu,
-      'attributes' => array(
-        'id' => 'main-menu',
-        'class' => array('links'),
-      ),
-      'heading' => array(
-        'text' => t('Main menu'),
-        'level' => 'h2',
-        'class' => array('element-invisible'),
-      ),
-    )); ?>
-  </div> <!-- /#navigation -->
-<?php endif; ?>
-
   <div id="header-wrapper">
     <div id="header" class="clearfix">
 

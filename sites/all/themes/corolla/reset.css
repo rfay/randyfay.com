@@ -1,4 +1,4 @@
-/* $Id: reset.css,v 1.18 2010/07/02 18:21:54 jarek Exp $ */
+/* $Id: reset.css,v 1.19 2011/01/01 13:20:14 jarek Exp $ */
 
 html,
 body,
@@ -67,7 +67,6 @@ td {
   padding: 0;
   background: transparent;
   font-weight: 300;
-  font-size: 100%;
   border: 0;
   vertical-align: baseline;
 }

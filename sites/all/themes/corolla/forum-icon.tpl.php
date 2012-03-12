@@ -1,5 +1,5 @@
 <?php
-// $Id: forum-icon.tpl.php,v 1.9 2010/05/17 05:27:42 jarek Exp $
+// $Id: forum-icon.tpl.php,v 1.10 2011/01/01 13:20:14 jarek Exp $
 
 /**
  * @file
@@ -14,12 +14,11 @@
  * @see theme_forum_icon()
  */
 ?>
-<?php if ($new_posts): ?>
-  <a id="new">
+<div class="topic-status-<?php print $icon_class ?>" title="<?php print $icon_title ?>">
+<?php if ($first_new): ?>
+  <a id="new"></a>
 <?php endif; ?>
 
-<?php print theme('image', array('path' => $directory . "/images/forum-$icon.png", 'alt' => 'Default avatar')); ?>
+  <span class="element-invisible"><?php print $icon_title ?></span>
 
-<?php if ($new_posts): ?>
-  </a>
-<?php endif; ?>
+</div>

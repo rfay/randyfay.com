@@ -1,7 +1,7 @@
-/* $Id: ie7.css,v 1.24 2010/08/11 20:37:26 jarek Exp $ */
+/* $Id: ie7.css,v 1.25 2011/01/01 13:20:14 jarek Exp $ */
 
 /* Fix inline-blocks */
-#navigation > ul > li,
+#header-menu .content > ul > li,
 #logo,
 #name-and-slogan,
 .tabs ul.tabs li a,

@@ -1,5 +1,5 @@
 <?php
-// $Id: page.tpl.php,v 1.33 2010/07/17 06:53:16 jarek Exp $
+// $Id: page.tpl.php,v 1.34 2011/01/01 13:20:14 jarek Exp $
 
 /**
  * @file
@@ -66,15 +66,13 @@
  * @see template_process()
  */
 ?>
-<?php if ($navigation && !$in_overlay): ?>
-  <div id="navigation-wrapper">
-    <div id="navigation" class="clearfix">
-      <?php print $navigation; ?>
-    </div> <!-- /#navigation -->
-  </div>
-<?php endif; ?>
-
-
+  <?php if ($page['header_menu']): ?>
+    <div id="header-menu-wrapper">
+      <div id="header-menu">
+        <?php print render($page['header_menu']); ?>
+      </div>
+    </div>
+  <?php endif; ?>
 
   <?php if (!$in_overlay): ?>
   <div id="header-wrapper">
