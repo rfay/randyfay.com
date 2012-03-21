@@ -79,3 +79,6 @@
 [submodule "sites/all/modules/css_injector"]
 	path = sites/all/modules/css_injector
 	url = git://git.drupal.org/project/css_injector.git
+[submodule "sites/all/modules/pathauto"]
+	path = sites/all/modules/pathauto
+	url = git://git.drupal.org/project/pathauto.git
