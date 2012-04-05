@@ -82,3 +82,6 @@
 [submodule "sites/all/modules/pathauto"]
 	path = sites/all/modules/pathauto
 	url = git://git.drupal.org/project/pathauto.git
+[submodule "sites/all/modules/logintoboggan"]
+	path = sites/all/modules/logintoboggan
+	url = git://git.drupal.org/project/logintoboggan.git
