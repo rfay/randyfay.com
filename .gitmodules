@@ -85,3 +85,6 @@
 [submodule "sites/all/modules/logintoboggan"]
 	path = sites/all/modules/logintoboggan
 	url = git://git.drupal.org/project/logintoboggan.git
+[submodule "contact_reply_to"]
+	path = contact_reply_to
+	url = rfay@git.drupal.org:project/contact_reply_to.git
