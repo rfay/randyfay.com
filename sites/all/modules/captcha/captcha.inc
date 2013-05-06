@@ -1,5 +1,4 @@
 <?php
-// $Id: captcha.inc,v 1.15 2010/06/23 21:03:10 soxofaan Exp $
 
 /**
  * @file
@@ -15,7 +14,7 @@
  *   - 'default' to use the default challenge type
  *   - NULL to remove the entry for the CAPTCHA type
  *   - something of the form 'image_captcha/Image'
- *   - an object with attributes $captcha_type->module and $captcha_type->type
+ *   - an object with attributes $captcha_type->module and $captcha_type->captcha_type
  * @return nothing
  */
 function captcha_set_form_id_setting($form_id, $captcha_type) {
@@ -23,14 +22,14 @@ function captcha_set_form_id_setting($form_id, $captcha_type) {
   if ($captcha_type == 'none') {
     db_merge('captcha_points')
       ->key(array('form_id' => $form_id))
-      ->fields(array('module' => NULL, 'type' => NULL))
+      ->fields(array('module' => NULL, 'captcha_type' => NULL))
       ->execute();
   }
   // Handle 'default'.
   elseif ($captcha_type == 'default') {
     db_merge('captcha_points')
       ->key(array('form_id' => $form_id))
-      ->fields(array('module' => NULL, 'type' => 'default'))
+      ->fields(array('module' => NULL, 'captcha_type' => 'default'))
       ->execute();
   }
   // Handle NULL.
@@ -38,10 +37,10 @@ function captcha_set_form_id_setting($form_id, $captcha_type) {
     db_delete('captcha_points')->condition('form_id', $form_id)->execute();
   }
   // Handle a captcha_type object.
-  elseif (is_object($captcha_type) && isset($captcha_type->module) && isset($captcha_type->type)) {
+  elseif (is_object($captcha_type) && isset($captcha_type->module) && isset($captcha_type->captcha_type)) {
     db_merge('captcha_points')
       ->key(array('form_id' => $form_id))
-      ->fields(array('module' => $captcha_type->module, 'type' => $captcha_type->type))
+      ->fields(array('module' => $captcha_type->module, 'captcha_type' => $captcha_type->captcha_type))
       ->execute();
   }
   // Handle a captcha_type string.
@@ -49,7 +48,7 @@ function captcha_set_form_id_setting($form_id, $captcha_type) {
     list($module, $type) = explode('/', $captcha_type);
     db_merge('captcha_points')
       ->key(array('form_id' => $form_id))
-      ->fields(array('module' => $module, 'type' => $type))
+      ->fields(array('module' => $module, 'captcha_type' => $type))
       ->execute();
   }
   else {
@@ -65,32 +64,32 @@ function captcha_set_form_id_setting($form_id, $captcha_type) {
  * @param $symbolic flag to return as (symbolic) strings instead of object.
  *
  * @return NULL if no setting is known
- *   or a captcha_point object with fields 'module' and 'type'.
+ *   or a captcha_point object with fields 'module' and 'captcha_type'.
  *   If argument $symbolic is true, returns (symbolic) as 'none', 'default'
  *   or in the form 'captcha/Math'.
  */
 function captcha_get_form_id_setting($form_id, $symbolic=FALSE) {
-  $result = db_query("SELECT module, type FROM {captcha_points} WHERE form_id = :form_id",
+  $result = db_query("SELECT module, captcha_type FROM {captcha_points} WHERE form_id = :form_id",
     array(':form_id' =>  $form_id));
   $captcha_point = $result->fetchObject();
   if (!$captcha_point) {
     $captcha_point = NULL;
   }
-  elseif ($captcha_point->type == 'default') {
+  elseif ($captcha_point->captcha_type == 'default') {
     if (!$symbolic) {
       list($module, $type) = explode('/', variable_get('captcha_default_challenge', 'captcha/Math'));
       $captcha_point->module = $module;
-      $captcha_point->type = $type;
+      $captcha_point->captcha_type = $type;
     }
     else {
       $captcha_point = 'default';
     }
   }
-  elseif ($captcha_point->module == NULL && $captcha_point->type == NULL && $symbolic) {
+  elseif ($captcha_point->module == NULL && $captcha_point->captcha_type == NULL && $symbolic) {
     $captcha_point = 'none';
   }
   elseif ($symbolic) {
-    $captcha_point = $captcha_point->module . '/' . $captcha_point->type;
+    $captcha_point = $captcha_point->module . '/' . $captcha_point->captcha_type;
   }
   return $captcha_point;
 }
@@ -105,6 +104,8 @@ function captcha_get_form_id_setting($form_id, $symbolic=FALSE) {
  */
 function _captcha_generate_captcha_session($form_id=NULL, $status=CAPTCHA_STATUS_UNSOLVED) {
   global $user;
+  // Initialize solution with random data.
+  $solution = md5(mt_rand());
   // Insert an entry and thankfully receive the value of the autoincrement field 'csid'.
   $captcha_sid = db_insert('captcha_sessions')
   ->fields(array(
@@ -113,7 +114,7 @@ function _captcha_generate_captcha_session($form_id=NULL, $status=CAPTCHA_STATUS
     'ip_address' => ip_address(),
     'timestamp' => REQUEST_TIME,
     'form_id' => $form_id,
-    'solution' => 'undefined',
+    'solution' => $solution,
     'status' => $status,
     'attempts' => 0,
   ))
@@ -139,26 +140,43 @@ function _captcha_update_captcha_session($captcha_sid, $solution) {
 
 /**
  * Helper function for checking if CAPTCHA is required for user,
- * based on CAPTCHA session ID and user session info.
+ * based on the CAPTCHA persistence setting, the CAPTCHA session ID and
+ * user session info.
  */
 function _captcha_required_for_user($captcha_sid, $form_id) {
-  $captcha_session_status = db_query('SELECT status FROM {captcha_sessions} WHERE csid = :csid', array(':csid' => $captcha_sid))->fetchField();
+  // Get the CAPTCHA persistence setting.
+  $captcha_persistence = variable_get('captcha_persistence', CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_INSTANCE);
 
-  $captcha_success_form_ids = isset($_SESSION['captcha_success_form_ids']) ? (array)($_SESSION['captcha_success_form_ids']) : array();
-
-  switch (variable_get('captcha_persistence', CAPTCHA_PERSISTENCE_SHOW_ALWAYS)) {
-    case CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL:
-      $captcha_persistence_status = (count($captcha_success_form_ids) > 0);
-      break;
-    case CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM:
-      $captcha_persistence_status = isset($captcha_success_form_ids[$form_id]);
-      break;
-    default:
-      $captcha_persistence_status = FALSE;
+  // First check: should we always add a CAPTCHA?
+  if ($captcha_persistence == CAPTCHA_PERSISTENCE_SHOW_ALWAYS) {
+    return TRUE;
   }
 
-  return ($captcha_session_status == CAPTCHA_STATUS_UNSOLVED) && !$captcha_persistence_status;
+  // Get the status of the current CAPTCHA session.
+  $captcha_session_status = db_query('SELECT status FROM {captcha_sessions} WHERE csid = :csid', array(':csid' => $captcha_sid))->fetchField();
+  // Second check: if the current session is already solved: omit further CAPTCHAs.
+  if ($captcha_session_status == CAPTCHA_STATUS_SOLVED) {
+    return FALSE;
+  }
+
+  // Third check: look at the persistence level (per form instance, per form or per user).
+  if ($captcha_persistence == CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_INSTANCE) {
+    return TRUE;
+  }
+  else {
+    $captcha_success_form_ids = isset($_SESSION['captcha_success_form_ids']) ? (array)($_SESSION['captcha_success_form_ids']) : array();
+    switch ($captcha_persistence) {
+      case CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL:
+        return (count($captcha_success_form_ids) == 0);
+      case CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_TYPE:
+        return !isset($captcha_success_form_ids[$form_id]);
+    }
+  }
+
+  // We should never get to this point, but to be sure, we return TRUE.
+  return TRUE;
 }
+
 
 /**
  * Get the CAPTCHA description as configured on the general CAPTCHA
@@ -220,23 +238,13 @@ function _captcha_get_captcha_placement($form_id, $form) {
   if ($placement_map === NULL) {
     // If first level cache missed: try second level cache.
     $placement_map = variable_get('captcha_placement_map_cache', NULL);
-    // TODO: add UI in admin UI for flushing this cache.
 
     if ($placement_map === NULL) {
-      // If second level cache missed: start from a fresh placement map.
-      $placement_map = array();
-      // Prefill with some hard coded default entries.
-
-      // The comment form can have a 'Preview' button, or both a 'Submit' and 'Preview' button,
-      // which is tricky for automatic placement detection. Luckily, Drupal core sets their
-      // weight (19 and 20), so we just have to specify a slightly smaller weight.
-      $placement_map['comment_form'] = array('path' => array(), 'key' => NULL, 'weight' => 18.9);
-      // Additional note: the node forms also have the posibility to only show a 'Preview' button.
-      // However, the 'Submit' button is always present, but is just not rendered ('#access' = FALSE)
-      // in those cases. The the automatic button detection should be sufficient for node forms.
-
-      // $placement_map['user_login'] = array('path' => array(), 'key' => NULL, 'weight' => 1.9);
-      // TODO: also make the placement 'overridable' from the admin UI?
+      // If second level cache missed: initialize the placement map
+      // and let other modules hook into this with the hook_captcha_placement_map hook.
+      // By default however, probably all Drupal core forms are already correctly
+      // handled with the best effort guess based on the 'actions' element (see below).
+      $placement_map = module_invoke_all('captcha_placement_map');
     }
   }
 
@@ -244,21 +252,32 @@ function _captcha_get_captcha_placement($form_id, $form) {
   if (array_key_exists($form_id, $placement_map)) {
     $placement = $placement_map[$form_id];
   }
-  // If no placement info is available in placement map:
-  // search the form for buttons and guess placement from it.
+  // If no placement info is available in placement map: make a best effort guess.
   else {
-    $buttons = _captcha_search_buttons($form);
-    if (count($buttons)) {
-      // Pick first button.
-      // TODO: make this more sofisticated? Use cases needed.
-      $placement = $buttons[0];
+    // If there is an "actions" button group, a good placement is just before that.
+    if (isset($form['actions']) && isset($form['actions']['#type']) && $form['actions']['#type'] === 'actions') {
+      $placement = array(
+        'path' => array(),
+        'key' => 'actions',
+        // #type 'actions' defaults to 100.
+        'weight' => (isset($form['actions']['#weight']) ? $form['actions']['#weight'] - 1 : 99),
+      );
     }
     else {
-      // Use NULL when no buttons were found.
-      $placement = NULL;
+      // Search the form for buttons and guess placement from it.
+      $buttons = _captcha_search_buttons($form);
+      if (count($buttons)) {
+        // Pick first button.
+        // TODO: make this more sofisticated? Use cases needed.
+        $placement = $buttons[0];
+      }
+      else {
+        // Use NULL when no buttons were found.
+        $placement = NULL;
+      }
     }
 
-    // Store calculated placement in caches.
+    // Store calculated placement in cache.
     $placement_map[$form_id] = $placement;
     variable_set('captcha_placement_map_cache', $placement_map);
   }
@@ -306,7 +325,7 @@ function _captcha_search_buttons($form) {
  *       CAPTCHA element should be inserted.
  *     - 'key': the key of the element before which the CAPTCHA element
  *       should be inserted. If the field 'key' is undefined or NULL, the CAPTCHA will
- *       just be appended to the container.
+ *       just be appended in the container.
  *     - 'weight': if 'key' is not NULL: should be the weight of the element defined by 'key'.
  *       If 'key' is NULL and weight is not NULL: set the weight property of the CAPTCHA element
  *       to this value.

@@ -1,5 +1,4 @@
 <?php
-// $Id: captcha.install,v 1.18 2010/11/09 22:35:07 soxofaan Exp $
 
 /**
  * @file
@@ -19,13 +18,14 @@ function captcha_schema() {
         'type' => 'varchar',
         'length' => 128,
         'not null' => TRUE,
+        'default' => '',
       ),
       'module' => array(
         'description' => 'The module that provides the challenge.',
         'type' => 'varchar',
         'length' => 64,
       ),
-      'type' => array(
+      'captcha_type' => array(
         'description' => 'The challenge type to use.',
         'type' => 'varchar',
         'length' => 64,
@@ -41,6 +41,12 @@ function captcha_schema() {
         'description' => 'CAPTCHA session ID.',
         'type' => 'serial',
         'not null' => TRUE,
+      ),
+      'token' => array(
+        'description' => 'One time CAPTCHA token.',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => FALSE,
       ),
       'uid' => array(
         'description' => "User's {users}.uid.",
@@ -130,17 +136,20 @@ function captcha_install() {
   $t = get_t();
   // Insert some default CAPTCHA points.
   $form_ids = array(
-    'comment_node_page_form',
     'contact_site_form', 'contact_personal_form',
     'user_register_form', 'user_pass', 'user_login', 'user_login_block',
     'forum_node_form'
   );
+  // Add form_ids of all currently known node types too.
+  foreach (node_type_get_names() as $type => $name) {
+    $form_ids[] = 'comment_node_' . $type . '_form';
+  }
   foreach ($form_ids as $form_id) {
     db_insert('captcha_points')
       ->fields(array(
         'form_id' => $form_id,
         'module' => NULL,
-        'type' => NULL,
+        'captcha_type' => NULL,
       ))
       ->execute();
   }
@@ -149,10 +158,12 @@ function captcha_install() {
   drupal_set_message($t('You can now <a href="!captcha_admin">configure the CAPTCHA module</a> for your site.',
     array('!captcha_admin' => url('admin/config/people/captcha'))), 'status');
 
+  // Explain to users that page caching may be disabled.
   if (variable_get('cache', 0) != 0) {
-    drupal_set_message($t('Note that the CAPTCHA module disables <a href="!performance_admin">page caching</a> on pages that include a CAPTCHA challenge.', 
+    drupal_set_message($t('Note that the CAPTCHA module disables <a href="!performance_admin">page caching</a> of pages that include a CAPTCHA challenge.',
       array('!performance_admin' => url('admin/config/development/performance'))), 'warning');
   }
+
 }
 
 /**
@@ -309,9 +320,27 @@ function captcha_update_6201() {
 }
 
 
+/**
+ * Implementation of hook_update_N()
+ * Add a CAPTCHA token column to captcha_sessions table.
+ */
+function captcha_update_6202() {
+  $ret = array();
+  db_add_column($ret, 'captcha_sessions', 'token', 'varchar(64)');
+  return $ret;
+}
 
 
 
+/**
+ * Implementation of hook_update_N()
+ * Rename the type field to captcha_type in captcha_points.
+ */
+function captcha_update_6203() {
+  $ret = array();
+  db_change_field($ret, 'captcha_points', 'type', 'captcha_type', array('type' => 'varchar', 'length' => 64));
+  return $ret;
+}
 
 
 /**
@@ -333,7 +362,31 @@ function captcha_update_7000() {
     ->fields(array('form_id' => 'contact_personal_form'))
     ->condition('form_id', 'contact_mail_user')
     ->execute();
-  // TODO: the general comment_form form_id is also split
-  // in comment_node_{type}_form, e.g. comment_node_page_form
-}
 
+  // The D6-style comment_form form_id is split per node type
+  // in D7: comment_node_{type}_form, e.g. comment_node_page_form.
+  // Get the current settings for 'comment_form'.
+  $captcha_point = db_query(
+    "SELECT * FROM {captcha_points} WHERE form_id = :comment_form_id",
+    array(':comment_form_id' => 'comment_form')
+  )->fetchObject();
+  if ($captcha_point !== FALSE) {
+    // Create entries for D7-style node form IDs.
+    $module = $captcha_point->module;
+    $captcha_type = $captcha_point->captcha_type;
+    foreach (node_type_get_names() as $type => $name) {
+      $form_id = 'comment_node_' . $type . '_form';
+      db_insert('captcha_points')
+        ->fields(array(
+          'form_id' => $form_id,
+          'module' => $module,
+          'captcha_type' => $captcha_type,
+        ))
+        ->execute();
+    }
+    // Delete outdated entry.
+    db_delete('captcha_points')
+      ->condition('form_id', 'comment_form')
+      ->execute();
+  }
+}

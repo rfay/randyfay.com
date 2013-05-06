@@ -1,5 +1,4 @@
 <?php
-// $Id: image_captcha.user.inc,v 1.27 2010/11/19 22:49:55 soxofaan Exp $
 
 /**
  * @file
@@ -13,6 +12,11 @@
  * Menu callback function that generates the CAPTCHA image.
  */
 function image_captcha_image($captcha_sid=NULL) {
+  // If output buffering is on: discard current content and disable further buffering
+  if (ob_get_level()) {
+    ob_end_clean();
+  }
+  
   if (!$captcha_sid) {
     exit();
   }
@@ -64,6 +68,7 @@ function _image_captcha_hex_to_rgb($hex) {
   return $rgb;
 }
 
+
 /**
  * Base function for generating a image CAPTCHA.
  */
@@ -73,11 +78,7 @@ function _image_captcha_generate_image($code) {
 
   // get other settings
   $font_size = (int) variable_get('image_captcha_font_size', 30);
-  $character_spacing = (float) variable_get('image_captcha_character_spacing', '1.2');
-  $characters = _image_captcha_utf8_split($code);
-  $character_quantity = count($characters);
-  $width = $character_spacing * $font_size * $character_quantity;
-  $height = 2 * $font_size;
+  list($width, $height) = _image_captcha_image_size($code);
 
   // create image resource
   $image = imagecreatetruecolor($width, $height);

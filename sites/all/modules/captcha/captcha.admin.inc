@@ -1,5 +1,4 @@
 <?php
-// $Id: captcha.admin.inc,v 1.38 2010/11/09 22:43:36 soxofaan Exp $
 
 /**
  * @file
@@ -74,9 +73,9 @@ function captcha_admin_settings() {
     );
     // Select widget for CAPTCHA type.
     if (isset($captcha_point->module) && $captcha_point->module) {
-      $captcha_type = $captcha_point->module . '/' . $captcha_point->type;
+      $captcha_type = $captcha_point->module . '/' . $captcha_point->captcha_type;
     }
-    elseif ($captcha_point->type == 'default') {
+    elseif ($captcha_point->captcha_type == 'default') {
       $captcha_type = 'default';
     }
     else {
@@ -122,6 +121,19 @@ function captcha_admin_settings() {
     '#title' => t('Allow CAPTCHAs and CAPTCHA administration links on administrative pages'),
     '#default_value' => variable_get('captcha_allow_on_admin_pages', FALSE),
     '#description' => t('This option makes it possible to add CAPTCHAs to forms on administrative pages. CAPTCHAs are disabled by default on administrative pages (which shouldn\'t be accessible to untrusted users normally) to avoid the related overhead. In some situations, e.g. in the case of demo sites, it can be usefull to allow CAPTCHAs on administrative pages.'),
+  );
+
+  // Button for flushing the CAPTCHA placement cache.
+  // Based on Drupal core's "Clear all caches" (performance settings page).
+  $form['captcha_form_protection']['captcha_placement_caching'] = array(
+    '#type' => 'item',
+    '#title' => t('CAPTCHA placement caching'),
+    '#description' => t('For efficiency, the positions of the CAPTCHA elements in each of the configured forms are cached. Most of the time, the structure of a form does not change and it would be a waste to recalculate the positions every time. Occasionally however, the form structure can change (e.g. during site building) and flushing the CAPTCHA placement cache can be required to fix the CAPTCHA placement.'),
+  );
+  $form['captcha_form_protection']['captcha_placement_caching']['captcha_placement_cache_flush'] = array(
+    '#type' => 'submit',
+    '#value' => t('Flush the CAPTCHA placement cache'),
+    '#submit' => array('captcha_flush_captcha_placement_cache_submit'),
   );
 
   // Configuration option for adding a CAPTCHA description.
@@ -173,16 +185,22 @@ function captcha_admin_settings() {
   );
 
   // Field for CAPTCHA persistence.
+  // TODO for D7: Rethink/simplify the explanation and UI strings.
   $form['captcha_persistence'] = array(
     '#type' => 'radios',
     '#title' => t('Persistence'),
-    '#default_value' => variable_get('captcha_persistence', CAPTCHA_PERSISTENCE_SHOW_ALWAYS),
+    '#default_value' => variable_get('captcha_persistence', CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_INSTANCE),
     '#options' => array(
-      CAPTCHA_PERSISTENCE_SHOW_ALWAYS => t('Always add a challenge.'),
-      CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM => t('Omit challenges for a form once the user has successfully responded to a challenge for that form.'),
-      CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL => t('Omit challenges for all forms once the user has successfully responded to a challenge.'),
+      CAPTCHA_PERSISTENCE_SHOW_ALWAYS =>
+        t('Always add a challenge.'),
+      CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_INSTANCE =>
+        t('Omit challenges in a multi-step/preview workflow once the user successfully responds to a challenge.'),
+      CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_TYPE =>
+        t('Omit challenges on a form type once the user successfully responds to a challenge on a form of that type.'),
+      CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL =>
+        t('Omit challenges on all forms once the user successfully responds to any challenge on the site.'),
     ),
-    '#description' => t('Define if challenges should be omitted during the rest of a session once the user successfully responses to a challenge.'),
+    '#description' => t('Define if challenges should be omitted during the rest of a session once the user successfully responds to a challenge.'),
   );
 
   // Option for logging wrong responses.
@@ -194,7 +212,8 @@ function captcha_admin_settings() {
   );
 
   // Submit button.
-  $form['submit'] = array(
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save configuration'),
   );
@@ -298,6 +317,17 @@ function captcha_admin_settings_submit($form, &$form_state) {
 }
 
 
+
+
+/**
+ * Submit callback; clear CAPTCHA placement cache.
+ */
+function captcha_flush_captcha_placement_cache_submit($form, &$form_state) {
+  variable_del('captcha_placement_map_cache');
+  drupal_set_message(t('Flushed the CAPTCHA placement cache.'));
+}
+
+
 /**
  * Central handler for CAPTCHA point administration (adding, disabling, deleting)
  */
@@ -333,7 +363,7 @@ function captcha_point_admin_form($form, $form_state, $captcha_point_form_id=NUL
     );
     $captcha_point = captcha_get_form_id_setting($captcha_point_form_id);
     if ($captcha_point) {
-      $default_captcha_type = "{$captcha_point->module}/{$captcha_point->type}";
+      $default_captcha_type = "{$captcha_point->module}/{$captcha_point->captcha_type}";
     }
   }
   else {
@@ -355,7 +385,8 @@ function captcha_point_admin_form($form, $form_state, $captcha_point_form_id=NUL
   // redirect to general CAPTCHA settings page after submission
   $form['#redirect'] = 'admin/config/people/captcha';
   // submit button
-  $form['submit'] = array(
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
   );
