@@ -88,3 +88,6 @@
 [submodule "contact_reply_to"]
 	path = contact_reply_to
 	url = rfay@git.drupal.org:project/contact_reply_to.git
+[submodule "sites/all/modules/contact_reply_to"]
+	path = sites/all/modules/contact_reply_to
+	url = rfay@git.drupal.org:project/contact_reply_to.git
