@@ -1,10 +1,12 @@
-name = Contact Form Reply To
+name = Contact Reply To
 description = Change mail sent via contact form to be from site and reply-to sender.
 core = 7.x
+dependencies[] = contact
+configure = admin/config/system/contact_reply_to
 
-; Information added by drupal.org packaging script on 2013-09-30
-version = "7.x-1.x-dev"
+; Information added by Drupal.org packaging script on 2015-04-06
+version = "7.x-1.0"
 core = "7.x"
 project = "contact_reply_to"
-datestamp = "1380566856"
+datestamp = "1428293894"
 
