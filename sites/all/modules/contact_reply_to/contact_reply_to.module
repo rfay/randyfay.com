@@ -32,8 +32,8 @@ function contact_reply_to_settings_form() {
   $form['contact_reply_to_body_explanation'] = array(
     '#type' => 'textarea',
     '#title' => t('Explanation prepended to email body'),
-    '#default_value' => variable_get('contact_reply_to_body_explanation', t('This email comes from the contact form at @site_name. You can just reply to it, or respond to the email the sender (@contact_name) provided, @contact_email.')),
-    '#description' => t('If this is not empty the message will be prepended to the email body. You can use @site_name, @contact_name and @contact_email as placeholders.'),
+    '#default_value' => variable_get('contact_reply_to_body_explanation', t('This email comes from the contact form at !site_name. You can just reply to it, or respond to the email the sender (!contact_name) provided, !contact_email.')),
+    '#description' => t('If this is not empty the message will be prepended to the email body. You can use !site_name, !contact_name and !contact_email as placeholders.'),
   );
   return system_settings_form($form);
 }
@@ -50,13 +50,13 @@ function contact_reply_to_mail_alter(&$message){
     $site_name = variable_get('site_name', '');
     $site_mail = variable_get('site_mail', 'nobody@example.com');
     if (variable_get('contact_reply_to_add_to_subject', TRUE)) {
-      $message['subject'] .= ' ' . t('(Sent by @contact_name, @contact_email)', array(
-          '@contact_email' => $contact_email,
-          '@contact_name' => $contact_name
+      $message['subject'] .= ' ' . t('(Sent by !contact_name, !contact_email)', array(
+          '!contact_email' => $contact_email,
+          '!contact_name' => $contact_name
         ));
     }
 
-    $extra_info = t(variable_get('contact_reply_to_body_explanation', ""), array('@contact_name' => $contact_name, '@contact_email' => $contact_email, '@site_name' => $site_name));
+    $extra_info = t(variable_get('contact_reply_to_body_explanation', ""), array('!contact_name' => $contact_name, '!contact_email' => $contact_email, '!site_name' => $site_name));
 
     if (is_array($message['body'])) {
       $body =& $message['body'][0];
@@ -68,7 +68,7 @@ function contact_reply_to_mail_alter(&$message){
       $body = $extra_info . "\r\n\r\n" . $body;
     }
     $message['headers']['Reply-To'] = $message['from'];
-    $message['from'] = $message['headers']['From'] = t('"Contact form at @site_name" <@site_mail>', array('@contact_name' => $contact_name, '@contact_email' => $contact_email, '@site_name' => $site_name, '@site_mail' => $site_mail));
+    $message['from'] = $message['headers']['From'] = t('"Contact form at !site_name" <!site_mail>', array('1contact_name' => $contact_name, '!contact_email' => $contact_email, '!site_name' => $site_name, '!site_mail' => $site_mail));
   }
 }
 
