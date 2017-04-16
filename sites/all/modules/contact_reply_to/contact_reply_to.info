@@ -5,9 +5,9 @@ dependencies[] = drupal:contact
 dependencies[] = drupal:system (>=7.40)
 configure = admin/config/system/contact_reply_to
 
-; Information added by Drupal.org packaging script on 2017-02-06
-version = "7.x-1.1+2-dev"
+; Information added by Drupal.org packaging script on 2017-04-16
+version = "7.x-1.2"
 core = "7.x"
 project = "contact_reply_to"
-datestamp = "1486350186"
+datestamp = "1492312145"
 
