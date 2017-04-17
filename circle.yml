@@ -1,0 +1,11 @@
+version: 2
+executorType: machine
+stages:
+  build:
+    workDir: ~/randyfay.com
+    steps:
+      - type: checkout
+      # Add an entry to /etc/hosts
+      - type: shell
+        shell: /bin/bash
+        command: echo "Yup, this is running"
