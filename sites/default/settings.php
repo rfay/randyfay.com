@@ -178,15 +178,8 @@
  *   );
  * @endcode
  */
-$databases = array();
-    $databases['default']['default'] = array(
-      'driver' => 'mysql',
-      'database' => 'randyfay',
-      'username' => 'root',
-      'password' => '',
-      'host' => 'localhost',
-      'prefix' => '',
-    );
+
+// See settings.local.php for db settings.
 
 /**
  * Access control for update.php script.
@@ -200,7 +193,6 @@ $databases = array();
  * TRUE back to a FALSE!
  */
 $update_free_access = FALSE;
-$update_free_access = TRUE;
 
 /**
  * Salt for one-time login links and cancel links, form tokens, etc.
