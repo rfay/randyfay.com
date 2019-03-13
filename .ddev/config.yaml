@@ -1,8 +1,8 @@
-APIVersion: v1.5.2
+APIVersion: v1.6.0-9-g33c3eb2d
 name: randyfay
 type: drupal7
 docroot: ""
-php_version: "7.1"
+php_version: "7.3"
 webserver_type: apache-fpm
 router_http_port: "80"
 router_https_port: "443"
@@ -11,14 +11,15 @@ additional_hostnames: []
 additional_fqdns: []
 mariadb_version: "10.2"
 webcache_enabled: false
-provider: drud-s3
+nfs_mount_enabled: false
+provider: default
 
 
-# This config.yaml was created with ddev version v1.5.2 
-# webimage: drud/ddev-webserver:v1.5.2
-# dbimage: drud/ddev-dbserver:v1.5.2-10.2
-# dbaimage: drud/phpmyadmin:v1.5.2
-# bgsyncimage: drud/ddev-bgsync:v1.5.2
+# This config.yaml was created with ddev version v1.6.0-9-g33c3eb2d 
+# webimage: drud/ddev-webserver:20190305_old_php
+# dbimage: drud/ddev-dbserver:20190227_mariadb_on_debian-10.2
+# dbaimage: drud/phpmyadmin:v1.6.0
+# bgsyncimage: drud/ddev-bgsync:v1.6.0
 # However we do not recommend explicitly wiring these images into the
 # config.yaml as they may break future versions of ddev.
 # You can update this config.yaml using 'ddev config'.
