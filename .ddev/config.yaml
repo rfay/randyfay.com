@@ -1,4 +1,4 @@
-APIVersion: v1.7.1-100-g4da26ec1
+APIVersion: v1.7.1-102-g64ffabae
 name: randyfay
 type: drupal7
 docroot: ""
@@ -14,7 +14,7 @@ nfs_mount_enabled: false
 provider: default
 
 
-# This config.yaml was created with ddev version v1.7.1-100-g4da26ec1 
+# This config.yaml was created with ddev version v1.7.1-102-g64ffabae 
 # webimage: drud/ddev-webserver:20190417_trust_ssl_certs
 # dbimage: drud/ddev-dbserver:20190329_maria_logs_config-10.2
 # dbaimage: drud/phpmyadmin:v1.7.0
