@@ -1,182 +1,133 @@
 <?php
-// $Id: template.php,v 1.25 2011/01/01 13:20:14 jarek Exp $
+// Corolla by Adaptivethemes.com
 
 /**
- * @file
- * Theme functions overrides.
+ * Override or insert vars into the html template.
  */
+function corolla_preprocess_html(&$vars) {
+  global $theme_key;
+  $theme_name = $theme_key;
 
-/**
- * Override or insert variables into the html template.
- */
-function corolla_preprocess_html(&$variables) {
-  // Add reset.css
-  drupal_add_css($data = path_to_theme() . '/reset.css', $options['type'] = 'file', $options['weight'] = CSS_SYSTEM - 2);
-
-  // Add conditional stylesheets for IEs
-  drupal_add_css(path_to_theme() . '/ie8.css', array('group' => CSS_THEME, 'browsers' => array('IE' => 'lte IE 8', '!IE' => FALSE), 'preprocess' => FALSE));
-  drupal_add_css(path_to_theme() . '/ie7.css', array('group' => CSS_THEME, 'browsers' => array('IE' => 'lte IE 7', '!IE' => FALSE), 'preprocess' => FALSE)); 
-
-  /* Add dynamic stylesheet */
-  ob_start();
-  include('dynamic.css.php');
-  $dynamic_styles = ob_get_contents();
-  ob_end_clean();
-  drupal_add_css($data = $dynamic_styles, $options['type'] = 'inline', $options['weight'] = CSS_SYSTEM - 1);
-}
-
-/**
- * Override or insert variables into the html template.
- */
-function corolla_process_html(&$variables) {
-  // Hook into color module
+  // Add a class for the active color scheme
   if (module_exists('color')) {
-    _color_html_alter($variables);
-  }
-}
-
-/**
- * Override or insert variables into the page template.
- */
-function corolla_process_page(&$variables) {
-  // Since the title and the shortcut link are both block level elements,
-  // positioning them next to each other is much simpler with a wrapper div.
-  if (!empty($variables['title_suffix']['add_or_remove_shortcut']) ) {
-    // Add a wrapper div using the title_prefix and title_suffix render elements.
-    $variables['title_prefix']['shortcut_wrapper'] = array(
-      '#markup' => '<div class="shortcut-wrapper clearfix">',
-      '#weight' => 100,
-    );
-    $variables['title_suffix']['shortcut_wrapper'] = array(
-      '#markup' => '</div>',
-      '#weight' => -99,
-    );
-    // Make sure the shortcut link is the first item in title_suffix.
-    $variables['title_suffix']['add_or_remove_shortcut']['#weight'] = -100;
-  }
-  // Provide a variable to check if the page is in the overlay.
-  if (module_exists('overlay')) {
-    $variables['in_overlay'] = (overlay_get_mode() == 'child');
-  }
-  else {
-    $variables['in_overlay'] = FALSE;
+    $class = check_plain(get_color_scheme_name($theme_name));
+    $vars['classes_array'][] = 'color-scheme-' . drupal_html_class($class);
   }
 
-   // Add variables with weight value for each main column
-  $variables['weight']['content'] = 0;
-  $variables['weight']['sidebar-first'] = 'disabled';
-  $variables['weight']['sidebar-second'] = 'disabled';
-  if ($variables["page"]["sidebar_first"]) {
-    $variables['weight']['sidebar-first'] = theme_get_setting('sidebar_first_weight');
-  }
-  if ($variables["page"]["sidebar_second"]) {
-    $variables['weight']['sidebar-second'] = theme_get_setting('sidebar_second_weight');
-  }
+  // Add class for the active theme
+  $vars['classes_array'][] = drupal_html_class($theme_name);
 
-  // Add $main_columns_number variable (used in page-*.tpl.php files)
-  $columns = 0;
-  foreach (array('content', 'sidebar_first', 'sidebar_second') as $n) {
-    if ($variables["page"]["$n"]) {
-      $columns++;
-    }
-  }
-  $variables['main_columns_number'] = $columns;  
-}
-
-/**
- * Override or insert variables into the block template.
- */
-function corolla_preprocess_block(&$variables) {
-  // Remove "block" class from blocks in "Main page content" region
-  if ($variables['elements']['#block']->region == 'content') {
-    foreach ($variables['classes_array'] as $key => $val) {
-      if ($val == 'block') {
-        unset($variables['classes_array'][$key]);
-      }
-    }
-  }
-}
-
-/**
- * Return a themed breadcrumb trail.
- *
- * @param $breadcrumb
- *   An array containing the breadcrumb links.
- * @return
- *   A string containing the breadcrumb output.
- */
-function corolla_breadcrumb($variables) {
-  // Wrap separator with span element.
-  if (!empty($variables['breadcrumb'])) {
-    // Provide a navigational heading to give context for breadcrumb links to
-    // screen-reader users. Make the heading invisible with .element-invisible.
-    $output = '<h2 class="element-invisible">' . t('You are here') . '</h2>';
-    $output .= '<div class="breadcrumb">' . implode('<span class="separator">»</span>', $variables['breadcrumb']) . '</div>';
-    return $output;
-  }
-}
-
-/**
- * Returns HTML for a "more" link, like those used in blocks.
- *
- * @param $variables
- *   An associative array containing:
- *   - url: The url of the main page.
- *   - title: A descriptive verb for the link, like 'Read more'.
- */
-function corolla_more_link($variables) {
-  return '<div class="more-link">' . l(t('More ›'), $variables['url'], array('attributes' => array('title' => $variables['title']))) . '</div>';
-}
-
-
-/**
- * Returns HTML for status and/or error messages, grouped by type.
- *
- * An invisible heading identifies the messages for assistive technology.
- * Sighted users see a colored box. See http://www.w3.org/TR/WCAG-TECHS/H69.html
- * for info.
- *
- * @param $variables
- *   An associative array containing:
- *   - display: (optional) Set to 'status' or 'error' to display only messages
- *     of that type.
- */
-function corolla_status_messages($variables) {
-  $output = '';
-  $status_heading = array(
-    'status' => t('Status message'),
-    'error' => t('Error message'),
-    'warning' => t('Warning message'),
+  // Add theme settings classes
+  $settings_array = array(
+    'box_shadows',
+    'body_background',
+    'menu_bullets',
+    'content_corner_radius',
+    'tabs_corner_radius',
   );
-  // Print serveral messages in separate divs.
-  foreach (drupal_get_messages($variables['display']) as $type => $messages) {
-    if (!empty($status_heading[$type])) {
-      $output .= '<h2 class="element-invisible">' . $status_heading[$type] . "</h2>\n";
-    }
-    foreach ($messages as $message) {
-      $output .= '<div class="messages message ' . $type . '">';
-      $output .= $message;
-      $output .= "</div>\n";
-    }
+  foreach ($settings_array as $setting) {
+    $vars['classes_array'][] = at_get_setting($setting);
   }
+}
 
-  return $output;
+/**
+ * Hook into the color module.
+ */
+function corolla_process_html(&$vars) {
+  if (module_exists('color')) {
+    _color_html_alter($vars);
+  }
+}
+function corolla_process_page(&$vars) {
+  if (module_exists('color')) {
+    _color_page_alter($vars);
+  }
+}
+
+/**
+ * Override or insert vars into the block template.
+ */
+function corolla_preprocess_block(&$vars) {
+  if ($vars['block']->module == 'superfish' || $vars['block']->module == 'nice_menu') {
+    $vars['content_attributes_array']['class'][] = 'clearfix';
+  }
+  //if ($vars['block']->region == 'menu_bar' || $vars['block']->region == 'header') {
+    //$vars['title_attributes_array']['class'][] = 'element-invisible';
+  //}
+}
+
+/**
+ * Override or insert vars into the region template.
+ */
+function corolla_process_region(&$vars) {
+  if ($vars['region'] === 'content') {
+    $vars['outer_prefix'] = '<div class="' . $vars['classes'] . '">';
+    $vars['outer_suffix'] = '</div>';
+  }
 }
 
 /**
  * Returns HTML for a sort icon.
  *
- * @param $variables
+ * @param $vars
  *   An associative array containing:
  *   - style: Set to either 'asc' or 'desc', this determines which icon to show.
  */
-function corolla_tablesort_indicator($variables) {
+function corolla_tablesort_indicator($vars) {
   // Use custom arrow images.
-  if ($variables['style'] == 'asc') {
-    return theme('image', array('path' => path_to_theme() . '/images/tablesort-ascending.png', 'alt' => t('sort ascending'), 'title' => t('sort ascending')));
+  if ($vars['style'] == 'asc') {
+    return theme('image', array('path' => path_to_theme() . '/css/images/tablesort-ascending.png', 'alt' => t('sort ascending'), 'title' => t('sort ascending')));
   }
   else {
-    return theme('image', array('path' => path_to_theme() . '/images/tablesort-descending.png', 'alt' => t('sort descending'), 'title' => t('sort descending')));
+    return theme('image', array('path' => path_to_theme() . '/css/images/tablesort-descending.png', 'alt' => t('sort descending'), 'title' => t('sort descending')));
   }
 }
 
+/**
+ * Returns HTML for a fieldset form element and its children.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #attributes, #children, #collapsed, #collapsible,
+ *     #description, #id, #title, #value.
+ *
+ * @ingroup themeable
+ */
+function corolla_fieldset($vars) {
+
+  $element = $vars['element'];
+  element_set_attributes($element, array('id'));
+  _form_set_class($element, array('form-wrapper'));
+
+  $output = '<fieldset' . drupal_attributes($element['#attributes']) . '>';
+
+  // add a class to the fieldset wrapper if a legend exists, in some instances they do not
+  $class = "without-legend";
+
+  if (!empty($element['#title'])) {
+
+    // Always wrap fieldset legends in a SPAN for CSS positioning.
+    $output .= '<legend><span class="fieldset-legend">' . $element['#title'] . '</span></legend>';
+
+    // Add a class to the fieldset wrapper if a legend exists, in some instances they do not
+    $class = 'with-legend';
+  }
+
+  $output .= '<div class="fieldset-wrapper ' . $class  . '">';
+
+  if (!empty($element['#description'])) {
+    $output .= '<div class="fieldset-description">' . $element['#description'] . '</div>';
+  }
+
+  $output .= $element['#children'];
+
+  if (isset($element['#value'])) {
+    $output .= $element['#value'];
+  }
+
+  $output .= '</div>';
+  $output .= "</fieldset>\n";
+
+  return $output;
+}
