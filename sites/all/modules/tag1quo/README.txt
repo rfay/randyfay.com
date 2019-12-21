@@ -2,11 +2,11 @@
 OVERVIEW
 --------
 This module sends information about your website to Tag1 Consulting as part of
-their Quo offering. It tracks which modules and themes
-you have in your codebase, watching for Drupal LTS notifications and upstream
-releases to ensure that any applicable fixes are available to your site
-in a timely manner.  With this module properly installed and configured,
-Tag1 will notify you whenever security patches and patches should be applied.
+their Quo offering. It tracks which modules and themes you have in your
+codebase, watching for Drupal LTS notifications and upstream releases to ensure
+that any applicable fixes are available to your site in a timely manner. With
+this module properly installed and configured, Tag1 will notify you whenever
+security patches should be applied.
 
 Data is securely sent to Tag1. This requires that cron is configured on your
 website (https://www.drupal.org/cron), and that OpenSSL support for PHP is
@@ -27,13 +27,13 @@ your reseller or email support@tag1consulting.com.
   modules directory (for example: sites/all/modules).
 
 2. Enable the module.
-  Visit 'Administration › Modules' at admin/modules and enable
-  the 'Tag1 Quo' module.
+  Visit 'Administration > Modules' at admin/modules and enable the 'Tag1 Quo'
+  module.
 
 3. Configure the module. Visit
-   'Administration › Site configuration › > Development > Tag1 Quo'
-   at admin/config/development/tag1quo and enter the token
-   provided by Tag1 Consulting. Then click 'Save configuration'.
+   'Administration > Site configuration > Development > Tag1 Quo' at
+   admin/config/development/tag1quo and enter the token provided by Tag1
+   Consulting. Then click 'Save configuration'.
 
 ---------------
 TROUBLESHOOTING

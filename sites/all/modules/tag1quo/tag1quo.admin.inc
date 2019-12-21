@@ -11,7 +11,7 @@
 function tag1quo_admin_settings($form, &$form_state) {
   $form['tag1quo_report'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Report enabled module information to Tag1 Quo'),
+    '#title' => t('Report information to Tag1 Quo'),
     '#description' => t('When checked, this module will send information about your website to Tag1 Quo, a paid service.'),
     '#default_value' => variable_get('tag1quo_report', '1'),
   );
@@ -58,7 +58,7 @@ function tag1quo_admin_settings_validate(&$form, &$form_state) {
       form_set_error('tag1quo_token', t('Failed to validate token with server. Full details of the transaction are in the system log.'));
     }
     else {
-      drupal_set_message(t('Successfully validated token and communication with Tag1 Quo Server.'));
+      drupal_set_message(t('Successfully validated token and communicatated with Tag1 Quo Server.'));
     }
   }
 }

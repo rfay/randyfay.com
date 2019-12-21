@@ -9,12 +9,12 @@
 /**
  * Tag1 API version.
  */
-define('TAG1_API_VERSION', '2.0');
+define('TAG1_API_VERSION', '2.1');
 
 /**
  * URL to check for updates.
  */
-define('TAG1QUO_URL', 'https://quo.tag1consulting.com/' . TAG1_API_VERSION . '/entity/d6lts_site');
+define('TAG1QUO_URL', 'https://quo.tag1consulting.com/' . TAG1_API_VERSION . '/site');
 
 /**
  * Send heartbeat roughly once every day. (1 day minus ten minutes)
@@ -273,7 +273,7 @@ function tag1quo_send_report($tag1quo_token = NULL) {
   }
   // Abort sending report if token is not configured.
   else if (empty($tag1quo_token)) {
-    watchdog('tag1quo', t('Token is required, aborted sending Tag1 Quo update.'));
+    watchdog('tag1quo', 'Token is required, aborted sending Tag1 Quo update.');
     $result->error = TAG1QUO_ERROR_NO_TOKEN;
     return $result;
   }
@@ -292,18 +292,18 @@ function tag1quo_send_report($tag1quo_token = NULL) {
 
     if (isset($result->code) && (($result->code >= 200 && $result->code < 300) || $result->code == 301 || $result->code == 302)) {
       $result->success = TRUE;
-      watchdog('tag1quo', t('Successfully sent data to %url', array('%url' => $url)), array(), WATCHDOG_INFO);
+      watchdog('tag1quo', 'Successfully sent data to %url', array('%url' => $url), WATCHDOG_INFO);
     }
     else {
       $result->success = FALSE;
-      watchdog('tag1quo', t('Failed to send data to %url', array('%url' => $url)), array(), WATCHDOG_INFO);
+      watchdog('tag1quo', 'Failed to send data to %url', array('%url' => $url), WATCHDOG_INFO);
     }
 
     if ($result->success == FALSE || variable_get('tag1quo_debug', FALSE)) {
       if (!isset($result->code) || $result->code == 0) {
         // We're making an assumption here, but this has been the issue every
         // time we've run into this so far.
-        watchdog('tag1quo', 'fsockopen(): Failed to enable crypto in drupal_http_request(). Please verify that PHP was built with OpenSSL support, is properly configured, and isn\'t blocked by a firewall.', WATCHDOG_ERROR);
+        watchdog('tag1quo', 'fsockopen(): Failed to enable crypto in drupal_http_request(). Please verify that PHP was built with OpenSSL support, is properly configured, and isn\'t blocked by a firewall.', array(), WATCHDOG_ERROR);
       }
       else {
         watchdog('tag1quo', 'HTTP Response Code %code: %message', array('%code' => isset($result->code) ? $result->code : 0, '%message' => empty($result->error) ? $result->status_message : $result->error), $result->success ? WATCHDOG_NOTICE : WATCHDOG_ERROR);
@@ -317,7 +317,10 @@ function tag1quo_send_report($tag1quo_token = NULL) {
       if (isset($result->request)) {
         watchdog('tag1quo', 'Request: %request', array('%request' => $result->request), WATCHDOG_DEBUG);
       }
-      if (is_array($result->headers)) {
+      if (!empty($result->error)) {
+        watchdog('tag1quo', 'Error message: %message', array('%message' => $result->error));
+      }
+      if (!empty($result->headers) && is_array($result->headers)) {
         $headers = array();
         foreach ($result->headers as $header => $value) {
           $headers[] = "$header: $value";
@@ -331,7 +334,7 @@ function tag1quo_send_report($tag1quo_token = NULL) {
       variable_set('tag1quo_last_update', REQUEST_TIME);
     }
     else {
-      watchdog('tag1quo', t('Failed to send update to Tag1 Quo.'));
+      watchdog('tag1quo', 'Failed to send update to Tag1 Quo.');
     }
     if (function_exists('lock_release')) {
       lock_release('tag1quo_send_report');
