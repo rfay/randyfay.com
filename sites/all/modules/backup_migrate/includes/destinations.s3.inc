@@ -21,6 +21,7 @@ class backup_migrate_destination_s3 extends backup_migrate_destination_remote {
   public function _save_file($file, $settings) {
     if ($s3 = $this->s3_object()) {
       $path = $file->filename();
+      watchdog("backup_migrate", "About to push s3 file %filepath size %size", array("%filepath" => $file->filepath(), "%size" => filesize(($file->filepath()))), WATCHDOG_INFO);
       if ($s3->putObject($s3->inputFile($file->filepath(), FALSE), $this->get_bucket(), $this->remote_path($file->filename()), S3::ACL_PRIVATE)) {
         return $file;
       }
