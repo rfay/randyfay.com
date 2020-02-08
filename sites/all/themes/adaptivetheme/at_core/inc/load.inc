@@ -87,6 +87,7 @@ function at_load_layout_css($path, $theme_name) {
       if (at_get_setting('load_respondjs', $theme_name) === 0) {
         $load_ie8_css = FALSE;
         $filepath = $path . '/' . $theme_name . '.lt-ie9.layout.css';
+        $ie_style = array();
         $ie_style['media'] = 'screen';
         $ie_style['condition'] = 'lt IE 9';
         at_load_conditional_styles($filepath, $ie_style, $theme_name);
@@ -101,6 +102,7 @@ function at_load_layout_css($path, $theme_name) {
   if ($load_ie8_css == TRUE) {
     if (at_get_setting('load_ltie8css', $theme_name) === 1) {
       $filepath = $path . '/' . $theme_name . '.lt-ie8.layout.css';
+      $ie_style = array();
       $ie_style['media'] = 'screen';
       $ie_style['condition'] = 'lt IE 8';
       at_load_conditional_styles($filepath, $ie_style, $theme_name);
@@ -476,7 +478,7 @@ function at_load_subtheme_conditional_styles($theme_name) {
 
     // General IE stylesheets from the info file
     if (array_key_exists('ie_stylesheets', $info)) {
-      $ie_style = '';
+      $ie_style = array();
       foreach ($info['ie_stylesheets'] as $media => $stylesheets) {
         // Set default value for media in case the themer forgets, all is an
         // "assumed" value and not printed in the output.
@@ -589,6 +591,7 @@ function at_load_google_fonts($theme_name) {
   $google_font_string = &drupal_static(__FUNCTION__, array());
   if (empty($google_font_string)) {
 
+    $used_settings = array();
     $used_fonts = array();
     $font_elements = font_elements();
     $charsets = google_font_charsets();
