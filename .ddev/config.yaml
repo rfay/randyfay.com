@@ -13,9 +13,9 @@ provider: default
 use_dns_when_possible: true
 
 
-# This config.yaml was created with ddev version v1.14.2-2-g70a2fb64
-# webimage: drud/ddev-webserver:v1.14.2
-# dbimage: drud/ddev-dbserver-mariadb-10.2:v1.14.1
+# This config.yaml was created with ddev version v1.16.0-alpha3
+# webimage: drud/ddev-webserver:20200831_nlisgo_ping
+# dbimage: drud/ddev-dbserver-mariadb-10.2:20200821_remove_docker_toolbox
 # dbaimage: phpmyadmin/phpmyadmin:5
 # However we do not recommend explicitly wiring these images into the
 # config.yaml as they may break future versions of ddev.
@@ -51,10 +51,10 @@ use_dns_when_possible: true
 
 # xdebug_enabled: false  # Set to true to enable xdebug and "ddev start" or "ddev restart"
 # Note that for most people the commands
-# "ddev exec enable_xdebug" and "ddev exec disable_xdebug" work better,
+# "ddev xdebug" to enable xdebug and "ddev xdebug off" to disable it work better,
 # as leaving xdebug enabled all the time is a big performance hit.
 
-# webserver_type: nginx-fpm  # Can be set to apache-fpm or apache-cgi as well
+# webserver_type: nginx-fpm  # or apache-fpm
 
 # timezone: Europe/Berlin
 # This is the timezone used in the containers and by PHP;
@@ -84,7 +84,7 @@ use_dns_when_possible: true
 # These values specify the destination directory for ddev ssh and the
 # directory in which commands passed into ddev exec are run.
 
-# omit_containers: ["db", dba", "ddev-ssh-agent"]
+# omit_containers: [db, dba, ddev-ssh-agent]
 # Currently only these containers are supported. Some containers can also be
 # omitted globally in the ~/.ddev/global_config.yaml. Note that if you omit
 # the "db" container, several standard features of ddev that access the
@@ -118,7 +118,7 @@ use_dns_when_possible: true
 # mailhog_https_port: "8026"
 # The MailHog ports can be changed from the default 8025 and 8026
 
-# webimage_extra_packages: [php-yaml, php7.3-ldap]
+# webimage_extra_packages: [php7.3-tidy, php-bcmath]
 # Extra Debian packages that are needed in the webimage can be added here
 
 # dbimage_extra_packages: [telnet,netcat]
@@ -146,9 +146,9 @@ use_dns_when_possible: true
 # In this case the user must provide all such settings.
 
 # no_project_mount: false
-# (Experimental) If true, ddev will not mount the project into the web container; 
+# (Experimental) If true, ddev will not mount the project into the web container;
 # the user is responsible for mounting it manually or via a script.
-# This is to enable experimentation with alternate file mounting strategies. 
+# This is to enable experimentation with alternate file mounting strategies.
 # For advanced users only!
 
 # provider: default # Currently either "default" or "pantheon"
