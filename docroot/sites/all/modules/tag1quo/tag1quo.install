@@ -1,76 +1,62 @@
 <?php
+
 /**
  * @file
- * Install, update and uninstall functions for the tag1quo module.
+ * Tag1 Quo install/uninstall, update and requirement hooks.
  */
 
+use Drupal\tag1quo\Adapter\Core\Core;
+use Drupal\tag1quo\Adapter\State\State;
 
-function _tag1quo_varlist() {
-  // Return unprefixed list of variables
-  return array(
-    'debug',
-    'enable_timestamp',
-    'installed',
-    'last_update',
-    'report',
-    'siteid',
-    'token',
-    'url',
-    'update', // no longer used
-  );
-}
 /**
  * Implements hook_uninstall().
  */
 function tag1quo_uninstall() {
-  // Clear any variables that might be in use
-  $variables = _tag1quo_varlist();
-
-  foreach ($variables as $variable) {
-    variable_del("tag1quo_" . $variable);
-  }
+  $core = Core::create();
+  $core->config('tag1quo.settings')->delete();
+  $core->state()->deleteMultiple(array('tag1quo_enable_timestamp', 'tag1quo_heartbeat_timestamp'));
 }
 
-/**
- * Implements hook_install().
- */
-function tag1quo_install() {
-  $variables = _tag1quo_varlist();
+function _tag1quo_update_N201() {
+  // Migrate state.
+  State::load()->migrate(array(
+    'tag1quo_last_update' => 'tag1quo_heartbeat_timestamp',
+  ));
 
-  // Copy all existing variables from former tag1update module
-  foreach ($variables as $variable) {
-    $quo_var = variable_get('tag1quo_' . $variable, NULL);
-    $old_var = variable_get('tag1update_' . $variable, NULL);
-    if (empty($quo_var) && !empty($old_var)) {
-      variable_set('tag1quo_' . $variable, $old_var);
-    }
+  // Migrate config.
+  $config = array(
+    'report' => 'enabled',
+    'tag1quo_token' => 'api.token',
+    'tag1quo_debug' => 'debug.enabled',
+    'tag1quo_report' => 'enabled',
+    'tag1quo_curl' => 'curl.enabled',
+    'tag1quo_curl_httpheader' => 'curl.options.' . CURLOPT_HTTPHEADER,
+    'tag1quo_curl_port' => 'curl.options.' . CURLOPT_PORT,
+    'tag1quo_curl_header' => 'curl.options.' . CURLOPT_HEADER,
+    'tag1quo_curl_verbose' => 'curl.options.' . CURLOPT_VERBOSE,
+    'tag1quo_curl_connecttimeout' => 'curl.options.' . CURLOPT_CONNECTTIMEOUT,
+    'tag1quo_curl_followlocation' => 'curl.options.' . CURLOPT_FOLLOWLOCATION,
+    'tag1quo_curl_maxredirs' => 'curl.options.' . CURLOPT_MAXREDIRS,
+    'tag1quo_curl_freshconnect' => 'curl.options.' . CURLOPT_FRESH_CONNECT,
+    'tag1quo_curl_httpproxytunnel' => 'curl.options.' . CURLOPT_HTTPPROXYTUNNEL,
+    'tag1quo_curl_proxyport' => 'curl.options.' . CURLOPT_PROXYPORT,
+    'tag1quo_curl_proxyauth' => 'curl.options.' . CURLOPT_PROXYAUTH,
+    'tag1quo_curl_proxytype' => 'curl.options.' . CURLOPT_PROXYTYPE,
+    'tag1quo_curl_proxy' => 'curl.options.' . CURLOPT_PROXY,
+    'tag1quo_curl_proxyuserpwd' => 'curl.options.' . CURLOPT_PROXYUSERPWD,
+  );
+
+  // Add options available starting with 7.0 PHP version to config.
+  if (PHP_MAJOR_VERSION >= 7) {
+    $config['tag1quo_curl_proxyheader'] = 'curl.options.' . CURLOPT_PROXYHEADER;
+    $config['tag1quo_curl_proxy_service_name'] = 'curl.options.' . CURLOPT_PROXY_SERVICE_NAME;
+    $config['tag1quo_curl_ssl_verifystatus'] = 'curl.options.' . CURLOPT_SSL_VERIFYSTATUS;
+    $config['tag1quo_curl_ssl_verifypeer'] = 'curl.options.' . CURLOPT_SSL_VERIFYPEER;
   }
 
-  // Make sure any roles already granted 'administer tag1update' get
-  // 'administer tag1quo'.
-  $roles = user_roles(FALSE, 'administer tag1update');
-  foreach (array_keys($roles) as $rid) {
-    user_role_grant_permissions($rid, array('administer tag1quo'));
-  }
-
-  // Disable the old module
-  if (module_exists('tag1update')) {
-    module_disable(array('tag1update'));
-    drupal_uninstall_modules(array('tag1update'));
-  }
-
-  // Handle obsolete chores previously in tag1update_update_0602()
-  $ret = array();
-  if (db_table_exists('tag1update')) {
-    db_drop_table('tag1update');
-  }
-
-  // Be sure we're talking to the new v2 URL, in case this is replacing a
-  // tag1update module which had not been previously updated.
-  variable_del('tag1quo_url');
-  watchdog('tag1quo', 'tag1quo_url variable was deleted, which may affect development environments');
-
-  // tag1update_siteid was not deleted in tag1update.install.
-  variable_del('tag1update_siteid');
-
+  Core::create()->config('tag1quo.settings')->migrate($config);
 }
+
+// Load the versioned install file.
+module_load_include('module', 'tag1quo', 'tag1quo');
+module_load_include('install', 'tag1quo', 'tag1quo.' . _tag1quo_drupal_version(TRUE));

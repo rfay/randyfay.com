@@ -2,34 +2,44 @@
 
 /**
  * @file
- * Tag1quo drush commands.
+ * Tag1 Quo Drush commands.
  */
+
+use Drupal\tag1quo\Heartbeat;
 
 /**
  * Implements hook_drush_command().
  */
 function tag1quo_drush_command() {
-  $items = array();
-
-  $items['send-heartbeat'] = array(
-    'description' => "Send heartbeat to Tag1 Quo server.",
+  $items['quo-heartbeat'] = array(
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
+    'description' => "Send a heartbeat to Tag1 Quo.",
     'examples' => array(
-      'drush send-heartbeat' => 'Send heartbeat to Tag1 Quo server',
+      'drush send-heartbeat' => 'Send a heartbeat to Tag1 Quo',
     ),
-    'aliases' => array('ph', 'phone-home'),
+    'options' => array(
+      'api-token' => dt('Your Tag1 Quo API token.'),
+      'debug' => dt('Toggles whether to display/log debug information.'),
+    ),
+    'aliases' => array('quo', 'heartbeat'),
   );
-
   return $items;
 }
 
 /**
- * Implementation of drush send-heartbeat
+ * Implementation of drush quo-heartbeat
  */
-function drush_tag1quo_send_heartbeat() {
-  $result = tag1quo_send_report();
-  if (empty($result->error)) {
-    drupal_set_message('Module status reported to Tag1 Quo.');
-  } else {
-      drupal_set_message('Failed to send heartbeat - see logs for details.');
+function drush_tag1quo_quo_heartbeat() {
+  $heartbeat = Heartbeat::manual();
+
+  if ($apiToken = drush_get_option('api-token')) {
+    $heartbeat->setApiToken($apiToken);
   }
+
+  $debug = drush_get_option('debug');
+  if ($debug !== NULL) {
+    $heartbeat->setDebugMode($debug);
+  }
+
+  $heartbeat->send();
 }
