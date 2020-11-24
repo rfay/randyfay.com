@@ -6,3 +6,4 @@ docroot/sites/*/files
 docroot/sites/*/private
 /.idea
 /.tarballs
+/private_files
