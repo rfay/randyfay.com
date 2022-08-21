@@ -943,6 +943,10 @@ class view extends views_db_object {
       $this->base_database = $views_data['table']['base']['database'];
     }
 
+    if (empty($this->display_handler)) {
+      return FALSE;
+    }
+
     // Load the options.
     $query_options = $this->display_handler->get_option('query');
 
@@ -1230,7 +1234,7 @@ class view extends views_db_object {
    * @param string $display_id
    *   The machine name of the display, which should be rendered.
    *
-   * @return string|NULL
+   * @return array|string|null
    *   Return the output of the rendered view or NULL if something failed in the
    *   process.
    */
@@ -2197,7 +2201,10 @@ class view extends views_db_object {
     // Ensure this view supports translation, we have a display, and we
     // have a localization plugin.
     // @todo Export does not init every handler.
-    if (($this->is_translatable() || $op == 'export') && $this->init_display() && $this->init_localization()) {
+    if (($this->is_translatable() || $op == 'export')
+        && $this->init_display()
+        && $this->init_localization()
+        && isset($this->localization_plugin->view->display)) {
       $this->localization_plugin->process_locale_strings($op);
     }
   }
