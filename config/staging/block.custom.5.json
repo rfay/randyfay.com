@@ -1,0 +1,10 @@
+{
+    "_config_name": "block.custom.5",
+    "delta": "5",
+    "info": "Simple test block",
+    "title": "Simple test block",
+    "body": {
+        "value": "This is an innocuous block.",
+        "format": "1"
+    }
+}

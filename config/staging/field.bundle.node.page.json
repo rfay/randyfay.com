@@ -1,0 +1,17 @@
+{
+    "_config_name": "field.bundle.node.page",
+    "entity_type": "node",
+    "bundle": "page",
+    "view_modes": [],
+    "extra_fields": {
+        "form": {
+            "title": {
+                "weight": "-5"
+            },
+            "path": {
+                "weight": "30"
+            }
+        },
+        "display": []
+    }
+}

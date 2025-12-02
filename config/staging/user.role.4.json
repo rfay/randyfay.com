@@ -1,0 +1,15 @@
+{
+    "_config_name": "user.role.4",
+    "name": "4",
+    "label": "Editor",
+    "weight": "1",
+    "permissions": [
+        "access content overview",
+        "administer nodes",
+        "bypass node access",
+        "edit any blog content",
+        "use text format 3",
+        "use text format markdown",
+        "view revisions"
+    ]
+}

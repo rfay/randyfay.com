@@ -1,0 +1,10 @@
+{
+    "_config_name": "block.custom.4",
+    "delta": "4",
+    "info": "Junk - I am the footer block",
+    "title": "Junk footer block",
+    "body": {
+        "value": "What's up with this?\r\n<pre>\r\n$_SERVER=<?php print_r($_SERVER, TRUE) ; ?>\r\n</pre>",
+        "format": "2"
+    }
+}

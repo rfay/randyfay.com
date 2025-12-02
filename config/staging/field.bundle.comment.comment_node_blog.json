@@ -1,0 +1,21 @@
+{
+    "_config_name": "field.bundle.comment.comment_node_blog",
+    "entity_type": "comment",
+    "bundle": "comment_node_blog",
+    "view_modes": {
+        "full": {
+            "custom_settings": false
+        }
+    },
+    "extra_fields": {
+        "form": {
+            "author": {
+                "weight": "-2"
+            },
+            "subject": {
+                "weight": "-1"
+            }
+        },
+        "display": []
+    }
+}

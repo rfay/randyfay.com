@@ -1,0 +1,74 @@
+{
+    "_config_name": "field.instance.comment.comment_node_blog.field_blog_image",
+    "field_name": "field_blog_image",
+    "entity_type": "comment",
+    "bundle": "comment_node_blog",
+    "deleted": "0",
+    "label": "Image",
+    "widget": {
+        "weight": "2",
+        "type": "image_image",
+        "module": "image",
+        "active": 1,
+        "settings": {
+            "progress_indicator": "throbber",
+            "preview_image_style": "thumbnail",
+            "filefield_sources": {
+                "filefield_sources": {
+                    "upload": "upload",
+                    "remote": 0,
+                    "clipboard": 0,
+                    "reference": 0,
+                    "attach": 0
+                },
+                "source_attach": {
+                    "path": "file_attach",
+                    "absolute": "0",
+                    "attach_mode": "copy"
+                },
+                "source_imce": {
+                    "imce_mode": 0
+                },
+                "source_reference": {
+                    "autocomplete": "0",
+                    "search_all_fields": "0"
+                }
+            },
+            "insert": 0,
+            "insert_absolute": 0,
+            "insert_styles": {
+                "auto": 0,
+                "link": 0,
+                "icon_link": 0,
+                "image": 0,
+                "image_large": 0,
+                "image_medium": 0,
+                "image_thumbnail": 0
+            },
+            "insert_default": "auto",
+            "insert_class": "",
+            "insert_width": ""
+        }
+    },
+    "settings": {
+        "file_directory": "commentpics",
+        "file_extensions": "png gif jpg jpeg",
+        "max_filesize": "",
+        "alt_field": 0,
+        "title_field": 0,
+        "default_image": 0,
+        "user_register_form": false,
+        "max_dimensions": "",
+        "min_dimensions": ""
+    },
+    "display": {
+        "default": {
+            "label": "hidden",
+            "type": "hidden",
+            "weight": "1",
+            "settings": []
+        }
+    },
+    "required": 0,
+    "description": ""
+}

@@ -1,0 +1,53 @@
+{
+    "_config_name": "field.instance.node.book.upload",
+    "field_name": "upload",
+    "entity_type": "node",
+    "bundle": "book",
+    "deleted": "0",
+    "label": "File attachments",
+    "required": 0,
+    "description": "",
+    "widget": {
+        "weight": "1",
+        "settings": {
+            "progress_indicator": "throbber"
+        },
+        "type": "file_generic"
+    },
+    "settings": {
+        "max_filesize": "1 MB",
+        "file_extensions": "jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp",
+        "file_directory": "",
+        "description_field": 1
+    },
+    "display": {
+        "default": {
+            "label": "hidden",
+            "type": "file_table",
+            "settings": [],
+            "weight": 0,
+            "module": "file"
+        },
+        "full": {
+            "label": "hidden",
+            "type": "file_table",
+            "settings": [],
+            "weight": 0,
+            "module": "file"
+        },
+        "teaser": {
+            "label": "hidden",
+            "type": "hidden",
+            "settings": [],
+            "weight": 0,
+            "module": null
+        },
+        "rss": {
+            "label": "hidden",
+            "type": "file_table",
+            "settings": [],
+            "weight": 0,
+            "module": "file"
+        }
+    }
+}
