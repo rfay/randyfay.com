@@ -1,0 +1,23 @@
+{
+    "_config_name": "bartik.settings",
+    "color": {
+        "palette": {
+            "bg": "#fffdf7",
+            "link": "#9d408d",
+            "top": "#4c1c58",
+            "bottom": "#593662",
+            "text": "#301313",
+            "sidebar": "#f8f3e7",
+            "sidebarborders": "#e4e3d4",
+            "footer": "#2c2c28",
+            "titleslogan": "#ffffff"
+        },
+        "stylesheets": [
+            "public://color/bartik-b5dbbd9c/colors.css"
+        ],
+        "files": [
+            "public://color/bartik-b5dbbd9c/logo.png",
+            "public://color/bartik-b5dbbd9c/colors.css"
+        ]
+    }
+}

@@ -1,0 +1,67 @@
+{
+    "_config_name": "field.instance.node.blog.field_blog_image",
+    "field_name": "field_blog_image",
+    "entity_type": "node",
+    "bundle": "blog",
+    "deleted": "0",
+    "label": "Image",
+    "widget": {
+        "weight": "2",
+        "type": "image_image",
+        "module": "image",
+        "active": 1,
+        "settings": {
+            "progress_indicator": "throbber",
+            "preview_image_style": "thumbnail",
+            "filefield_sources": {
+                "filefield_sources": {
+                    "remote": "remote",
+                    "reference": "reference",
+                    "attach": "attach"
+                },
+                "source_attach": {
+                    "path": "file_attach",
+                    "absolute": "0",
+                    "attach_mode": "copy"
+                },
+                "source_reference": {
+                    "autocomplete": "0"
+                }
+            },
+            "insert": 1,
+            "insert_styles": {
+                "<all>": "<all>"
+            },
+            "insert_default": "image_medium",
+            "insert_class": "",
+            "insert_width": ""
+        }
+    },
+    "settings": {
+        "file_directory": "blog_image",
+        "file_extensions": "png gif jpg jpeg",
+        "max_filesize": "",
+        "alt_field": 0,
+        "title_field": 1,
+        "user_register_form": false,
+        "default_image": 0,
+        "max_dimensions": "",
+        "min_dimensions": ""
+    },
+    "display": {
+        "default": {
+            "label": "hidden",
+            "type": "hidden",
+            "weight": "3",
+            "settings": []
+        },
+        "teaser": {
+            "label": "above",
+            "type": "hidden",
+            "weight": "2",
+            "settings": []
+        }
+    },
+    "required": 0,
+    "description": ""
+}

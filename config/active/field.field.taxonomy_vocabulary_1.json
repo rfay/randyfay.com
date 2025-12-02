@@ -1,0 +1,33 @@
+{
+    "_config_name": "field.field.taxonomy_vocabulary_1",
+    "field_name": "taxonomy_vocabulary_1",
+    "type": "taxonomy_term_reference",
+    "module": "taxonomy",
+    "active": "1",
+    "locked": "0",
+    "cardinality": "-1",
+    "translatable": "0",
+    "deleted": "0",
+    "settings": {
+        "required": true,
+        "allowed_values": [
+            {
+                "vocabulary": "vocabulary_1",
+                "parent": 0
+            }
+        ]
+    },
+    "entity_types": [],
+    "indexes": {
+        "tid": [
+            "tid"
+        ]
+    },
+    "storage": {
+        "type": "field_sql_storage",
+        "module": "field_sql_storage",
+        "active": "1",
+        "settings": []
+    },
+    "columns": null
+}

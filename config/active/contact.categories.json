@@ -1,0 +1,13 @@
+{
+    "_config_name": "contact.categories",
+    "contact_default_category": "3",
+    "categories": [
+        {
+            "cid": "3",
+            "category": "Randyfay.com contact",
+            "recipients": "randy@randyfay.com",
+            "reply": "",
+            "weight": "0"
+        }
+    ]
+}

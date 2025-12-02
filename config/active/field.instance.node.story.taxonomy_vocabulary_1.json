@@ -1,0 +1,28 @@
+{
+    "_config_name": "field.instance.node.story.taxonomy_vocabulary_1",
+    "field_name": "taxonomy_vocabulary_1",
+    "entity_type": "node",
+    "bundle": "story",
+    "deleted": "0",
+    "label": "Topics",
+    "settings": [],
+    "description": "",
+    "widget": {
+        "type": "taxonomy_autocomplete",
+        "module": "taxonomy",
+        "settings": {
+            "size": 60,
+            "autocomplete_path": "taxonomy/autocomplete"
+        }
+    },
+    "display": {
+        "default": {
+            "type": "taxonomy_term_reference_link",
+            "weight": 10
+        },
+        "teaser": {
+            "type": "taxonomy_term_reference_link",
+            "weight": 10
+        }
+    }
+}
