@@ -5,7 +5,7 @@
         "admin_menu": false,
         "backup_migrate": false,
         "block": true,
-        "blog": false,
+        "blog": true,
         "book": true,
         "codefilter": false,
         "color": true,
@@ -52,7 +52,7 @@
         "taxonomy": true,
         "text": true,
         "trigger": false,
-        "update": false,
+        "update": true,
         "user": true,
         "views": true,
         "views_bulk_operations": false,
@@ -61,6 +61,7 @@
     "themes": {
         "bartik": true,
         "seven": true,
-        "basis": true
+        "basis": true,
+        "bootstrap5_lite": true
     }
 }

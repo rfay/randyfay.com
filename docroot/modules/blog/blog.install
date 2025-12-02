@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the blog module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function blog_install() {
+  _blog_install_type_create();
+}
+
+/**
+ * Creates the book content type.
+ */
+function _blog_install_type_create() {
+  // Create an additional node type.
+  $blog_node_type = array(
+    'type' => 'blog',
+    'name' => t('Blog entry'),
+    'base' => 'node_content',
+    'description' => t('Use for multi-user blogs. Every user gets a personal blog.'),
+    'custom' => 1,
+    'modified' => 1,
+    'locked' => 0,
+    'settings' => array(
+        'status_default' => NODE_PUBLISHED,
+        'node_preview' => TRUE,
+        'promote_enabled' => TRUE,
+        'promote_default' => TRUE,
+        'sticky_enabled' => TRUE,
+        'sticky_default' => FALSE,
+        'revision_enabled' => TRUE,
+        'revision_default' => FALSE,
+        'show_submitted_info' => TRUE,
+        'comment_default' => COMMENT_NODE_OPEN,
+        'node_submitted' => TRUE,
+        'node_user_picture' => TRUE,
+      ),
+      'is_new' => TRUE,
+  );
+
+  $blog_node_type = node_type_set_defaults($blog_node_type);
+  node_type_save($blog_node_type);
+  node_add_body_field($blog_node_type);
+}

@@ -252,7 +252,7 @@
                         "group_type": "group",
                         "ui_name": "",
                         "label": "",
-                        "exclude": 0,
+                        "exclude": 1,
                         "alter": {
                             "alter_text": 1,
                             "text": "<div class=\"node-author\">[created] by [name]</div>",
@@ -557,7 +557,7 @@
                         "granularity": "minute"
                     }
                 },
-                "title": "Recent content",
+                "title": "Not Too Recent",
                 "relationships": {
                     "uid": {
                         "id": "uid",

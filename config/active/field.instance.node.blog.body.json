@@ -6,17 +6,24 @@
     "deleted": "0",
     "label": "Body",
     "widget": {
-        "type": "text_textarea_with_summary",
-        "settings": {
-            "rows": 20,
-            "summary_rows": 5
-        },
         "weight": "-4",
-        "module": "text"
+        "type": "text_textarea_with_summary",
+        "module": "text",
+        "active": 1,
+        "settings": {
+            "rows": "40",
+            "summary_rows": 5
+        }
     },
     "settings": {
-        "display_summary": true,
-        "text_processing": 1,
+        "text_processing": "1",
+        "allowed_formats": [
+            1,
+            3,
+            "markdown",
+            "4"
+        ],
+        "display_summary": 1,
         "user_register_form": false
     },
     "display": {
@@ -68,6 +75,7 @@
         }
     },
     "default_value": null,
-    "required": false,
-    "description": ""
+    "required": 0,
+    "description": "",
+    "default_value_function": null
 }

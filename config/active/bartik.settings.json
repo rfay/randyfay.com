@@ -2,21 +2,25 @@
     "_config_name": "bartik.settings",
     "color": {
         "palette": {
-            "bg": "#fffdf7",
-            "link": "#9d408d",
-            "top": "#4c1c58",
-            "bottom": "#593662",
-            "text": "#301313",
-            "sidebar": "#f8f3e7",
-            "sidebarborders": "#e4e3d4",
-            "footer": "#2c2c28",
-            "titleslogan": "#ffffff"
+            "top": "#e0e4cc",
+            "bottom": "#e0e4cc",
+            "bg": "#ffffff",
+            "sidebar": "#f3f4e9",
+            "sidebarborders": "#ffffff",
+            "footer": "#798053",
+            "titleslogan": "#798053",
+            "text": "#3b3b3b",
+            "link": "#fa6900",
+            "menu": "#798053",
+            "activemenu": "#4c5037"
         },
         "stylesheets": [
-            "public://color/bartik-80d6945b/colors.css"
+            "public://color/bartik-c2eafc62/colors.css"
         ],
         "files": [
-            "public://color/bartik-80d6945b/colors.css"
+            "public://color/bartik-c2eafc62/colors.css"
         ]
-    }
+    },
+    "main_menu_tabs": "no-tabs",
+    "color_legacy": false
 }

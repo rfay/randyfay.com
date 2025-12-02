@@ -10,7 +10,7 @@
     "modified": true,
     "orig_type": "blog",
     "module": "blog",
-    "disabled": true,
+    "disabled": false,
     "settings": {
         "status_default": 1,
         "sticky_enabled": true,

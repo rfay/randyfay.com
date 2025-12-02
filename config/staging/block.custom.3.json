@@ -4,7 +4,9 @@
     "info": "Where to find me",
     "title": "Where to find me",
     "body": {
-        "value": "Email me, randy at randyfay.com,. <a href=\"/resume\">Randy Fay Resume</a>, Find me on twitter: <a href=\"http://twitter.com/randyfay\">randyfay</a>, Drupal.org and IRC: rfay, Facebook: <a href=\"http://facebook.com/randyfay\">randyfay</a>, <a href=\"http://hobobiker.com\">Hobobiker.com</a>: The story of our 2 1/2 year bike trip. Or  Grab my <a href=\"https://www.randyfay.com/sites/default/files/rfay.pub_.txt\">ssh public key</a>. <p hidden>Updated 2021-01-17</p>",
+        "value": "Email me, randy at randyfay.com, Find me on <a href=\"http://ddev.com/contact\">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href=\"http://facebook.com/randyfay\">randyfay</a>, <a href=\"http://hobobiker.com\">Hobobiker.com</a>: The story of our 2 1/2 year bike trip. <p hidden>Updated 2021-01-17</p>",
         "format": "1"
-    }
+    },
+    "description": "",
+    "default_langcode": "und"
 }
