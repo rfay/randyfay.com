@@ -8,5 +8,5 @@
  */
 
 if (getenv('IS_DDEV_PROJECT') == 'true') {
-  $options['l'] = "https://randyfay.ddev.site";
+  $options['l'] = "https://randyfay.com";
 }
