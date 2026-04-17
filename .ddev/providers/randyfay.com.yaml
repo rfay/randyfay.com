@@ -1,5 +1,4 @@
-#ddev-generated
-# Example rsync provider configuration.
+#ddev-silent-no-warn
 
 # This will pull a database and files from a network location, for example,
 # server or other jumphost. It operates inside the web container and uses
@@ -32,9 +31,9 @@ db_import_command:
     set -x   # You can enable bash debugging output by uncommenting
     set -eu -o pipefail
     hostname
-    fname=$(ssh randyfay.com "cd workspace/randyfay.com/.ddev/db_snapshots; ls -t | head -1l")
-    rsync -avz "${dbbase}/${fname}" ${DDEV_APPROOT}/.ddev/db_snapshots/latest-mariadb_10.2.gz
-    ddev snapshot restore latest
+    fname=$(ssh rfay@ddevprod.thefays.us "cd workspace/randyfay.com/.ddev/db_snapshots; ls -t | head -1l")
+    rsync -avz "${dbbase}/${fname}" ${DDEV_APPROOT}/.ddev/db_snapshots/latest-mariadb_10.2.zst
+    ddev snapshot restore --latest
   service: host
 
 files_pull_command:
