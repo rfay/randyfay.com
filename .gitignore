@@ -7,3 +7,4 @@ docroot/sites/*/private
 /.idea
 /.tarballs
 /private_files
+/node_modules
