@@ -12,7 +12,6 @@ database:
 use_dns_when_possible: true
 composer_version: ""
 web_environment: []
-nodejs_version: "16"
 corepack_enable: false
 
 # Key features of DDEV's config.yaml:
