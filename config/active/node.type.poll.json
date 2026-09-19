@@ -23,7 +23,7 @@
         "node_submitted": true,
         "node_user_picture": false,
         "language": null,
-        "comment_enabled": false,
+        "comment_enabled": true,
         "comment_default": 2,
         "comment_per_page": 50,
         "comment_mode": 1,

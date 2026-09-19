@@ -56,7 +56,8 @@
         "user": true,
         "views": true,
         "views_bulk_operations": false,
-        "views_ui": true
+        "views_ui": true,
+        "installer": true
     },
     "themes": {
         "bartik": true,

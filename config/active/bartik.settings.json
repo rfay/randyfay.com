@@ -15,10 +15,10 @@
             "activemenu": "#4c5037"
         },
         "stylesheets": [
-            "public://color/bartik-38244b2b/colors.css"
+            "public://color/bartik-85f37a8d/colors.css"
         ],
         "files": [
-            "public://color/bartik-38244b2b/colors.css"
+            "public://color/bartik-85f37a8d/colors.css"
         ]
     },
     "main_menu_tabs": "no-tabs",

@@ -8,3 +8,8 @@ docroot/sites/*/private
 /.tarballs
 /private_files
 /node_modules
+/docroot/drushrc.php
+/.ddev/config.coder.yaml
+/.ddev/docker-compose.coder-describe.yaml
+/.vscode
+/backups

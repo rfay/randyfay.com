@@ -125,6 +125,8 @@
         "view uploaded files",
         "vote on polls",
         "assign roles",
-        "administer comment settings"
-    ]
+        "administer comment settings",
+        "use installer browser"
+    ],
+    "description": ""
 }

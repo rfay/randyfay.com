@@ -4,7 +4,7 @@ description = Modify the Bartik theme colors and make sure the changes are refle
 group = Color
 file = color.test
 
-; Added by Backdrop CMS packaging script on 2025-10-06
+; Added by Backdrop CMS packaging script on 2026-09-15
 project = backdrop
-version = 1.32.1
-timestamp = 1759813356
+version = 1.35.0
+timestamp = 1789506311

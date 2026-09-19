@@ -113,7 +113,7 @@ $settings['restore_free_access'] = FALSE;
  * This can also be set to a value of FALSE to disable the backup capability,
  * for sites that have an alternative backup mechanism in place.
  */
-$settings['backup_directory'] = '';
+$settings['backup_directory'] = '../backups';
 
 /**
  * Salt for one-time login links and cancel links, form tokens, etc.
