@@ -1,5 +1,11 @@
 # Drupal 7 to Backdrop CMS Migration Plan
 
+> **Status: completed, historical.** This document describes the migration from Drupal 7 to
+> Backdrop CMS that has **already happened** — `docroot/` currently runs Backdrop CMS
+> 1.35.0. It is kept as a record of that migration, not as an active plan. It does **not**
+> cover any later/upcoming migration (see `PLAYWRIGHT_TESTING.md` for the pre-migration
+> baseline strategy being built for those).
+
 ## Project Overview
 
 This document outlines the complete migration plan for upgrading the randyfay.com Drupal 7 site to Backdrop CMS. The migration is required due to Drupal 7's end-of-life (January 2025) and the need for continued security support.
