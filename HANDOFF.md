@@ -254,11 +254,10 @@ smaller site, written to generalize to that harder one.
    `test/playwright/node_modules`, `test/playwright/test-results`, and
    `test/playwright/playwright-report` while keeping `tests/`, `package.json`,
    `playwright.config.ts` tracked.
-4. **Commit or discard the other untracked `.ddev/` additions** currently in git status
-   (`.ddev/commands/host/`, `.ddev/config.playwright.yml`, `.ddev/web-build/*`,
-   `.ddev/web-entrypoint.d/`, `.ddev/addon-metadata/ddev-playwright/`) — these are the
-   `ddev-playwright` addon's own generated files from `ddev get Lullabot/ddev-playwright` and
-   should be committed so the addon is reproducible for other contributors.
+4. **Do NOT commit the ddev-playwright add-on's `.ddev/` files** — production runs DDEV from this
+   same repo, and the add-on adds a large web-image build, a VNC daemon and extra ports. They are
+   gitignored and installed on demand instead; see "Dev-only tooling" below. (An earlier version of
+   this TODO said to commit them; that was wrong for this reason.)
 5. Investigate the unrelated `M package.json` change showing in git status — confirm it's
    intentional before committing alongside the above.
 
@@ -369,3 +368,23 @@ here so a future agent doesn't have to rediscover it.
      ```
      Once PR #201 merges and this Coder workspace's image is rebuilt from it, this manual step
      becomes unnecessary — until then, expect to redo it after any Coder session restart.
+
+## Dev-only tooling: ddev-playwright is installed on dev copies, never on production (2026-09-30)
+
+Production runs DDEV from this repo with primary URL `https://randyfay.com`; every dev copy is
+`https://<name>.ddev.site`. So the add-on is kept out of git and installed on demand:
+
+- `.ddev/commands/host/dev-tools` + `.ddev/config.dev-tools.yaml` (pre-start hook): if
+  `$DDEV_PRIMARY_URL` is `*.ddev.site`, run `ddev add-on get Lullabot/ddev-playwright` (pinned
+  version in the script) and later enable the Playwright image build. Anything else, including
+  unknown, does nothing (fails closed).
+- The add-on's files are listed in the root `.gitignore`.
+- **A fresh dev clone takes two starts.** DDEV reads `config.*.yaml` before pre-start hooks run, so
+  the add-on's config is not active on the start that installs it. The first start installs and
+  prints "run `ddev restart` once"; the second enables the image build and activates everything.
+  Verified by removing the add-on and restarting twice: the suite passes (287 tests).
+- Docker Compose profiles don't fit here: Playwright is baked into the `web` image via
+  `web-build/Dockerfile.*`, not a separate compose service like xhgui. A possible upstream
+  issue: a real enable/disable switch in ddev-playwright (today only `Dockerfile.playwright`
+  gates the heavy build; the other pieces are unconditional), and the recurring
+  "unexpected #ddev-generated" warning on `Dockerfile.playwright`.
