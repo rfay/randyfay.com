@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="next" href="/content/ahah-example-textfields-driven-checkboxes" />
+<link rel="prev" href="/content/drupal-forms-api-fapi-basics-2-minute-version" />
+<link rel="up" href="/ahah" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/ahah-simplest-example-ahah-submit-button-replace-region" />
+
+    <title>AHAH Simplest Example: #ahah on the submit button, replace a region | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-book">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">AHAH Simplest Example: #ahah on the submit button, replace a region</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/ahah">Cooler forms with Drupal&#039;s AHAH (Asynchronous HTML and HTTP)</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-28" class="node node-book view-mode-full clearfix">
+
+  
+  <div class="content clearfix">
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p><b>Note that this is currently maintained in the <a href="http://drupal.org/project/examples">Examples project</a> so the code here may not be the latest.</b></p>
+<p>The essence of AHAH is that you mark an element of a form as the one that activates AHAH behavior, and you tell it what section of the HTML is to be replaced when it's activated.</p>
+<p>The form we're using here has a "markup" element, which is just plain HTML. It has a prefix and suffix that mention its CSS ID. The CSS ID will be used by the javascript running in the background to determine what's to be replaced.</p>
+<p>The submit is marked as an element with AHAH behavior with the "#ahah" marker. It's given a Drupal path for the callback. You can actually point your web browser at this path and see what happens as a debugging procedure. Here you can hit the callback in your browser (<a href="http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah/callback">http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah/callback</a>).</p>
+<p>When the submit button is pressed, instead of doing the traditional HTTP submit of the page, javascript provided by Drupal calls the callback, gets the resulting HTML (as a JSON object), and then replaces the section of the code (The div with ID "box") with the HTML replacement.</p>
+<p>(This one is at <a href="http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah">http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah</a>.)</p>
+<p>Here's an example of the very simplest AHAH behavior.</p>
+<p><?php </p?>
+</p><p>/**<br />
+ * @file<br />
+ * A Hello-world AHAH. Just swaps out a markup section on submit<br />
+ */<br />
+function ahah_demo_simplest() {</p>
+<p>  $initial_markup = '<br />
+</p><div style="background: lightblue; width: 150px; height: 150px">' . t('This is a blue box') . '</div>
+<p>';</p>
+<p>  $form['box'] = array(<br />
+    '#type' =&gt; 'markup',<br />
+    '#prefix' =&gt; '<br />
+</p><div id="box">',<br />
+    '#suffix' =&gt; '</div>
+<p>',<br />
+    '#value' =&gt; $initial_markup,<br />
+  );</p>
+<p>  $form['submit'] = array(<br />
+    '#type' =&gt; 'submit',<br />
+    '#ahah' =&gt; array(<br />
+      'path' =&gt; 'ahah_demo/simplest_ahah/callback',<br />
+      'wrapper' =&gt; 'box',<br />
+    ),<br />
+    '#value' =&gt; t('Click Me'),<br />
+  );</p>
+<p>  return $form;<br />
+}</p>
+<p>function ahah_demo_simplest_callback() {<br />
+  $colors = array('red','orange','blue','green','black');<br />
+  $color = $colors[array_rand($colors)];<br />
+  $output = '<br />
+</p><div id="box" style="background-color:' . $color .&lt;br /&gt;&#10;    '; width: 150px; height: 150px;">This is ' . $color . ' box</div>
+<p>';<br />
+  print drupal_json(array('status' =&gt; TRUE, 'data' =&gt; $output));<br />
+  exit();<br />
+}<br />
+?&gt;</p>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/ahah">AHAH</a></li></ul></div>  <nav id="book-navigation-25" class="book-navigation">
+              <h2 class="element-invisible">Book Navigation</h2>
+      <ul class="book-pager">
+              <li class="previous">
+          <a href="/content/drupal-forms-api-fapi-basics-2-minute-version" rel="prev" title="Go to previous page"><b>‹</b> Drupal Forms API (FAPI) Basics - the 2-minute version</a>
+        </li>
+                    <li class="up">
+          <a href="/ahah" title="Go to parent page">up</a>
+        </li>
+                    <li class="next">
+          <a href="/content/ahah-example-textfields-driven-checkboxes" rel="next" title="Go to next page">AHAH Example: Textfields driven by checkboxes <b>›</b></a>
+        </li>
+          </ul>
+      </nav>
+  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/28%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/node/28" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+          <div class="block block-book-navigation" role="navigation">
+
+  <h2 class="block-title"><a href="/ahah" class="book-title">Cooler forms with Drupal&#039;s AHAH (Asynchronous HTML and HTTP)</a></h2>
+
+  <div class="block-content">
+    <ul class="menu"><li class="first leaf menu-mlid-514"><a href="/content/what-ahah-drupal">What is AHAH in Drupal?</a></li>
+<li class="leaf menu-mlid-517"><a href="/content/examples-ahah-drupal">Examples of AHAH in Drupal</a></li>
+<li class="leaf menu-mlid-515"><a href="/content/drupal-forms-api-fapi-basics-2-minute-version">Drupal Forms API (FAPI) Basics - the 2-minute version</a></li>
+<li class="leaf active-trail menu-mlid-516"><a href="/content/ahah-simplest-example-ahah-submit-button-replace-region" class="active-trail active" aria-current="page">AHAH Simplest Example: #ahah on the submit button, replace a region</a></li>
+<li class="leaf menu-mlid-543"><a href="/content/ahah-example-textfields-driven-checkboxes">AHAH Example: Textfields driven by checkboxes</a></li>
+<li class="leaf menu-mlid-557"><a href="/content/ahah-example-select-control-and-generated-checkboxes">AHAH Example: Select control and generated checkboxes</a></li>
+<li class="leaf menu-mlid-599"><a href="/content/ahah-notes-and-issues">AHAH Notes and Issues</a></li>
+<li class="leaf menu-mlid-556"><a href="/content/ahah-resources">AHAH Resources</a></li>
+<li class="last leaf menu-mlid-542"><a href="/ahah/drupal7">AHAH Changes for Drupal 7 (It&#039;s now called #AJAX)</a></li>
+</ul>  </div>
+</div>
+        </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

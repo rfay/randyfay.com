@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/content-translation-field-translation-drupal-7-first-steps" />
+
+    <title>Content Translation (field translation) in Drupal 7: First steps | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">Content Translation (field translation) in Drupal 7: First steps</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-88" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Tue, 2011-01-18 09:11 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/planet-drupal">Planet Drupal</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p><b>Edit: </b> Please follow <a href="http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics">Gábor Hojtsy's excellent series on translation in D7</a>, if you're not already following it. It's more up-to-date and more authoritative. You'll probably be interested in <a href="http://www.evolvingweb.ca/story/drupal-7-multilingual-whats-new-i18n">Drupal 7 Multilingual: What's new in I18N</a>.</p>
+<p>Drupal has long been a leader in the ability to present a website in multiple languages. In Drupal 7 we continue that tradition: Field translation or "content translation" made it into Drupal 7, but it's not obvious from a plain Drupal 7 install how you would use it.</p>
+<p>This article is fundamentally about content translation, not about interface translation, which is a completely different thing in Drupal (and always has been). Interface translation is about prompts, labels, menu entries and the like, all of which are handled by the core locale module and various contrib modules like <a href="http://drupal.org/project/i18n">i18n</a>. I will explain how to import basic interface translation files, however.</p>
+<p>Drupal 6 has a node translation system which basically allows you to make "translation sets" of nodes. You start with a node in a source language (and set the language on that node), and then you can create additional translations of that node to other languages. So for example, we might start with a node in English, then use the "translate" tab to add additional nodes in different languages that are <i>tied to that original node</i>. That node translation system is still supported in Drupal 7, but it doesn't support translation of CCK fields, and is quite awkward in reality because you're dealing with a number of separate nodes, instead of translations of a single node. <b>Edit: See <a href="http://randyfay.com/comment/672#comment-672">Gabor's comment below for more on this, and considerations regarding it</a></b>.</p>
+<p>Drupal 7 got field translation (yay!), also referred to as "content translation", which is an entirely different thing. In content translation you have a single node, but with different translations for each field on the node that should be translatable.  And the body is a field. Unfortunately the title is not a field, and therefore is not translatable, but more on that later. To restate this: In Drupal 7 "content translation" there is just one node, and translatable fields on it are translated to provide the translations, but are still part of that single node. The gotcha in field translation (content translation) though is that in core it didn't get a user interface. As a result the <a href="http://drupal.org/project/entity_translation">contrib Entity Translation</a> module improves content translation and provides a UI and works alongside the core content translation module, and it's fundamental to the approach described here.</p>
+<p>Here is the process I went through to set up a basic multilingual site:</p>
+<ol>
+<li>The core field translation facilities have no user interface, so you'll need the <a href="http://drupal.org/project/entity_translation">Entity Translation</a> module. After installing and enabling it (which also enables translation and locale modules), you may need to run update.php.</li>
+<li>You need to enable languages for your site.
+<ul>
+<li>Add languages at admin/config/regional/language</li>
+<li>Download interface translation files from <a href="http://localize.drupal.org">http://localize.drupal.org</a></li>
+<li>Import interface translations into the configured languages at admin/config/regional/translate/import (under "Translate Interface"</li>
+<li>Click "Enabled" on the languages you've configured</li>
+<li>At "Detection and Selection" (admin/config/regional/language/configure), choose how you want languages to be chosen. My experience is that URL selection is the best approach, so you'll need to configure subdomains or some related approach. Note that when you use URLs you need to enter the full URL including "http://". There doesn't seem to be any error checking on this. Also remember to click "enabled" on the strategy that you choose.</li>
+<li>On the same "Detection and Selection" page, in the lower section of the page under "Content language detection" select "Interface", so that the same language is chosen for content language detection as for interface language detection.</li>
+</ul>
+</li>
+<li>Enable translation of nodes and any other entities that should be translatable at admin/config/regional/entity_translation.</li>
+<li>Enable "Multilingual support: Enabled, with content translation" on the content type edit form under "Publishing options". For example, for a content type named "example", this would be at admin/structure/types/manage/example/edit in the "publishing options" fieldset.</li>
+<li>For each field that should be translatable, go to field settings and check "users may translate this field". For the body field of the "example" content type, this would be at admin/structure/types/manage/example/fields/body/field-settings.</li>
+<li>Now you can create and translate fields.
+<ul>
+<li>Create a node and set its language to a specific language.</li>
+<li>When you've saved it a "Translate" tab will appear allowing you to translate into other configured languages.</li>
+<li>Click "Add translation" to add translations for the fields that have translation enabled.</li>
+<li>Make sure to <i>publish</i> the translation. Publication is unfortunately hidden in the collapsed-by-default "translation options" fieldset</li>
+</ul>
+</li>
+</ol>
+<p>Some gotchas regarding field translation:</p>
+<ul>
+<li>The <a href="http://drupal.org/project/title">Title module</a> is required to make titles translatable. This currently only works for nodes, not entities. All the work is actually being done in <a href="https://drupal.org/node/924968">#924968</a> so you have to apply the patch from that issue.</li>
+<li>Entities other than nodes are not translatable out of the box. The entity must be specifically enabled to allow its fields to be translated. das-peter will elaborate on this later.</li>
+</ul>
+<p>Since I'm a newbie at the D7 translation scene, I'm sure there are errors or omissions here, so please correct this and I'll update the article based on your corrections.</p>
+<p><b>Edit: If you're interested in this article you'll want to follow Gabor's series beginning with <a href="http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics">http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-...</a></b>.</p>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-672"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://hojtsy.hu" rel="nofollow" class="username">Gábor Hojtsy (not verified)</a></p>
+        <p class="comment-time">Wed, 2011-01-19 02:18</p>
+        <p class="comment-permalink"><a href="/comment/672#comment-672" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/672#comment-672" class="permalink" rel="bookmark">set your expectations first</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Everbody thinks they want field translation, and that is the new great thing, but make sure you set your expectations right. Some good things offered by node translation include support for separate node commenting (eg. your German and English comments will not be intermixed); support for per language revisions; publication workflows (eg. the German node can be in a pre-publication revision workflow while the English is already published, coordinated actions can publish multiple language versions when all reach a certain step in the workflow, etc); different permission handling (eg. certain people can only edit German translations not English originals), thanks to Drupal's excessive node access system, etc. Think about menus. Most sites do not plan to have 1-1 menu structures for all translated versions. Different nodes can participate in different menu structures (with different menu titles appropriate for their language).</p>
+<p>There are certain goodies associated with in-node (AKA field) translation as well, like easier management of the translation set (delete all at once for example), simpler management of translations. No need for syncing of certain values to be shared among translations (in cases like language independent polls, where option titles are to be translated, but votes are to be aggregated regardless of language). However, once you need per-language data on votes, again, you are probably much better off with node level translation.</p>
+<p>My understanding is that field translation just allows you to use a more lightweight method for certain cases where that is more applicable. I don't think that it is good idea that is a replacement for the core translation module, so by implementation it does not make it possible to use the two models at once, when some of your site needs the extensive feature set offered by node level translation but some pieces could use field level translation. I can see the usability reasons for choosing either up front in site building, but I think most sites would benefit from a mixed approach.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-684"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.psegno.it" rel="nofollow" class="username">plach (not verified)</a></p>
+        <p class="comment-time">Sun, 2011-01-30 03:40</p>
+        <p class="comment-permalink"><a href="/comment/684#comment-684" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/684#comment-684" class="permalink" rel="bookmark">A few remarks</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>First of all I fully agree with Gábor that you should carefully ponder your needs before choosing between the two translation models. That said I'd like to make a few remarks: since our original goal was including field-based translation in core, we tried hard to make it able to accomplish almost all tasks you can achieve with node translation <em>in core</em>.</p>
+<p>More in detail:</p>
+<ul>
+<li>
+Translation 2 offers an option on the content type settings page to filter out comments per language, so you will be able to choose if comments will be intermixed or only showed on the language they were originally posted.
+</li>
+<li>
+Everytime a revision is created all field translation gets a new revision, so it's still possible to have per-language revisions, although they are not language-independent, i.e. all translations share the same revision id.
+</li>
+<li>
+There is a basic support for publication workflows, since each entity translation has a 'published' status based on which the related field translations will be publicly visible or hidden.
+</li>
+</ul>
+<blockquote><p>
+Most sites do not plan to have 1-1 menu structures for all translated versions.
+</p></blockquote>
+<p>In my experience small multilingual sites, which are still <a href="http://buytaert.net/drupal-2010-retrospective-and-2011-predictions">a valuable part of Drupal's target</a>, often needs a 1-1 menu replication which is really <a href="http://drupal.org/project/i18nmenu_node">hard to achieve</a> with node translation. In a non-replicated multilingual environment you probably don't even need a language switcher bringing on the page translation, since it often won't exist: I believe that also in this scenario two node translations belonging to completely different menu structures is a pretty rare use case.</p>
+<blockquote><p>
+However, once you need per-language data on votes, again, you are probably much better off with node level translation.
+</p></blockquote>
+<p>Translatable fields let you enter a different value for each language, so if you bothered to code a poll module based on the Field API you get both possible approaches for free ;)</p>
+<p>Where at the moment field translation really does not stand the "competition" with node translation is <em>permission handling</em>: the node access system let you achieve a granularity in choosing who has access to what that cannot be matched by field translation. Anyway I think a translation-workflow targeted solution should not be that hard to implement in the future.</p>
+<blockquote><p>
+I don't think that it is good idea that is a replacement for the core translation module, so by implementation it does not make it possible to use the two models at once
+</p></blockquote>
+<p>I'm afraid this is simply wrong: Translation 2 includes node translation in its codebase (as a separate submodule) and allow to choose for each content type whether using field-based translation or node-based-translation. Maybe we will be able to come up with an even more tightly mixed solution in the future, if we will find out the are valid use cases for it, but the fundamental point is <a href="http://drupal.org/node/539110#comment-2353086">we are totally aware there are still scenarios in which node translation is the way to go</a> and we won't drop support for it until we are totally sure we are able to cover them with field translation, if we'll ever get there.</p>
+<blockquote><p>
+I think most sites would benefit from a mixed approach.
+</p></blockquote>
+<p>Totally agreed :)</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-864"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">plach (not verified)</span></p>
+        <p class="comment-time">Tue, 2011-03-29 06:48</p>
+        <p class="comment-permalink"><a href="/comment/864#comment-864" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/864#comment-864" class="permalink" rel="bookmark">Node translation</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p><strong>Update:</strong> Entity translation now works with the core translation module instead of replacing it.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-865"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2011-03-29 07:06</p>
+        <p class="comment-permalink"><a href="/comment/865#comment-865" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/865#comment-865" class="permalink" rel="bookmark">Updated the article to</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Updated the article to reflect that.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-3414"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://nuazul.net" rel="nofollow" class="username">sibiru (not verified)</a></p>
+        <p class="comment-time">Tue, 2013-10-08 01:59</p>
+        <p class="comment-permalink"><a href="/comment/3414#comment-3414" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3414#comment-3414" class="permalink" rel="bookmark">Multilingual product title on shopping cart</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi, I've managed to create bilingual drupal commerce with entity_translation, i18n, i18nviews etc. But I have problem translating product title on shopping cart.</p>
+<p>ofcourse with this article as reference</p>
+<p>Maybe I miss something, Could you give me some help?</p>
+<p>If you would check my case on this site: <a href="http://balilou.be/products">http://balilou.be/products</a></p>
+<p>I ask here too<br />
+<a href="http://www.drupalcommerce.org/questions/10452/multilingual-product-title-shopping-cart">http://www.drupalcommerce.org/questions/10452/multilingual-product-title...</a></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-3470"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Lukus (not verified)</span></p>
+        <p class="comment-time">Thu, 2014-02-06 04:04</p>
+        <p class="comment-permalink"><a href="/comment/3470#comment-3470" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3470#comment-3470" class="permalink" rel="bookmark">Have you made the title</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Have you made the title fieldable using <a href="https://drupal.org/project/title">https://drupal.org/project/title</a>?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-673"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.comm-press.de" rel="nofollow" class="username">Karsten Frohwein (not verified)</a></p>
+        <p class="comment-time">Wed, 2011-01-19 04:51</p>
+        <p class="comment-permalink"><a href="/comment/673#comment-673" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/673#comment-673" class="permalink" rel="bookmark">Is the field translation an API?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi Randy,</p>
+<p>thank you for the blog post and gabor for the comment which is most important.</p>
+<p>As I currently don't know the D7 APIs very well I ask myself if the field translation is a new way in core to translate user given strings?</p>
+<p>Not being able to translate anything from the user is one of the biggest downsides to me in drupal. And i18n is not fixing this nicely. Multilingual variables or i18nstrings are currently the only solutions and they are not running well.</p>
+<p>So is this the new way for D7?<br />
+Is this an open API?</p>
+<p>Cheers,</p>
+<p>Kars-T</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-674"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2011-01-19 04:53</p>
+        <p class="comment-permalink"><a href="/comment/674#comment-674" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/674#comment-674" class="permalink" rel="bookmark">Field translation is for content only</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Field translation is for content (the content of fields, including the body field). It is not for interface strings, which are still handled basically the same way as always. So basic string t() stuff is all the same.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-719"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">danielb (not verified)</span></p>
+        <p class="comment-time">Sun, 2011-02-06 20:41</p>
+        <p class="comment-permalink"><a href="/comment/719#comment-719" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/719#comment-719" class="permalink" rel="bookmark">t() is not suitable for</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>t() is not suitable for translating user-supplied strings.  You have to use  i18nstrings(), i18nstrings_update(), and 18nstrings_remove(), which I have found to be awkward (and too much work for me).</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-841"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rantebi (not verified)</span></p>
+        <p class="comment-time">Sun, 2011-03-20 08:35</p>
+        <p class="comment-permalink"><a href="/comment/841#comment-841" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/841#comment-841" class="permalink" rel="bookmark">How am I supposed to manage without translated titles?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi,<br />
+Thanks for the posts and comments.<br />
+I find translation 2 a very attractive solution.<br />
+However, Title module is not yet released (as far as I can tell), and not having a title to translate is quite an issue.</p>
+<p>What do you suggest doing?</p>
+<p>Oh, and besides, The 'Content translation' is obsolete, and is replaced by 'Entity translation'.</p>
+<p>Thx</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-842"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sun, 2011-03-20 11:25</p>
+        <p class="comment-permalink"><a href="/comment/842#comment-842" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/842#comment-842" class="permalink" rel="bookmark">Thanks for mentioning that</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks for mentioning that <a href="http://drupal.org/project/entity_translation">Entity Translation module</a> has replaced Content Translation.</p>
+<p>To use title module at this time, you'll need to check it out using git and apply the patch provided (or use the branch that has that patch's work on it)</p>
+<p>I updated the article.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-847"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rantebi (not verified)</span></p>
+        <p class="comment-time">Tue, 2011-03-22 02:25</p>
+        <p class="comment-permalink"><a href="/comment/847#comment-847" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/847#comment-847" class="permalink" rel="bookmark">Title module</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Have you any experience with the title module in it's current stage?<br />
+Is it "cooked" or is it still "raw"?<br />
+I'm sorry but I'm afraid I'll waste my time...<br />
+Can you share?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-848"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2011-03-22 07:10</p>
+        <p class="comment-permalink"><a href="/comment/848#comment-848" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/848#comment-848" class="permalink" rel="bookmark">There&#039;s no release yet, so I</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>There's no release yet, so I would think the maintainers think it's "raw". However, there is active development, and you can help by testing it and reporting your experiences. I tried it a month or so ago and it did what I wanted it to do.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-881"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">plach (not verified)</span></p>
+        <p class="comment-time">Thu, 2011-03-31 02:54</p>
+        <p class="comment-permalink"><a href="/comment/881#comment-881" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/881#comment-881" class="permalink" rel="bookmark">Release</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I'm hoping to have a dev release in a couple of days, however people wishing to test it can use the mostly equivalent package <a href="http://drupalcode.org/project/title.git/snapshot/refs/heads/initial_work-924968.tar.gz">downloadable</a> from the development branch.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div></div><a id="comment-877"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://evolvingweb.ca" rel="nofollow" class="username">Suzanne Kennedy (not verified)</a></p>
+        <p class="comment-time">Wed, 2011-03-30 14:05</p>
+        <p class="comment-permalink"><a href="/comment/877#comment-877" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/877#comment-877" class="permalink" rel="bookmark">For those testing this out,</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>For those testing this out, you need to disable the core 'Content Translation' module for the 'Entity Translation' module to work propery. Because these modules have different names, you don't need to run update.php when you install Entity Translation.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-878"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2011-03-30 14:13</p>
+        <p class="comment-permalink"><a href="/comment/878#comment-878" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/878#comment-878" class="permalink" rel="bookmark">Hmm.. I thought Plach&#039;s note</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hmm.. I thought <a href="http://randyfay.com/comment/864#comment-864">Plach's note</a> said that entity translation works <em>with</em> content translation?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-879"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://evolvingweb.ca" rel="nofollow" class="username">Suzanne Kennedy (not verified)</a></p>
+        <p class="comment-time">Wed, 2011-03-30 14:22</p>
+        <p class="comment-permalink"><a href="/comment/879#comment-879" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/879#comment-879" class="permalink" rel="bookmark">My mistake, it&#039;s the i18n</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>My mistake, it's the i18n Multilingual Content module that is incompatible. I'm still getting used to all these new module names.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-880"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">plach (not verified)</span></p>
+        <p class="comment-time">Thu, 2011-03-31 02:49</p>
+        <p class="comment-permalink"><a href="/comment/880#comment-880" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/880#comment-880" class="permalink" rel="bookmark">Multilingual content</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>We have a RTBC issue to fix the icompatibility: <a href="http://drupal.org/node/1109198">http://drupal.org/node/1109198</a>. It should be committed soon.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-954"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">neil (not verified)</span></p>
+        <p class="comment-time">Mon, 2011-04-25 01:42</p>
+        <p class="comment-permalink"><a href="/comment/954#comment-954" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/954#comment-954" class="permalink" rel="bookmark">Modules</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks everyone...</p>
+<p>The compatibility issue (&amp; best procedure), is getting confusing! </p>
+<p>For a D7 install wanting to translate and display (from user selected language switcher e.g., casainpiazza.ch ), basic content from some/any level of field/node translation</p>
+<p>Is there a standard checklist?</p>
+<p>e.g.,<br />
+Translation Management<br />
+Translation Overview<br />
+i18n<br />
+Title<br />
+Entity Translation<br />
+Link...</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-955"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2011-04-25 07:25</p>
+        <p class="comment-permalink"><a href="/comment/955#comment-955" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/955#comment-955" class="permalink" rel="bookmark">Follow Gabor&#039;s series</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Please follow <a href="http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics">Gábor Hojtsy's excellent series on translation in D7</a>, if you're not already. It's more up-to-date and more authoritative.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div></div><a id="comment-2236"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.saltwebsites.com/" rel="nofollow" class="username">Fletch (not verified)</a></p>
+        <p class="comment-time">Fri, 2012-03-16 05:08</p>
+        <p class="comment-permalink"><a href="/comment/2236#comment-2236" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2236#comment-2236" class="permalink" rel="bookmark">But Why?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Fascinating piece of work being undertaken. What I don't quite understand is - what was the motivation? Do we really have such problems with node-based translation? I'm using node translation with Drupal 6 on various websites, including <a href="http://www.cai.org/">a large 10-language international church website</a> and it's working great! I do admit that there are a few tricky cases to tackle, like sharing a video field between nodes - I would like all nodes to share the same video field, update it when I update one etc. But these cases are either tackled already by modules or smart people will solve them. Above all I find such cases to be in the minority. In the majority of cases node translation just makes sense. Gabor has pointed some of this reasoning out.</p>
+<p>Has anyone put together a convincing argument as to why this effort needs to exist and why I should consider upgrading to this method instead of the node translation method when I upgrade to Drupal 7? At the moment I'm guessing that the driving reason is philosophical: a translation of a node is a "separate view" of the same thing, and should be treated as such, rather than a separate entity altogether, and this will make life easier. For me this makes some sense, but remains to be seen in practise. If someone has written such an argument, please link to it (maybe you will convince me :-)).</p>
+<p>I'm just a little concerned that instead of supporting and improving the excellent node-based translation system already in place, this effort is creating a rival system which splits development effort and module support and creates more decisions to be made and confusion for developers. Now, I've only just found out about all this so I don't understand it in detail and accept that some of my claims may be wrong so please feel free to go ahead and show me "a more excellent way".</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2237"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Fri, 2012-03-16 23:12</p>
+        <p class="comment-permalink"><a href="/comment/2237#comment-2237" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2237#comment-2237" class="permalink" rel="bookmark">Both this article and Gabor&#039;s</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Both this article and Gabor's excellent series explain the pro's and con's. Node translation is fully supported and there's no plan for it to go away.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2238"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.saltwebsites.com/" rel="nofollow" class="username">Fletch (not verified)</a></p>
+        <p class="comment-time">Sat, 2012-03-17 16:07</p>
+        <p class="comment-permalink"><a href="/comment/2238#comment-2238" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2238#comment-2238" class="permalink" rel="bookmark">I found the little pro and</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I found the little pro and con section in Gabor's article which explains field translation, that article was indeed very interesting. I like his conclusion that the best thing would just be to share fields correctly.</p>
+<p>Well let's see. It's certainly true that sometimes you just have to do something and see what happens. So I think this work should help in leading us toward the ideal way to handle translations.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-3127"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Bart (not verified)</span></p>
+        <p class="comment-time">Fri, 2012-12-14 06:46</p>
+        <p class="comment-permalink"><a href="/comment/3127#comment-3127" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3127#comment-3127" class="permalink" rel="bookmark">Thanks!</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi,</p>
+<p>It's been a while and alot has changed since you've wrote this, but I find your explanations very useful. I'm trying to get this whole translation thing figured out and your work definitely helps.</p>
+<p>One remark though: at point 3 you say: "Enable translation of nodes and any other entities that should be translatable at [..]" The URL shown there is not correct. It should be admin/config/regional/entity_translation</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-3128"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Fri, 2012-12-14 11:18</p>
+        <p class="comment-permalink"><a href="/comment/3128#comment-3128" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3128#comment-3128" class="permalink" rel="bookmark">Fixed, thanks.</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Fixed, thanks.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-3395"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://drupaldump.com/" rel="nofollow" class="username">Marko (not verified)</a></p>
+        <p class="comment-time">Tue, 2013-04-30 09:42</p>
+        <p class="comment-permalink"><a href="/comment/3395#comment-3395" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3395#comment-3395" class="permalink" rel="bookmark">Drupal the leader</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>If drupal is "the leader" in multilingual sites I wonder what is the situation with others then. (ironic).<br />
+I made many multi lingual sites with drupal 6 and 7 and I would say this is the weakest part of drupal. It works for some simpler things and sites that I would call amateur. Try to build professional site. Use modules like panels and views with taxonomy and you have huge issues if you also want to have sites, that have SEO optimized URLs, breadcrumbs, multilingual views/panels etc.  You will need to use some other additional modules, make some clever solutions, duplicate views for each language, sometimes even make vocabulary for each language if you want it to work perfectly and you have all parts translated.  With some solutions you cover 80% and then you have something missing and can't be translated so you have to find different ways to do it and it is just hard and buggy road.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-3553"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Lindsay Rose (not verified)</span></p>
+        <p class="comment-time">Mon, 2014-12-08 09:40</p>
+        <p class="comment-permalink"><a href="/comment/3553#comment-3553" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3553#comment-3553" class="permalink" rel="bookmark">Great Article!</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Even years later this article still does a wonderful job of giving someone new to Drupal Translations a good overview of the pro's con's between these two approaches!</p>
+<p>Thank you!!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-3607"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://liquidvisual.ca" rel="nofollow" class="username">Chris Brown (not verified)</a></p>
+        <p class="comment-time">Fri, 2015-12-04 18:37</p>
+        <p class="comment-permalink"><a href="/comment/3607#comment-3607" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3607#comment-3607" class="permalink" rel="bookmark">ckeditor</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks for this guide.  Could you maybe point me to where I could learn how to make ckeditor visible for translation of body fields when using field (entity) translation method?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/88%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/node/88" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

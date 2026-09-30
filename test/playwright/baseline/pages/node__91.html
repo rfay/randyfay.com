@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/rebase-workflow-git" />
+
+    <title>A Rebase Workflow for Git | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">A Rebase Workflow for Git</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-91" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Sun, 2011-02-06 13:00 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/planet-drupal">Planet Drupal</a></li><li class="taxonomy-term-reference-1"><a href="/topics/git">git</a></li><li class="taxonomy-term-reference-2"><a href="/topics/git-rebase">git rebase</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p><i><b>Update October, 2014</b>: Lots of things have gotten easier over the years.<br />
+These days, the easy way to fix this set of things is with the <a href="https://help.github.com/articles/using-pull-requests/">Pull Request workflow</a>, which is essentially the Integration Manager workflow discussed here (probably).</i></p>
+<ul>
+<li>Use github or bitbucket or somebody that makes the PR workflow easy
+</li><li>Delegate a person as integration manager, who will pull or comment on the PR
+</li><li>Require contributors to rebase their own PR branch before pulling if there are conflicts.
+</li></ul>
+<p></p>
+<p><i>Update: Just for clarification, I'm not opposed to merges. I'm only opposed to unintentional merges (especially with a git pull). <a href="http://randyfay.com/node/103">This followup article</a> describes a simple way to rebase most of the time without even thinking about it).  Also, for local development I love the <code>git merge --squash</code> method <a href="http://randyfay.com/comment/1093#comment-1093">described by joachim below</a>.</i></p>
+<p>In this post I'm going to try to get you to adopt a specific rebase-based workflow, and to avoid (mostly) the merge workflow.</p>
+<h3>What is the Merge Workflow?</h3>
+<p>The merge workflow consists of:<br />
+<code><br />
+git commit -m "something"<br />
+git pull   # this does a merge from origin and may add a merge commit<br />
+git push   # Push back both my commit and the (possible) merge commit<br />
+</code></p>
+<p>Note that you normally are forced to do the pull unless you're the only committer and you committed the last commit.</p>
+<h3>Why Don't I Want the Merge Workflow?</h3>
+<p>As we saw in <a href="http://randyfay.com/node/89">Avoiding Git Disasters</a>, the multiple-committer merge workflow has very specific perils due to the fact that every committer for a time has responsibility for what the other committers have committed.</p>
+<p>These are the problems with the merge workflow:</p>
+<ul>
+<li>It has the potential for disaster, as that merge and merge commit have to be handled correctly by every committer. That said, most committers will have no trouble with it and will not mess it up. But if you have lots of committers, and they don't all understand Git, or they are using a GUI that hides the actual results from them, watch out.</li>
+<li>Your history becomes a mess. It has all kinds of inexplicable merge commits (which you typically don't look inside to see what's there) and the history (gitk) becomes useless.</li>
+<li>Debugging using <code>git bisect</code> is confused massively due to the merge commits.</li>
+</ul>
+<h3>When Is the Merge Workflow OK?</h3>
+<p>The merge workflow will do you no damage at all if you</p>
+<ul>
+<li>Only have one committer (or a very small number of committers, and you trust them all)</li>
+</ul>
+<p>and</p>
+<ul>
+<li>You don't care much about reading your history.</li>
+</ul>
+<h3>OK, What is Rebasing?</h3>
+<p>First, definitions:</p>
+<ul>
+<li>A <em>branch</em> is a separate line of work. You may have seen these before in other VCS's, but in Git they're so easy to use that they're addictive and life-altering. You can expose branches in the public repository (a public branch) or they may never get off of your machine (a topical branch).</li>
+<li>A <em>public branch</em> is one that more than one person pulls from. In Drupal, 7.x-1.x for most modules and themes would be a public branch.</li>
+<li>A <em>topical branch</em> (or <em>feature branch</em>) is a private branch that you alone are using, and will not exposed in the public repository.</li>
+<li>A <em>tracking branch</em> is a local branch that knows where its remote is, and that can push to and pull from that remote. Assuming a remote named "origin" and a public branch named "7.x-1.x", we could create a tracking branch with <code>git branch --track 7.x-1.x origin/7.x-1.x</code>, or with newer versions of git, <code>git checkout --track origin/7.x-1.x</code></li>
+</ul>
+<p>The fundamental idea of rebasing is that you make sure that your commits go on top of the "public" branch, that you "rebase" them so that instead of being related to some commit way back when you started working on this feature, they get reworked a little so they go on top of what's there <em>now</em>.</p>
+<ol>
+<li>Don't do your work on the public branch (Don't work on master or 6.x-1.x or whatever). Instead, work on a "topical" or "feature" branch, one that's devoted to what you want to do.</li>
+<li>When you're ready to commit something, you <strong>rebase</strong> onto the public branch, plopping your work onto the very tip of the public branch, as if it were a single patch you were applying.</li>
+</ol>
+<p>Here's the approach. We'll assume that we already have a tracking branch 7.x-1.x for the public 7.x-1.x branch.</p>
+<p><code><br />
+git checkout 7.x-1.x  # Check out the "public" branch<br />
+git pull              # Get the latest version from remote<br />
+git checkout -b comment_broken_links_101026  # topical branch<br />
+... # do stuff here.. Make commits.. test...<br />
+git fetch origin      # Update your repository's origin/ branches from remote repo<br />
+git rebase origin/7.x-1.x  # Plop our commits on top of everybody else's<br />
+git checkout 7.x-1.x  # Switch to the local tracking branch<br />
+git pull              # This won't result in a merge commit<br />
+git rebase comment_broken_links_101026  # Pull those commits over to the "public" branch<br />
+git push               # Push the public branch back up, with my stuff on the top<br />
+</code></p>
+<p>There are ways to simplify this, but I wanted to show it explicitly. The fundamental idea is that I as a developer am taking responsibility to make sure that my work goes right in on <em>top</em> of the everybody else's work. And that it "fits" there - that it doesn't require any magic or merge commits.</p>
+<p>Using this technique, your work always goes on top of the public branch like a patch that is up-to-date with current HEAD. This is very much like the CVS patch workflow, and results in a clean history.</p>
+<p>For extra credit, you can use <code>git rebase -i</code> and munge your commits into a single commit which has an excellent commit message, but I'm not going to go there today.</p>
+<h3>Merging and Merge Conflicts</h3>
+<p>Any time you do a rebase, you may have a merge conflict, in which Git doesn't know how to put your work on top of the work others have done. If you and others are working in different spaces and have your responsibilities well separated, this will happen rarely. But still, you have to know how to deal with it.</p>
+<p>Every OS has good merge tools available which work beautifully with Git. Working from the command line you can use <code>git mergetool</code> when you have a conflict to resolve the conflict. We'll save that for another time.</p>
+<h3>Branch Cleanup</h3>
+<p>You can imagine that, using this workflow, you end up with all kinds of useless, abandoned topical branches. Yes you do. From time to time, clean them up with</p>
+<p><code><br />
+git branch -d comment_broken_links_101026<br />
+</code></p>
+<p>or, if you haven't ever merged the topical branch (for example, if you just used it to prepare a patch)</p>
+<p><code><br />
+git branch -D comment_broken_links_101026<br />
+</code></p>
+<h3>Objections</h3>
+<p>If you read the help for <code>git rebase</code> it will tell you "Be careful. You shouldn't rewrite history that will be exposed publicly because everybody will hate you.". Note, though, that the way we're using rebase here, we only plop our commit(s) right on top, and then push. It does <em>not</em> change the public history. Of course there are other ways of using rebase that could change publicly-exposed history, and that is frowned upon.</p>
+<h3>Conclusion</h3>
+<p>This looks more complicated than the merge workflow. It is. It is not hard. It is valuable.</p>
+<p>If you have improvements, suggestions, or alternate workflows to suggest, please post in the comments. If you find errors or things that can be stated more clearly or correctly, I'll fix the post.</p>
+<p>I will follow up before long with a post on the "integration manager" workflow, which is essentially the github model. Everybody works in their own repositories, which are pseudo-private, and then when they have their work ready, they rebase it onto the public branch of the integration manager, push their work to the pseudo-private repo, and ask the integration manager to pull from it.</p>
+<h3>Resources</h3>
+<ul>
+<li><a href="http://unethicalblogger.com/node/276">A Rebase-based Workflow</a></li>
+<li><a href="http://progit.org/book/ch5-3.html">Pro Git book: Maintaining a Project</a></li>
+<li><a href="http://darwinweb.net/articles/the-case-for-git-rebase">The Case for Git Rebase</a></li>
+<li><a href="http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html">A Git Workflow for Agile teams</a></li>
+</ul>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-714"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://agaric.com/" rel="nofollow" class="username">Benjamin Melançon (not verified)</a></p>
+        <p class="comment-time">Sun, 2011-02-06 18:08</p>
+        <p class="comment-permalink"><a href="/comment/714#comment-714" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/714#comment-714" class="permalink" rel="bookmark">Keeping up with remote changes</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>The one important omission from this workflow is updating your working branch with changes in the public branch before you are ready to push your changes.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-715"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sun, 2011-02-06 18:13</p>
+        <p class="comment-permalink"><a href="/comment/715#comment-715" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/715#comment-715" class="permalink" rel="bookmark">More detail please :-)</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>So on the feature branch we do a <code>git fetch origin</code> before rebasing, and then on the public branch (7.x-1.x) we do a <code>git pull</code> before rebasing the feature branch onto it.  What would you do differently?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-718"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://agaric.com/" rel="nofollow" class="username">Benjamin Melançon (not verified)</a></p>
+        <p class="comment-time">Sun, 2011-02-06 20:33</p>
+        <p class="comment-permalink"><a href="/comment/718#comment-718" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/718#comment-718" class="permalink" rel="bookmark">more detail, exactly</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I'm not rebasing to release a feature.  I'm in the "... # do stuff here.. Make commits.. test..." step, and i want the latest code.  The detail in this "..." step is even more important if the feature branch will be a public branch also (re: Larry and yourself below), but regardless, the question is how do you recommend the feature branch we are working on follow the public 7.x-1.x in your example?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-720"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sun, 2011-02-06 21:09</p>
+        <p class="comment-permalink"><a href="/comment/720#comment-720" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/720#comment-720" class="permalink" rel="bookmark">Do a rebase on the feature branch any time you need</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Any time you need your feature branch to catch up with the public branch it's following, do just what I listed as being done only at integration time:</p>
+<p><code><br />
+git fetch origin<br />
+git rebase origin/7.x-1.x<br />
+</code></p>
+<p>That will update your feature branch to where it's right on schedule. Note that if (as one could hope) different committers are working on different features and not interfering with each other, this will be unnecessary.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-734"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Sergei (not verified)</span></p>
+        <p class="comment-time">Mon, 2011-02-07 23:32</p>
+        <p class="comment-permalink"><a href="/comment/734#comment-734" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/734#comment-734" class="permalink" rel="bookmark">I am using similar workflow.</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I am using similar workflow. The problem is when I do rebase 2nd and 3rd time I have to resolve all the same conflicts that I've already addressed first time. Suggestions?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-735"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2011-02-07 23:36</p>
+        <p class="comment-permalink"><a href="/comment/735#comment-735" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/735#comment-735" class="permalink" rel="bookmark">Don&#039;t think that sounds right</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>It sounds like you're not actually bringing the main public branch into your feature branch (putting your work on top of it). If you do that, I don't think you'd get the behavior you're describing.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-835"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Clint Modien (not verified)</span></p>
+        <p class="comment-time">Fri, 2011-03-18 18:41</p>
+        <p class="comment-permalink"><a href="/comment/835#comment-835" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/835#comment-835" class="permalink" rel="bookmark">Checkout rerere http://progit</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Checkout rerere <a href="http://progit.org/2010/03/08/rerere.html">http://progit.org/2010/03/08/rerere.html</a></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-3442"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.cellprofiler.org" rel="nofollow" class="username">Lee Kamentsky (not verified)</a></p>
+        <p class="comment-time">Tue, 2013-11-26 09:00</p>
+        <p class="comment-permalink"><a href="/comment/3442#comment-3442" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3442#comment-3442" class="permalink" rel="bookmark">Is it too late for rere?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I tried setting rere.enabled to true after getting into the situation where rebasing resulted in too many conflicts - didn't work, I'm guessing I have to do this before the first conflict.</p>
+<p>Sometimes, all you want to do is chuck your personal clone and start fresh from your remote. Seems to me that you rarely want to do otherwise. When I do "git rebase" and the code for my local head matches the code for the remote, I'm desperately hoping that the command will just erase my history and make it identical to that of the remote. I know "git rebase" is doing something much more elegant, but I want stupid and obvious.</p>
+<p>My workflow is to delete and reclone whenever things get just a little hairy. That works great.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-3443"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2013-11-26 09:55</p>
+        <p class="comment-permalink"><a href="/comment/3443#comment-3443" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3443#comment-3443" class="permalink" rel="bookmark">Just FYI, to throw away your</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Just FYI, to throw away your <em>branch</em> just requires creating a new tracking branch and deleting the old one. You don't have to clone again. I use a new branch for every separate task, so my common workflow is just</p>
+<p>git checkout -b 20111126_start_over origin/master</p>
+<p>You can also use "git checkout -B" to reset an existing branch.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div></div></div></div><a id="comment-716"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.garfieldtech.com/" rel="nofollow" class="username">Larry Garfield (not verified)</a></p>
+        <p class="comment-time">Sun, 2011-02-06 19:22</p>
+        <p class="comment-permalink"><a href="/comment/716#comment-716" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/716#comment-716" class="permalink" rel="bookmark">Small features only</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>That works great iff:</p>
+<p>- You are the only person working on a feature.<br />
+- You never need to share that feature with anyone else until it's done and "ready to be committed (pushed)"</p>
+<p>If I'm working on something that takes a week to do, I absolutely don't want to leave it on my laptop and nowhere else for all that time.  I want it backed up to a remote repo, I want my colleagues to be able to review it and point out what a stupid thing I just did, etc.  That means pushing any but the smallest feature branches to the remote authoritative server at some point, after which rebasing is a no-no (for very good reasons).</p>
+<p>How would you resolve that?  Go ahead and use merge for that?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-717"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sun, 2011-02-06 19:46</p>
+        <p class="comment-permalink"><a href="/comment/717#comment-717" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/717#comment-717" class="permalink" rel="bookmark">This works for large teams</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>There are two possibilities here:</p>
+<ol>
+<li>You want your feature to be reviewable by others and copied safely onto the remote repo, but nobody else will be committing to it. In that case, you can just push the branch up and everything else stays the same.<br />
+<code><br />
+git push origin comment_broken_links_101026<br />
+</code></li>
+<li>On the other hand, if you want others to be able to commit to this feature branch you've just pushed, then treat it just like any other public branch (and branch off of it for each section you work on, then rebase back onto it). When you've done this, it's just another public branch, and I'd treat it just as we were treating 7.x-1.x before. And then when you want to merge it into 7.x-1.x, the procedure here is the same.</li>
+</ol>
+<p>Does that make any sense?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-721"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.garfieldtech.com/" rel="nofollow" class="username">Larry Garfield (not verified)</a></p>
+        <p class="comment-time">Sun, 2011-02-06 21:24</p>
+        <p class="comment-permalink"><a href="/comment/721#comment-721" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/721#comment-721" class="permalink" rel="bookmark">Almost</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Right up until that last part. :-)  If you have your master branch, and a big-new-feature branch that 5 people have been working on via local micro-branches while the master branch still had bug fixing going on, how would you handle finishing big-new-feature?  It sounds like you're suggesting that one person rebase their copy onto master and then do a fast-forward merge, which would then invalidate everyone else's copy of big-new-feature.  That violates what I understood to be the first rule of rebasing: Once you push, <strong>don't do that<strong>.</strong></strong></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-722"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sun, 2011-02-06 21:30</p>
+        <p class="comment-permalink"><a href="/comment/722#comment-722" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/722#comment-722" class="permalink" rel="bookmark">Somebody has to do it</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>There is a time that communication has to happen. Yes, I think that when everybody has decided that the feature is done, one person should rebase it onto the original "master" (in the example 7.x-1.x) and delete the feature branch. In this case it would be</p>
+<p><code><br />
+git push origin :comment_broken_links_101026<br />
+</code></p>
+<p>BTW, I can never remember how to delete a remote branch, so always find it on github: <a href="http://help.github.com/remotes/">http://help.github.com/remotes/</a></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-726"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.computerminds.co.uk/" rel="nofollow" class="username">Steven Jones (not verified)</a></p>
+        <p class="comment-time">Mon, 2011-02-07 11:43</p>
+        <p class="comment-permalink"><a href="/comment/726#comment-726" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/726#comment-726" class="permalink" rel="bookmark">Presumably you could do a</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Presumably you could do a merge at the 'end' of your feature branch? This would accurately represent the development history, as it happened in parallel and was then added to the main branch.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-727"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2011-02-07 12:05</p>
+        <p class="comment-permalink"><a href="/comment/727#comment-727" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/727#comment-727" class="permalink" rel="bookmark">Like with perl, there&#039;s more than one way to do it</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>On many feature branches, we don't need anything other than a single commit to represent the feature. But as you say, we might want to make this more explicit, and do a merge.</p>
+<p>My understanding (haven't experimented with it) is that people use <code>git merge --no-ff</code> when they want to preserve history in this way.</p>
+<p>I think the thing that I most want to prevent are accidental, garbage merges that hide most everything and just make a mess. Probably explicit merges of this type would be absolutely fine.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-738"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://advomatic.com" rel="nofollow" class="username">dalin (not verified)</a></p>
+        <p class="comment-time">Thu, 2011-02-10 23:08</p>
+        <p class="comment-permalink"><a href="/comment/738#comment-738" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/738#comment-738" class="permalink" rel="bookmark">It would be great to see a</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>It would be great to see a more detailed breakdown of how this works.  I'm not quite grasping things yet and I think this is the most common method of working:</p>
+<p>1) Start working on feature X locally.<br />
+2) Somehow get changes onto staging server for client / co-worker review.<br />
+3) Make changes locally.<br />
+4) Repeat #2 and #3 as many times as necessary.<br />
+5) Get feature onto production branch and deploy. </p>
+<p>And as Crell mentions this whole process may itself be on some mega feature that itself needs to get onto the real production branch.  </p>
+<p>According to everyone's claims Git is apparently great at merging.  But it's unfortunate that it requires using three times as many commands as you would use with SVN.  Many of which seem to be different words for the same thing (fetch, pull, and checkout all seem to update the current code with what's new in the repository).  The increased confusion might not actually be worth it especially when there's people that need to work with the repository that don't have the abstract thinking skills of a developer (themers, clients that commit stuff, project managers).</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-742"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.garfieldtech.com/" rel="nofollow" class="username">Larry Garfield (not verified)</a></p>
+        <p class="comment-time">Fri, 2011-02-11 09:37</p>
+        <p class="comment-permalink"><a href="/comment/742#comment-742" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/742#comment-742" class="permalink" rel="bookmark">Important differences</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>fetch pulls down new commit objects from a remote, but does nothing else.</p>
+<p>merge moves a branch marker to a new commit object, or creates a new joined commit object if necessary.</p>
+<p>Pull does both of those.  It's best to think of pull as "fetch  &amp;&amp; merge /".</p>
+<p>checkout changes which branch is currently the working copy.</p>
+<p>Having used both, I definitely prefer Git over SVN at this point (and anything over CVS).  That doesn't mean there aren't confusing bits, though. :-)</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-1093"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Joachim (not verified)</span></p>
+        <p class="comment-time">Sun, 2011-05-15 15:18</p>
+        <p class="comment-permalink"><a href="/comment/1093#comment-1093" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1093#comment-1093" class="permalink" rel="bookmark">When I&#039;m ready to bring my</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>When I'm ready to bring my feature branch into the main branch, I merge rather than rebase, though I must admit having just tried the rebase technique, it's identical.</p>
+<p>What you can do with merge however, is squash your entire branch down to one commit. If your branch is for a single bug, and in exploring and fixing that bug you've made lots of local commits (which is what git lets you do and why it's great), you don't need the whole world to see your commits that fix typos, remove whitespace, remove swearwords you put it comments while you were headdeasking and so on ;)</p>
+<p>Once my feature has been rebased to the latest head of the main branch, I go:</p>
+<p>git checkout main<br />
+git merge --squash feature</p>
+<p>This puts the whole of the feature branch into the current tree and adds it, but does not commit it. It's equivalent to doing:</p>
+<p>git checkout feature<br />
+git diff main &gt; feature.patch<br />
+git checkout main<br />
+patch -p1 &lt; feature.patch<br />
+git add .</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-1094"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sun, 2011-05-15 17:13</p>
+        <p class="comment-permalink"><a href="/comment/1094#comment-1094" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1094#comment-1094" class="permalink" rel="bookmark">Your approach is quite</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Your approach is quite reasonable and I think a great candidate for a workflow on Drupal.org. It's so nearly equivalent to the patch workflow that it fits nicely.</p>
+<p>The rebase approach keeps everything in commits and still hides the fact that a bunch of work happened on a topic branch. If the topic branch was irrelevant to the long-term view of the production branch, and a clean history is important, then perhaps the rebase approach is cleaner. However, if the work that was done in the topic branch <em>should</em> be exposed as a branch, the merge is better. And a <code>git merge --no-ff </code> is better yet, because it makes the merge explicit.</p>
+<p>Note that you can squash when rebasing in just the same way as you can squash when merging, but that the work stays in commits, rather than being dumped into the staging area at the last minute, as git merge --squash.</p>
+<p>I like what you brought up here.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-1095"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Joachim (not verified)</span></p>
+        <p class="comment-time">Mon, 2011-05-16 00:35</p>
+        <p class="comment-permalink"><a href="/comment/1095#comment-1095" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1095#comment-1095" class="permalink" rel="bookmark">What confuses me about the</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>What confuses me about the final rebase is this: I reread the git man page for rebase yesterday and according to that (and some head-scratching), doing this git rebase comment_broken_links_101026 ought to replay the master branch on top of the feature branch, and hence put your local commits *before* the remote commits you've just pulled in.</p>
+<p>... which having tried it on a setup with new commits on master, is what happens.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-1096"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2011-05-16 09:19</p>
+        <p class="comment-permalink"><a href="/comment/1096#comment-1096" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1096#comment-1096" class="permalink" rel="bookmark">Hmm.. I&#039;ll try to take a look</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks for your careful work with this. I'll try to take a another look.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-1107"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sat, 2011-05-21 21:45</p>
+        <p class="comment-permalink"><a href="/comment/1107#comment-1107" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1107#comment-1107" class="permalink" rel="bookmark">Trying out a real example</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>No, I've checked and it seems to me that everything I suggested is correct. Let's try an example that we can work together.  Perhaps there's something about your question I'm misunderstanding.</p>
+
+<p>Here's a repository that has a main branch (7.x-1.x) and a topic branch (topic). The topic branch started from the first commit on the 7.x-1.x branch. Each has two additional commits.</p>
+
+<p>You can clone this with <code>git clone git://gist.github.com/985139.git rebase_example</code></p>
+
+<p>Here's what the repository looks like right now. It has a main branch (7.x-1.x) and a topic branch (topic). Each has two new commits.</p>
+
+<p><img src="http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_002.png" alt="Topic and 7.x-1.x branches" /></p>
+
+<p>So first, let's rebase the topic branch so that it's up-to-date:</p>
+
+<pre><code>git checkout --track origin/7.x-1.x
+git checkout --track topic
+git rebase origin/7.x-1.x  # This puts our topic commits on top of current 7.x-1.x
+</code></pre>
+
+<p>Now our topic branch  is on a straight line with the 7.x-1.x branch, but two commits ahead:</p>
+
+<p><img src="http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_003.png" alt="After rebasing topic branch" /></p>
+
+<pre><code>git checkout 7.x-1.x
+git rebase topic  # now our 7.x-1.x is fast-forwarded to have the topic commits on it
+</code></pre>
+
+<p>Then we would have just fast-forwarded the 7.x-1.x to point at the same place as the topic branch had been:</p>
+
+<p><img src="http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_004.png" alt="After rebasing 7.x-1.x" /></p>
+
+<p>Now instead of the last step we could have:</p>
+
+<pre><code>git merge --squash topic # as you suggest
+</code></pre>
+
+<p>that would leave us (after committing the results) with the topic branch dangling (OK) and no record of it in the 7.x-1.x branch:</p>
+
+<p><img src="http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_005.png" alt="git merge --squash topic" /></p>
+
+<p>which would have squashed the contents of the topic branch and dropped the resulting commit into the index ready to be committed. (This is not really a merge at all, so it's a bit hard to understand how it got into the merge command.). It works fine. You can then commit it with a good message.</p>
+
+<p>We could also have:</p>
+
+<pre><code>git merge topic
+</code></pre>
+
+<p>This would have had the same basic effect as the rebase:</p>
+
+<p><img src="http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_006.png" alt="git merge topic" /></p>
+
+<p>and finally, we could have:</p>
+
+<pre><code>git merge --no-ff topic
+</code></pre>
+
+<p>This would explicitly document our merge, adding a merge commit and leaving the merge showing in the history (see gitk or git log --graph). This would be the preferred approach for a long-running public branch.</p>
+
+<p><img src="http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_007.png" alt="git merge --no-ff topic" /></p>
+
+<p>Note: I used gitg on Linux for the pictures.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-1108"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Joachim (not verified)</span></p>
+        <p class="comment-time">Sun, 2011-05-22 01:25</p>
+        <p class="comment-permalink"><a href="/comment/1108#comment-1108" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1108#comment-1108" class="permalink" rel="bookmark">Aha! Yes, that all makes</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Aha! Yes, that all makes sense.</p>
+<p>What I was missing was that once the topic branch is on a straight line ahead of 7.x-1.x, then a rebase has the desired effect. Which as you say, is identical to a 'git merge topic'.</p>
+<p>I think that saying merge for this operation is preferable, as results in a clear mnemonic: rebase onto master branches, merge in topic branches.</p>
+<p>But overall, --squash is the workflow I prefer for anything that's going to be more than a few hunks of diff. For me, the huge advantage is that on my topic branch I can work however I please: make tiny commits for typos, changes of variable names in my new code, and so on. I've often found that when working on a particularly thorny problem, I get to a point where it all *works* but it's a mess, and then I run the risk of accidentally breaking it again during my clean-up. With this workflow, I can just commit the messy version with a big 'Hurrah this works!' commit, and then get started on tidying up ;)</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-1547"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Philip Oakley (not verified)</span></p>
+        <p class="comment-time">Tue, 2011-06-21 02:46</p>
+        <p class="comment-permalink"><a href="/comment/1547#comment-1547" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1547#comment-1547" class="permalink" rel="bookmark">Which visualisation tool did you use?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>In "Trying out a real example", which branch/commit visualisation tool did you use for those nice views? I know it isn't gitk ;-)</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-1554"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2011-06-21 10:44</p>
+        <p class="comment-permalink"><a href="/comment/1554#comment-1554" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1554#comment-1554" class="permalink" rel="bookmark">So glad you asked that: gitg</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I used gitg (on Debian/Ubuntu get it with apt-get upinstall gitg).</p>
+<p>I am so glad you asked, because I've been popping around computers lately and had forgotten. For Linux users there's the classic gitk and also qgit and giggle.</p>
+<p>For Mac users there is gitx, which I think is quite popular.</p>
+<p>And then the various platform-specific tools like tortoise and tower probably have their own visualizers.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2133"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Jan Ivar Beddari (not verified)</span></p>
+        <p class="comment-time">Wed, 2011-11-09 04:33</p>
+        <p class="comment-permalink"><a href="/comment/2133#comment-2133" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2133#comment-2133" class="permalink" rel="bookmark">Thanks, really useful</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>This is perhaps the clearest and best explanation of the most commonly wanted git-workflow I've ever seen.</p>
+<p>Immensely useful to see and have you comment on the different options when "ending" a topic branch, thanks!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-2188"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Till (not verified)</span></p>
+        <p class="comment-time">Thu, 2012-01-12 11:29</p>
+        <p class="comment-permalink"><a href="/comment/2188#comment-2188" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2188#comment-2188" class="permalink" rel="bookmark">Did you do the merge on the</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Did you do the merge on the original repo, or on the repo after the rebase. Because I was confused, because you did not get a merge commit on the repo after your "git merge" without the --no-ff. However when I checked out your example and performed the merges "git merge topic" and "git merge --no-ff topic"  give absolutely the same result (which they should, since the branches diverged an a fast-forward is not possible).</p>
+<p>The only way a fast forward and the a no-ff merge can differ is if one of the two commit is the merge base, as for example 7.x-1.x after the rebase (but not before).</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div></div></div></div></div><a id="comment-2170"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Stephen (not verified)</span></p>
+        <p class="comment-time">Tue, 2011-12-20 21:38</p>
+        <p class="comment-permalink"><a href="/comment/2170#comment-2170" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2170#comment-2170" class="permalink" rel="bookmark">Lost :(</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I am a bit lost here, new to git.</p>
+<p>if we wanted to make each feature a public branch with that branch eventually being merged back into master how would we apply your rebase model command by command?</p>
+<p># setup some public repos feature1 and feature2 will both be public with several people working on them</p>
+<p>git checkout master<br />
+git fetch<br />
+git rebase -p origin/master<br />
+git checkout -b feature1<br />
+git push origin feature1</p>
+<p>git checkout master<br />
+git fetch<br />
+git rebase -p origin/master<br />
+git checkout -b feature2<br />
+git push origin feature2</p>
+<p># checkout feature 1 get the latest and setup a local private branch for work<br />
+git checkout feature1<br />
+git fetch<br />
+git rebase -p origin/feature1<br />
+git checkout -b feature1_private</p>
+<p># do some work on our feature1_private branch<br />
+work work work<br />
+git commit -am "added some stuff"<br />
+work work work<br />
+git commit -am "added more"</p>
+<p>#once done working we update feature 1 with any changes from origin<br />
+git checkout feature1<br />
+git fetch<br />
+git rebase -p origin/feature1</p>
+<p># then switch back to our private feature and rebase it on the updated feature1<br />
+git checkout feature1_private<br />
+git rebase -i --autosquash feature1</p>
+<p># then merge the private feature back in to the public feature<br />
+git checkout feature1<br />
+git merge --no-ff feature1_private</p>
+<p>Then when we were all done with the public feature to bring it back into master what would we do?</p>
+<p>git checkout master<br />
+git fetch<br />
+git rebase -p origin/master<br />
+git merge --no-ff feature1</p>
+<p>Or are we going about this all wrong??</p>
+<p>Signed the seriously confused</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2171"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2011-12-21 09:27</p>
+        <p class="comment-permalink"><a href="/comment/2171#comment-2171" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2171#comment-2171" class="permalink" rel="bookmark">If a feature is a public branch, you can&#039;t rebase willy nilly</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>So you won't want to rebase on public branches. That will confuse everybody. Rebasing is absolutely fine for private (or de-facto-private) branches.</p>
+<p>If you're only bringing in a feature branch <em>once</em> you have a lot of options:</p>
+<ul>
+<li>Use <code>git merge --squash feature_branch</code> on the main branch. This magically squashes the entire feature branch and brings it in as a commit ready to happen on the main branch.</li>
+<li>Use git rebase when you're ready for the single final commit onto the main branch</li>
+</ul>
+<p>If you're going to be bringing the feature branch in more than once over its lifespan, you'll probably want to consider not squashing at all.</p>
+<p>I guess my experience in the time since this article was written is that most people won't end up dealing with the complexity of rebasing in public. Lots of people use it on private feature branches.</p>
+<p>While I'm talking... IMO it's OK to treat a nominally public branch as a private one. If I'm working on a branch called rfay_fix_up_broken_tests, and my team has a convention that that's my branch because it has my name on it, then I consider it private (and available for rebase) even though it's pushed to a public repo.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2189"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.exsyshost.com/" rel="nofollow" class="username">Stephen Major (not verified)</a></p>
+        <p class="comment-time">Fri, 2012-01-13 02:59</p>
+        <p class="comment-permalink"><a href="/comment/2189#comment-2189" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2189#comment-2189" class="permalink" rel="bookmark">I figured as much, I have</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I figured as much, I have been doing a lot of research on git and the Gitgub Flow, I combined my readings from you and a few other sources into a tutorial along with a post-receive hook I wrote for deploying websites with the GitHub Flow model. <a href="http://www.exsyshost.com/clients/knowledgebase/142/Using-Gitolite-to-securely-deploy-a-website-with-version-control-based-on-the-GitHub-Flow.html">http://www.exsyshost.com/clients/knowledgebase/142/Using-Gitolite-to-sec...</a></p>
+<p>If you scroll past all the pre-setup stuff I outlined a detailed workflow then followed that with some aliases to make the workflow short and easy to remember.</p>
+<p><a href="http://www.exsyshost.com/clients/knowledgebase/142/Using-Gitolite-to-securely-deploy-a-website-with-version-control-based-on-the-GitHub-Flow.html">http://www.exsyshost.com/clients/knowledgebase/142/Using-Gitolite-to-sec...</a></p>
+<p>Thanks for your article it was extremely helpful in ,e understanding the correct way to handle things.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-3444"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.papayasoft.com/" rel="nofollow" class="username">David Weinraub (not verified)</a></p>
+        <p class="comment-time">Tue, 2013-12-03 01:51</p>
+        <p class="comment-permalink"><a href="/comment/3444#comment-3444" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3444#comment-3444" class="permalink" rel="bookmark">Rebasing on &quot;nominally public&quot; branches</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>So, consider a feature branch that has 5 commits, worked on by one dev, and pushed (so it's now a nominally public branch). Now suppose that the task has been assigned to another dev (me!) and I want to add a commit or two and squash the whole thing down to a single commit using `git rebase -i`.</p>
+<p>In principle, this is changing history. And until I push, no harm done.</p>
+<p>But *if* I can be sure that no one has branched off those 5 public commits in the public history, then is it fair to assume that a `git push --force` will not be problematic for any other devs? In particular, when the original dev does his own fetch/pull on this branch, he'll just see the "new" history and his old commits are - if not gone, then at least - not (easily) accessible. Is that right?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-3445"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2013-12-03 07:37</p>
+        <p class="comment-permalink"><a href="/comment/3445#comment-3445" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3445#comment-3445" class="permalink" rel="bookmark">Github Pull Request model with lots of private/throwaway branche</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Yes, the github PR model, with throwaway forks and branches has changed all of our views, I think.</p>
+<p>The issue with rebasing is not whether something is public, but what the rules are around it. Of course I can rebase and force-push a branch on my fork... where the rules are that nobody else has the right to build off the work. And of course I can abandon a branch and start a new one, which is mostly the same thing.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div></div></div><a id="comment-723"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://codebaboon.com" rel="nofollow" class="username">Mark (not verified)</a></p>
+        <p class="comment-time">Mon, 2011-02-07 03:48</p>
+        <p class="comment-permalink"><a href="/comment/723#comment-723" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/723#comment-723" class="permalink" rel="bookmark">Interesting</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks for the article, found it very interesting. I use Bazaar which is nowhere near this complicated so it's good preparation for the Drupal switch over.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-728"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://eduglu.com" rel="nofollow" class="username">Kyle Mathews (not verified)</a></p>
+        <p class="comment-time">Mon, 2011-02-07 12:09</p>
+        <p class="comment-permalink"><a href="/comment/728#comment-728" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/728#comment-728" class="permalink" rel="bookmark">Isn&#039;t Bazaar vs. Git</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>It isn't Git that's complicated here, it's the workflow that is complicated. You could have just as complicated workflows in Bazaar if you wanted as well. This article provides a good overview of similar workflow options in Bazaar:<br />
+<a href="http://fourkitchens.com/blog/2009/04/20/alternatives-rebasing-bazaar">http://fourkitchens.com/blog/2009/04/20/alternatives-rebasing-bazaar</a></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-724"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.alexweber.com.br" rel="nofollow" class="username">Alex Weber (not verified)</a></p>
+        <p class="comment-time">Mon, 2011-02-07 04:06</p>
+        <p class="comment-permalink"><a href="/comment/724#comment-724" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/724#comment-724" class="permalink" rel="bookmark">Excellent!</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks, great post!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-731"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://yannesposito.com" rel="nofollow" class="username">yogsototh (not verified)</a></p>
+        <p class="comment-time">Mon, 2011-02-07 17:34</p>
+        <p class="comment-permalink"><a href="/comment/731#comment-731" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/731#comment-731" class="permalink" rel="bookmark">Is revert more difficult?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi,</p>
+<p>Thanks for your article.</p>
+<p>Isn't this workflow make it more difficult to revert some feature? How do you remember at which point in the history you started? Have I to use a tag each time?</p>
+<p>For now I'm using git-flow (merge based workflow) because I'm not alone, and I believe git-flow is easier to explain than this rebase style method. Furthermore, I use github as a mean of synchronizing my work on many different computer. Isn't this workflow would force me to make some git push -f feature-branch<br />
+each time I rebase locally?</p>
+<p>I also have a difficulty to understand why having a linear history is better? For me it feels more like loosing some information.  As "a branch = a feature" is a valuable information for me.  Or I may didn't understood something about this workflow.</p>
+<p>Thanks.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-733"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2011-02-07 22:58</p>
+        <p class="comment-permalink"><a href="/comment/733#comment-733" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/733#comment-733" class="permalink" rel="bookmark">Much easier to revert, I think...</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I would think it would be super-easy to revert a feature with this, since (if you squashed when rebasing) it's just one commit.</p>
+<p>I'll look forward to learning more about git-flow and how it can help us.</p>
+<p>If you are using github to sync between computers, then that's kind of like having multiple committers. Using this workflow should work perfectly. On the other hand, if you're always on just one computer (and never have commits pending on more than one) then you don't have to do anything - none of this. Just pull before you start working, and push when you're done. If you do have commits pending on more than one environment, then this will work perfectly, if you follow it.</p>
+<p>I'm trying to do two things with this workflow:<br />
+1. Avoid unnecessary merge commits, which muddy the water and are potentially dangerous.<br />
+2. Make clean history</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-759"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Bart Braem (not verified)</span></p>
+        <p class="comment-time">Tue, 2011-02-15 05:34</p>
+        <p class="comment-permalink"><a href="/comment/759#comment-759" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/759#comment-759" class="permalink" rel="bookmark">Git and drupal with multiple repositories</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>First of all let me thank you for the interesting articles on Drupal and Git,<br />
+I really appreciate you taking the time to publish your vision!</p>
+<p>I am contacting you to ask what your approach would be to handle multiple<br />
+repositories, as follows:<br />
+- a developer uses releases from an upstream repository, say the Acquia git<br />
+repository<br />
+- on a development machine, the developer adds contrib and custom modules<br />
+- on a production server, the result of the development is published</p>
+<p>What would be the best way to organize this workflow? Especially getting all<br />
+git config files right seems hard. From time to time I would want to be able<br />
+to quickly change something on the production server and merge it on the<br />
+development machine. This would break the "flow" from upstream repository to<br />
+development to production, and I am not sure how to avoid the merge workflow<br />
+you discussed earlier.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-760"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2011-02-15 06:59</p>
+        <p class="comment-permalink"><a href="/comment/760#comment-760" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/760#comment-760" class="permalink" rel="bookmark">More of a deployment workflow</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>You're really talking about deployment, and there are conversations all over the place on drupal.org and elsewhere about it. And there's no consensus. People use drush make, the entire source tree checked into one repo, git submodules, and other techniques. But I don't think there's one true answer.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-2314"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="https://github.com/najamelan" rel="nofollow" class="username">Naja Melan (not verified)</a></p>
+        <p class="comment-time">Sun, 2012-05-06 18:50</p>
+        <p class="comment-permalink"><a href="/comment/2314#comment-2314" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2314#comment-2314" class="permalink" rel="bookmark">I don&#039;t understand your proposition</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi,<br />
+maybe I'm just not getting it, but could you explain the difference between what you are showing and:</p>
+<p><code><br />
+git pull                        # Get the latest version from remote<br />
+git checkout 7.x-1.x            # Switch to the local tracking branch<br />
+git checkout -b comment_101026  # create private feature branch</code></p>
+<p>... # do stuff here.. Make commits.. test... ... this has taken some time, so:</p>
+<p>git pull                        # since we only worked in the feature branch,<br />
+                                  this is fast forward of our 7.x-1.x branch<br />
+git rebase 7.x-1.x              # Plop our commits on top of everybody else's<br />
+git checkout 7.x-1.x            # Switch to the local tracking branch<br />
+git merge comment_101026        # Do a fast forward because feature branch<br />
+                                  is already rebased<br />
+git push                        # Push the public branch back up,<br />
+                                  with my stuff on the top<br />
+</p>
+<p>This gets rid of one pull and doesn't resort to fetch. It also uses a merge instead of the second rebase. I don't really get the consequences of rebasing the public branch, but probably it is equivalent to a fast forward merge.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2315"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Philip Oakley (not verified)</span></p>
+        <p class="comment-time">Mon, 2012-05-07 06:23</p>
+        <p class="comment-permalink"><a href="/comment/2315#comment-2315" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2315#comment-2315" class="permalink" rel="bookmark">Partly it is a design choice.</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Partly it is a design choice. If you are a sole developer, or in a very small team, then having lots of branches and merges, which create side loops in the history, is not a problem. You can see that the code 'just works' by inspection, and direct evaluation (running it). Your merges can include loads of fix ups and tweaks because everyone is involved. It could even be an evil merge (git style).</p>
+<p>In a bigger environment, where either some folk are working in separate areas (so are left behind what you are doing) or you have QA and management, then you have that folk don't 'believe' that your branch code cleanly applies to the latest code base. They won't allow anything other than a clean merge, which is the same as a fast forward for a rebased branch.</p>
+<p>By asking the author to do a rebase first, and fix any clashes, and run tests (or whatever is required), it means that no-one is surprised by the 'merge' , because it is a 'no-op' (fast forward). The rebase isn't any more work, it is simply the work that would have had to be done for the branch merge anyway. Plus you get to make your history look good a/k/a "professional" ;-) [rebase --interactive]</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-2316"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2012-05-07 10:28</p>
+        <p class="comment-permalink"><a href="/comment/2316#comment-2316" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2316#comment-2316" class="permalink" rel="bookmark">Fast-forward, clean</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I guess my basic concern is that wherever possible, don't have git doing textual merges without explicit (and necessary) involvement from a dev who really understands what's happening. So, wherever possible, play the game so you get fast-forward merges or their equivalent in rebases.</p>
+<p>Really, the essence of this article is "Don't let people do merges who don't understand what's going on in the merge".</p>
+<p>And yes, there is more than one way of accomplishing this.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-2338"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Zach (not verified)</span></p>
+        <p class="comment-time">Wed, 2012-06-13 14:57</p>
+        <p class="comment-permalink"><a href="/comment/2338#comment-2338" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2338#comment-2338" class="permalink" rel="bookmark">Why not just rebase on pull?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Why not just work on a local topic branch that tracks the remote, and occasionally do a <code>git pull --rebase</code>, or just add "autosetuprebase = true" to  your gitconfig and then just <code>git pull</code>?</p>
+<p>PS: this comment form has the worst captcha I've ever seen.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2339"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2012-06-13 16:04</p>
+        <p class="comment-permalink"><a href="/comment/2339#comment-2339" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2339#comment-2339" class="permalink" rel="bookmark">Simpler rebasing...</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I <a href="http://www.randyfay.com/content/simpler-rebasing-avoiding-unintentional-merge-commits">certainly agree with you</a>. It's what I do all the time now.</p>
+<p>The captcha stops most spam on my site without frustrating (most) people as badly as something like mollom. Most people get here from the Drupal community, so they just know the answers.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-2689"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Tomás Girardi (not verified)</span></p>
+        <p class="comment-time">Thu, 2012-10-18 12:50</p>
+        <p class="comment-permalink"><a href="/comment/2689#comment-2689" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2689#comment-2689" class="permalink" rel="bookmark">Did you ever wrote the article on Integration Manager Workflow?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Randy,<br />
+Excellent, excellent article! It solved several doubt I was having regarding merge commits and rebase.</p>
+<p>Did you ever publish the article on Integration Manager Workflow you mentioned at the end? Sounds like something I really would like to read.</p>
+<p>Thanks for the helpful info!</p>
+<p>Regards,<br />
+Tomás</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2690"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Thu, 2012-10-18 13:12</p>
+        <p class="comment-permalink"><a href="/comment/2690#comment-2690" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2690#comment-2690" class="permalink" rel="bookmark">Thanks, I guess I never wrote</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks, I guess I never wrote that. It's pretty easy though: Team members work on a development branch and then request that the integration manager do the rebasing. The integration manager rebases it and deals with any fallout (or pushes it back to them). The key is that the branch to be rebased should be prepared for merge/rebase, and hopefully will not result in a merge commit.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2691"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Tomás Girardi (not verified)</span></p>
+        <p class="comment-time">Thu, 2012-10-18 14:16</p>
+        <p class="comment-permalink"><a href="/comment/2691#comment-2691" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2691#comment-2691" class="permalink" rel="bookmark">Sounds simple, thanks!</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks! It sounds simple. I'll google it to see if there's any details or tips that could be useful.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-3543"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Steve Schow (not verified)</span></p>
+        <p class="comment-time">Mon, 2014-10-27 12:41</p>
+        <p class="comment-permalink"><a href="/comment/3543#comment-3543" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3543#comment-3543" class="permalink" rel="bookmark">Great article</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Great article and I am convinced already of using a rebasing approach in order to have clean histories without all the checkpoint commits on the main branch.</p>
+<p>One question, I don't entirely understand the work flow shown above with two complete sets of fetch/rebase before the final push back to mainline.  Seems like it has to rebase the remote tracking branch in addition to the the actual local working one.  Can you please comment a litlte bit on that?  What is that neccessary to mess with the remote tracking branch?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-3544"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2014-10-27 12:48</p>
+        <p class="comment-permalink"><a href="/comment/3544#comment-3544" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3544#comment-3544" class="permalink" rel="bookmark">Recommend PR workflow</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>These days, the easy way to fix this set of things is with the <a href="https://help.github.com/articles/using-pull-requests/">Pull Request workflow</a>, which is essentially the Integration Manager workflow discussed here (probably).</p>
+
+<ul>
+<li>Use github or bitbucket or somebody that makes the PR workflow easy</li>
+<li>Delegate a person as integration manager, who will pull or comment on the PR</li>
+<li>Require contributors to rebase their own PR branch before pulling if there are conflicts.</li>
+</ul>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-3546"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Steve Schow (not verified)</span></p>
+        <p class="comment-time">Mon, 2014-10-27 13:21</p>
+        <p class="comment-permalink"><a href="/comment/3546#comment-3546" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3546#comment-3546" class="permalink" rel="bookmark">right so i want to create</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>right so i want to create some wrapper scripts to make things somewhat dummy proof for contributors.  </p>
+<p>I love the forking PR model, because ultimately nobody but me can push stuff back to my repo without approval and discussion.  This does complicate things a little more though as now for any given feature, there are essentially two origins and the local they are working on.  And when *I* and working on stuff directly against the blessed repo I still want to use the rebase strategy, so I still kind of need to understand why you had to do two separate rebases in the above instructions...one from feature branch against origin/release and one against the working local release, that confused me a bit.</p>
+<p>But then for contributors, presumably they would need to follow all of the above, except they now their local feature branch is referencing a remote on their forked repo.  So the exact procedure for them to fetch or pull from the blessed repo, while updating their own repo at the same time, and also rebasing with their local working branch, and pushing back to their forked repo main, as well as finally sending the pull request in order to get theri change back to the blessed repo.  That's where it all is a bit foggy to me at the moment and that is precisely why I want to make some scripts to make it dummy proof for any contributors.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/91%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><h2 class="element-invisible">Pages</h2><div class="item-list"><ul class="pager"><li class="pager-current odd first">1</li><li class="pager-item even"><a title="Go to page 2" href="/content/rebase-workflow-git?page=1">2</a></li><li class="pager-next odd"><a title="Go to next page" href="/content/rebase-workflow-git?page=1">next ›</a></li><li class="pager-last even last"><a title="Go to last page" href="/content/rebase-workflow-git?page=1">last »</a></li></ul></div>      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/node/91" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

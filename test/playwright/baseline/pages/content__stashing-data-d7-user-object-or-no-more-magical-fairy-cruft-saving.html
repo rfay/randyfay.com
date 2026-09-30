@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/stashing-data-d7-user-object-or-no-more-magical-fairy-cruft-saving" />
+
+    <title>Stashing data in the D7 User Object (or... no more magical fairy cruft saving) | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">Stashing data in the D7 User Object (or... no more magical fairy cruft saving)</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-85" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Mon, 2010-12-13 07:27 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/planet-drupal">Planet Drupal</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>A unique and surprising feature of the Drupal user object up through Drupal 6 was that you could throw any crap into it you wanted and then run user_save() and it would be there. So in Drupal 6:</p>
+<p><code><br />
+user_save($account, array('some_random_stuff' =&gt; 'surprisingly random');<br />
+</code></p>
+<p>Well, that always seemed way too easy and it was. After a security problem was discovered with this in way early D7 alpha days, it was decided to make this far more explicit and deliberate.  Now you have to have implement hook_user_presave() to actually move your data into the right place and prove that you really wanted to do it.</p>
+<p>Best practice says that we're going to save settings into the user object keyed by the module name. So if my module is named 'mymodule' in Drupal 7:</p>
+<p><code><br />
+...<br />
+$stuff = array('some_random_stuff' =&gt; 'surprisingly_random');<br />
+user_save($account, array('mymodule' =&gt; $stuff);</code></p>
+<p>...<br />
+function mymodule_user_presave(&amp;$edit, $account, $category) {<br />
+  // Make sure that our form value 'mymodule_foo' is stored as 'mymodule_bar'.<br />
+  if (isset($edit['mymodule']['some_random_stuff'])) {<br />
+    $edit['data']['mymodule']['some_random_stuff'] = $edit['mymodule']['some_random_stuff'];<br />
+  }<br />
+}</p>
+<p>This is demonstrated, but not so well explained, in <a href="http://api.drupal.org/api/drupal/modules--user--user.api.php/function/hook_user_presave/7">hook_user_presave()</a>. The issue where this was done is <a href="http://drupal.org/node/721436">#721436</a>.</p>
+<p>Note that the entire data column in the users table will probably be removed in Drupal 8, so the "preferred" storage technique of storing data in a module-owned table may be an appropriate and future-proof approach.</p>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/85%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-647"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://prodrupal.ru" rel="nofollow" class="username">andypost (not verified)</a></p>
+        <p class="comment-time">Sun, 2010-12-12 02:29</p>
+        <p class="comment-permalink"><a href="/comment/647#comment-647" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/647#comment-647" class="permalink" rel="bookmark">Why not use module&#039;s field storage?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>mymodule could easily add own field for user object and use hook_user_presave() to prepopulate a value</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/85%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-648"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sun, 2010-12-12 08:57</p>
+        <p class="comment-permalink"><a href="/comment/648#comment-648" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/648#comment-648" class="permalink" rel="bookmark">Thanks, Andy - The idea here</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks, Andy - The idea here was to explain how D6-&gt;D7 ports of this feature could be done most easily.</p>
+<p>Would love to have you demonstrate here how you'd do it!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/85%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-658"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://willvincent.com" rel="nofollow" class="username">tcindie (not verified)</a></p>
+        <p class="comment-time">Wed, 2011-01-12 12:08</p>
+        <p class="comment-permalink"><a href="/comment/658#comment-658" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/658#comment-658" class="permalink" rel="bookmark">Why?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I guess I don't understand what the use case would be that would warrant doing this in the first place.</p>
+<p>Presumably it's to associate some data needed by a module with a specific user, but why then not just have a separate table in the DB for that module that stores the needed data associated with the UID?</p>
+<p>I've done this for persistent recipe scaling on <a href="http://thelunchbox.org">http://thelunchbox.org</a></p>
+<p>Logged in users have the ability to scale any recipe on the site by either elementary servings or secondary servings.  Their choice is then inserted into a table whose entire purpose for being is to handle these relationships.</p>
+<p>So, when user with UID 5 scales the recipe with nid 1026, an entry is either inserted (or updated) in that table with their desired number of servings.  Primary key for the table is a combination of UID &amp; NID, and there is a field for each of the two serving types.  Some JS only allows populating one of the two fields.</p>
+<p>In this case, the table row for this user might have values like this:<br />
+UID = 5, NID = 1026, elementary = NULL, secondary = 300</p>
+<p>Once saved, this recipe will always be shown to this user with their desired number of servings, as long as the user is logged in, until they either change the number, or submit an empty value (which will remove the entry from the table, and cause the recipe to display with default values).</p>
+<p>This is of course what you're referring to in your last sentence about using a module owned table, but I guess I don't see a reason ever to do this in the other way by just attaching arbitrary data to the user object.  It doesn't seem terribly useful to me.</p>
+<p>Anyone have any good examples of when it might make more sense to attach some arbitrary data to the user object like this?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/85%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-660"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2011-01-12 21:36</p>
+        <p class="comment-permalink"><a href="/comment/660#comment-660" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/660#comment-660" class="permalink" rel="bookmark">This is an old Drupal feature, so this is about porting to D7</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Since the ability to stash data in the user object has been around for a long time, this is really about porting existing functionality. It's not a recommended way of adding functionality, as mentioned.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/85%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div>      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/content/stashing-data-d7-user-object-or-no-more-magical-fairy-cruft-saving" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

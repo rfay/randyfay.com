@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="prev" href="/content/debugging-techniques" />
+<link rel="up" href="/debugging" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/debugging-links-and-resources" />
+
+    <title>Debugging Links and Resources | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-book">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">Debugging Links and Resources</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/debugging">Drupal Debugging</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-43" class="node node-book view-mode-full clearfix">
+
+  
+  <div class="content clearfix">
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><ul>
+<li>Modules
+<ul>
+<li><a title="devel module" href="http://drupal.org/project/devel" id="h:se">devel module</a> is all about instrumentation. It lets you see database queries and how long they're taking, tells you how long it took to render a page, and a thousand other indispensable things. Not recommended on a live site.</li>
+<li><a title="trace module" href="http://drupal.org/project/trace" id="ysu1">trace module</a> will trace hooks and their execution. This is for people who understand what hooks are.</li>
+<li><a title="drush" href="http://drupal.org/project/drush" id="b83y">drush</a> is not really a module. It allows you to rapidly and easily change the configuration of your system. Need to install devel? drush dl devel; drush enable devel. Sound pretty easy?</li>
+<li><a title="smtp" href="http://drupal.org/project/smtp" id="pwvt">smtp</a> is the way you test mail sending when you're not on the production site. Many people need it to do mail testing. Install it and point it at your gmail account and you can send mail all you want.  Also check out <a title="reroute_email" href="http://drupal.org/project/reroute_email" id="qptp">reroute_email</a>.</li>
+</ul>
+</li>
+<li>IDE Debuggers
+<ul>
+<li><a title="Eclipse PDT" href="http://www.eclipse.org/pdt/" id="kzsp">Eclipse PDT</a>.See <a title="http://drupal.org/node/75242" href="http://drupal.org/node/75242" id="s6xe">Basic setup</a>, <a href="http://drupal.org/node/157609">Debugging setup</a> and <a title="http://krimson.be/en/debugging-drupal-6-using-xdebug" href="http://krimson.be/en/debugging-drupal-6-using-xdebug" id="h4v.">http://krimson.be/en/debugging-drupal-6-using-xdebug</a></li>
+<li><a title="Activestate Komodo" href="http://www.activestate.com/komodo/" id="tq94">Activestate Komodo</a> IDE for debugging</li>
+<li><a title="Netbeans" href="http://www.netbeans.org/" id="lrf-">Netbeans</a></li>
+<li><a title="Zend Studio" href="http://www.zend.com/en/" id="m_7g">Zend Studio</a></li>
+</ul>
+</li></ul>
+<ul>
+</ul>
+<ul>
+<li>Links
+<ul>
+<li>Two outstanding articles on <a href="http://ratatosk.backpackit.com/pub/1836982-debugging-drupal">Debugging Drupal</a> including much howto on Devel module and other great tips, and a complete tutorial on <a href="http://ratatosk.backpackit.com/pub/1842524-drupal-on-ubuntu">setting up a an environment for debugging and profiling Drupal</a> on Ubuntu with Netbeans.</li>
+<p> Fabulous.</p>
+<li><a href="http://drupal.org/setting-up-development-environment">Handbook: Setting up a development environment</a></li>
+<li><a href="http://2bits.com/articles/resources-and-links-on-debugging-tracing-and-profiling-drupal.html">2bits: Debugging resources and links</a></li>
+<li><a href="http://drupal.org/node/75242">Configuring Eclipse</a></li>
+<li><a href="http://ar.to/2006/12/easier-drupal-debugging-with-trace">Easier Drupal Debugging with Trace</a></li>
+<li><a href="http://www.krimson.be/en/debugging-drupal-6-using-xdebug">Debugging Drupal 6 with Xdebug and Eclipse</a></li>
+<li><a href="http://www.archive.org/details/DebuggingDrupal">Drupalcon Paris (2009) video of this presentation</a></li>
+</ul>
+</li>
+</ul>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/drupal">Drupal</a></li><li class="taxonomy-term-reference-1"><a href="/topics/debugging">debugging</a></li></ul></div>  <nav id="book-navigation-39" class="book-navigation">
+              <h2 class="element-invisible">Book Navigation</h2>
+      <ul class="book-pager">
+              <li class="previous">
+          <a href="/content/debugging-techniques" rel="prev" title="Go to previous page"><b>‹</b> Debugging Techniques</a>
+        </li>
+                    <li class="up">
+          <a href="/debugging" title="Go to parent page">up</a>
+        </li>
+                </ul>
+      </nav>
+  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/43%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/node/43" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+          <div class="block block-book-navigation" role="navigation">
+
+  <h2 class="block-title"><a href="/debugging" class="book-title">Drupal Debugging</a></h2>
+
+  <div class="block-content">
+    <ul class="menu"><li class="first leaf menu-mlid-624"><a href="/content/debugging-strategies">Debugging Strategies</a></li>
+<li class="leaf menu-mlid-626"><a href="/content/debugging-tools-preparation-and-investment-ahead-time">Debugging Tools: Preparation and Investment Ahead of Time</a></li>
+<li class="leaf menu-mlid-628"><a href="/content/debugging-techniques">Debugging Techniques</a></li>
+<li class="last leaf active-trail menu-mlid-635"><a href="/content/debugging-links-and-resources" class="active-trail active" aria-current="page">Debugging Links and Resources</a></li>
+</ul>  </div>
+</div>
+        </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

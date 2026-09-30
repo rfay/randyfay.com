@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="next" href="/content/debugging-links-and-resources" />
+<link rel="prev" href="/content/debugging-tools-preparation-and-investment-ahead-time" />
+<link rel="up" href="/debugging" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/debugging-techniques" />
+
+    <title>Debugging Techniques | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-book">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">Debugging Techniques</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/debugging">Drupal Debugging</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-42" class="node node-book view-mode-full clearfix">
+
+  
+  <div class="content clearfix">
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>Now, for some nitty-gritty techniques.</p>
+<ul>
+<li>Using Divide-And-Conquer
+<ul>
+<li>Example: Binary search (of modules) by disabling modules.  (demonstration)</li>
+<li>Example: Binary search (of history) by going back in time in the code tree (demonstration)</li>
+<li>Example: Binary search (of code execution) by step-debugging over significant sections of the site and then zeroing in on the section where the problem occurs.
+</li>
+</ul>
+</li>
+<li><b>Getting more information: Instrumentation: </b>Many times, you just don't have enough information to understand what a problem consists of, not to mention what's causing it. In this situation you need to <i>instrument</i> the system to coax it to tell you what you need to know.</li>
+<ul>
+<li><a title="Devel" href="http://drupal.org/project/devel" id="ez_7">Devel</a> module.
+</li>
+<li><a title="Trace" href="http://drupal.org/project/trace" id="oauw">Trace</a> module</li>
+<li><b>Add your own on-the-fly instrumentation</b> so you get the information you need. To do this sanely <i>you have to be working on a clone of the site</i> you're debugging, and to do it well, <i>it should be under source control</i>, so you can quickly and safely revert your hacks. Most of these are especially valuable in places like hooks, where the code executes thousands of times with no problems, but then displays a disaster on execution 1001. Step-debugging with conditional breakpoints can be used well, but sometimes you just want to find out quickly.  Some quick hacks:
+</li>
+<ul>
+<li>Webchick's <a title="Quick and Dirty Debugging" href="http://www.lullabot.com/articles/quick_and_dirty_debugging" id="ofkx">Quick and Dirty Debugging</a>: Hack drupal_set_message() in bootstrap.inc to get a stack trace, so you can see where the problem comes from. For example, you just see a nasty error about a database issue, but no context: Show the stack trace and you'll suddenly understand.<br />
+Add:<br />
+  if ($type == 'error') {<br />
+      $message .= '&lt;pre&gt;'. print_r(debug_backtrace(), TRUE) .'&lt;/pre&gt;';<br />
+  }<br />
+to the top of drupal_set_message() and you'll get a backtrace along with the message. The same exact technique works with watchdog - add to the message in watchdog() in includes/bootstrap.inc.</li>
+<li>Debugging hook_cron: Hook_cron can be quite mischievous, because it's not intended to provide user output. A misbehaving module can cause it to croak without warning, and weeks later you find that cron hasn't been running and you don't know why. In this case we can add instrumentation right into module_invoke_all() in includes/module.inc:<br />
+Add into the for loop just below $function =<br />
+<span style="font-family: Courier New;">if ($hook == 'cron') { watchdog('debugging', "CRON: Calling $function"); }<br />
+</span>Every invocation of hook_cron then gets logged into watchdog(). The last one you see is the problem.
+</li>
+<li>Debugging the infamous " Cannot use object of type stdClass as array" message:<br />
+Right before the moment of disaster, insert something like:<br />
+  <span style="font-family: Courier New;">if (!is_array($x)) {     print '&lt;pre&gt;' . print_r(debug_backtrace(), TRUE) . '&lt;/pre&gt;';  }</span>
+</li>
+<li>Debugging Drupal batch operations: This can be the very best technique for figuring out what's going on with batch operations. In fact, the only two ways I know of to get visibility into batch operations are to use a step debugger (Eclipse works wonderfully) or to add watchdog() calls to your code. In order to avoid being overwhelmed by the quantity, try making your watchdog calls conditional on the type of event you're working on.
+</li>
+</ul>
+</ul>
+<li><b>Repetitive testing and refinement</b> where the database is altered: There are a number of situations (mostly upgrade-related) where the activity you're debugging is actually changing the database, so to binary search and zero in on the problem, you have to start over again and again. If this means settings up an entire upgrade environment over and over it can make you tear your hair out. So try this:
+<ol>
+<li>Get the test set up (prepare for an upgrade, for example). Get it set right to the point where if you pushed the button your error would be demonstrated.</li>
+<li>Dump the database at this point.</li>
+<li>Run the test. Use whatever technique you're using to zero in on the error.</li>
+<li>Load the dumped database. Rinse and repeat.
+</li>
+</ol>
+</li>
+</ul>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/drupal">Drupal</a></li><li class="taxonomy-term-reference-1"><a href="/topics/debugging">debugging</a></li></ul></div>  <nav id="book-navigation-39" class="book-navigation">
+              <h2 class="element-invisible">Book Navigation</h2>
+      <ul class="book-pager">
+              <li class="previous">
+          <a href="/content/debugging-tools-preparation-and-investment-ahead-time" rel="prev" title="Go to previous page"><b>‹</b> Debugging Tools: Preparation and Investment Ahead of Time</a>
+        </li>
+                    <li class="up">
+          <a href="/debugging" title="Go to parent page">up</a>
+        </li>
+                    <li class="next">
+          <a href="/content/debugging-links-and-resources" rel="next" title="Go to next page">Debugging Links and Resources <b>›</b></a>
+        </li>
+          </ul>
+      </nav>
+  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/42%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/content/debugging-techniques" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+          <div class="block block-book-navigation" role="navigation">
+
+  <h2 class="block-title"><a href="/debugging" class="book-title">Drupal Debugging</a></h2>
+
+  <div class="block-content">
+    <ul class="menu"><li class="first leaf menu-mlid-624"><a href="/content/debugging-strategies">Debugging Strategies</a></li>
+<li class="leaf menu-mlid-626"><a href="/content/debugging-tools-preparation-and-investment-ahead-time">Debugging Tools: Preparation and Investment Ahead of Time</a></li>
+<li class="leaf active-trail menu-mlid-628"><a href="/content/debugging-techniques" class="active-trail active" aria-current="page">Debugging Techniques</a></li>
+<li class="last leaf menu-mlid-635"><a href="/content/debugging-links-and-resources">Debugging Links and Resources</a></li>
+</ul>  </div>
+</div>
+        </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

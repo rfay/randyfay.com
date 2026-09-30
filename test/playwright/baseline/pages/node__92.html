@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/resetting-drupal-passwords-drupal-7-drush-or-without" />
+
+    <title>Resetting Drupal Passwords in Drupal 7 with Drush or Without | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">Resetting Drupal Passwords in Drupal 7 with Drush or Without</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-92" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Sun, 2011-02-13 09:13 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/planet-drupal">Planet Drupal</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>Sometimes, whether in testing or other situations, you need to reset a password (often the admin password) for a Drupal site.</p>
+<p><b>Edit:</b> The shortest answer is that two wonderful options are built into drush!<br />
+<code></code></p>
+<p>Get an admin login link</p>
+<p>drush uli</p>
+<p>Set the password for any user</p>
+<p>drush upwd admin --password="newpassword"<br />
+<br />
+(More info on drush uli <a href="http://randyfay.com/comment/1990#comment-1990">below</a>.)</p>
+<p><b>Now for the long version</b></p>
+<p>In Drupal 6, you could just reset the admin password with:<br />
+<code><br />
+cd<br />
+drush sql-cli   # or mysql -u -p<br />
+UPDATE users SET name='admin', pass=md5('drupal') WHERE uid=1;<br />
+</code><br />
+and then log in with username 'admin' and password 'drupal'.</p>
+<p>But no more. Drupal 7 has a unique hash for each site, which means you can't just use the md5() trick any more. However, there is a script in the scripts directory that will do this.</p>
+<p><code><br />
+cd<br />
+php scripts/password-hash.sh 'drupal'<br />
+</code></p>
+<p>Now copy the resultant hash and paste it into the query:<br />
+<code><br />
+drush sql-cli<br />
+update users set name='admin', pass='pasted_big_hash_from_above' where uid=1;<br />
+quit<br />
+</code></p>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-748"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Anon (not verified)</span></p>
+        <p class="comment-time">Sun, 2011-02-13 15:47</p>
+        <p class="comment-permalink"><a href="/comment/748#comment-748" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/748#comment-748" class="permalink" rel="bookmark">Please update the</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Please update the corresponding FAQ entry in the Troubleshooting FAQ.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-749"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sun, 2011-02-13 15:51</p>
+        <p class="comment-permalink"><a href="/comment/749#comment-749" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/749#comment-749" class="permalink" rel="bookmark">OK... A little more info would help! </a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>OK - If you give me a link to what you'd like to update, I will. Or you can, of course.</p>
+<p>-Randy</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-753"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Damien Tournoud (not verified)</span></p>
+        <p class="comment-time">Mon, 2011-02-14 02:07</p>
+        <p class="comment-permalink"><a href="/comment/753#comment-753" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/753#comment-753" class="permalink" rel="bookmark">I also like:</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I also like:</p>
+<p><code><br />
+drush php-eval 'echo user_pass_reset_url(user_load(1));'<br />
+</code></p>
+<p>That gives you a nice, discreet, password reset URL.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-754"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2011-02-14 07:46</p>
+        <p class="comment-permalink"><a href="/comment/754#comment-754" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/754#comment-754" class="permalink" rel="bookmark">This gets you in without changing the password.</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>That's really nice, because it allows you to access the account without changing the password, which is a completely different requirement, and <i>very discreet</i></p>
+<p><code><br />
+$ drush php-eval 'echo user_pass_reset_url(user_load(1));'<br />
+http://default/user/reset/1/1297692833/obQlmdw-l89V4pdenSbD5-OMIg0Vda8L4JgQ3VjaS<br />
+</code><br />
+You do have to change the hostname in the URL it gives you, but it's great.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-755"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://openspring.net/" rel="nofollow" class="username">scor (not verified)</a></p>
+        <p class="comment-time">Mon, 2011-02-14 09:24</p>
+        <p class="comment-permalink"><a href="/comment/755#comment-755" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/755#comment-755" class="permalink" rel="bookmark">That&#039;s also in Drush</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Could not live without this <a href="http://drupal.org/node/942642">feature which is part of Drush 4</a>:<br />
+<code>open `drush user-login'</code><br />
+will open your browser and log you in as uid 1 provided you've setup the URI (or copy/paste the path otherwise).</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-795"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.thinkyhead.com/" rel="nofollow" class="username">Scott Lahteine (not verified)</a></p>
+        <p class="comment-time">Thu, 2011-03-03 22:52</p>
+        <p class="comment-permalink"><a href="/comment/795#comment-795" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/795#comment-795" class="permalink" rel="bookmark">Mac, and oh those backticks...</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>It should be mentioned, the 'open' command is a Mac OS X thing. It's not the same as the 'open' alias for 'openvt' in Linux, for example. On the Mac it opens a file or URL in its default handler. And that last single-quote should be a backtick, like this...</p>
+<p><code>open `drush user-login`</code></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div><a id="comment-771"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">BJ (not verified)</span></p>
+        <p class="comment-time">Wed, 2011-02-23 13:27</p>
+        <p class="comment-permalink"><a href="/comment/771#comment-771" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/771#comment-771" class="permalink" rel="bookmark">Awesome thank you </a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Awesome post thank you. Worked perfectly.<br />
+My php hash file was named 'password-hash.sh' with a dash instead of an underscore though.<br />
+I wrote "php scripts/password-hash.sh 'drupal'"<br />
+instead of "php scripts/password_hash.sh 'drupal'"</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-772"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2011-02-23 14:43</p>
+        <p class="comment-permalink"><a href="/comment/772#comment-772" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/772#comment-772" class="permalink" rel="bookmark">Fixed</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>You were right, of course. I updated the article.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-792"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.thinkyhead.com/" rel="nofollow" class="username">Scott Lahteine (not verified)</a></p>
+        <p class="comment-time">Thu, 2011-03-03 15:53</p>
+        <p class="comment-permalink"><a href="/comment/792#comment-792" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/792#comment-792" class="permalink" rel="bookmark">Minor tweak...</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>When I tried to run the Drush command as-shown with D7 it didn't take until I made a small change:</p>
+<p><code>drush upwd admin --password="newpassword"</code></p>
+<p>Note the addition of the equals-sign with the password flag. Apparently that's the proper syntax now.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-793"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Thu, 2011-03-03 15:59</p>
+        <p class="comment-permalink"><a href="/comment/793#comment-793" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/793#comment-793" class="permalink" rel="bookmark">Updated</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>You are right. I updated it. Thanks!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-1179"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.smithmilner.com" rel="nofollow" class="username">Smith (not verified)</a></p>
+        <p class="comment-time">Mon, 2011-05-30 17:30</p>
+        <p class="comment-permalink"><a href="/comment/1179#comment-1179" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1179#comment-1179" class="permalink" rel="bookmark">didn&#039;t work</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I tried using this approach:</p>
+<p>cd<br />
+php scripts/password-hash.sh 'password'</p>
+<p>and placed the resulting hash into a query:</p>
+<p>UPDATE users SET mail = a@a.a, pass='$S$CFURCPa.k6FAEbJPgejaW4nijv7rYgGc4dUJtChQtV4KLJTPTC/u' WHERE uid &gt; 0;</p>
+<p>and the passwords didn't seem to take. I couldn't login anyway. Am I missing something or is something usually forgotten?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-1987"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">d1b1 (not verified)</span></p>
+        <p class="comment-time">Tue, 2011-07-19 15:11</p>
+        <p class="comment-permalink"><a href="/comment/1987#comment-1987" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1987#comment-1987" class="permalink" rel="bookmark">Fix for the update in bash</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>You might need to escape the $ in the hashed password value. use \$ and it should work. If you are using the  drush_shell_exec() you must escape these values because bash will eval the string. And use the $ represent system variables.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-1988"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2011-07-19 17:24</p>
+        <p class="comment-permalink"><a href="/comment/1988#comment-1988" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1988#comment-1988" class="permalink" rel="bookmark">His example is a sql query though</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>His example is a sql query though... So there shouldn't be any bash escaping going on.</p>
+<p>I now use drush uli for nearly every time I need to do something like this.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-1989"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">d1b1 (not verified)</span></p>
+        <p class="comment-time">Wed, 2011-07-20 07:30</p>
+        <p class="comment-permalink"><a href="/comment/1989#comment-1989" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1989#comment-1989" class="permalink" rel="bookmark">uli?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>can you provide some more information on the 'drush uli'? I have been working on a module for Aegir that allows the aegir site to hold and update the admin password. Its a client request, that they have the ability to access and edit the admin users password at any time. Not great for security, but it helps with supporting 300+ locked down sites. </p>
+<p>My code runs in the post verify site hook and the post install site hook. When we added the d7 platform we found very quickly that the drush upwd did not provide the feature we needed. My hook will request the hash for the desired password from the base install and update the target site using drush sql-query. We solved our related issue with the query by escaping the bash variable elements $ and /. </p>
+<p>Thanks</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-1990"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2011-07-20 07:40</p>
+        <p class="comment-permalink"><a href="/comment/1990#comment-1990" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1990#comment-1990" class="permalink" rel="bookmark">drush uli</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>The latest versions of drush have <code>drush uli</code> which just gives you a one-time login link for admin.<br />
+<code><br />
+$ drush uli<br />
+http://default/user/reset/1/1311169130/gf-1uDYC51jONONNF-jq3_ciKfLqhE93SsS9YNAnaEY<br />
+</code></p>
+<p>Unfortunately it doesn't get the hostname right in most cases (probably there's no way to know it if base_url is not set) so you have to change "default" correct hostname.</p>
+<p>So in the case above, I would paste the link into a browser and then change it to<br />
+<code><br />
+http://example.com/user/reset/1/1311169130/gf-1uDYC51jONONNF-jq3_ciKfLqhE93SsS9YNAnaEY<br />
+</code></p>
+<p>There I have a one-time login link to user 1 on the site. Works flawlessly.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div></div><a id="comment-2125"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.squidoo.com/what-i-would-want-in-a-notepad-editor" rel="nofollow" class="username">NtEditor (not verified)</a></p>
+        <p class="comment-time">Mon, 2011-10-31 02:46</p>
+        <p class="comment-permalink"><a href="/comment/2125#comment-2125" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2125#comment-2125" class="permalink" rel="bookmark">this is indeed a hell of a</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>this is indeed a hell of a blog post. Pure awesomeness. I wonder whether the xml rpc login can also be made anonymous through this method?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-3424"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://gothamcitydrupal.com" rel="nofollow" class="username">Kelly Bell (not verified)</a></p>
+        <p class="comment-time">Mon, 2013-10-28 14:55</p>
+        <p class="comment-permalink"><a href="/comment/3424#comment-3424" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3424#comment-3424" class="permalink" rel="bookmark">what about usernames with spaces and/or using the UID instead?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>First of all, thank you very much for the post!</p>
+<p>I have a couple follow-up questions:<br />
+1. What about users who have usernames with spaces in them?<br />
+2. Is there a regularized way to use the UID instead of the username to perform drush user functions?</p>
+<p>Apologies in advance for the stupid questions, but I haven't been able to find a good answer to this yet (not even on drush.ws).</p>
+<p>Thanks!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-3427"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2013-10-28 15:57</p>
+        <p class="comment-permalink"><a href="/comment/3427#comment-3427" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3427#comment-3427" class="permalink" rel="bookmark">Put quotes around the</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><ul>
+<li>Put quotes around the username</li>
+<li>I don't believe that drush upwd or drush uli have a way to act on uids.</li>
+</ul>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-3532"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Michelle (not verified)</span></p>
+        <p class="comment-time">Wed, 2014-08-27 09:30</p>
+        <p class="comment-permalink"><a href="/comment/3532#comment-3532" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3532#comment-3532" class="permalink" rel="bookmark">Thanks!</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>3 years later this blog post is still useful. :) Just saved me a headache!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/92%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/node/92" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

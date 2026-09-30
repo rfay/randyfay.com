@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/states" />
+
+    <title>Drupal 7 FAPI&#039;s #states: A Great New UI Improvement For Forms | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">Drupal 7 FAPI&#039;s #states: A Great New UI Improvement For Forms</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-58" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Mon, 2010-04-12 14:16 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/drupal">Drupal</a></li><li class="taxonomy-term-reference-1"><a href="/topics/planet-drupal">Planet Drupal</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>The little-known #states feature has gone into Drupal 7, and it rocks.</p>
+<p>Before you read on, <i>try this dynamic form live at <a href="http://d7.drupalexamples.info/examples/form_example/states">d7.drupalexamples.info</a></i>. It's developed without using a line of javascript, just plain Form API.</p>
+<p>Essentially, you can provide dynamic behavior in a form based on changes to other elements in the form. An easy example: Often you only need to collect information if a particular element is selected. If they select type=student, you don't have to require them to fill in a further "Employer" field.</p>
+<p>The new <a href="http://api.drupal.org/api/function/form_example_states_form/7">#states example</a> in the Examples module's Form Example shows how a dynamic form can work. You can try it out live as well at <a href="http://d7.drupalexamples.info/examples/form_example/states">d7.drupalexamples.info</a>.</p>
+<p>The idea of #states is that you add a #states property to a form element that is supposed to change when some other form element changes. So if a form element is supposed to be shown or hidden, the #states property will be added on that element, not on the element that caused the change.</p>
+<p>The #states property is a structured array of action =&gt; condition arrays. The action is 'visible' or 'checked' or 'required' or several other options. The condition is an associative array of 'jquery_selector' =&gt; array(value_statement). But mostly you can do it by copying and pasting examples. Much of the time the jquery selector can be ":input[name=field_name]" and the rest of the array can be cookbook from example code.</p>
+<p>In the example, the 'tests_taken' field is only to be visible if the form-filler is a high school student:<br />
+<code><br />
+  $form['tests_taken'] = array(<br />
+    '#type' =&gt; 'checkboxes',<br />
+    '#options' =&gt; drupal_map_assoc(array(t('SAT'), t('ACT'))),<br />
+    '#title' =&gt; t('What standardized tests did you take?'),<br />
+    '#states' =&gt; array(<br />
+      'visible' =&gt; array(   // action to take.<br />
+        ':input[name=student_type]' =&gt; array('value' =&gt; t('High School')),<br />
+      ),<br />
+    ),<br />
+  );</code></p>
+<p></p>
+<p>So we set the action to 'visible' when the condition (our select called student_type is set to 'High School') is true.</p>
+<p>That's basically all there is to it.</p>
+<p>So when would you use #states as opposed to AJAX forms or a sprinkling of jquery?</p>
+<ul>
+<li>If your form actually <i>changes</i> under the hood based on user input, then you need to use AJAX forms. #states doesn't fundamentally change any of the elements, it just changes their presentation.
+</li><li>If you don't change the form, but need a transformation that simple conditional logic can't do, you'll have to roll some jQuery.
+</li></ul>
+<p>For more detailed comments and possibilities, read the <a href="http://api.drupal.org/api/function/form_example_states_form/7">#states example</a>.</p>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-75"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">tstoeckler (not verified)</span></p>
+        <p class="comment-time">Tue, 2010-04-13 02:14</p>
+        <p class="comment-permalink"><a href="/comment/75#comment-75" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/75#comment-75" class="permalink" rel="bookmark">What about people who have</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>What about people who have JavaScript disabled?<br />
+Will the above example never be shown, or will the whole #states thing simply be ignored?<br />
+If the former, I guess it would be better to use eg 'invisible' than 'visible'</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-76"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2010-04-13 08:12</p>
+        <p class="comment-permalink"><a href="/comment/76#comment-76" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/76#comment-76" class="permalink" rel="bookmark">All is shown if javascript is disabled</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>If javascript is disabled, the whole form is shown. It's as if the #states properties didn't exist (because they essentially don't).</p>
+<p>So the form <em>works</em>, but you might need extra text and might want to use fieldsets to organize the data, for example.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-77"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://mostrey.be" rel="nofollow" class="username">Wim Mostrey (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-04-13 08:48</p>
+        <p class="comment-permalink"><a href="/comment/77#comment-77" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/77#comment-77" class="permalink" rel="bookmark">Drupal 6: conditional fields</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Or try this Drupal 6 module <a href="http://drupal.org/project/conditional_fields">conditional fields</a> which allows you to create these forms without a single line of javascript or php code! In a couple of clicks you set up the perfect cck form.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-78"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.davereid.net/" rel="nofollow" class="username">Dave Reid (not verified)</a></p>
+        <p class="comment-time">Wed, 2010-04-14 11:08</p>
+        <p class="comment-permalink"><a href="/comment/78#comment-78" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/78#comment-78" class="permalink" rel="bookmark">Try Ctools dependencies instead</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Looks like Conditional Fields can only be used with CCK. States can be used with any Form API elements.</p>
+<p>If you want #states type things in Drupal 6, I'd much rather recommend Ctool's 'Dependent' system which is what was shaped in the states system in D7.</p>
+<p><a href="http://drupal.org/project/ctools">http://drupal.org/project/ctools</a></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2046"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Kyle (not verified)</span></p>
+        <p class="comment-time">Sun, 2011-08-21 19:00</p>
+        <p class="comment-permalink"><a href="/comment/2046#comment-2046" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2046#comment-2046" class="permalink" rel="bookmark">I am no drupal expert. And</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I am no drupal expert. And before finding this page, i did try conditional field on D7. But I don't think conditional field can check whether a field's value equal to "High school" or not. Am I right?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-82"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://aol.com" rel="nofollow" class="username">Visitor (not verified)</a></p>
+        <p class="comment-time">Wed, 2010-04-21 14:52</p>
+        <p class="comment-permalink"><a href="/comment/82#comment-82" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/82#comment-82" class="permalink" rel="bookmark">How does #states handle the #tree attribute</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I'm trying to use the #state attribute in my form with a tree=TRUE fieldset. How do I set ':input[name=]' when there is a treed fieldset?</p>
+<p>Thanks</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-83"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://aol.com" rel="nofollow" class="username">Visitor (not verified)</a></p>
+        <p class="comment-time">Thu, 2010-04-22 08:03</p>
+        <p class="comment-permalink"><a href="/comment/83#comment-83" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/83#comment-83" class="permalink" rel="bookmark">Answer in case anyone else needs help.....</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I found the answer through experimentation in case this helps anyone else:</p>
+<p>If you are using a fieldset in front of your elements, then you must account for this in your jQuery selector. For example, if you have a fieldset such as 'ask' with a number textfield you want to expose when some other textfield is filled.</p>
+<p>$form['ask']['number'] = array(<br />
+  '#type' =&gt; 'textfield',<br />
+  '#options' =&gt; ...<br />
+  '#states' =&gt; array(<br />
+    'visible' =&gt; array(  // action to take.<br />
+        ':input[name=ask[so_no]]' =&gt; array ('filled' =&gt; TRUE),<br />
+   ),</p>
+<p>In the input selector you must account for the fieldset by prefacing the name with the fieldset as shown above. Perhaps Randy can add this tidbit to the documentation at <a href="http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7#states">http://api.drupal.org/api/drupal/developer--topics--forms_api_reference....</a>.</p>
+<p>HTH</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2193"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">IntoTheWoods (not verified)</span></p>
+        <p class="comment-time">Thu, 2012-01-19 22:18</p>
+        <p class="comment-permalink"><a href="/comment/2193#comment-2193" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2193#comment-2193" class="permalink" rel="bookmark">Double Quotes Needed</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>The input selector needs double quotes around the name value to work:</p>
+<p>':input[name="ask[so_no]"]' =&gt; array ('filled' =&gt; TRUE),</p>
+<p>For a single checkbox, it would be </p>
+<p>':input[name="ask[so_no]"]' =&gt; array ('checked' =&gt; TRUE),</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-106"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://john.albin.net" rel="nofollow" class="username">JohnAlbin (not verified)</a></p>
+        <p class="comment-time">Mon, 2010-07-05 22:15</p>
+        <p class="comment-permalink"><a href="/comment/106#comment-106" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/106#comment-106" class="permalink" rel="bookmark">The examples URL has changed</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>The link to the examples needs to be updated to: <a href="http://d7.drupalexamples.info/examples/form_example/states">http://d7.drupalexamples.info/examples/form_example/states</a></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-107"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2010-07-05 22:38</p>
+        <p class="comment-permalink"><a href="/comment/107#comment-107" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/107#comment-107" class="permalink" rel="bookmark">Thanks - updated</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks - I just updated and think I got all instances.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-857"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://kybest.hu" rel="nofollow" class="username">CSÉCSY László (not verified)</a></p>
+        <p class="comment-time">Sat, 2011-03-26 10:57</p>
+        <p class="comment-permalink"><a href="/comment/857#comment-857" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/857#comment-857" class="permalink" rel="bookmark">How to depend on multiple fields properly?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Having three fields on a form: year-from, year-to and a title, all textfields. The title field should be enabled if and only if either of the year fields is filled, and having considered that Form API's #disabled attribute cannot be used for this. So I've came up with this:<br />
+&lt;?php<br />
+function mymodule_myform() {<br />
+  $form = array();<br />
+  $form['yearfrom'] = array(<br />
+    '#type' =&gt; 'textfield',<br />
+    '#title' =&gt; t('Year from'),<br />
+  );<br />
+  $form['yearto'] = array(<br />
+    '#type' =&gt; 'textfield',<br />
+    '#title' =&gt; t('Year to'),<br />
+  );<br />
+  $form['title'] = array(<br />
+    '#type' =&gt; 'textfield',<br />
+    '#title' =&gt; t('Title'),<br />
+    '#states' =&gt; array(<br />
+      'enabled' =&gt; array(<br />
+        '#edit-yearfrom' =&gt; array('filled' =&gt; TRUE),<br />
+        '#edit-yearto' =&gt; array('filled' =&gt; TRUE),<br />
+      ),<br />
+      'disabled' =&gt; array(<br />
+        '#edit-yearfrom' =&gt; array('empty' =&gt; TRUE),<br />
+        '#edit-yearto' =&gt; array('empty' =&gt; TRUE),<br />
+      ),<br />
+    ),<br />
+  );<br />
+}<br />
+?&gt;</p>
+<p>This ensures that the form comes up with all the three fields being empty, and the title field being disabled (by jQuery, only on client-side). This ensures that when either of the year fields has anything in it, the title field becomes enabled. Speaking CS: both the enabler and disabler conditions are OR'ed together, but the disabler ones should be AND'ed.</p>
+<p>But this solution also has a problem: if either of the year fields gets empty, the title field gets disabled, though it should be only getting disabled if <strong>both</strong> the year fields become empty. How should I address this?</p>
+<p>In other words: the above example is quite good for an OR relation, but how to implement an AND relation between the (disabler) conditions?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-860"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sun, 2011-03-27 20:01</p>
+        <p class="comment-permalink"><a href="/comment/860#comment-860" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/860#comment-860" class="permalink" rel="bookmark">Answered over on http:/</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Answered over on <a href="http://drupal.org/node/1106388#comment-4269336">http://drupal.org/node/1106388#comment-4269336</a>.</p>
+<p>I don't think I can help you do OR. If you have other questions, please provide a sample module (perhaps in a sandbox?)</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-1998"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://karapuziki.com.ua/" rel="nofollow" class="username">Maestro (not verified)</a></p>
+        <p class="comment-time">Sun, 2011-07-24 15:23</p>
+        <p class="comment-permalink"><a href="/comment/1998#comment-1998" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1998#comment-1998" class="permalink" rel="bookmark">Preprocess form question</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I'm trying to add state in the preprocess form function. Just for testing.</p>
+<p>function karapuziki_preprocess_recipe_node_form(&amp;$variables) {</p>
+<p>$variables['form']['make_link'] = array(<br />
+  '#type' =&gt; 'checkbox',<br />
+  '#title' =&gt; 'Make link',<br />
+);</p>
+<p>$variables['form']['in_new_window'] = array(<br />
+  '#type' =&gt; 'checkbox',<br />
+  '#title' =&gt; 'in new window',<br />
+  '#states' =&gt; array('visible' =&gt; array(<br />
+    'input[name="make_link"]' =&gt; array('checked' =&gt; TRUE),<br />
+  )),<br />
+);<br />
+}</p>
+<p>This new two fields appear in the form, but both of them are visible and #states conditions doesn't work. I tried to add states conditions to field that already exist in the form </p>
+<p>$variables['form']['recipe_source']['#states'] = array(<br />
+      'visible' =&gt; array(   // action to take.<br />
+        ':input[name=recipe_yeld]' =&gt; array('filled' =&gt; TRUE),<br />
+      ),<br />
+);</p>
+<p>but #states doesn't work too. May be it can't work if I use preprocess hook? Please give me advice :)</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-2015"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Boris Gordon (not verified)</span></p>
+        <p class="comment-time">Wed, 2011-08-10 23:15</p>
+        <p class="comment-permalink"><a href="/comment/2015#comment-2015" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2015#comment-2015" class="permalink" rel="bookmark">Depending on non-form items</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Is it possible to have a form element's state depend on value of a non-form element with #states or is this a custom jQuery job?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2016"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Thu, 2011-08-11 08:01</p>
+        <p class="comment-permalink"><a href="/comment/2016#comment-2016" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2016#comment-2016" class="permalink" rel="bookmark">Probably not</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I since the dependency is just a jquery target, you could... EXCEPT: The states that you can depend on are all form element states. I wouldn't be surprised if you could depend on the existence of some element though. Give it a try.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-2098"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.kpdirection.com" rel="nofollow" class="username">Pete (not verified)</a></p>
+        <p class="comment-time">Wed, 2011-09-21 15:54</p>
+        <p class="comment-permalink"><a href="/comment/2098#comment-2098" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2098#comment-2098" class="permalink" rel="bookmark">What about GUI forms?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I create forms using the webform user interface rather than code. Is there any way to add #states in the GUI? Any examples out there?<br />
+Alternatively, is there any way to take my GUI form and extract the Drupal code from it?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2099"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2011-09-21 16:07</p>
+        <p class="comment-permalink"><a href="/comment/2099#comment-2099" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2099#comment-2099" class="permalink" rel="bookmark">I&#039;m not familiar with any way</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I'm not familiar with any way to use #states in webform module, but I don't use it often. I'm quite sure that webform will not generate a module for you. But these would be good support issues in the <a href="http://drupal.org/project/issues/webform">Webform issue queue</a>.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-2115"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Ben McFerren (not verified)</span></p>
+        <p class="comment-time">Mon, 2011-10-24 19:00</p>
+        <p class="comment-permalink"><a href="/comment/2115#comment-2115" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2115#comment-2115" class="permalink" rel="bookmark">Conditional #options ?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Great write up on how to make the visibility of fields conditional! Many thnx for the clarity.</p>
+<p>I am searching for a solution on how to make particular checkbox options conditional so that:</p>
+<p>If user selects checkbox A in Field (i), a certain array of checkbox selections in Field (v) are visible. Additionally, if user also selects checkbox B in Field (i), a different array of checkbox selections is visible as well in Field (v).</p>
+<p>I have a few taxonomy vocabularies (iii), one of which (x) has a few term reference fields that are populated with values derived from the additional vocabularies (iii).</p>
+<p>In my "add node" form, I am trying to present  the (iii) taxonomy fields at the top, then have the (x) taxonomy field below. I'd the checkbox selections in field (x) to be dependent upon the choices made previously in the (iii) taxonomy fields above.</p>
+<p>Thnx in advance for your time and consideration.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2116"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2011-10-24 20:06</p>
+        <p class="comment-permalink"><a href="/comment/2116#comment-2116" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2116#comment-2116" class="permalink" rel="bookmark">Don&#039;t forget about #ajax and multistep forms</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Although #states is great for lots of things, it's not as expressive as PHP, so you might have to use #ajax or mutistep forms to get what you want.</p>
+<p>I don't think you'll be able to say "If A then one-set-of-things, if B then another-set-of-things, if A AND B, a third-set.</p>
+<p>But you can easily make two sub-fieldsets, and everything is easy.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2135"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Ben McFerren (not verified)</span></p>
+        <p class="comment-time">Fri, 2011-11-11 20:37</p>
+        <p class="comment-permalink"><a href="/comment/2135#comment-2135" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2135#comment-2135" class="permalink" rel="bookmark">Great Suggestion!</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi Randy - I greatly appreciate you pointing me in the right direction!</p>
+<p>After much tinkering, I was able to get the #ajax to perform the first iteration of what I'm looking for.</p>
+<p>I've posted it here for anyone to use or improve:</p>
+<p><a href="http://pastebin.com/2YPCyPYK">http://pastebin.com/2YPCyPYK</a></p>
+<p>Now I am working on making the entire visibility of the topblock fieldset (and the entire topic field) contigent on whether checks have been made in the previous fields. I will keep you updated on my progress.</p>
+<p>Many thnx for your help and guidance.</p>
+<p>-Ben</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2136"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Fri, 2011-11-11 20:53</p>
+        <p class="comment-permalink"><a href="/comment/2136#comment-2136" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2136#comment-2136" class="permalink" rel="bookmark">Thanks</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks! Hey - for more permanence (somebody might come by and want to know what you did in a year or so) you might want to post your code on <a href="http://gist.github.com">http://gist.github.com</a> or as a sandbox on drupal.org, or something like that. Keeping your code in a repository is good for you too, as it helps you find things that you <em>know</em> you did sometime.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div><a id="comment-2208"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://techoop.insite.coop/blogs/gaelg" rel="nofollow" class="username">GaëlG (not verified)</a></p>
+        <p class="comment-time">Mon, 2012-02-20 03:31</p>
+        <p class="comment-permalink"><a href="/comment/2208#comment-2208" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2208#comment-2208" class="permalink" rel="bookmark">Performance</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>For faster rendering of big forms, use IDs in your JQuery selectors : something like '#edit-field-name' instead of ':input[name=field_name]'.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2209"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2012-02-20 07:43</p>
+        <p class="comment-permalink"><a href="/comment/2209#comment-2209" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2209#comment-2209" class="permalink" rel="bookmark">Requires uniqueness, and no AJAX</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks. The only problem with that, of course, is that the ID must be unique on the page. And you can't be using AJAX in any of those elements (which would be strange anyway... one should generally use <em>either</em> #states <em>or</em> AJAX) because AJAX messes with the ID on every load.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2229"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://petetracey.com" rel="nofollow" class="username">Pete (not verified)</a></p>
+        <p class="comment-time">Mon, 2012-03-12 13:43</p>
+        <p class="comment-permalink"><a href="/comment/2229#comment-2229" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2229#comment-2229" class="permalink" rel="bookmark">Huh?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>What do you mean AJAX messes with the ID? Changes the primary key on every request?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2230"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2012-03-12 13:49</p>
+        <p class="comment-permalink"><a href="/comment/2230#comment-2230" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2230#comment-2230" class="permalink" rel="bookmark">HTML ID changes on every request</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>In D7, the HTML ID changes on every request, due to <a href="http://api.drupal.org/api/drupal/includes%21common.inc/function/drupal_html_id/7">drupal_html_id()</a>. In practice, it's always the same on the initial page load, but after that, any part replaced by an AJAX action will result in an unpredictable ID (which will be different).</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div><a id="comment-2723"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.riparotto.com" rel="nofollow" class="username">LateAtNight (not verified)</a></p>
+        <p class="comment-time">Sat, 2012-10-27 02:31</p>
+        <p class="comment-permalink"><a href="/comment/2723#comment-2723" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2723#comment-2723" class="permalink" rel="bookmark">Dynamic forms doesn&#039;t work</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi, I wrote this code, it seems right but my dynamic form doesn't work. When page loads (it loads inside a popup) all fields are shown. My hook_menu calls ripa_slideshow_edit_page() to show only the form without entire page.<br />
+I tried several variants but nothing seems work</p>
+<p>function ripa_slideshow_edit_page(){<br />
+    $output = drupal_get_form('ripa_slideshow_edit_form');<br />
+    print render($output);<br />
+}</p>
+<p>[edited out]</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2724"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sat, 2012-10-27 08:35</p>
+        <p class="comment-permalink"><a href="/comment/2724#comment-2724" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2724#comment-2724" class="permalink" rel="bookmark">Start with #states Examples</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>There is a major example of #states in the <a href="http://drupal.org/project/examples">Examples project</a>. I recommend starting there and then working with that to understand how to build what you want. There's also a <a href="http://drupal.org/sandbox/rfay/1269964">#states exercise</a> that shows nearly everything #states can do.</p>
+<p>For support, probably the best place is <a href="http://drupal.stackexchange.com/">http://drupal.stackexchange.com/</a></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2809"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.riparotto.com" rel="nofollow" class="username">LateAtNight (not verified)</a></p>
+        <p class="comment-time">Tue, 2012-11-13 01:06</p>
+        <p class="comment-permalink"><a href="/comment/2809#comment-2809" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2809#comment-2809" class="permalink" rel="bookmark">Resolved</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I resolved the problem. When you call print render(...) function drupal stops its workflow and prints page immediatly so no js files are included and dynamic forms don't works.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-2785"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">dave (not verified)</span></p>
+        <p class="comment-time">Sat, 2012-11-10 15:36</p>
+        <p class="comment-permalink"><a href="/comment/2785#comment-2785" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2785#comment-2785" class="permalink" rel="bookmark">uncheck checkbox programmatically</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>States property is great but I've found a little problem. Let's say we have a <b>radio buttons</b> like 'Cars' and 'Air Planes'. If 'Cars' button is checked another two checkboxes shows like 'Ferrari' and 'Mercedes'. If 'Air Planes' is checked also two different checkboxes are shown, it's 'Concorde' and 'Boeing'. Simple right? Now, lets say that user decided to choose Cars and then checks 'Ferrari'. After that our user <b>changes his mind</b> and checks 'Air Planes' without unchecking previous 'Ferrari'. And here is the problem, now user can check 'Boeing' and click 'Submit', however our form remember a 'Ferrari' value and 'Boeing' value which is incorrect. The purpose of choosing radio buttons is to give user one option to choose (OR) not many (AND). Does anyone knows how to uncheck 'Ferrari' checkbox automatically/programmatically at the momment when user chooses 'Air Planes'?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2794"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://csecsy.hu" rel="nofollow" class="username">CSÉCSY László (not verified)</a></p>
+        <p class="comment-time">Sun, 2012-11-11 10:39</p>
+        <p class="comment-permalink"><a href="/comment/2794#comment-2794" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2794#comment-2794" class="permalink" rel="bookmark">Difference between choosing one or many</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Ferrari, Mercedes AND Concorde, Boeing should belong to the same radio group, all the four. This way the user may choose only one, whilst the #states only _helps_ her choosing the right one. Remember: #states is client side stuff, so cannot be relied upon. In other words, #states is for display/UX purposes, not logic (at least as I see it).</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-2804"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.studioorange.nl" rel="nofollow" class="username">StudiOrange (not verified)</a></p>
+        <p class="comment-time">Mon, 2012-11-12 15:28</p>
+        <p class="comment-permalink"><a href="/comment/2804#comment-2804" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2804#comment-2804" class="permalink" rel="bookmark">Signup Module</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I tried the states form entries in a signup form, unfortunately it did not work. Do you have any idea on how to embed conditional fields in the signup module? I see the they us a standard $form entry for settings like "Phonenumber" etc so it shouldn't be to difficult.</p>
+<p>Any help is  appreciated</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-3507"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://theaccidentalcoder.com" rel="nofollow" class="username">Jeff Greenberg (not verified)</a></p>
+        <p class="comment-time">Sun, 2014-04-20 11:32</p>
+        <p class="comment-permalink"><a href="/comment/3507#comment-3507" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3507#comment-3507" class="permalink" rel="bookmark">Select all</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi Randy. I'm trying to use this to achieve the functionality of having a checkbox that, when selected, causes a range of checkboxes to all be selected.  I made the selectall box a separate form field, and it looks like this, and works not a lick:<br />
+    $form['report_group']['selectall'] = array(<br />
+      '#type' =&gt; 'checkbox',<br />
+      '#default_value' =&gt; 0,<br />
+    );<br />
+    $form['report_group']['boxes'] = array(<br />
+      '#type' =&gt; 'checkboxes',<br />
+      '#options' =&gt; $boxes,<br />
+      '#states' =&gt; array(<br />
+        'checked' =&gt; array(<br />
+          ':input[name="report_group[selectall]"]' =&gt; array('checked' =&gt; TRUE),<br />
+        ),<br />
+      ),</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-3508"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sun, 2014-04-20 15:28</p>
+        <p class="comment-permalink"><a href="/comment/3508#comment-3508" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3508#comment-3508" class="permalink" rel="bookmark">Too rusty</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Sorry, I'm awfully rusty on this - try <a href="http://drupal.stackexchange.com">http://drupal.stackexchange.com</a>.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/58%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div>      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/node/58" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

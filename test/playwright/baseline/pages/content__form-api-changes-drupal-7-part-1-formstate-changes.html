@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/form-api-changes-drupal-7-part-1-formstate-changes" />
+
+    <title>Form API Changes for Drupal 7, Part 1: $form_state changes | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">Form API Changes for Drupal 7, Part 1: $form_state changes</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-66" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Tue, 2010-06-15 18:33 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/drupal">Drupal</a></li><li class="taxonomy-term-reference-1"><a href="/topics/planet-drupal">Planet Drupal</a></li><li class="taxonomy-term-reference-2"><a href="/topics/forms">Forms</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>You may know that lots of delicious things have happened to Drupal's Form API in Drupal 7. (Only a geek can say "delicious" and "Form API" in the same sentence. Try it!)  The finest minds in the business have been working on it, I can assure you. Give effulgentsia, fago, frando, and chx a big hug when you see them, because Form API is much improved. (Sorry to those of you I forgot to name, but THANKS!)</p>
+<p>I'm going to do a series covering Form API changes, starting with this one. I won't attempt to cover the deep details, just the things that ordinary developers might use:</p>
+<ol>
+<li>$form_state changes and form builder function signature changes
+</li><li>AJAX Forms changes
+</li><li>New properties (#attached and many friends)
+</li></ol>
+<p>Let me know if you have other topics to suggest.</p>
+<p>OK, to business. This article is mostly parroted from the api.drupal.org topic: <a href="http://api.drupal.org/api/group/form_api/7">Form Generation</a>. Thanks to Alex Bronstein (effulgentsia) for his reviews and contributions to that doc.</p>
+<h4>Don't forget that the form builder function signature changed!</h4>
+<p>In Drupal 6 the form builder function looked like this:<br />
+<code><br />
+function my_module_funky_form(&amp;$form_state) { ... }<br />
+</code><br />
+but in Drupal 7 it's<br />
+<code><br />
+function my_module_funky_form($form, &amp;$form_state, ... ) { ... }<br />
+</code></p>
+<h4>$form_state in Drupal 7</h4>
+<p>Mostly the members of the $form_state array are the same ones you know and love from Drupal 6:</p>
+<ul>
+<li><b>$form_state['values']</b>: An associative array of values that have been submitted to the form. The validation and submit functions use this array for nearly all their decisionmaking. (Note that #tree determines whether the values are a flat array or an array whose structure parallels the $form array.) This is nearly the same as it was in D6.
+</li><li><b>$form_state['rebuild']</b>: If the submit handler sets $form_state['rebuild'] to TRUE, submission is not completed and instead the form is rebuilt using any information that the submit function has made available to the form builder function via $form_state. This is commonly used for wizard-style multi-step forms, add-more buttons, and the like. For further information see drupal_build_form(). This is the same as D6.
+</li><li><b>$form_state['redirect']</b>: a URL that will be used to redirect the form on submission. See drupal_redirect_form() for complete information. This should always be used instead of drupal_goto() in a forms context. Note that $form['#redirect'] went away in Drupal 7 and no longer has any effect.
+</li><li><b>$form_state['storage']</b>: $form_state['storage'] is no more! It used to be <i>the</i> place for application-specific values, but now it has no specific meaning. Now nearly all $form_state keys persist in a multi-step form, so the recommended approach is to use $form_state['your_module']['whatever']. ($form_state['storage'] still works for persistent storage, just like $form_state['timbuktu'] works.)
+</li><li><b>$form_state['triggering_element'</b>: (read-only) The form element that triggered submission. This is the same as the deprecated $form_state['clicked_button']. It is the element that caused submission, which may or may not be a button (in the case of AJAX forms.) This is often used to distinguish between various buttons in a submit handler, and is also used in AJAX handlers.
+</li><li><b>$form_state['cache']</b>: The typical form workflow involves two page requests. During the first page request, a form is built and returned for the user to fill in. Then the user fills the form in and submits it, triggering a second page request in which the form must be built and processed. By default, $form and $form_state are built from scratch during each of these page requests. In some special use-cases, it is necessary or desired to persist the $form and $form_state variables from the initial page request to the one that processes the submission. A form builder function can set 'cache' to TRUE to do this. One example where this is needed is to handle AJAX submissions, so ajax_process_form() sets this for all forms that include an element with a #ajax property. (In AJAX, the handler has no way to build the form itself, so must rely on the cached version created on each page load, so it's a classic example of this use case.) Note that the persistence of $form and $form_state across successive submissions of a multi-step form happens automatically regardless of the value for 'cache'. You probably won't need to use $form_state['cache']. And note that $form['#cache'] is gone in D7 and now has no effect on anything.
+</li><li><b>$form_state['input']</b>: The array of values as they were submitted by the user. These are raw and unvalidated, so should not be used without a thorough understanding of security implications. In almost all cases, code should use the data in the 'values' array exclusively. The most common use of this key is for multi-step forms that need to clear some of the user input when setting 'rebuild'.
+</li></ul>
+<p><b>Drupal 7 FAPI Resources:</b></p>
+<ul>
+<li>api.drupal.org <a href="http://api.drupal.org/api/group/form_api/7">Form Generation</a> section.
+</li><li>The Form Example in <a href="http://drupal.org/project/examples">Examples for Developers</a> project. (on api.drupal.org: <a href="http://api.drupal.org/api/drupal/developer--examples--form_example--form_example_tutorial.inc/7">http://api.drupal.org/api/drupal/developer--examples--form_example--form...</a>
+</li><li>D7 <a href="http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7">Form API Reference</a>
+</li></ul>
+<p><b>Next time</b>: <a href="http://randyfay.com/node/74">Part 2: AJAX forms changes.</a></p>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-95"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.unleashedmind.com" rel="nofollow" class="username">sun (not verified)</a></p>
+        <p class="comment-time">Wed, 2010-06-16 13:20</p>
+        <p class="comment-permalink"><a href="/comment/95#comment-95" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/95#comment-95" class="permalink" rel="bookmark">Tea time!</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Careful, hold on - some further critical/major patches are not in yet.</p>
+<p>Bare essentials won't change, of course.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-97"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Barry Jaspan (not verified)</span></p>
+        <p class="comment-time">Wed, 2010-06-16 21:38</p>
+        <p class="comment-permalink"><a href="/comment/97#comment-97" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/97#comment-97" class="permalink" rel="bookmark">Macro module</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I started looking at how to port macro.module to D7. I am concerned that the new $form_state structure makes it difficult or impossible to do in general. Questions so far:</p>
+<ol>
+<li>
+<p>When saving a form submission as a macro to replay later, which parts of $form_state need to be saved to be passed to drupal_form_submit() later? They cannot all be saved, because some parts (e.g. $form_state['groups'] which I don't understand yet) contain self-referential loops.</p>
+</li>
+<li>
+<p>How can a module completely override the form's submission handler (e.g. like in D5/6 could you do by changing $form['#submit'])? Every button has its own submit hook. Is there a way to know which one is the "real" submit/save/do button? Obviously for some forms that question isn't valid, but for many it is. On the node form, for example, how should macro.module know that $form['actions']['submit'] is the correct button to act on?</p>
+</li>
+</ol>
+<p>Probably this comment thread isn't the right place for this discussion. Feel free to email me. :-)</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-98"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2010-06-16 21:48</p>
+        <p class="comment-permalink"><a href="/comment/98#comment-98" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/98#comment-98" class="permalink" rel="bookmark">Hopeful answers</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><ol>
+<li>
+<p>If there is a $form_state['groups'] then it was because your form created it; it's not a standard FAPI item. It will be automatically persisted, so you don't have to do anything about saving it.</p>
+</li>
+<li>
+<p>'#submit' still works fine both at the form and the button level; I don't know of any change in how it works. See <a href="http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7#submit">http://api.drupal.org/api/drupal/developer--topics--forms_api_reference....</a></p>
+</li>
+</ol>
+<p>You can tell which button submitted the form by looking at $form_state['triggering_element']. Often $form_state['triggering_element']['#value'] is useful to figure this out.</p>
+<p>Edit: The <a href="http://drupal.org/project/examples">Examples for Developers project</a> has a Form Example that is pretty up-to-date for D7, and it may help. I'll edit that into the article.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-99"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Barry Jaspan (not verified)</span></p>
+        <p class="comment-time">Wed, 2010-06-16 22:12</p>
+        <p class="comment-permalink"><a href="/comment/99#comment-99" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/99#comment-99" class="permalink" rel="bookmark">1. You have to save</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><ol>
+<li>
+<p>You have to save $form_state if you want to replay the form submission later, long after it is persisted, possibly on a different site. This is macro.module's use case.</p>
+</li>
+<li>submit works, but by emptying it you are not removing the form's actual submit handler, which is attached to a button. Which button? You can find out from $form_state['triggering_element'], but only after the form is submitted. There is no way to know which button is the "actual" submit button ahead of time, which means you can't replace the form's submit handler unless you have special-case knowledge. This is probably an unavoidable consequence of the fact that forms can now have multiple submit buttons that do all kinds of different things. The extra capability makes some use cases much more complicated or impossible.</li>
+</ol>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-100"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">effulgentsia (not verified)</span></p>
+        <p class="comment-time">Thu, 2010-06-17 11:55</p>
+        <p class="comment-permalink"><a href="/comment/100#comment-100" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/100#comment-100" class="permalink" rel="bookmark">drupal_form_submit() and $form_state</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi Barry. Regarding #1, for most single-step forms, you only need to include 'values' within $form_state when calling drupal_form_submit(). Note, I think the name 'values' is a little unfortunate here, as it should be called 'input', and if you look at drupal_form_submit(), you'll see that it gets moved to 'input' (and outside of drupal_form_submit(), 'values' always means the FAPI-processed values rather than user-submitted input, and is therefore, initialized empty at the beginning of drupal_process_form()).</p>
+<p>Back to your question though, if you're having macro.module replay the submission of a multi-step form, then you're correct that you'll need to deal with $form_state saving yourself, since drupal_form_submit() bypasses the form cache. You'll need to emulate form_set_cache(), which saves all of $form_state except the keys in form_state_keys_no_cache().</p>
+<p>Edit by rfay: Updated to drupal_form_submit() per effulgentsia's comment</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-102"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">effulgentsia (not verified)</span></p>
+        <p class="comment-time">Thu, 2010-06-17 12:20</p>
+        <p class="comment-permalink"><a href="/comment/102#comment-102" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/102#comment-102" class="permalink" rel="bookmark">Will the real #submit please stand up</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Regarding #2, I don't think there's any change in D7 with respect to D6 in this regard. Most forms still use $form['#submit'] (usually implicitly by naming the function FORM_ID_submit()) as the "primary" submit handler and leave no #submit defined on the "primary" button, so that it uses the form-level #submit. Button-level #submit is usually only placed on the auxiliary buttons (see for example, <a href="http://api.drupal.org/api/function/comment_form/7">comment_form()</a>). <a href="http://api.drupal.org/api/function/node_form/7">node_form()</a> is an exception to this, in that it uses a button-level #submit even for the "Save" button, but this is also the case in D6. Note that in <a href="http://drupal.org/node/735800#comment-3019950">http://drupal.org/node/735800#comment-3019950</a>, fago is arguing that we might want to do more of this (not in D7 core, but possibly in D8 or in D7 contrib), so if you want to put a stop to that, you might want to contact him to discuss how that would adversely affect what you're working on.</p>
+<p>You're correct that there's no clean way currently to override all #submit handlers (both form-level and button-level). The overlay module came up with the approach of <a href="http://api.drupal.org/api/function/overlay_element_info_alter/7">overlay_element_info_alter()</a> and <a href="http://api.drupal.org/api/function/overlay_form_after_build/7">overlay_form_after_build()</a>. fago is suggesting in <a href="http://drupal.org/node/763376#comment-2918114">http://drupal.org/node/763376#comment-2918114</a> that we move the last bit of <a href="http://api.drupal.org/api/function/form_builder/7">form_builder()</a> that does the finalization stuff for #type='form' into a form #after_build function. That would allow code to implement a form #after_build function that runs after that one that could alter $form_state['submit_handlers']. I guess we'll see if we manage to get that implemented for D7.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div><a id="comment-137"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">blainelang (not verified)</span></p>
+        <p class="comment-time">Sat, 2010-07-31 08:13</p>
+        <p class="comment-permalink"><a href="/comment/137#comment-137" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/137#comment-137" class="permalink" rel="bookmark">unable to get $form_state[&#039;redirect&#039;] to work</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks Ray, your post has been helpful as well the D7 examples module but I've not been able to get the redirect option to work.</p>
+<p>Using D7 Alpha 6: The submit handler defined in my module's HOOK_form_alter is being picked up, but NOT being used. In all cases, the default drupal node_form_submit() is being used.</p>
+<p>Take any custom module and try setting a new redirect for all forms as a test and for this example, redirect to the watchdog event log.</p>
+<p>in HOOK_form_alter()</p>
+<blockquote><p>$form['submit'][] = 'mymodule_submithandler';</p>
+</blockquote>
+<p><code><br />
+function mymodule_content_form_submit($form, &amp;$form_state) {<br />
+  $form_state['redirect'] = 'admin/reports/dblog';<br />
+}<br />
+</code><br />
+I believe that now, when editing any site content and submitting the edit form, the site should redirect to the event log page but does not. If I edit function node_form_submit() in node.pages.inc and comment out the lines that set $form_state['redirect'], if $node-&gt;nid then the redirect works as expected. I've tried setting my modules weight to 1001 in the systems table but no success.</p>
+<p>Any ideas or is this a D7 bug?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-138"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sat, 2010-07-31 08:23</p>
+        <p class="comment-permalink"><a href="/comment/138#comment-138" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/138#comment-138" class="permalink" rel="bookmark">$form[&#039;#submit&#039;]?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>In your hook_form_alter(), you say</p>
+<p>$form['submit'][]</p>
+<p>I assume you were actually doing</p>
+<p>$form['#submit'][]</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-139"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">blainelang (not verified)</span></p>
+        <p class="comment-time">Sat, 2010-07-31 08:32</p>
+        <p class="comment-permalink"><a href="/comment/139#comment-139" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/139#comment-139" class="permalink" rel="bookmark">Sorry - yes it&#039;s</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Sorry - yes it's really:<br />
+$form['#submit'][] = 'mymodule_content_form_submit';</p>
+<p>That now matches the name of the mymodule submit handler in this example. Issue was me changing names of functions for this post. I can confirm that using an IDE Debugger, the submit handler is executing and the redirect works if I comment out that line in the D7 function node_form_submit() - which I was doing only for testing/confirmation.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-140"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sat, 2010-07-31 08:43</p>
+        <p class="comment-permalink"><a href="/comment/140#comment-140" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/140#comment-140" class="permalink" rel="bookmark">Please try a simple example</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi - Please try a simple form with $form_state['redirect'] - I think you'll find that it works ok in that context.</p>
+<p>Then try hook_form_alter() on that simple form, adding a #submit which changes $form_state['redirect']. I suspect that will work as well.</p>
+<p>Then, it sounds like you have either a misunderstanding in the particular form_alter you're doing (against a node form, right) or you have found a core bug, probably in the node form stuff. But it could be the former.</p>
+<p>I'll be around later today in irc (rfay) if you want to pastebin your code and would be willing to take a look.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-142"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">blainelang (not verified)</span></p>
+        <p class="comment-time">Sat, 2010-07-31 14:57</p>
+        <p class="comment-permalink"><a href="/comment/142#comment-142" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/142#comment-142" class="permalink" rel="bookmark">requirement is to alter existing content forms</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>The module that I'm working on will need to alter existing content types - where if the user is editing them (using the overlay) from with the module's page (call it a dashboard view), then we want to return the user to that dashboard. This is all working fine except for the redirect. The redirect would appear to be registered correctly because if I comment out the line in node_form_submit() then the redirect registered by mymodule takes effect.</p>
+<p>I received help from DamZ on IRC and was recommended that I use this syntax in HOOK_form_alter and it worked. No other code changes where needed.</p>
+<p>$form['actions']['submit']['#submit'][] = 'mymodule_content_form_submit'</p>
+<p>I was not able to find much info on this syntax and am still wondering why the original method was not working and if there is a D7 issue that needs to be logged.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-143"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Sat, 2010-07-31 15:14</p>
+        <p class="comment-permalink"><a href="/comment/143#comment-143" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/143#comment-143" class="permalink" rel="bookmark">Using #submit on the button as opposed to the form</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>In this you're doing what one would probably do more often: Add a custom submit handler to a specific button (the button named 'submit').</p>
+<p>Before you were changing the submit handler for the form.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-144"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">blainelang (not verified)</span></p>
+        <p class="comment-time">Sat, 2010-07-31 15:31</p>
+        <p class="comment-permalink"><a href="/comment/144#comment-144" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/144#comment-144" class="permalink" rel="bookmark">Still unsure if there is a D7 issue</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks Randy for the clarification and I'm pleased this technique is working but I really only want to change the redirect and let the normal submit handlers complete and do their updates and logic processing.</p>
+<p>This is why I was using the first technique and what your post and other D7 FAPI docs mention but it no worky for me.</p>
+<p>I am hoping that this technique which is now redirecting is not going to add a new limitation. The submit handler that is being mapped in mymodule_form_alter is just changing the value of $form_state['redirect'] as my previous notes mentioned.</p>
+<p>So far my testing is positive and content updates are saving and mymodule redirect triggering when it's supposed to.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div></div></div></div><a id="comment-2091"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">aac (not verified)</span></p>
+        <p class="comment-time">Thu, 2011-09-15 13:14</p>
+        <p class="comment-permalink"><a href="/comment/2091#comment-2091" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2091#comment-2091" class="permalink" rel="bookmark">For Multi-step form in Drupal 7</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Could you please elaborate more on the use of $form_state['storage'] in multi-step forms. Thanks in advance for any help!!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2092"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Thu, 2011-09-15 13:43</p>
+        <p class="comment-permalink"><a href="/comment/2092#comment-2092" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2092#comment-2092" class="permalink" rel="bookmark">$form_state[&#039;storage&#039;] is deprecated</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>In Drupal 7, $form_state['storage'] has no actual direct support. It used to be an official place to store inter-submit data, but now nearly everything is persistent in $form_state. So it's better to use $form_state['mymodulename_somestash']. The idea is that in a multi-step form, you can store data that might be beyond what's in $form_state['values'] and help your form to operate. You may get some help from the Form Example in the <a href="http://drupal.org/project/examples">Examples Product</a>, which has some multistep examples that show this, if I remember right.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-2182"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Pangus (not verified)</span></p>
+        <p class="comment-time">Tue, 2011-12-27 19:47</p>
+        <p class="comment-permalink"><a href="/comment/2182#comment-2182" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2182#comment-2182" class="permalink" rel="bookmark">Submit button problem</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hello Randy,</p>
+<p>I wonder if you could help me with a Drupal 7 ajax form problem I'm having. It's obviously a common problem. I've found many workarounds and some discussion on what to do to fix it for good in future Drupals but none of it has worked for me. I'm hoping you might have a good fix for it. Anyway, here it is...</p>
+<p>I have many submit buttons on an ajax form and I want them all to say 'Process'. Therefore I set the #value to be 'process' in all of them. This however, confuses drupal. In my triggered function, the triggered_element always appears to be the last button. I cannot determine which button was clicked.</p>
+<p>Any suggestions greatly appreciated.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2183"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2011-12-27 19:54</p>
+        <p class="comment-permalink"><a href="/comment/2183#comment-2183" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2183#comment-2183" class="permalink" rel="bookmark">Not familiar with that</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I guess I'm not familiar with that problem; it would be great if you'd post links to the discussions you've encountered so that others don't have to repeat the process.</p>
+<p>I think you'd be best to post in <a href="http://drupal.stackexchange.com">http://drupal.stackexchange.com</a> asking for help - please post a link to your question here.</p>
+<p>It does confuse me why you'd want multiple buttons with the same name in the same form.</p>
+<p>If your problem is multiple <em>forms</em> that have the same ID (and all have submit buttons) then you have to use hook_forms() to handle this case, sadly. Amazon Store module has an example of doing just that.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2184"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Pangus (not verified)</span></p>
+        <p class="comment-time">Wed, 2011-12-28 10:28</p>
+        <p class="comment-permalink"><a href="/comment/2184#comment-2184" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2184#comment-2184" class="permalink" rel="bookmark">Links</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks Randy. </p>
+<p>Why do I want buttons with the same name? I'm not sure that's exactly what I want. What I want is buttons that have the same text written on them; 'Process'. The only way I know to set this is by setting the #value property. Setting the #name property as suggested by some stops me from getting a callback on some of my buttons, probably as they are all supposed to have #name as 'op' ( See stackexchange link ) </p>
+<p>Here are the links to others with similar problems. I can't find the one with discussion about changes for future Drupals right now but I'll post that too if I come across it again.</p>
+<p><a href="http://stackoverflow.com/questions/6520775/why-is-the-the-triggering-element-in-form-state-is-the-last-button-on-the-for">http://stackoverflow.com/questions/6520775/why-is-the-the-triggering-ele...</a></p>
+<p><a href="http://drupal.org/node/274983">http://drupal.org/node/274983</a></p>
+<p><a href="http://drupal.stackexchange.com/questions/3633/ajax-form-that-changes-a-button-value">http://drupal.stackexchange.com/questions/3633/ajax-form-that-changes-a-...</a></p>
+<p>I've just been reading through all this again in the light of a new day and I think there's a few more avenues I can explore. If I can't find a solution, I'll post a question on <a href="http://drupal.stackexchange.com">http://drupal.stackexchange.com</a> and link you in. If I fix it, I'll post what worked for me.</p>
+<p>Thanks.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/66%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div>      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/content/form-api-changes-drupal-7-part-1-formstate-changes" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

@@ -1,0 +1,1753 @@
+{
+  "generatedAt": "2026-09-21T00:25:19.683Z",
+  "nodes": [
+    {
+      "nid": "2",
+      "type": "blog",
+      "title": "Support for Randy Fay's Customers",
+      "published": false,
+      "path": "content/support-randy-fays-customers",
+      "aliases": [
+        "node/2",
+        "content/support-randy-fays-customers"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "5",
+      "type": "blog",
+      "title": "Spam Management #1 - as emailed to customers",
+      "published": false,
+      "path": "content/spam-management-1-emailed-customers",
+      "aliases": [
+        "node/5",
+        "content/spam-management-1-emailed-customers"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "6",
+      "type": "blog",
+      "title": "Spam Management #2: Spam filtering - Spamassassin and Spambox - for customers",
+      "published": false,
+      "path": "content/spam-management-2-spam-filtering-spamassassin-and-spambox-customers",
+      "aliases": [
+        "node/6",
+        "content/spam-management-2-spam-filtering-spamassassin-and-spambox-customers"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "7",
+      "type": "blog",
+      "title": "Spam Management #3: Boxtrapper whitelisting",
+      "published": false,
+      "path": "content/spam-management-3-boxtrapper-whitelisting",
+      "aliases": [
+        "node/7",
+        "content/spam-management-3-boxtrapper-whitelisting"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "9",
+      "type": "page",
+      "title": "Customer instructions",
+      "published": false,
+      "path": "content/customer-instructions",
+      "aliases": [
+        "node/9",
+        "content/customer-instructions"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "10",
+      "type": "page",
+      "title": "Changelog and patches for server",
+      "published": false,
+      "path": "changelog",
+      "aliases": [
+        "node/10",
+        "changelog"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "13",
+      "type": "blog",
+      "title": "What in the world have I been up to?",
+      "published": true,
+      "path": "content/what-world-have-i-been",
+      "aliases": [
+        "node/13",
+        "content/what-world-have-i-been"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "14",
+      "type": "blog",
+      "title": "Eclipse for PHP Editing and Debugging",
+      "published": true,
+      "path": "content/eclipse-php-editing-and-debugging",
+      "aliases": [
+        "node/14",
+        "content/eclipse-php-editing-and-debugging"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "15",
+      "type": "blog",
+      "title": "Drupal: Panels Plugin Example module",
+      "published": true,
+      "path": "content/drupal-panels-plugin-example-module",
+      "aliases": [
+        "node/15",
+        "content/drupal-panels-plugin-example-module"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "16",
+      "type": "blog",
+      "title": "My New Development Computer: An Amazon EC2 Instance",
+      "published": true,
+      "path": "content/my-new-development-computer-amazon-ec2-instance",
+      "aliases": [
+        "node/16",
+        "content/my-new-development-computer-amazon-ec2-instance"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "18",
+      "type": "page",
+      "title": "Member of the Drupal Association",
+      "published": true,
+      "path": "content/member-drupal-association",
+      "aliases": [
+        "node/18",
+        "content/member-drupal-association"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "19",
+      "type": "blog",
+      "title": "Portfolio and Resume",
+      "published": true,
+      "path": "portfolio",
+      "aliases": [
+        "node/19",
+        "portfolio"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "20",
+      "type": "blog",
+      "title": "Internationalization and Localization of Warmshowers.org",
+      "published": true,
+      "path": "content/internationalization-and-localization-warmshowersorg",
+      "aliases": [
+        "node/20",
+        "content/internationalization-and-localization-warmshowersorg"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "21",
+      "type": "blog",
+      "title": "New sites using Artisteer",
+      "published": false,
+      "path": "content/new-sites-using-artisteer",
+      "aliases": [
+        "node/21",
+        "content/new-sites-using-artisteer"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "22",
+      "type": "blog",
+      "title": "I helped with a fun facebook game",
+      "published": true,
+      "path": "content/i-helped-fun-facebook-game",
+      "aliases": [
+        "node/22",
+        "content/i-helped-fun-facebook-game"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "23",
+      "type": "blog",
+      "title": "Where to find me",
+      "published": true,
+      "path": "content/where-find-me",
+      "aliases": [
+        "node/23",
+        "content/where-find-me"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "24",
+      "type": "blog",
+      "title": "DrupalCamp Colorado next week - My session got accepted",
+      "published": true,
+      "path": "content/drupalcamp-colorado-next-week-my-session-got-accepted",
+      "aliases": [
+        "node/24",
+        "content/drupalcamp-colorado-next-week-my-session-got-accepted"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "25",
+      "type": "book",
+      "title": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+      "published": true,
+      "path": "ahah",
+      "aliases": [
+        "node/25",
+        "ahah"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "26",
+      "type": "book",
+      "title": "What is AHAH in Drupal?",
+      "published": true,
+      "path": "content/what-ahah-drupal",
+      "aliases": [
+        "node/26",
+        "content/what-ahah-drupal"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "27",
+      "type": "book",
+      "title": "Drupal Forms API (FAPI) Basics - the 2-minute version",
+      "published": true,
+      "path": "content/drupal-forms-api-fapi-basics-2-minute-version",
+      "aliases": [
+        "node/27",
+        "content/drupal-forms-api-fapi-basics-2-minute-version"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "28",
+      "type": "book",
+      "title": "AHAH Simplest Example: #ahah on the submit button, replace a region",
+      "published": true,
+      "path": "content/ahah-simplest-example-ahah-submit-button-replace-region",
+      "aliases": [
+        "node/28",
+        "content/ahah-simplest-example-ahah-submit-button-replace-region"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "29",
+      "type": "book",
+      "title": "Examples of AHAH in Drupal",
+      "published": true,
+      "path": "content/examples-ahah-drupal",
+      "aliases": [
+        "node/29",
+        "content/examples-ahah-drupal"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "30",
+      "type": "book",
+      "title": "AHAH Changes for Drupal 7 (It's now called #AJAX)",
+      "published": true,
+      "path": "ahah/drupal7",
+      "aliases": [
+        "node/30",
+        "ahah/drupal7"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "31",
+      "type": "book",
+      "title": "AHAH Example: Textfields driven by checkboxes",
+      "published": true,
+      "path": "content/ahah-example-textfields-driven-checkboxes",
+      "aliases": [
+        "node/31",
+        "content/ahah-example-textfields-driven-checkboxes"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "32",
+      "type": "book",
+      "title": "AHAH Resources",
+      "published": true,
+      "path": "content/ahah-resources",
+      "aliases": [
+        "node/32",
+        "content/ahah-resources"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "33",
+      "type": "book",
+      "title": "AHAH Example: Select control and generated checkboxes",
+      "published": true,
+      "path": "content/ahah-example-select-control-and-generated-checkboxes",
+      "aliases": [
+        "node/33",
+        "content/ahah-example-select-control-and-generated-checkboxes"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "34",
+      "type": "book",
+      "title": "AHAH Notes and Issues",
+      "published": true,
+      "path": "content/ahah-notes-and-issues",
+      "aliases": [
+        "node/34",
+        "content/ahah-notes-and-issues"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "35",
+      "type": "blog",
+      "title": "My sessions proposed for Drupalcon Paris",
+      "published": true,
+      "path": "content/my-sessions-proposed-drupalcon-paris",
+      "aliases": [
+        "node/35",
+        "content/my-sessions-proposed-drupalcon-paris"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "36",
+      "type": "blog",
+      "title": "Updated Simpletest Tutorial, with sample modules",
+      "published": true,
+      "path": "content/updated-simpletest-tutorial-sample-modules",
+      "aliases": [
+        "node/36",
+        "content/updated-simpletest-tutorial-sample-modules"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "37",
+      "type": "blog",
+      "title": "Ctools Plugin Example done, Finally!",
+      "published": true,
+      "path": "content/ctools-plugin-example-done-finally",
+      "aliases": [
+        "node/37",
+        "content/ctools-plugin-example-done-finally"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "38",
+      "type": "blog",
+      "title": "Debugging Drupal session is a go for Paris Drupalcon",
+      "published": true,
+      "path": "content/debugging-drupal-session-go-paris-drupalcon",
+      "aliases": [
+        "node/38",
+        "content/debugging-drupal-session-go-paris-drupalcon"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "39",
+      "type": "book",
+      "title": "Drupal Debugging",
+      "published": true,
+      "path": "debugging",
+      "aliases": [
+        "node/39",
+        "debugging",
+        "debugging_drupal",
+        "drupal_debugging"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "40",
+      "type": "book",
+      "title": "Debugging Strategies",
+      "published": true,
+      "path": "content/debugging-strategies",
+      "aliases": [
+        "node/40",
+        "content/debugging-strategies"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "41",
+      "type": "book",
+      "title": "Debugging Tools: Preparation and Investment Ahead of Time",
+      "published": true,
+      "path": "content/debugging-tools-preparation-and-investment-ahead-time",
+      "aliases": [
+        "node/41",
+        "content/debugging-tools-preparation-and-investment-ahead-time"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "42",
+      "type": "book",
+      "title": "Debugging Techniques",
+      "published": true,
+      "path": "content/debugging-techniques",
+      "aliases": [
+        "node/42",
+        "content/debugging-techniques"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "43",
+      "type": "book",
+      "title": "Debugging Links and Resources",
+      "published": true,
+      "path": "content/debugging-links-and-resources",
+      "aliases": [
+        "node/43",
+        "content/debugging-links-and-resources"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "44",
+      "type": "blog",
+      "title": "Debugging Drupal Presentation posted",
+      "published": true,
+      "path": "content/debugging-drupal-presentation-posted",
+      "aliases": [
+        "node/44",
+        "content/debugging-drupal-presentation-posted"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "45",
+      "type": "page",
+      "title": "Screen Sharing",
+      "published": true,
+      "path": "screenshare",
+      "aliases": [
+        "node/45",
+        "screenshare",
+        "share"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "46",
+      "type": "blog",
+      "title": "Views, Views Attach, and Views Slideshow: Donelsonarchitecture.com",
+      "published": false,
+      "path": "content/views-views-attach-and-views-slideshow-donelsonarchitecturecom",
+      "aliases": [
+        "node/46",
+        "content/views-views-attach-and-views-slideshow-donelsonarchitecturecom"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "47",
+      "type": "blog",
+      "title": "Drupalcon sessions accepted for Drupalcon SF 2010",
+      "published": true,
+      "path": "content/drupalcon-sessions-accepted-drupalcon-sf-2010",
+      "aliases": [
+        "node/47",
+        "content/drupalcon-sessions-accepted-drupalcon-sf-2010"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "48",
+      "type": "book",
+      "title": "Drupal 7 AJAX Forms",
+      "published": true,
+      "path": "ajax",
+      "aliases": [
+        "node/48",
+        "ajax"
+      ],
+      "hasSectionOverride": true
+    },
+    {
+      "nid": "49",
+      "type": "book",
+      "title": "What are AJAX Forms in Drupal?",
+      "published": true,
+      "path": "content/what-are-ajax-forms-drupal",
+      "aliases": [
+        "node/49",
+        "content/what-are-ajax-forms-drupal"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "50",
+      "type": "book",
+      "title": "Examples of AJAX forms in Drupal",
+      "published": true,
+      "path": "content/examples-ajax-forms-drupal",
+      "aliases": [
+        "node/50",
+        "content/examples-ajax-forms-drupal"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "51",
+      "type": "book",
+      "title": "30 Seconds on the Drupal Form API",
+      "published": true,
+      "path": "content/30-seconds-drupal-form-api",
+      "aliases": [
+        "node/51",
+        "content/30-seconds-drupal-form-api"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "52",
+      "type": "book",
+      "title": "AJAX Simplest Example",
+      "published": true,
+      "path": "content/ajax-simplest-example",
+      "aliases": [
+        "node/52",
+        "content/ajax-simplest-example"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "53",
+      "type": "book",
+      "title": "AJAX Example: Select control and generated checkboxes",
+      "published": true,
+      "path": "content/ajax-example-select-control-and-generated-checkboxes",
+      "aliases": [
+        "node/53",
+        "content/ajax-example-select-control-and-generated-checkboxes"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "54",
+      "type": "book",
+      "title": "AJAX Form Resources",
+      "published": true,
+      "path": "content/ajax-form-resources",
+      "aliases": [
+        "node/54",
+        "content/ajax-form-resources"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "55",
+      "type": "blog",
+      "title": "Debugging with Git Bisect",
+      "published": true,
+      "path": "content/debugging-git-bisect",
+      "aliases": [
+        "node/55",
+        "content/debugging-git-bisect"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "56",
+      "type": "blog",
+      "title": "Drupalcon: Best Practices in Contrib Development",
+      "published": true,
+      "path": "content/drupalcon-best-practices-contrib-development",
+      "aliases": [
+        "node/56",
+        "content/drupalcon-best-practices-contrib-development"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "57",
+      "type": "blog",
+      "title": "Examples module now on api.drupal.org",
+      "published": true,
+      "path": "content/examples-module-now-apidrupalorg",
+      "aliases": [
+        "node/57",
+        "content/examples-module-now-apidrupalorg"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "58",
+      "type": "blog",
+      "title": "Drupal 7 FAPI's #states: A Great New UI Improvement For Forms",
+      "published": true,
+      "path": "states",
+      "aliases": [
+        "node/58",
+        "states"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "59",
+      "type": "blog",
+      "title": "D8 Software Process Improvement Discussions at Core Dev Summit",
+      "published": true,
+      "path": "content/d8-software-process-improvement-discussions-core-dev-summit",
+      "aliases": [
+        "node/59",
+        "content/d8-software-process-improvement-discussions-core-dev-summit"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "60",
+      "type": "blog",
+      "title": "DrupalCon: Drupal 7 AJAX and Javascript",
+      "published": true,
+      "path": "content/drupalcon-drupal-7-ajax-and-javascript",
+      "aliases": [
+        "node/60",
+        "content/drupalcon-drupal-7-ajax-and-javascript"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "61",
+      "type": "blog",
+      "title": "Drupalcon: D7 Advanced Form API Session!",
+      "published": true,
+      "path": "content/drupalcon-d7-advanced-form-api-session",
+      "aliases": [
+        "node/61",
+        "content/drupalcon-d7-advanced-form-api-session"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "62",
+      "type": "blog",
+      "title": "Examples Project Code Sprint",
+      "published": true,
+      "path": "content/examples-project-code-sprint",
+      "aliases": [
+        "node/62",
+        "content/examples-project-code-sprint"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "63",
+      "type": "blog",
+      "title": "PHP 5.2 on Ubuntu 10.04 Lucid Lynx (Seems to work for 12.04 too)",
+      "published": true,
+      "path": "content/php-52-ubuntu-1004-lucid-lynx-seems-work-1204-too",
+      "aliases": [
+        "node/63",
+        "content/php-52-ubuntu-1004-lucid-lynx-seems-work-1204-too"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "64",
+      "type": "blog",
+      "title": "New Queue and Menu Examples for Examples Project",
+      "published": true,
+      "path": "content/new-queue-and-menu-examples-examples-project",
+      "aliases": [
+        "node/64",
+        "content/new-queue-and-menu-examples-examples-project"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "65",
+      "type": "blog",
+      "title": "Translatable Regions Module: For user-contributed content in many languages",
+      "published": true,
+      "path": "content/translatable-regions-module-user-contributed-content-many-languages",
+      "aliases": [
+        "node/65",
+        "content/translatable-regions-module-user-contributed-content-many-languages"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "66",
+      "type": "blog",
+      "title": "Form API Changes for Drupal 7, Part 1: $form_state changes",
+      "published": true,
+      "path": "content/form-api-changes-drupal-7-part-1-formstate-changes",
+      "aliases": [
+        "node/66",
+        "content/form-api-changes-drupal-7-part-1-formstate-changes"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "67",
+      "type": "book",
+      "title": "AJAX Example: Textfields driven by checkboxes",
+      "published": true,
+      "path": "content/ajax-example-textfields-driven-checkboxes",
+      "aliases": [
+        "node/67",
+        "content/ajax-example-textfields-driven-checkboxes"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "68",
+      "type": "blog",
+      "title": "Eclipse Debugging with Zend Debugging Extension for PHP 5.3: New location for downloads",
+      "published": true,
+      "path": "content/eclipse-debugging-zend-debugging-extension-php-53-new-location-downloads",
+      "aliases": [
+        "node/68",
+        "content/eclipse-debugging-zend-debugging-extension-php-53-new-location-downloads"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "69",
+      "type": "blog",
+      "title": "What's wrong with Mollom?",
+      "published": false,
+      "path": "content/whats-wrong-mollom",
+      "aliases": [
+        "node/69",
+        "content/whats-wrong-mollom"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "70",
+      "type": "blog",
+      "title": "Cygwin Quickstart for Drupal Users",
+      "published": true,
+      "path": "content/cygwin-quickstart-drupal-users",
+      "aliases": [
+        "node/70",
+        "content/cygwin-quickstart-drupal-users"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "71",
+      "type": "blog",
+      "title": "Quick guide to wildcard Apache vhosts",
+      "published": true,
+      "path": "content/quick-guide-wildcard-apache-vhosts",
+      "aliases": [
+        "node/71",
+        "content/quick-guide-wildcard-apache-vhosts"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "72",
+      "type": "blog",
+      "title": "Setup for Drupalcon Git Training",
+      "published": false,
+      "path": "content/setup-drupalcon-git-training",
+      "aliases": [
+        "node/72",
+        "content/setup-drupalcon-git-training"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "73",
+      "type": "blog",
+      "title": "Drupal 7 File API Changes",
+      "published": true,
+      "path": "content/drupal-7-file-api-changes",
+      "aliases": [
+        "node/73",
+        "content/drupal-7-file-api-changes"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "74",
+      "type": "blog",
+      "title": "Form API Changes for Drupal 7, Part 2: AJAX/AHAH Changes",
+      "published": true,
+      "path": "content/form-api-changes-drupal-7-part-2-ajaxahah-changes",
+      "aliases": [
+        "node/74",
+        "content/form-api-changes-drupal-7-part-2-ajaxahah-changes"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "75",
+      "type": "blog",
+      "title": "Want to help the Drupal Testing Infrastructure? Provide a testbot!",
+      "published": true,
+      "path": "content/want-help-drupal-testing-infrastructure-provide-testbot",
+      "aliases": [
+        "node/75",
+        "content/want-help-drupal-testing-infrastructure-provide-testbot"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "76",
+      "type": "blog",
+      "title": "If you edit PHP code, please work with E_NOTICE turned on!!!",
+      "published": true,
+      "path": "content/if-you-edit-php-code-please-work-enotice-turned",
+      "aliases": [
+        "node/76",
+        "content/if-you-edit-php-code-please-work-enotice-turned"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "77",
+      "type": "blog",
+      "title": "Views: Making a view show different content to different users based on role",
+      "published": true,
+      "path": "content/views-making-view-show-different-content-different-users-based-role",
+      "aliases": [
+        "node/77",
+        "content/views-making-view-show-different-content-different-users-based-role"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "78",
+      "type": "blog",
+      "title": "Coolest modules (and theme) of the week",
+      "published": true,
+      "path": "content/coolest-modules-and-theme-week",
+      "aliases": [
+        "node/78",
+        "content/coolest-modules-and-theme-week"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "79",
+      "type": "blog",
+      "title": "Drupal 7 Render Arrays (and the new Render Example)",
+      "published": true,
+      "path": "content/drupal-7-render-arrays-and-new-render-example",
+      "aliases": [
+        "node/79",
+        "content/drupal-7-render-arrays-and-new-render-example"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "80",
+      "type": "story",
+      "title": "test test",
+      "published": false,
+      "path": "something/else/here",
+      "aliases": [
+        "node/80",
+        "something/else/here"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "81",
+      "type": "blog",
+      "title": "OK, launched on D7",
+      "published": true,
+      "path": "content/ok-launched-d7",
+      "aliases": [
+        "node/81",
+        "content/ok-launched-d7"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "83",
+      "type": "blog",
+      "title": "Git over an ssh tunnel (like through a firewall or VPN)",
+      "published": true,
+      "path": "content/git-over-ssh-tunnel-through-firewall-or-vpn",
+      "aliases": [
+        "node/83",
+        "content/git-over-ssh-tunnel-through-firewall-or-vpn"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "84",
+      "type": "story",
+      "title": "This is a garbage story intended never to be found, but for testing only",
+      "published": true,
+      "path": "content/garbage-story-intended-never-be-found-testing-only",
+      "aliases": [
+        "node/84",
+        "content/garbage-story-intended-never-be-found-testing-only"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "85",
+      "type": "blog",
+      "title": "Stashing data in the D7 User Object (or... no more magical fairy cruft saving)",
+      "published": true,
+      "path": "content/stashing-data-d7-user-object-or-no-more-magical-fairy-cruft-saving",
+      "aliases": [
+        "node/85",
+        "content/stashing-data-d7-user-object-or-no-more-magical-fairy-cruft-saving"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "86",
+      "type": "blog",
+      "title": "Starting work for Commerce Guys!",
+      "published": true,
+      "path": "content/starting-work-commerce-guys",
+      "aliases": [
+        "node/86",
+        "content/starting-work-commerce-guys"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "87",
+      "type": "blog",
+      "title": "Review of Drupal 7 Module Development",
+      "published": true,
+      "path": "content/review-drupal-7-module-development",
+      "aliases": [
+        "node/87",
+        "content/review-drupal-7-module-development"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "88",
+      "type": "blog",
+      "title": "Content Translation (field translation) in Drupal 7: First steps",
+      "published": true,
+      "path": "content/content-translation-field-translation-drupal-7-first-steps",
+      "aliases": [
+        "node/88",
+        "content/content-translation-field-translation-drupal-7-first-steps"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "89",
+      "type": "blog",
+      "title": "Avoiding Git Disasters: A Gory Story",
+      "published": true,
+      "path": "content/avoiding-git-disasters-gory-story",
+      "aliases": [
+        "node/89",
+        "content/avoiding-git-disasters-gory-story"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "90",
+      "type": "blog",
+      "title": "Differences Between the Drupal Community and The Microsoft Kingdom",
+      "published": true,
+      "path": "content/differences-between-drupal-community-and-microsoft-kingdom",
+      "aliases": [
+        "node/90",
+        "content/differences-between-drupal-community-and-microsoft-kingdom"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "91",
+      "type": "blog",
+      "title": "A Rebase Workflow for Git",
+      "published": true,
+      "path": "content/rebase-workflow-git",
+      "aliases": [
+        "node/91",
+        "content/rebase-workflow-git"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "92",
+      "type": "blog",
+      "title": "Resetting Drupal Passwords in Drupal 7 with Drush or Without",
+      "published": true,
+      "path": "content/resetting-drupal-passwords-drupal-7-drush-or-without",
+      "aliases": [
+        "node/92",
+        "content/resetting-drupal-passwords-drupal-7-drush-or-without"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "93",
+      "type": "blog",
+      "title": "Reference (cache) repositories to speed up clones: git clone --reference",
+      "published": true,
+      "path": "content/reference-cache-repositories-speed-clones-git-clone-reference",
+      "aliases": [
+        "node/93",
+        "content/reference-cache-repositories-speed-clones-git-clone-reference"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "94",
+      "type": "blog",
+      "title": "Review of Drupal 7: Visual QuickStart Guide",
+      "published": true,
+      "path": "content/review-drupal-7-visual-quickstart-guide",
+      "aliases": [
+        "node/94",
+        "content/review-drupal-7-visual-quickstart-guide"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "95",
+      "type": "blog",
+      "title": "Review of Packt's Drupal 7 First Look",
+      "published": true,
+      "path": "content/review-packts-drupal-7-first-look",
+      "aliases": [
+        "node/95",
+        "content/review-packts-drupal-7-first-look"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "96",
+      "type": "blog",
+      "title": "Pushing and Deleting Git Topic Branches (Screencast)",
+      "published": true,
+      "path": "content/pushing-and-deleting-git-topic-branches-screencast",
+      "aliases": [
+        "node/96",
+        "content/pushing-and-deleting-git-topic-branches-screencast"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "97",
+      "type": "blog",
+      "title": "Drupal Patching, Committing, and Squashing with Git",
+      "published": true,
+      "path": "content/drupal-patching-committing-and-squashing-git",
+      "aliases": [
+        "node/97",
+        "content/drupal-patching-committing-and-squashing-git"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "98",
+      "type": "blog",
+      "title": "Playing around with Git",
+      "published": true,
+      "path": "content/playing-around-git",
+      "aliases": [
+        "node/98",
+        "content/playing-around-git"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "99",
+      "type": "blog",
+      "title": "Drupal Testbots are now running on the OSUOSL Supercell",
+      "published": true,
+      "path": "content/drupal-testbots-are-now-running-osuosl-supercell",
+      "aliases": [
+        "node/99",
+        "content/drupal-testbots-are-now-running-osuosl-supercell"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "100",
+      "type": "blog",
+      "title": "Changing a theme name (or adding a subtheme) without losing block and theme settings",
+      "published": true,
+      "path": "content/changing-theme-name-or-adding-subtheme-without-losing-block-and-theme-settings",
+      "aliases": [
+        "node/100",
+        "content/changing-theme-name-or-adding-subtheme-without-losing-block-and-theme-settings"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "102",
+      "type": "blog",
+      "title": "Handling the new .gitignore file in D7 and D8",
+      "published": true,
+      "path": "content/handling-new-gitignore-file-d7-and-d8",
+      "aliases": [
+        "node/102",
+        "content/handling-new-gitignore-file-d7-and-d8"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "103",
+      "type": "blog",
+      "title": "Simpler Rebasing (avoiding unintentional merge commits)",
+      "published": true,
+      "path": "content/simpler-rebasing-avoiding-unintentional-merge-commits",
+      "aliases": [
+        "node/103",
+        "content/simpler-rebasing-avoiding-unintentional-merge-commits"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "104",
+      "type": "blog",
+      "title": "Drupal.org is a cesspool of undifferentiated **** (oops... content, that is)",
+      "published": true,
+      "path": "content/drupalorg-cesspool-undifferentiated-oops-content",
+      "aliases": [
+        "node/104",
+        "content/drupalorg-cesspool-undifferentiated-oops-content"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "105",
+      "type": "blog",
+      "title": "Fixing a Broken Drupal 7 Registry",
+      "published": true,
+      "path": "content/fixing-broken-drupal-7-registry",
+      "aliases": [
+        "node/105",
+        "content/fixing-broken-drupal-7-registry"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "106",
+      "type": "blog",
+      "title": "Managing Site-owner Comment Notifications Using Triggers and Actions",
+      "published": true,
+      "path": "content/managing-site-owner-comment-notifications-using-triggers-and-actions",
+      "aliases": [
+        "node/106",
+        "content/managing-site-owner-comment-notifications-using-triggers-and-actions"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "107",
+      "type": "blog",
+      "title": "What is Burnout?",
+      "published": true,
+      "path": "content/what-burnout",
+      "aliases": [
+        "node/107",
+        "content/what-burnout"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "109",
+      "type": "blog",
+      "title": "What Can Individuals Do To Prevent Burnout?",
+      "published": true,
+      "path": "content/what-can-individuals-do-prevent-burnout",
+      "aliases": [
+        "node/109",
+        "content/what-can-individuals-do-prevent-burnout"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "110",
+      "type": "blog",
+      "title": "How Does the Drupal Community Burn People Out?",
+      "published": true,
+      "path": "content/how-does-drupal-community-burn-people-out",
+      "aliases": [
+        "node/110",
+        "content/how-does-drupal-community-burn-people-out"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "111",
+      "type": "blog",
+      "title": "What can the Drupal Community do about Burnout?",
+      "published": true,
+      "path": "content/what-can-drupal-community-do-about-burnout",
+      "aliases": [
+        "node/111",
+        "content/what-can-drupal-community-do-about-burnout"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "112",
+      "type": "blog",
+      "title": "Drupal Community Conflict Resolution (and Twitter)",
+      "published": true,
+      "path": "content/drupal-community-conflict-resolution-and-twitter",
+      "aliases": [
+        "node/112",
+        "content/drupal-community-conflict-resolution-and-twitter"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "113",
+      "type": "blog",
+      "title": "Happy Notes! (About *not* burning out!)",
+      "published": true,
+      "path": "content/happy-notes-about-not-burning-out",
+      "aliases": [
+        "node/113",
+        "content/happy-notes-about-not-burning-out"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "114",
+      "type": "blog",
+      "title": "Drush, File Permissions, and Web Servers - Lots of things can go wrong",
+      "published": true,
+      "path": "content/drush-file-permissions-web-servers-and-coming-armageddon",
+      "aliases": [
+        "node/114",
+        "content/drush-file-permissions-web-servers-and-coming-armageddon"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "115",
+      "type": "blog",
+      "title": "Drupal Deployment with Git Submodules",
+      "published": true,
+      "path": "content/drupal-deployment-git-submodules",
+      "aliases": [
+        "node/115",
+        "content/drupal-deployment-git-submodules"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "116",
+      "type": "blog",
+      "title": "Using Scrapbook Plus to capture the Drupal issue queue for a plane ride",
+      "published": false,
+      "path": "content/using-scrapbook-plus-capture-drupal-issue-queue-plane-ride",
+      "aliases": [
+        "node/116",
+        "content/using-scrapbook-plus-capture-drupal-issue-queue-plane-ride"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "117",
+      "type": "blog",
+      "title": "Refreshing a Stale Patch with Git",
+      "published": true,
+      "path": "content/refreshing-stale-patch-git",
+      "aliases": [
+        "node/117",
+        "content/refreshing-stale-patch-git"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "118",
+      "type": "blog",
+      "title": "What is Governance?",
+      "published": true,
+      "path": "content/what-governance",
+      "aliases": [
+        "node/118",
+        "content/what-governance"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "119",
+      "type": "blog",
+      "title": "git clone --reference Considered Harmful",
+      "published": true,
+      "path": "content/git-clone-reference-considered-harmful",
+      "aliases": [
+        "node/119",
+        "content/git-clone-reference-considered-harmful"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "120",
+      "type": "blog",
+      "title": "How Do Open Source Communities Govern Themselves?",
+      "published": true,
+      "path": "content/how-do-open-source-communities-govern-themselves",
+      "aliases": [
+        "node/120",
+        "content/how-do-open-source-communities-govern-themselves"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "121",
+      "type": "blog",
+      "title": "Drupal's Governance",
+      "published": true,
+      "path": "content/drupals-governance",
+      "aliases": [
+        "node/121",
+        "content/drupals-governance"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "122",
+      "type": "blog",
+      "title": "A Change of Direction",
+      "published": false,
+      "path": "content/change-direction",
+      "aliases": [
+        "node/122",
+        "content/change-direction"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "123",
+      "type": "blog",
+      "title": "The Future of Drupal Governance: Resources and Next Steps",
+      "published": true,
+      "path": "content/future-drupal-governance-resources-and-next-steps",
+      "aliases": [
+        "node/123",
+        "content/future-drupal-governance-resources-and-next-steps"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "124",
+      "type": "blog",
+      "title": "Examples Project: Split it up!",
+      "published": false,
+      "path": "content/examples-project-split-it",
+      "aliases": [
+        "node/124",
+        "content/examples-project-split-it"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "125",
+      "type": "blog",
+      "title": "Accessing OSUOSL Supercell to manage Drupal.org Testbots  ",
+      "published": false,
+      "path": "content/accessing-osuosl-supercell-manage-drupalorg-testbots",
+      "aliases": [
+        "node/125",
+        "content/accessing-osuosl-supercell-manage-drupalorg-testbots"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "126",
+      "type": "blog",
+      "title": "Drupal Governance Working Group Update (Meeting this Tuesday 2012-05-29)",
+      "published": false,
+      "path": "content/drupal-governance-working-group-update-meeting-tuesday-2012-05-29",
+      "aliases": [
+        "node/126",
+        "content/drupal-governance-working-group-update-meeting-tuesday-2012-05-29"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "127",
+      "type": "blog",
+      "title": "Why I Donated To BackdropCMS",
+      "published": true,
+      "path": "content/why-i-donated-backdropcms",
+      "aliases": [
+        "node/127",
+        "content/why-i-donated-backdropcms"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "129",
+      "type": "blog",
+      "title": "Tunneling HTTP to Debug or Develop an External Webservice Call",
+      "published": true,
+      "path": "content/tunneling-http-debug-or-develop-external-webservice-call",
+      "aliases": [
+        "node/129",
+        "content/tunneling-http-debug-or-develop-external-webservice-call"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "130",
+      "type": "blog",
+      "title": "Remote Drupal/PHP Debugging with Xdebug and PHPStorm",
+      "published": true,
+      "path": "content/remote-drupalphp-debugging-xdebug-and-phpstorm",
+      "aliases": [
+        "node/130",
+        "content/remote-drupalphp-debugging-xdebug-and-phpstorm"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "131",
+      "type": "blog",
+      "title": "Remote Command-Line debugging with PHPStorm for PHP/Drupal (including drush)",
+      "published": true,
+      "path": "content/remote-command-line-debugging-phpstorm-phpdrupal-including-drush",
+      "aliases": [
+        "node/131",
+        "content/remote-command-line-debugging-phpstorm-phpdrupal-including-drush"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "132",
+      "type": "page",
+      "title": "Test paypal",
+      "published": false,
+      "path": "content/test-paypal",
+      "aliases": [
+        "node/132",
+        "content/test-paypal"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "133",
+      "type": "page",
+      "title": "Randy Fay Resume",
+      "published": true,
+      "path": "resume",
+      "aliases": [
+        "node/133",
+        "resume"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "134",
+      "type": "blog",
+      "title": "rfay pubkey",
+      "published": false,
+      "path": "content/rfay-pubkey",
+      "aliases": [
+        "node/134",
+        "content/rfay-pubkey"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "135",
+      "type": "blog",
+      "title": "randyfay.com is LIVE on DDEV-Live",
+      "published": false,
+      "path": "ddev-live",
+      "aliases": [
+        "node/135",
+        "ddev-live"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "136",
+      "type": "blog",
+      "title": "randyfay.com is live on DDEV docker-based casual hosting",
+      "published": false,
+      "path": "content/randyfaycom-live-ddev-docker-based-casual-hosting",
+      "aliases": [
+        "node/136",
+        "content/randyfaycom-live-ddev-docker-based-casual-hosting"
+      ],
+      "hasSectionOverride": false
+    },
+    {
+      "nid": "137",
+      "type": "blog",
+      "title": "Links to recent presentations",
+      "published": true,
+      "path": "content/links-recent-presentations",
+      "aliases": [
+        "node/137",
+        "content/links-recent-presentations"
+      ],
+      "hasSectionOverride": false
+    }
+  ],
+  "files": [
+    {
+      "fid": "4",
+      "filename": "karmic.list",
+      "uri": "public://karmic_0.list",
+      "url": "/sites/default/files/karmic_0.list",
+      "mime": "application/octet-stream"
+    },
+    {
+      "fid": "5",
+      "filename": "php.",
+      "uri": "public://php_0.",
+      "url": "/sites/default/files/php_0.",
+      "mime": "application/octet-stream"
+    },
+    {
+      "fid": "6",
+      "filename": "demo_role_content_feature-6.x-1.0.tar_.gz",
+      "uri": "public://demo_role_content_feature-6.x-1.0.tar_.gz",
+      "url": "/sites/default/files/demo_role_content_feature-6.x-1.0.tar_.gz",
+      "mime": "application/octet-stream"
+    },
+    {
+      "fid": "7",
+      "filename": "php.",
+      "uri": "public://php_1.",
+      "url": "/sites/default/files/php_1.",
+      "mime": "application/octet-stream"
+    },
+    {
+      "fid": "8",
+      "filename": "rfay_dell_gazelle_Selection_002.png",
+      "uri": "public://blog_image/rfay_dell_gazelle_Selection_002.png",
+      "url": "/sites/default/files/blog_image/rfay_dell_gazelle_Selection_002.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "9",
+      "filename": "rfay_dell_gazelle_Selection_002.png",
+      "uri": "public://rfay_dell_gazelle_Selection_002.png",
+      "url": "/sites/default/files/rfay_dell_gazelle_Selection_002.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "10",
+      "filename": "rfay_dell_gazelle_Selection_003.png",
+      "uri": "public://rfay_dell_gazelle_Selection_003.png",
+      "url": "/sites/default/files/rfay_dell_gazelle_Selection_003.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "11",
+      "filename": "rfay_dell_gazelle_Selection_004.png",
+      "uri": "public://rfay_dell_gazelle_Selection_004.png",
+      "url": "/sites/default/files/rfay_dell_gazelle_Selection_004.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "12",
+      "filename": "rfay_dell_gazelle_Selection_005.png",
+      "uri": "public://rfay_dell_gazelle_Selection_005.png",
+      "url": "/sites/default/files/rfay_dell_gazelle_Selection_005.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "13",
+      "filename": "rfay_dell_gazelle_Selection_006.png",
+      "uri": "public://rfay_dell_gazelle_Selection_006.png",
+      "url": "/sites/default/files/rfay_dell_gazelle_Selection_006.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "14",
+      "filename": "rfay_dell_gazelle_Selection_007.png",
+      "uri": "public://rfay_dell_gazelle_Selection_007.png",
+      "url": "/sites/default/files/rfay_dell_gazelle_Selection_007.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "20",
+      "filename": "2008-lamborghini-reventon-vs-tornado-jet-fighter-side-speed-tilt-1280x960.jpg",
+      "uri": "public://2008-lamborghini-reventon-vs-tornado-jet-fighter-side-speed-tilt-1280x960.jpg",
+      "url": "/sites/default/files/2008-lamborghini-reventon-vs-tornado-jet-fighter-side-speed-tilt-1280x960.jpg",
+      "mime": "image/jpeg"
+    },
+    {
+      "fid": "23",
+      "filename": "karmic.list",
+      "uri": "public://karmic_1.list",
+      "url": "/sites/default/files/karmic_1.list",
+      "mime": "application/octet-stream"
+    },
+    {
+      "fid": "28",
+      "filename": "rfay_dell_Selection_120.png",
+      "uri": "public://blog_image/rfay_dell_Selection_120.png",
+      "url": "/sites/default/files/blog_image/rfay_dell_Selection_120.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "29",
+      "filename": "rfay_dell_Selection_121.png",
+      "uri": "public://blog_image/rfay_dell_Selection_121.png",
+      "url": "/sites/default/files/blog_image/rfay_dell_Selection_121.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "32",
+      "filename": "bav1.png",
+      "uri": "public://bav1.png",
+      "url": "/sites/default/files/bav1.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "34",
+      "filename": "rfay_screenshot 2012-04-12 at 2.23.00 PM.png",
+      "uri": "public://blog_image/rfay_screenshot 2012-04-12 at 2.23.00 PM.png",
+      "url": "/sites/default/files/blog_image/rfay_screenshot 2012-04-12 at 2.23.00 PM.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "35",
+      "filename": "rfay_screenshot 2012-04-12 at 2.27.26 PM.png",
+      "uri": "public://blog_image/rfay_screenshot 2012-04-12 at 2.27.26 PM.png",
+      "url": "/sites/default/files/blog_image/rfay_screenshot 2012-04-12 at 2.27.26 PM.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "37",
+      "filename": "RandyFayResume1-2010.pdf",
+      "uri": "public://RandyFayResume1-2010_0.pdf",
+      "url": "/sites/default/files/RandyFayResume1-2010_0.pdf",
+      "mime": "application/pdf"
+    },
+    {
+      "fid": "38",
+      "filename": "RandyFayResume2012.pdf",
+      "uri": "public://RandyFayResume2012.pdf",
+      "url": "/sites/default/files/RandyFayResume2012.pdf",
+      "mime": "application/pdf"
+    },
+    {
+      "fid": "40",
+      "filename": "waiting_for_connection.png",
+      "uri": "public://blog_image/waiting_for_connection.png",
+      "url": "/sites/default/files/blog_image/waiting_for_connection.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "41",
+      "filename": "server_config.png",
+      "uri": "public://blog_image/server_config.png",
+      "url": "/sites/default/files/blog_image/server_config.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "42",
+      "filename": "php_web_app_configuration-2.png",
+      "uri": "public://blog_image/php_web_app_configuration-2.png",
+      "url": "/sites/default/files/blog_image/php_web_app_configuration-2.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "43",
+      "filename": "LearningCurveCMS.png",
+      "uri": "public://LearningCurveCMS.png",
+      "url": "/sites/default/files/LearningCurveCMS.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "44",
+      "filename": "LearningCurveCMS.png",
+      "uri": "public://LearningCurveCMS_0.png",
+      "url": "/sites/default/files/LearningCurveCMS_0.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "45",
+      "filename": "phpstorm_not_listening.png",
+      "uri": "public://blog_image/phpstorm_not_listening.png",
+      "url": "/sites/default/files/blog_image/phpstorm_not_listening.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "46",
+      "filename": "phpstorm_listening.png",
+      "uri": "public://blog_image/phpstorm_listening.png",
+      "url": "/sites/default/files/blog_image/phpstorm_listening.png",
+      "mime": "image/png"
+    },
+    {
+      "fid": "47",
+      "filename": "PHPStorm_server_config.jpg",
+      "uri": "public://PHPStorm_server_config.jpg",
+      "url": "/sites/default/files/PHPStorm_server_config.jpg",
+      "mime": "image/jpeg"
+    },
+    {
+      "fid": "17504",
+      "filename": "RandyFayResume2015.pdf",
+      "uri": "public://RandyFayResume2015.pdf",
+      "url": "/sites/default/files/RandyFayResume2015.pdf",
+      "mime": "application/pdf"
+    },
+    {
+      "fid": "17783",
+      "filename": "RandyFayResume2016.pdf",
+      "uri": "public://RandyFayResume2016.pdf",
+      "url": "/sites/default/files/RandyFayResume2016.pdf",
+      "mime": "application/pdf"
+    },
+    {
+      "fid": "17784",
+      "filename": "Randy Fay Resume 2016.pdf",
+      "uri": "public://Randy Fay Resume 2016.pdf",
+      "url": "/sites/default/files/Randy Fay Resume 2016.pdf",
+      "mime": "application/pdf"
+    },
+    {
+      "fid": "17785",
+      "filename": "rfay.pub_.txt",
+      "uri": "public://rfay.pub_.txt",
+      "url": "/sites/default/files/rfay.pub_.txt",
+      "mime": "text/plain"
+    },
+    {
+      "fid": "17786",
+      "filename": "ddev.png",
+      "uri": "public://blog_image/ddev.png",
+      "url": "/sites/default/files/blog_image/ddev.png",
+      "mime": "image/png"
+    }
+  ]
+}

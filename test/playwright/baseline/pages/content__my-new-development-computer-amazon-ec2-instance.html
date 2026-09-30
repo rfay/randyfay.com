@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/my-new-development-computer-amazon-ec2-instance" />
+
+    <title>My New Development Computer: An Amazon EC2 Instance | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">My New Development Computer: An Amazon EC2 Instance</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-16" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Fri, 2009-02-27 05:34 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/amazon-ec2">Amazon EC2</a></li><li class="taxonomy-term-reference-1"><a href="/topics/development">Development</a></li><li class="taxonomy-term-reference-2"><a href="/topics/planet-drupal">Planet Drupal</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>Here in Florida, where we're spending a couple of months, the only computer I have access to is my little netbook, an <a title="MSI Wind U-100" href="http://global.msi.com.tw/index.php?func=proddesc&amp;prod_no=1474&amp;maincat_no=135" id="x6g0">MSI Wind U-100</a> . It's a fine little computer, but it doesn't really have enough CPU to run Firefox, the Apache web server, the Eclipse development environment, and do debugging all at the same time. I could read the newspaper while stepping through code with the debugger, because I had to wait at each step.</p>
+<p>Enter <a title="Amazon's Electronic Cloud (EC2) product" href="http://aws.amazon.com/ec2/" id="m458">Amazon's Electronic Cloud (EC2) product</a> . They provide powerful virtual computers to rent "in the cloud". So I just start up a new computer when I get to work in the morning, and then use remote access tools to view and control it. I spend US$0.10/hour to rent the computer. That' all. When I was so frustrated with the debugging I considered buying a new computer just for this purpose, but we don't have much room where we are here, and we would have to move the computer, and of course would have to buy it in the first place. To buy a physical computer of the power I'm getting from Amazon would cost perhaps $600-$1000, and it takes quite a few hours at $0.10/hour to add up to that. </p>
+<p>Normally, people use Amazon's EC2 for servers, machines that need little interaction with people. But since they have fantastic network access and can do anything a regular computer can, they can be used as a "desktop" machine as well, and that's what I've done here.</p>
+<p>Here's how I set up the machine. I won't go into all the details of how you work with EC2 instances, because there is a learning curve there, but I'll give the broad outline.</p>
+<ol>
+<li>II used <a title="Elasticfox" href="http://ec2-downloads.s3.amazonaws.com/elasticfox-owners-manual.pdf" id="vhp6">Elasticfox</a> , a Firefox add-on, to create an instance based on <a title="Eric Hammond's pre-built Ubuntu EC2 machines" href="http://alestic.com/" id="lk0r">Eric Hammond's pre-built Ubuntu EC2 machines</a>. I used the <a title="Ubuntu 8.10 Desktop" href="http://developer.amazonwebservices.com/connect/entry.jspa?externalID=1612&amp;categoryID=101" id="h8o2">Ubuntu 8.10 Desktop</a>  version, which works just fine.</li>
+<li>One of the real problems you have to work around with EC2 is that when you shut down an instance, it goes away, POOF. No more nothing. All your data and configuration is gone. But they have an important feature called <a title="Elastic Block Store, or EBS" href="http://aws.amazon.com/ebs/" id="zu3j">Elastic Block Store, or EBS</a> , which is basically a disk that you can attach anytime you want to any instance you create.  So I created an EBS volume for use with my development machine and used Elasticfox to attach it.</li>
+<li>I need Apache and Mysql services on the machine, and need their config, databases, etc. to not just go away every time I shut down the instance. So I installed and configured them <a title="based on this article" href="http://www.john-nousis.com/development/tutorial-running-a-phpmysql-server-on-ec2-with-ebs/" id="vx_1">based on this article</a>  (which is redhat-specific; slightly different for Ubuntu).</li>
+<li>I put my home directory and the /opt directory on the EBS volume. I installed Eclipse in the /opt directory.</li>
+<li>I rebundled the instance so that it would always boot up the same.</li>
+<li>Now I have a new development machine any time I want. And if I want to, I can launch it with the more powerful CPU or memory configurations that Amazon offers, for higher rent, of course.</li>
+</ol>
+<p>Eric Hammond's Ubuntu builds come with the excellent <a title="Nomachine.com Desktop Virtualization" href="http://www.nomachine.com/products.php" id="nall">Nomachine.com Desktop Virtualization</a>  server built in, and I use their free NX client to access my machine in the cloud. It's just like being there.</p>
+<p>I can now start up Eclipse in about 1/5 of the time it takes to start up on my machine, and as I said, I don't have to read the newspaper while stepping through code in the debugger.</p>
+<p></p>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/16%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-229"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Gareth (not verified)</span></p>
+        <p class="comment-time">Wed, 2010-09-22 19:52</p>
+        <p class="comment-permalink"><a href="/comment/229#comment-229" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/229#comment-229" class="permalink" rel="bookmark">EBS block formatting</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Its been a while since I did anything like this, but I found that using the EBS block the thing to watch out for formatting it.</p>
+<p>The more powerful CPU configs are 64bit machines whereas the lower ones are 32bit. Make sure that if you are thinking about upgrading at some point that you format your EBS in a way that can be accessed by both.</p>
+<p>That also has implications on the instance you create with your custom config, you will probably need to create a 32bit and 64bit instance, but at least your data should transfer between them if its safe on your EBS.</p>
+<p>Things might have changed since I last used it, but thought it was worth mentioning as I'm  still considering the switch when my machine finally gives up. How you finding this? Are you still using it? Could you give an idea how much you used it and an idea of the annual cost for running things this way?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/16%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-230"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Thu, 2010-09-23 00:23</p>
+        <p class="comment-permalink"><a href="/comment/230#comment-230" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/230#comment-230" class="permalink" rel="bookmark">Haven&#039;t used it this way for some time</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I haven't done this for some time, but it was a great technique.</p>
+<p>I tend to avoid Amazon these days because (IMO) you don't get enough value from them, and Linode and Rackspace Cloud are so much easier to deal with (better customer interfaces, less complex). Also, you get support with both Linode and Rackspace Cloud.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/16%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-270"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.carolinakinetic.com" rel="nofollow" class="username">FitzChivalry (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-09-28 13:40</p>
+        <p class="comment-permalink"><a href="/comment/270#comment-270" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/270#comment-270" class="permalink" rel="bookmark">Great idea!</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I looked into EC2 some time back for my hosted application, but the monthly charge was going to be higher than my standard web hosting company (<a href="http://www.mmaweb.net">www.mmaweb.net</a>, which I <em>LOVE</em> ...I've gotten tech support replies from them ON CHRISTMAS!).</p>
+<p>However, with EC2's new Micro Instance, with a reserved instance price of $0.013 for Windows machines and $0.007 for Linux machines, I'm considering following in your footsteps and setting up a development environment, at least, and possibly setting up my hosted apps.</p>
+<p>Regarding the development environment, when I travel, I frequently forget this file or that file on my machine at home, and am stuck, unable to work. I also like to keep personal files off of my employer's machine. Following in your footsteps would enable me to spend my lunch hour working on my own stuff, or to wait out traffic snarls at the end of the day by starting my personal projects while still at work.</p>
+<p>Thanks for the great idea!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/16%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-271"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2010-09-28 13:46</p>
+        <p class="comment-permalink"><a href="/comment/271#comment-271" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/271#comment-271" class="permalink" rel="bookmark">I have a linode instance going today</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I have a linode.com instance going today. $20/month, full X on it, and using the wonderful free nomachines.com nx server. It's great. It means that I have a machine that's super fast on the internet (I'm doing performance testing right now, and want to know about the machine's performance, not about the internet's performance). This is still a great way to go.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/16%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div>      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/content/my-new-development-computer-amazon-ec2-instance" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

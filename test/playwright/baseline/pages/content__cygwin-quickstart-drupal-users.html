@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/cygwin-quickstart-drupal-users" />
+
+    <title>Cygwin Quickstart for Drupal Users | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">Cygwin Quickstart for Drupal Users</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-70" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Sun, 2010-08-15 23:16 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/planet-drupal">Planet Drupal</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p><a href="http://cygwin.com">Cygwin</a> is a great set of Unix/Linux utilities for Windows.  Here are quickstart instructions for using it in a Drupal context (for git, patch, ssh, or whatever)</p>
+<ul>
+<li>Grab the small setup.exe from <a href="http://cygwin.com">http://cygwin.com</a></li>
+<li>Run it. If you're on Windows Vista or later, you'll want to run the setup with administrative privileges (Right click on setup.exe and "Run as administrator")</li>
+<li>Take all the defaults - we'll end up with an install in c:\cygwin</li>
+<li>When you get to the package selection screen, select at least: <b>openssh, git, rxvt, patch, patchutils, telnet, unzip, nano, vim, rsync, wget, connect-proxy.</b> Then let it download and install.</li>
+<li>Run "Rxvt Native" from the start menu. (If on Vista or later, you need to run it as administrator this time because we'll be setting up links in a privileged directory). The first time you do this it will install default profile files for you.</li>
+<li>In rxvt we'll now set up symbolic links to the Windows filesystem. Do this for each drive you have... I'm showing the C: and D: drives here:<code><br />
+cd /<br />
+ln -s /cygdrive/c<br />
+ln -s /cygdrive/d<br />
+</code></li>
+<li>Now you can navigate into the Windows filesystem to wherever your Drupal install is. /c is the root of the C: drive; /d is the root of the D: drive. For example, if you have Acquia's DAMP installed, it might be in /c/Users/rfay/Documents/Sites/acquia-drupal or something like that.</li>
+<li>Using cvs, you could check out the Examples project, for example:<br />
+<code>export CVSROOT=:pserver:anonymous@cvs.drupal.org:/cvs/drupal-contrib<br />
+cvs login (your password is 'anonymous')<br />
+cvs -z6 checkout -d examples-HEAD contributions/modules/examples<br />
+</code><br />
+and now you have a HEAD version of Examples.</li>
+<li>Using git you could get Examples from git.drupalfr.org:<br />
+<code><br />
+git clone git://git.drupalfr.org/git/contributions-new-date/examples.git<br />
+</code></li>
+<li>Or apply a <a href="http://drupal.org/patch">patch using patch</a>.... or create a patch using git diff --no-prefix...</li>
+</ul>
+<p>The world is your oyster. You have the easy-to-use editor nano if you want to edit within Cygwin, but you can just use the Windows editor of your choice as well.</p>
+<p>You may also want to watch <a href="http://www.lullabot.com/videos/install-cygwin-windows-xp">the Lullabot video on installing Cygwin</a>, which is old, but still useful and valid.</p>
+<p>Edit: You can now use drush successfully on Windows! See <a href="http://drupal.org/node/1432756">Installing Drush on Windows Using Cygwin</a>.</p>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-154"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://mostrey.be" rel="nofollow" class="username">Wim Mostrey (not verified)</a></p>
+        <p class="comment-time">Mon, 2010-08-16 00:26</p>
+        <p class="comment-permalink"><a href="/comment/154#comment-154" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/154#comment-154" class="permalink" rel="bookmark">Cygwin + Drush</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>One other great use I can imagine for Cygwin is Drush. There appear to be a couple of issues to get Drush (and Drush 3 specifically) running with Cygwin though. I think a lot of people would appreciate a follow-up article on Cygwun + Drush. It looks like it hasn't been done before.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-156"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://stonebergdesign.com" rel="nofollow" class="username">rocksoup (not verified)</a></p>
+        <p class="comment-time">Mon, 2010-08-16 01:48</p>
+        <p class="comment-permalink"><a href="/comment/156#comment-156" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/156#comment-156" class="permalink" rel="bookmark">Drush 3 + Cygwin</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I set up Cygwin with Drush 3 today using this: <a href="http://drupal.org/node/594744">http://drupal.org/node/594744</a> and a similar approach to the method above.  Drush 3 on window$ ftw!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-161"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://greenknowe.org" rel="nofollow" class="username">greg.1.anderson (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-08-17 08:36</p>
+        <p class="comment-permalink"><a href="/comment/161#comment-161" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/161#comment-161" class="permalink" rel="bookmark">Drush + Windows</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Drush + Windows has definitely been done, but there <i>are</i> a few issues.  I just committed a Windows-related fix to drush-HEAD; we could definitely use some good Windows hands in the drush queue to suggest and test patches.</p>
+<p>Thanks for the great cygwin article.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-155"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://corbacho.info" rel="nofollow" class="username">David Corbacho (not verified)</a></p>
+        <p class="comment-time">Mon, 2010-08-16 01:20</p>
+        <p class="comment-permalink"><a href="/comment/155#comment-155" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/155#comment-155" class="permalink" rel="bookmark">Mintty</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I personally recommend to grab in the package selection "mintty". It's an alternative interface over Cygwin that makes everything nicer visually and more natural behaviors for Windows-users like selection of text, Right Click -&gt; Copy, windows resizable, Drag&amp;drop etc</p>
+<p>Also can be grabbed as a standalone program <a href="http://code.google.com/p/mintty/">http://code.google.com/p/mintty/</a></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-158"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Andy (not verified)</span></p>
+        <p class="comment-time">Mon, 2010-08-16 05:08</p>
+        <p class="comment-permalink"><a href="/comment/158#comment-158" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/158#comment-158" class="permalink" rel="bookmark">Also, unlike rxvt it supports</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Also, unlike rxvt it supports Unicode (i.e. UTF-8), which is the default in latest Cygwin.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-157"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">mikeytown2 (not verified)</span></p>
+        <p class="comment-time">Mon, 2010-08-16 02:26</p>
+        <p class="comment-permalink"><a href="/comment/157#comment-157" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/157#comment-157" class="permalink" rel="bookmark">andLinux</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I'm a huge fan of andLinux<br />
+<a href="http://www.andlinux.org/">http://www.andlinux.org/</a><br />
+<a href="http://drupal.org/node/505974">http://drupal.org/node/505974</a></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2186"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://vacilando.org" rel="nofollow" class="username">Vacilando (not verified)</a></p>
+        <p class="comment-time">Thu, 2012-01-05 15:55</p>
+        <p class="comment-permalink"><a href="/comment/2186#comment-2186" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2186#comment-2186" class="permalink" rel="bookmark">Still now?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I am interested to know -- are you still using andLinux, mikeytown2, or have you moved to a more promising system?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-159"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">smk-ka (not verified)</span></p>
+        <p class="comment-time">Mon, 2010-08-16 20:59</p>
+        <p class="comment-permalink"><a href="/comment/159#comment-159" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/159#comment-159" class="permalink" rel="bookmark">Typing by hand?!</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Are you serious ;) To get an Explorer context menu entry for directories instead, you</p>
+<p>&lt;</p>
+<p>ul&gt;</p>
+<li>also grab chere and mintty packages</li>
+<li>run the following command and be done:<br />
+<code>chere -i -t mintty -e "&amp;Bash Here"</code><br />
+The -e option allows you to change the text to be shown in the context menu to your likings.
+</li></div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-163"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">AaronELBorg (not verified)</span></p>
+        <p class="comment-time">Wed, 2010-08-18 00:16</p>
+        <p class="comment-permalink"><a href="/comment/163#comment-163" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/163#comment-163" class="permalink" rel="bookmark">I wish the windows keyboard</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I wish the windows keyboard shortcuts stuff was more reliable.  It works......occasionally.</p>
+<p>I hate having to grab the mouse and click on an icon to simply open up a gd shell.</p>
+<p>What's the key here??</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-349"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.nextide.ca" rel="nofollow" class="username">blainelang (not verified)</a></p>
+        <p class="comment-time">Mon, 2010-10-18 09:09</p>
+        <p class="comment-permalink"><a href="/comment/349#comment-349" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/349#comment-349" class="permalink" rel="bookmark">had to also specify the --binary option with patch</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Randy, I found your article looking for a solution to errors I was getting trying to apply a patch using Cygwin:</p>
+<blockquote><p>Assertion failed: hunk, file ../patch-2.5.9-src/patch.c, line 354</p>
+</blockquote>
+<p>Using the --binary option solved this for me.<br />
+as in:<br />
+$ patch -p0 --binary &lt; /cygdrive/f/depot/patches/filedepot-use_url_for_links.patch</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-350"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Mon, 2010-10-18 09:25</p>
+        <p class="comment-permalink"><a href="/comment/350#comment-350" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/350#comment-350" class="permalink" rel="bookmark">Cygwin with Linux line endings?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I suspect you may have installed cygwin <em>not</em> taking the default line ending setup (which is to use Unix/Linux line endings) and instead using Windows line endings. I haven't had this problem patching in cygwin myself. But since Cygwin is really a Linux environment, it's important to use the Unix/Linux-style line endings when doing cygwin.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-2198"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://vacilando.org" rel="nofollow" class="username">Vacilando (not verified)</a></p>
+        <p class="comment-time">Sun, 2012-01-29 09:35</p>
+        <p class="comment-permalink"><a href="/comment/2198#comment-2198" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2198#comment-2198" class="permalink" rel="bookmark">Symbolic links incompatible with drush</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>The symbolic linking mentioned in the article (e.g. <code>ln -s /cygdrive/c</code>) has a problem with drush. I've installed drush 5 with WAMP today easily thanks to <a href="http://drupal.org/node/594744">http://drupal.org/node/594744</a> but simple downloads such as <code>drush dl devel</code> were being installed in a Windows folder of the same name as the symbolic link. </p>
+<p>E.g. on site "/c/www" (folder "www" on C drive) the above drush command created a folder "c" on C drive. </p>
+<p>Solution: avoid the symbolic links and simply run drush on the default cygwin path, e.g. "/cygwin/c/www".</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2203"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://vacilando.org" rel="nofollow" class="username">Vacilando (not verified)</a></p>
+        <p class="comment-time">Wed, 2012-02-08 10:25</p>
+        <p class="comment-permalink"><a href="/comment/2203#comment-2203" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2203#comment-2203" class="permalink" rel="bookmark">I meant: avoid the symbolic</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I meant: avoid the symbolic links and simply run drush on the default cygwin path, e.g. "/cygdrive/c/www"!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-2201"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://earthviaradio.wordpress.com/" rel="nofollow" class="username">Peter Cossey (not verified)</a></p>
+        <p class="comment-time">Wed, 2012-02-08 07:46</p>
+        <p class="comment-permalink"><a href="/comment/2201#comment-2201" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2201#comment-2201" class="permalink" rel="bookmark">Update for Drush 5 and Windows 7</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hey Randy your article really helped me setup Drush on a Windows 7 machine, I created a page for the Drupal Community Docs here: <a href="http://drupal.org/node/1432756">http://drupal.org/node/1432756</a></p>
+<p>As usual you make it look easy!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2202"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2012-02-08 08:49</p>
+        <p class="comment-permalink"><a href="/comment/2202#comment-2202" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2202#comment-2202" class="permalink" rel="bookmark">Added to the article</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks so much. I added the link to the article. Thanks for pioneering and documenting this great work.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/70%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div>      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/content/cygwin-quickstart-drupal-users" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

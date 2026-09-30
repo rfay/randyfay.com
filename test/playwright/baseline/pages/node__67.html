@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="next" href="/content/ajax-example-select-control-and-generated-checkboxes" />
+<link rel="prev" href="/content/ajax-simplest-example" />
+<link rel="up" href="/ajax" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/ajax-example-textfields-driven-checkboxes" />
+
+    <title>AJAX Example: Textfields driven by checkboxes | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-book">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">AJAX Example: Textfields driven by checkboxes</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/ajax">Drupal 7 AJAX Forms</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-67" class="node node-book view-mode-full clearfix">
+
+  
+  <div class="content clearfix">
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>In this example, we just use checkboxes to determine whether textboxes are displayed.</p>
+<p>One of the fundamental ideas of having a form change based on selections within the form is that <i>the form is reconfiguring itself based on $form_state</i>. So here, the generation of the form is driven by $form_state['values'].  If the checkbox for last name is checked, then we generate a textfield for last name.</p>
+<p>(Experiment with this one at <a href="http://d7.drupalexamples.info/examples/ajax_example/autotextfields">http://d7.drupalexamples.info/examples/ajax_example/autotextfields</a> or see the current code at <a href="http://api.drupal.org/api/function/ajax_example_autotextfields/7">http://api.drupal.org/api/function/ajax_example_autotextfields/7</a>.)</p>
+<p><?php <br /?>
+/**<br />
+ * Show/hide textfields based on AJAX-enabled checkbox clicks.<br />
+ */<br />
+function ajax_example_autotextfields($form, &amp;$form_state) {</p>
+<p>  $form['ask_first_name'] = array(<br />
+    '#type' =&gt; 'checkbox',<br />
+    '#title' =&gt; t('Ask me my first name'),<br />
+    '#ajax' =&gt; array(<br />
+      'callback' =&gt; 'ajax_example_autotextfields_callback',<br />
+      'wrapper' =&gt; 'textfields',<br />
+      'effect' =&gt; 'fade',<br />
+    )<br />
+  );<br />
+  $form['ask_last_name'] = array(<br />
+   '#type' =&gt; 'checkbox',<br />
+   '#title' =&gt; t('Ask me my last name'),<br />
+    '#ajax' =&gt; array(<br />
+      'callback' =&gt; 'ajax_example_autotextfields_callback',<br />
+      'wrapper' =&gt; 'textfields',<br />
+      'effect' =&gt; 'fade',</p>
+<p>    ),<br />
+  );</p>
+<p>  $form['textfields'] = array(<br />
+    '#title' =&gt; t("Generated text fields for first and last name"),<br />
+    '#prefix' =&gt; '<br />
+</p><div id="textfields">',<br />
+    '#suffix' =&gt; '</div>
+<p>',<br />
+    '#type' =&gt; 'fieldset',<br />
+    '#description' =&gt; t('This is where we put automatically generated textfields'),<br />
+  );</p>
+<p>   if (!empty($form_state['values']['ask_first_name']) &amp;&amp; $form_state['values']['ask_first_name']) {<br />
+    $form['textfields']['first_name'] = array(<br />
+      '#type' =&gt; 'textfield',<br />
+      '#title' =&gt; t('First Name'),<br />
+    );<br />
+  }<br />
+  if (!empty($form_state['values']['ask_last_name']) &amp;&amp; $form_state['values']['ask_last_name']) {<br />
+    $form['textfields']['last_name'] = array(<br />
+      '#type' =&gt; 'textfield',<br />
+      '#title' =&gt; t('Last Name'),<br />
+    );<br />
+  }</p>
+<p>  $form['submit'] = array(<br />
+    '#type' =&gt; 'submit',<br />
+    '#value' =&gt; t('Click Me'),<br />
+  );</p>
+<p>  return $form;<br />
+}</p>
+<p>/**<br />
+ * Selects the piece of the form we want to use as replacement text and returns<br />
+ * it as a form (renderable array).<br />
+ *<br />
+ * @return renderable array (the textfields element)<br />
+ */<br />
+function ajax_example_autotextfields_callback($form, $form_state) {<br />
+  return $form['textfields'];<br />
+}</p>
+<p>?&gt;</p>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/drupal">Drupal</a></li><li class="taxonomy-term-reference-1"><a href="/topics/ajax">AJAX</a></li></ul></div>  <nav id="book-navigation-48" class="book-navigation">
+              <h2 class="element-invisible">Book Navigation</h2>
+      <ul class="book-pager">
+              <li class="previous">
+          <a href="/content/ajax-simplest-example" rel="prev" title="Go to previous page"><b>‹</b> AJAX Simplest Example</a>
+        </li>
+                    <li class="up">
+          <a href="/ajax" title="Go to parent page">up</a>
+        </li>
+                    <li class="next">
+          <a href="/content/ajax-example-select-control-and-generated-checkboxes" rel="next" title="Go to next page">AJAX Example: Select control and generated checkboxes <b>›</b></a>
+        </li>
+          </ul>
+      </nav>
+  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/67%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-1999"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Phil (not verified)</span></p>
+        <p class="comment-time">Wed, 2011-07-27 19:37</p>
+        <p class="comment-permalink"><a href="/comment/1999#comment-1999" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1999#comment-1999" class="permalink" rel="bookmark">behaving strangely in hook_form_alter</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi,</p>
+<p>I'm trying to ajaxify an existing form (drupal commerce checkout form) using a custom module with hook_form_alter. The code above pretty much does what I want to do - have a checkbox that alters other elements in the form when it is checked/unchecked. </p>
+<p>I thought I'd start off by just C&amp;Ping the code above into my hook_form_alter function. It works fine if I'm logged in - changing the select box causes the fieldset to be reloaded with the correct number of checkboxes.</p>
+<p>However if visit the site as an anonymous user the ajax call is only made the first time I change the select box. Subsequent changes do nothing.</p>
+<p>Any idea what I'm doing wrong? </p>
+<p>Is hook_form_alter the right place to put this code if I'm modifying an existing form?</p>
+<p>Thanks!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/67%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2000"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2011-07-27 19:56</p>
+        <p class="comment-permalink"><a href="/comment/2000#comment-2000" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2000#comment-2000" class="permalink" rel="bookmark">Page caching?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Does turning off page caching affect the behavior?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/67%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2001"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Phil (not verified)</span></p>
+        <p class="comment-time">Wed, 2011-07-27 21:07</p>
+        <p class="comment-permalink"><a href="/comment/2001#comment-2001" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2001#comment-2001" class="permalink" rel="bookmark">no</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>turning off all caching makes no difference.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/67%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2002"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2011-07-27 21:29</p>
+        <p class="comment-permalink"><a href="/comment/2002#comment-2002" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2002#comment-2002" class="permalink" rel="bookmark">Make a simple module that demonstrates it; make a sandbox</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>If you'll make a simple module (bare bones) that demonstrates this and push it to a sandbox or github or something, I'll take a look at it.</p>
+<p>Probably best to make an issue in Commerce queue and point me to it.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/67%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2003"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Phil (not verified)</span></p>
+        <p class="comment-time">Wed, 2011-07-27 22:08</p>
+        <p class="comment-permalink"><a href="/comment/2003#comment-2003" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2003#comment-2003" class="permalink" rel="bookmark">thanks</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks Randy, will do.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/67%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div></div>      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/node/67" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+          <div class="block block-book-navigation" role="navigation">
+
+  <h2 class="block-title"><a href="/ajax" class="book-title">Drupal 7 AJAX Forms</a></h2>
+
+  <div class="block-content">
+    <ul class="menu"><li class="first leaf menu-mlid-797"><a href="/content/what-are-ajax-forms-drupal">What are AJAX Forms in Drupal?</a></li>
+<li class="leaf menu-mlid-798"><a href="/content/examples-ajax-forms-drupal">Examples of AJAX forms in Drupal</a></li>
+<li class="leaf menu-mlid-808"><a href="/content/30-seconds-drupal-form-api">30 Seconds on the Drupal Form API</a></li>
+<li class="leaf menu-mlid-811"><a href="/content/ajax-simplest-example">AJAX Simplest Example</a></li>
+<li class="leaf active-trail menu-mlid-851"><a href="/content/ajax-example-textfields-driven-checkboxes" class="active-trail active" aria-current="page">AJAX Example: Textfields driven by checkboxes</a></li>
+<li class="leaf menu-mlid-812"><a href="/content/ajax-example-select-control-and-generated-checkboxes">AJAX Example: Select control and generated checkboxes</a></li>
+<li class="last leaf menu-mlid-813"><a href="/content/ajax-form-resources">AJAX Form Resources</a></li>
+</ul>  </div>
+</div>
+        </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/reference-cache-repositories-speed-clones-git-clone-reference" />
+
+    <title>Reference (cache) repositories to speed up clones: git clone --reference | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">Reference (cache) repositories to speed up clones: git clone --reference</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-93" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Fri, 2011-02-18 12:08 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/planet-drupal">Planet Drupal</a></li><li class="taxonomy-term-reference-1"><a href="/topics/git">git</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p><b>Update: Please read <a href="http://randyfay.com/node/119">this update on my experience</a> before using the technique in this article.</b><br />
+<b>Update: See the drush implementation of this approach <a href="http://www.randyfay.com/comment/1028#comment-1028">in the comment below</a>.</b></p>
+<p>DamZ taught me a great new piece of git trivia today. You can use a local repository as a kind of cache for a git clone.</p>
+<p>Let's create a reference repository for Drupal (and it will be bare, because we don't need any files checked out)<br />
+<code><br />
+git clone --mirror git://git.drupal.org/project/drupal.git ~/gitcaches/drupal.reference<br />
+</code></p>
+<p>That makes a complete clone of Drupal's full history in ~/gitcaches/drupal.reference</p>
+<p>Now when I need to clone the Drupal project's entire history (as I might do often in testing) I can</p>
+<p><code><br />
+git clone --reference ~/gitcaches/drupal.reference git://git.drupal.org/project/drupal.git<br />
+</code></p>
+<p>And the clone time is on the order of 2 seconds instead of several minutes. And yes, it picks up new changes that may have happened in the real remote repository.</p>
+<p>To go beyond this (again from DamZ) we can have a reference repository that has many projects referenced within it.</p>
+<p><code><br />
+mkdir -p ~/gitcaches/reference<br />
+cd ~/gitcaches/reference<br />
+git init --bare<br />
+for repo in drupal views cck examples panels  # whatever you want here<br />
+do<br />
+  git remote add $repo git://git.drupal.org/project/$repo.git<br />
+done</code></p>
+<p>git fetch --all<br />
+</p>
+<p>Now I have just one big bare repo that I can use as a cache. I might update it from time to time with <code>git fetch --all</code>. But I don't have to. And I can use it like this:<br />
+<code><br />
+cd /tmp<br />
+git clone --reference ~/gitcaches/reference git://git.drupal.org/project/drupal.git<br />
+git clone --reference ~/gitcaches/reference git://git.drupal.org/project/examples.git<br />
+</code></p>
+<p>We'll try to use this technique for the testbots, which do several clean checkouts per patch tested, as it should speed them up by at least a minute per test.</p>
+<p><b>Edit:</b> Here is the version that I used with the testbots, as it appears as a gist:<br />
+[gist:843423]
+</p>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/93%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-768"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Damien Tournoud (not verified)</span></p>
+        <p class="comment-time">Mon, 2011-02-21 04:08</p>
+        <p class="comment-permalink"><a href="/comment/768#comment-768" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/768#comment-768" class="permalink" rel="bookmark">Adding a new repository can be slow</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Adding a new repository to the cache can be slow, because on the first fetch Git will try to determine if it has any revision in common with the remote repository, and the only way to do that is to send out the list of *all* the commits in the local repository.</p>
+<p>The trick to workaround this is to clone to an empty repository first, and to fetch from there into the cache repository. Here is a simple bash script that automate this process. Execute with <code>import.sh [remote name] [remote url]</code> when inside the cache repository:</p>
+<p><code></code></p>
+<p>#!/bin/bash</p>
+<p>set -ex</p>
+<p># Create a temporary directory.<br />
+TEMPDIR=`mktemp -d`<br />
+trap "rm -Rf $TEMPDIR" EXIT</p>
+<p># First clone the directory separately.<br />
+git clone $2 $TEMPDIR</p>
+<p># Then fetch from the temporary dir into our main repo.<br />
+git remote add $1 $TEMPDIR/<br />
+git fetch $1 --tags</p>
+<p># Then change the remote URL and fetch normally.<br />
+git remote set-url $1 $2<br />
+git fetch $1 --tags<br />
+</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/93%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-778"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Matt Farina (not verified)</span></p>
+        <p class="comment-time">Sat, 2011-02-26 15:34</p>
+        <p class="comment-permalink"><a href="/comment/778#comment-778" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/778#comment-778" class="permalink" rel="bookmark">Based on the work of Randy</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Based on the work of Randy and Damien I created a script to init, add, and update a Drupal Git Cache. The script is at <a href="http://drupal.org/sandbox/mfer/1074256">http://drupal.org/sandbox/mfer/1074256</a>.</p>
+<p>Nice work gentlemen.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/93%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-794"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://drupal.org/moshe" rel="nofollow" class="username">moshe weitzman (not verified)</a></p>
+        <p class="comment-time">Thu, 2011-03-03 22:32</p>
+        <p class="comment-permalink"><a href="/comment/794#comment-794" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/794#comment-794" class="permalink" rel="bookmark">drush command coming soon</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>we are working on a drush command at <a href="http://drupal.org/node/1076302">http://drupal.org/node/1076302</a>. just have to solve an incompatibility with git_deploy module.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/93%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-1028"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">pfrenssen (not verified)</span></p>
+        <p class="comment-time">Fri, 2011-05-06 06:51</p>
+        <p class="comment-permalink"><a href="/comment/1028#comment-1028" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/1028#comment-1028" class="permalink" rel="bookmark">This is the full drush</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>This is the full drush command to use for those who are interested:<br />
+<code>drush dl --package-handler=git_drupalorg --cache drupal</code></p>
+<p>You can also add it as a default setting to your ~/.drush/drushrc.php file:<br />
+&lt;?php<br />
+$command_specific['dl'] = array(<br />
+  'package-handler' =&gt; 'git_drupalorg',<br />
+  'cache' =&gt; TRUE,<br />
+);<br />
+?&gt;</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/93%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-2088"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">dvessel (not verified)</span></p>
+        <p class="comment-time">Fri, 2011-09-09 12:04</p>
+        <p class="comment-permalink"><a href="/comment/2088#comment-2088" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2088#comment-2088" class="permalink" rel="bookmark">On demand?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>This post got me thinking so I put up a more generalized bash script that caches on demand and it’s not specific to Drupal.</p>
+<p><a href="https://gist.github.com/8839519ec5b823e047bf">https://gist.github.com/8839519ec5b823e047bf</a></p>
+<p>Replacing ‘git’ with ‘git-cached’ will get it working.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/93%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-3554"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Seb35 (not verified)</span></p>
+        <p class="comment-time">Thu, 2014-12-11 09:25</p>
+        <p class="comment-permalink"><a href="/comment/3554#comment-3554" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3554#comment-3554" class="permalink" rel="bookmark">Generalisation: git cache</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I searched this feature around the Web and I mainly found this post, so many thanks to you. I just wrote an (other) generalisation for any Git repository: something like 'git cache add repo-name <a href="https://example.org/git/repo-name.git">https://example.org/git/repo-name.git</a>'. For now I have not implemented the speed workaround by Damien Tournoud, but it will probably be in a future commit.</p>
+<p><a href="https://github.com/Seb35/git-cache">https://github.com/Seb35/git-cache</a></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/93%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/content/reference-cache-repositories-speed-clones-git-clone-reference" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

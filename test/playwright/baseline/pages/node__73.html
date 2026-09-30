@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/drupal-7-file-api-changes" />
+
+    <title>Drupal 7 File API Changes | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">Drupal 7 File API Changes</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-73" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Mon, 2010-09-06 10:38 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/planet-drupal">Planet Drupal</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>Drupal 7 has had a major (read huge, life-altering) change to its file API. Hopefully it's all good, but you definitely need to understand it if you're porting or developing any D7 modules.</p>
+<p>There are two key changes, which I'll deal with one at at time:</p>
+<ol>
+<li>Files are accessed using "streamwrapper" or "scheme" notation, and your module doesn't even have a way to know where they are located. This means filenames like "public://my_module/some_file.jpg", "private://my_module/some_privately_controlled_file.txt", or "temporary://tempfile.txt".</li>
+<li>The APIs have been split into "managed" and "unmanaged" versions. So if you're using a file that needs to be tracked in the database, you use the managed version of a function (like file_copy()), but if you're just uploading a file or moving it around and no reference needs to be maintained in the database, you use the unmanaged version (like file_unmanaged_copy()).
+</li></ol>
+<h3>Streamwrappers, schemes, and targets</h3>
+<p>A long time ago in a faraway place a decision was made to hide the structure of files from applications using the files. This system was called "streams" and was a cornerstone of the Unix system, which is now the Linux system that powers all our webservers. The idea was that you could use one set of functions (system calls) to interact with any kind of filesystem (or things that weren't files) and you'd never know the difference. The idea called "streams" has made it into nearly all modern computing, and has been enhanced in PHP with the idea of naming files with a "streamwrapper" notation. This just means that the filename has a "scheme" followed by "://" and then a "target", which is essentially the path in the filesystem (assuming there is a filesystem).</p>
+<p>So in Drupal 7 we have switched almost entirely to using streamwrapper notation for filenames. For public files it would be public://something..., for private private://something..., and temporary files are also available. In addition, a Drupal module can implement the DrupalStreamWrapperInterface class to provide more streamwrappers. The File Example module provides session://, which allows file storage in $_SESSION as a demonstration. (Hopefully there's no legitimate use for this.)</p>
+<p>PHP also provides a number of other types of scheme, including file://, ftp://, http://, etc.</p>
+<p>The rules of what functions can access what streamwrappers are basically:</p>
+<ul>
+<li>PHP file functions (like fopen()) can use any streamwrapper file (including Drupal schemes public://, private://, or other Drupal-module-provided schemes)</li>
+<li>Unmanaged Drupal API functions (like file_unmanaged_copy()) can access any streamwrapper filename</li>
+<li>Managed Drupal API functions like (file_copy()) can access <i>only</i> Drupal-provided streamwrapper schemes (including those provided by add-on modules)</li>
+</ul>
+<p>Basically, it's just like the old days, though, you open, copy, or write to a file. It happens that when you open the file you use a streamwrapper-based filename like "public://". Most people, most of the time, will just use "public://something".</p>
+<h3>Managed and Unmanaged Drupal APIs</h3>
+<p>There are two "layers" of Drupal File APIs now, the "managed" and the "unmanaged". (And then of course there are the PHP file functions as well.) The "managed" APIs maintain an entry in the file_managed table so that the file can be accessed later. Most modules that use a file for more than an immediate one-time need will be using managed files.</p>
+<p>The unmanaged functions do basically the same thing as their underlying PHP counterparts. If you ask file_unmanaged_copy() to copy a file, it does it, which checking permissions and a number of other things. Nothing gets put in the database.</p>
+<h3>The File Example in Examples Project</h3>
+<p>The new <a href="http://api.drupal.org/api/group/file_example/7">File Example</a> in the <a href="http://drupal.org/project/examples">Examples for Developers Project</a> demonstrates how to use a number of these APIs. It also implements a full Drupal streamwrapper interface, but that's a topic for another blog post.</p>
+<h3>File API Documentation in the Handbook</h3>
+<p>Here are some documentation starters for the Drupal 7 File API. More work is needed, of course, so please improve these pages.</p>
+<ul>
+<li><a href="http://drupal.org/node/555118">D7 File API entry point</a></li>
+<li><a href="http://drupal.org/node/877212">Important Drupal 7 File API Functions</a></li>
+<li><a href="http://drupal.org/node/877214">File API changes from Drupal 6 to Drupal 7</a></li>
+<li><a href="http://api.drupal.org/api/group/file/7">API.drupal.org on file functions in Drupal 7</a></li>
+</ul>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/73%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-184"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.bywombats.com" rel="nofollow" class="username">Ryan (not verified)</a></p>
+        <p class="comment-time">Mon, 2010-09-06 19:02</p>
+        <p class="comment-permalink"><a href="/comment/184#comment-184" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/184#comment-184" class="permalink" rel="bookmark">Excellent write-up, Randy.</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Excellent write-up, Randy. It's a very helpful introduction to something I was afraid I'd have to spend hours grokking when we prepare digital products in Drupal Commerce. The way you've explained it here, it doesn't seem like we'll have any trouble at all, and will actually have a much better API to use private files for purchasable files only w/ public for all the rest. Yay, Drupal 7. : D</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/73%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-335"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://michaelshadle.com" rel="nofollow" class="username">mike (not verified)</a></p>
+        <p class="comment-time">Fri, 2010-10-15 04:45</p>
+        <p class="comment-permalink"><a href="/comment/335#comment-335" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/335#comment-335" class="permalink" rel="bookmark">Greatly improved</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I am happy to see file_move() update the database for you now, as well as a recursive mkdir() option.</p>
+<p>Now I don't have to code workarounds for that. Sadly it wants stdClass for everything and not arrays (I am a fan of arrays, not of objects...) but oh well :)</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/73%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/node/73" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/tunneling-http-debug-or-develop-external-webservice-call" />
+
+    <title>Tunneling HTTP to Debug or Develop an External Webservice Call | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">Tunneling HTTP to Debug or Develop an External Webservice Call</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-129" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Thu, 2013-10-31 16:10 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/debugging">debugging</a></li><li class="taxonomy-term-reference-1"><a href="/topics/planet-drupal">Planet Drupal</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>Summary: This post provides a way to develop/debug in a web environment where you don't have control of the calling party and your environment must be available on the global internet.</p>
+
+<p>It can be difficult to debug/develop a handler for an incoming web service when you don't have control of the caller. For example, I was developing a handler for <a href="http://mandrill.com/">Mandrill</a>'s <a href="http://help.mandrill.com/entries/22092308-What-is-the-format-of-inbound-email-webhooks-">inbound webhooks</a>, where Mandrill calls <em>your</em> site when an email comes in. So in this case</p>
+
+<ul>
+<li>The receiving website must be accessible on the internet so that Mandrill can call it.</li>
+<li>Mandrill alone is hitting the site. I could debug with an imitation POST, but then that wouldn't be the real thing would it?</li>
+</ul>
+
+<p>There are a couple of ways to approach this:</p>
+
+<ul>
+<li>Set up a full debugging environment on an internet-connected host (For example, set up a full dev environment possibly with GUI and PHPStorm for example, on an internet host. This is <a href="http://randyfay.com/content/my-new-development-computer-amazon-ec2-instance">easy enough to do</a> but kind of ugly.</li>
+<li>Debug with the application on the server but your debugger local using <a href="http://xdebug.org/docs-dbgp.php">dbgp</a>. This is do-able and an alternate approach to what's described here. It's a bit more awkward, but great for when the issues or problems can't be recreated on your local machine. It probably also requires most of the strategies shown here, but tunneling the debugger connection instead of tunneling the actual HTTP request.</li>
+<li>Use printf-style debugging, outputting logs of everything that happens. This works, but you have little control and it's really ugly and you don't have enough info about what's going on.</li>
+</ul>
+
+<h2>A nicer way with a full local debugger</h2>
+
+<p>I use the wonderful <a href="http://www.jetbrains.com/phpstorm/">PHPStorm</a> IDE with debugger (which they provide free to open-source projects like Drupal and Warmshowers.org!), but this technique should work for any IDE. You do have to already know how to set up your system for debugging.</p>
+
+<p>What you need:</p>
+
+<ul>
+<li>A host on the internet. Any machine which is reachable directly on the internet. My instructions will explain how to do it with a linux machine. This really can be any machine, it's going to be used only to proxy a port to your local machine. You could even use a production machine without doing any damage. You <em>do</em> have to have control of the sshd configuration (/etc/ssh/sshd_config or equivalent).  And you have to make sure that no firewall is blocking the port you choose to use (my example uses port 8888.)</li>
+<li>Your local IDE/project set up for debugging with Xdebug. (I'm sure you can do this with any other IDE and with Zend Debugger as well, but I will only show for PHPStorm and xdebug.)</li>
+</ul>
+
+<p><br /></p>
+
+<ol>
+<li>Make sure you can do step-debugging on your local machine. Use the classic technique where you create a debug configuration for your project rather than the new PHPStorm "Listen" button. (I imagine there's a way to do this with the listen button.)  Test this by setting a breakpoint and running your project and making sure it stops on the breakpoint.  If you don't already know how to do step-debugging, this would be a good time to learn. It's a critical skill for any developer. Resources: (<a href="http://blog.jetbrains.com/phpstorm/2013/07/drupal-development-using-phpstorm/">PHPStorm instructions</a>, <a href="https://drupal.org/node/1476800">Drupal.org article</a>, <a href="http://www.jetbrains.com/phpstorm/webhelp/debugging-php-applications.html">PHPStorm debugging article</a>)  (Images of my PHPStorm web application configuration are below.)</li>
+<li>On your internet-connected machine, configure sshd to set "GatewayPorts yes". (The default is "no"). This is configured in /etc/ssh/sshd_config on both DebianUbuntu and RHEL/CentOS distributions.). After changing the configuration, restart sshd with "sudo service ssh restart"</li>
+<li>Use ssh to create a tunnel which will bring a port on your internet-available machine to your local machine: <code>ssh -R :8888:localhost:80 example.com</code> will bring traffic on port 8888 of the internet-connected "example.com" to port 80 on localhost (where your debugging environment is). Essentially, once you've done this, all traffic hitting http://example.com:8888 will actually land on your local machine on port 80. (This won't work if you're blocking port 8888 on the firewall of your internet-connected host, of course.)</li>
+<li>Try accessing your internet-connected machine with a browser to demonstrate that traffic is routed through. With my example, you would now be able to hit http://example.com:8888 and the dev site on you local machine would appear (slowly, perhaps).  If you don't have access to your local dev site now using this technique, you aren't ready to continue.</li>
+<li>Test debugging by accessing your external site. Start debugging on PHPStorm using the configuration you created earlier. The console will show "Waiting for incoming connection with ide key '15247'". Your IDE key will be different of course. With a breakpoint set, visit your external internet-connected URL like this: htttp://example.com:8888?XDEBUG_SESSION_START=15247- you should see your IDE take control and stop at your breakpoint.</li>
+<li>Now configure the external service with the URL it is to hit when some event happens AND with the XDEBUG_SESSION_START query string. I was working with the <a href="http://drupal.org/project/mandrill_incoming">Mandrill Incoming</a> project, so my inbound URL looked like this: http://example.com:8888/services/rest/mandrill_events?XDEBUG_SESSION_START=15247</li>
+<li>Whatever you have to do to cause an event to happen, make it happen. In my case, this meant sending an email via Mandrill which was to be delivered to my web service.</li>
+<li>Voila, your debugger opens and lets you step through the web service call.</li>
+</ol>
+
+<p><br />
+<strong>PHPStorm Server Configuration</strong>
+<img src="/sites/default/files/blog_image/server_config.png" width="827" height="238" alt="" title="Server Configuration" /></p>
+
+<p><strong>PHPStorm Web Application Configuration</strong>
+<img src="/sites/default/files/blog_image/php_web_app_configuration-2.png" width="752" height="524" alt="" title="PHP Web app configuration" /></p>
+
+<p><strong>PHPStorm "Waiting for connection"</strong>
+<img src="/sites/default/files/blog_image/waiting_for_connection.png" width="1023" height="275" alt="" title="Waiting for connection" /></p>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/129%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/node/129" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

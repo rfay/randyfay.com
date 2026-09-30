@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/php-52-ubuntu-1004-lucid-lynx-seems-work-1204-too" />
+
+    <title>PHP 5.2 on Ubuntu 10.04 Lucid Lynx (Seems to work for 12.04 too) | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">PHP 5.2 on Ubuntu 10.04 Lucid Lynx (Seems to work for 12.04 too)</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-63" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Mon, 2010-05-31 20:08 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/drupal">Drupal</a></li><li class="taxonomy-term-reference-1"><a href="/topics/planet-drupal">Planet Drupal</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p><b>Edit 2012-11-12:</b> If you're interested in the newer problem of running PHP 5.3 on Ubuntu 12.10 Quantal, try <a href="http://ubuntuforums.org/showthread.php?t=2074178">this recipe</a>.</p>
+<p><b>Edit 2012-09-21:</b> Isn't it about time you moved to PHP 5.3? Even though these instructions seem to work even for Ubuntu 12.04, it's really time for people to move on to PHP 5.3. If you're a Drupal user on Drupal 6, Drupal core and nearly all contrib are now just fine with 5.3.</p>
+<p><b>Edit 2011-11-23:</b> Since Ubuntu 9.10 (Karmic) is now out of support, the repositories to use for it have changed to old-releases.ubuntu.com. I've changed the karmic.list files attached. Please be aware that although 10.04LTS is still supported for years still, 9.10 is out of the support window, meaning that security issues in these packages will not be fixed.</p>
+<p><b>Update:</b> <a href="http://thejibe.com/blog/10/10/php-5210-debs-ubuntu-1010-maverick">Look here to solve same problem with Ubuntu 10.10</a>.</p>
+<p>Lots of us are starting to run Drupal on Ubuntu 10.04 Lucid Lynx, and of course, Lucid comes with PHP 5.3, for which Drupal 6 is not yet ready.</p>
+<p>I've seen a couple of fine recipes, but here's mine, with the files you need attached.</p>
+<p><b>Update</b>: You'll probably want to look at Khalid's <a href="http://2bits.com/drupal-planet/various-ways-running-php-52-ubuntu-1004-lucid-lynx.html">more extensive discussion of various ways to do this</a>.</p>
+<p>Essentially, all you have to do is tell the apt system where to find Karmic packages and then tell it that you want it to use Karmic's PHP packages.</p>
+<p>So put the attached karmic.list in /etc/apt/sources.list.d and the attached "php" into /etc/apt/preferences.d.</p>
+<p>Then:<br />
+<code><br />
+sudo apt-get update<br />
+sudo apt-get remove php5 libapache2-mod-php5 php5-xsl php5-gd php-pear php5-mysql php5-curl php5-memcache<br />
+sudo apt-get install php5 libapache2-mod-php5 php5-xsl php5-gd php-pear php5-mysql php5-curl php5-memcache<br />
+</code></p>
+<p>If you had not already installed apache, php, and mysql, you can do that with the above files in place and get the right versions without removing anything:<br />
+<code><br />
+sudo apt-get update<br />
+sudo apt-get install apache2 mysql-server php5 libapache2-mod-php5 php5-xsl php5-gd php-pear libapache2-mod-auth-mysql php5-mysql php5-curl php5-memcache<br />
+</code></p>
+<p>Note that your php.ini will have been replace, so you have to reset custom settings like memory_limit.</p>
+</div></div></div><div class="field field-name-upload field-type-file field-label-hidden"><div class="field-items"><div class="field-item even"><table class="sticky-enabled">
+ <thead><tr><th>Attachment</th><th>Size</th> </tr></thead>
+<tbody>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="Binary Data" title="application/octet-stream" src="/core/modules/file/icons/application-octet-stream.png" /> <a href="{{BASE_URL}}/sites/default/files/php_1." type="application/octet-stream; length=0" title="php.">php - put into /etc/apt/preferences.d</a></span></td><td>0 bytes</td> </tr>
+ <tr class="even"><td><span class="file"><img class="file-icon" alt="Binary Data" title="application/octet-stream" src="/core/modules/file/icons/application-octet-stream.png" /> <a href="{{BASE_URL}}/sites/default/files/karmic_1.list" type="application/octet-stream; length=0" title="karmic.list">karmic.list - put in /etc/apt/sources.list.d</a></span></td><td>0 bytes</td> </tr>
+</tbody>
+</table>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-85"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://hojtsy.hu" rel="nofollow" class="username">Gábor Hojtsy (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-06-01 03:27</p>
+        <p class="comment-permalink"><a href="/comment/85#comment-85" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/85#comment-85" class="permalink" rel="bookmark">fixing the modules</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Drupal 6 itself is known to be ready for PHP 5.3 except one known issue which is detailed at <a href="http://drupal.org/node/360605#comment-2866234">http://drupal.org/node/360605#comment-2866234</a>. The contributed modules you run with might not be ready yet and ideally people would submit issues to the module maintainers just as with any other errors. That would fix the issues once and for all instead of everybody downgrading their hosting/development environments to lower PHP versions for the sake of workarounds.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-86"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Halil (not verified)</span></p>
+        <p class="comment-time">Tue, 2010-06-01 22:28</p>
+        <p class="comment-permalink"><a href="/comment/86#comment-86" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/86#comment-86" class="permalink" rel="bookmark">The other side of the coin...</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Yeah, its a shame that people needs to downgrade the PHP version for a workaround.</p>
+<p>The submitting issue suggestion for modules to support PHP 5.3 is only the one side of the coin. On the other side, there are issues submitted for the modules but never been fixed for a couple of different reasons, like;</p>
+<p>a) Module maintainer(s) prefer to spend their time and energy to port the module to D7 rather than supporting PHP 5.3 for their 6.x version module.<br />
+b) Module maintainer(s) can spare just a limited time to support their module and only available to support critical issues and they dont consider PHP 5.3 support as critical.<br />
+c) Module maintainer(s) are scared to break PHP 4.x support, which the module is initially announced to support that version, while they are making the module PHP 5.3 compatible.</p>
+<p>Im not complaining or something, just stating what I have witnessed and/or sensed after spending some time on the issue queues about the subject.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-87"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2010-06-02 07:04</p>
+        <p class="comment-permalink"><a href="/comment/87#comment-87" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/87#comment-87" class="permalink" rel="bookmark">There are reasons other than Drupal as well</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>It's not just Drupal which could (or perhaps shouldn't, per Gabor's comment) push us back to 5.2. There are other things, like tool support. I use Eclipse with the Zend Debugger .so, and it's not available for 5.3 (yet?)</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-88"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://kirkhings.com" rel="nofollow" class="username">Kirk Hings (not verified)</a></p>
+        <p class="comment-time">Wed, 2010-06-02 16:22</p>
+        <p class="comment-permalink"><a href="/comment/88#comment-88" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/88#comment-88" class="permalink" rel="bookmark">Thanks for the instructions,</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks for the instructions, unfortunately your <a href="http://randyfay.com/files/php_0">http://randyfay.com/files/php_0</a>. looks like it got mangled, should be <a href="http://randyfay.com/files/php">http://randyfay.com/files/php</a></p>
+<p>Perhaps drupal upload mangled it to add the _0.?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-89"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2010-06-02 16:27</p>
+        <p class="comment-permalink"><a href="/comment/89#comment-89" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/89#comment-89" class="permalink" rel="bookmark">Yes, please change to just &quot;php&quot;</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Please change the filename to just "php" - although I think it would work no matter what you called it.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-92"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://smirkstudio.com" rel="nofollow" class="username">mcrittenden (not verified)</a></p>
+        <p class="comment-time">Wed, 2010-06-09 09:07</p>
+        <p class="comment-permalink"><a href="/comment/92#comment-92" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/92#comment-92" class="permalink" rel="bookmark">mcrypt.so and gd.so errors</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>If, after doing this, you're getting errors like:</p>
+<p><code>Unable to load dynamic library '/usr/lib/php5/20060613+lfs/mcrypt.so' ...</code></p>
+<p>Then <a href="https://bugs.launchpad.net/ubuntu/+source/php5/+bug/281979/comments/3">this comment</a> has the answer.</p>
+<p>Basically, you just need to delete /etc/php5/conf.d/mcrypt.ini and /etc/php5/conf.d/gd.ini</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-96"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Visitor (not verified)</span></p>
+        <p class="comment-time">Wed, 2010-06-16 15:25</p>
+        <p class="comment-permalink"><a href="/comment/96#comment-96" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/96#comment-96" class="permalink" rel="bookmark">Reinstall mcrypt</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I was having "php5-mcrypt" issues when trying to install phpmyadmin after downgrading. Ultimately, I found this:<br />
+<a href="http://packages.ubuntu.com/karmic/i386/php5-mcrypt/download">http://packages.ubuntu.com/karmic/i386/php5-mcrypt/download</a></p>
+<p>From there you can manually download php5-mcrypt 5.2.10 and install it. After that, phpmyadmin installs properly.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-267"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Visitor (not verified)</span></p>
+        <p class="comment-time">Sat, 2010-09-25 12:02</p>
+        <p class="comment-permalink"><a href="/comment/267#comment-267" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/267#comment-267" class="permalink" rel="bookmark">mcrypt and phpmyadmin version problems</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I have also had to pin my PHP to 5.2 in order to maintain a local drupal development environment that doesn't crash because of reference/array mismatches in the use of some arguments.  Once php5-mcrypt-5.2.10 is installed in the manner suggested by VISITOR, the latest version of phpmyadmin can readily be installed (using your standard package installer).</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-103"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.games4bored.net" rel="nofollow" class="username">Visitor (not verified)</a></p>
+        <p class="comment-time">Wed, 2010-06-23 08:45</p>
+        <p class="comment-permalink"><a href="/comment/103#comment-103" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/103#comment-103" class="permalink" rel="bookmark">Hello,
+not sure if this will</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hello,</p>
+<p>not sure if this will work for everybody as I'm a newbie in linux, but this helped me to install php5-mcrypt and after that phpmyadmin:</p>
+<p>apt-get install libltdl7 libmcrypt4</p>
+<p>Regards,</p>
+<p>Chorch</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-115"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.awebdeveloperslife.com/" rel="nofollow" class="username">iMadalin (not verified)</a></p>
+        <p class="comment-time">Wed, 2010-07-28 08:20</p>
+        <p class="comment-permalink"><a href="/comment/115#comment-115" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/115#comment-115" class="permalink" rel="bookmark">php 5.2</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>i use zend server to have php 5.2 in ubuntu 10.04 and i get a lot faster in any changes i need in php configuration with it's nice web panel.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-222"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">acy76 (not verified)</span></p>
+        <p class="comment-time">Fri, 2010-09-17 15:11</p>
+        <p class="comment-permalink"><a href="/comment/222#comment-222" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/222#comment-222" class="permalink" rel="bookmark">mcrypt problems</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I also had problems with the php5-mcrypt extension not being enabled (phpMyAdmin was complaining about it).</p>
+<p>I simply appended the package to the 'php' file in /etc/apt/preferences.d like this:</p>
+<p>Package: php5-mcrypt<br />
+Pin: release a=karmic<br />
+Pin-Priority: 991</p>
+<p>Now, php5-mcrypt is also downgraded with the rest of the php packages and all seems to be well.</p>
+<p>It was also useful to remove both php5-mcrypt and phpmyadmin using the --purge directive, e.g.:</p>
+<p>sudo apt-get --purge remove phpmyadmin</p>
+<p>After that, I updated the package information (apt-get update) and reinstalled phpmyadmin; php5-mcrypt gets installed automatically as a dependency.</p>
+<p>I had previously tried the workarounds suggested in the comments above, so if this doesn't work for you, try those as well, maybe I modified something else that I am forgetting to write about here.</p>
+<p>phpMyAdmin should now work correctly, although you may have to delete all cookies for a successful login.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-223"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.awebdeveloperslife.com" rel="nofollow" class="username">iMadalin (not verified)</a></p>
+        <p class="comment-time">Fri, 2010-09-17 16:51</p>
+        <p class="comment-permalink"><a href="/comment/223#comment-223" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/223#comment-223" class="permalink" rel="bookmark">mcrypt and phpadmin</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>you need mcrypt for many other stuff, phpmyadmin is just the worst nightmare when it comes to export databases. import goes well, but big databases (for drupal in my case) it isn't the right tool.</p>
+<p>after having lot's of problems with it i've switched to mysql workbench that is the official application from mysql.com.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-261"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.foxybeads.com" rel="nofollow" class="username">foxy (not verified)</a></p>
+        <p class="comment-time">Thu, 2010-09-23 06:45</p>
+        <p class="comment-permalink"><a href="/comment/261#comment-261" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/261#comment-261" class="permalink" rel="bookmark">sudo apt-get install apache2</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>this command in my ubuntu 10.04 doesnot work.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-262"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Thu, 2010-09-23 07:07</p>
+        <p class="comment-permalink"><a href="/comment/262#comment-262" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/262#comment-262" class="permalink" rel="bookmark">apt-get install works on ubuntu everywhere</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Perhaps you don't have sudo installed?</p>
+<p>As root, then:<br />
+apt-get install sudo</p>
+<p>Other than that, do this stuff as root:<br />
+apt-get install apache2 ...</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div><a id="comment-526"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.buckeyeinteractive.com" rel="nofollow" class="username">Brad Griffith (not verified)</a></p>
+        <p class="comment-time">Thu, 2010-11-18 06:05</p>
+        <p class="comment-permalink"><a href="/comment/526#comment-526" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/526#comment-526" class="permalink" rel="bookmark">Don&#039;t forget php5-dev for PECL support</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I also added these lines to /etc/apt/preferences.d/php so that I don't get errors when installing PECL libraries:</p>
+<p><code><br />
+Package: php5-dev<br />
+Pin: release a=karmic<br />
+Pin-Priority: 991<br />
+</code></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-798"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://joshhamilton.org" rel="nofollow" class="username">Josh Hamilton (not verified)</a></p>
+        <p class="comment-time">Sat, 2011-03-05 14:22</p>
+        <p class="comment-permalink"><a href="/comment/798#comment-798" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/798#comment-798" class="permalink" rel="bookmark">Finishing touches</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>If you also want to install apc, uploadprogress, and phpmyadmin, you should append the following to Randy's php file. </p>
+<p>Package: php5-mcrypt<br />
+Pin: release a=karmic<br />
+Pin-Priority: 991</p>
+<p>Package: php5-dev<br />
+Pin: release a=karmic<br />
+Pin-Priority: 991</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-882"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.ag-prime.com/" rel="nofollow" class="username">gabrielu (not verified)</a></p>
+        <p class="comment-time">Thu, 2011-03-31 10:12</p>
+        <p class="comment-permalink"><a href="/comment/882#comment-882" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/882#comment-882" class="permalink" rel="bookmark">Package php5 has no installation candidate</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I just installed a fresh ubuntu1004-server_64 put the sources files and php preferences, and now I get:</p>
+<p><code><br />
+# sudo apt-get install apache2 mysql-server php5 libapache2-mod-php5 php5-xsl php5-gd php-pear libapache2-mod-auth-mysql php5-mysql php5-curl php5-memcache<br />
+Reading package lists... Done<br />
+Building dependency tree<br />
+Reading state information... Done<br />
+apache2 is already the newest version.<br />
+Package php5 is not available, but is referred to by another package.<br />
+This may mean that the package is missing, has been obsoleted, or<br />
+is only available from another source<br />
+E: Package php5 has no installation candidate<br />
+</code></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-883"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Thu, 2011-03-31 11:14</p>
+        <p class="comment-permalink"><a href="/comment/883#comment-883" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/883#comment-883" class="permalink" rel="bookmark">Is it possible you didn&#039;t apt</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Is it possible you didn't <code>apt-get update</code> first?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-2156"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">zbbax (not verified)</span></p>
+        <p class="comment-time">Wed, 2011-11-23 01:54</p>
+        <p class="comment-permalink"><a href="/comment/2156#comment-2156" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2156#comment-2156" class="permalink" rel="bookmark">Since a while http://us</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Since a while <a href="http://us.archive.ubuntu.com">http://us.archive.ubuntu.com</a> and <a href="http://security.ubuntu.com">http://security.ubuntu.com</a> don't exist anymore<br />
+replace them with: <a href="http://old-releases.ubuntu.com">http://old-releases.ubuntu.com</a></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2157"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2011-11-23 08:56</p>
+        <p class="comment-permalink"><a href="/comment/2157#comment-2157" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2157#comment-2157" class="permalink" rel="bookmark">Updated article</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I updated this and the files. Would appreciate your review.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2167"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.prescientsoftware.co.uk" rel="nofollow" class="username">Neill (not verified)</a></p>
+        <p class="comment-time">Thu, 2011-12-15 04:56</p>
+        <p class="comment-permalink"><a href="/comment/2167#comment-2167" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2167#comment-2167" class="permalink" rel="bookmark">Get a cache error thrown</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi.</p>
+<p>Thanks for this great article.<br />
+I've carefully followed your instructions, but when I do an apt-get update it throws the error:</p>
+<p>Reading package lists... Error!<br />
+E: Dynamic MMap ran out of room. Please increase the size of APT::Cache-Limit. Current value: 16777216. (man 5 apt.conf)<br />
+E: Error occurred while processing language-pack-kde-fur-base (NewVersion1)<br />
+E: Problem with MergeList /var/lib/apt/lists/old-releases.ubuntu.com_ubuntu_dists_karmic_main_binary-amd64_Packages<br />
+W: Unable to munmap<br />
+E: The package lists or status file could not be parsed or opened.</p>
+<p>I tried upping the cache value, but it fails no matter how large I set it. Any ideas?</p>
+<p>Thanks!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2168"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Thu, 2011-12-15 08:45</p>
+        <p class="comment-permalink"><a href="/comment/2168#comment-2168" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2168#comment-2168" class="permalink" rel="bookmark">apt-get problem</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>This is really an apt system problem, and doesn't have to do with the issues under discussion here. You'll need to figure out how to increase the size of APT::Caache-limit in apt.conf. I think I've done that before, but don't remember the story. I think you'll find some answers by googling; if not, post on <a href="http://superuser.com/">http://superuser.com/</a> or <a href="http://askubuntu.com/">http://askubuntu.com/</a> - Good luck!</p>
+<p>Oh, and it's probably time for you to move to 5.3. There's little reason to stay on 5.2 now.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div><a id="comment-2372"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">April (not verified)</span></p>
+        <p class="comment-time">Fri, 2012-08-03 10:46</p>
+        <p class="comment-permalink"><a href="/comment/2372#comment-2372" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2372#comment-2372" class="permalink" rel="bookmark">Ubuntu 12.4</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thank you for putting this tutorial together, it helped me out a lot. It worked for me on both Ubuntu 10.4 and 12.4.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-2498"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Bob Dingman (not verified)</span></p>
+        <p class="comment-time">Fri, 2012-09-21 08:43</p>
+        <p class="comment-permalink"><a href="/comment/2498#comment-2498" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2498#comment-2498" class="permalink" rel="bookmark">Documentation suggestion</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>May I suggest you add the sudo apt-get update line to your second case ("If you have not already installed apache . . .") as below?</p>
+<p><code>sudo apt-get update<br />
+sudo apt-get install apache2 mysql-server php5 libapache2-mod-php5 php5-xsl php5-gd php-pear libapache2-mod-auth-mysql php5-mysql php5-curl php5-memcache</code></p>
+<p>You need to run apt-get update to put in effect the pinning.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-2499"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Fri, 2012-09-21 09:16</p>
+        <p class="comment-permalink"><a href="/comment/2499#comment-2499" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2499#comment-2499" class="permalink" rel="bookmark">Thanks - I did it.</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks - I did it.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-2784"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">jhuebner (not verified)</span></p>
+        <p class="comment-time">Sat, 2012-11-10 08:02</p>
+        <p class="comment-permalink"><a href="/comment/2784#comment-2784" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2784#comment-2784" class="permalink" rel="bookmark">This just saved my day</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I updated apache on an older system and the php module wouldn't load anymore. The systems karmic.list was outdated so the attached one saved my a**.</p>
+<p>Thanks,<br />
+Have a nice day!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/63%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/node/63" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/if-you-edit-php-code-please-work-enotice-turned" />
+
+    <title>If you edit PHP code, please work with E_NOTICE turned on!!! | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">If you edit PHP code, please work with E_NOTICE turned on!!!</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-76" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Tue, 2010-09-14 02:09 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/planet-drupal">Planet Drupal</a></li><li class="taxonomy-term-reference-1"><a href="/topics/best-practices">Best Practices</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>It's a Drupal and PHP best practice to develop with E_NOTICE turned on. Please do.</p>
+<p>I installed a new contrib project from Drupal.org yesterday and found a whole bunch of warnings emitted to the screen. It turned out that the developer of the project had not (apparently) been working with E_NOTICE properly enabled in their development environment and so had never seen these. Two of them were actually obvious logic failures. <i>You want to know when PHP is complaining about your code!</i> (Make sure you have error/warning reporting to screen turned on during development too!)</p>
+<p>So here's the deal: PHP has a flag called <a href="http://php.net/manual/en/errorfunc.configuration.php">E_NOTICE</a>. In release version of Drupal it's ignored (in includes/common.inc, drupal_error_handler()). In dev versions of Drupal and in Pressflow it's enabled. Anybody who ever edits PHP code during development should have this turned on. So you can</p>
+<ul>
+<li>Use a development version of Drupal</li>
+<li>Use <a href="http://pressflow.org">Pressflow</a></li>
+<li>Or apply <a href="http://randyfay.com/sites/default/files/e_notice.patch">this patch</a> to your Drupal stable install (works on D6)</li></ul>
+<p>
+</p>
+<p><b>Why does this matter to you?</b> Because if you make a single mistake, like using a misspelled variable, you won't know about it! You might do something like:<br />
+<code><br />
+$x = $varable;<br />
+</code><br />
+by accident, just a simple typo. If you have E_NOTICE enabled, you'll get a complaint and can fix it right away. If you don't, you've introduced a hard-to-find bug.</p>
+<p><b>What about contrib modules/themes that have warnings?</b> Well, we need to get them fixed. Please, fix them up. We wouldn't have this problem if all if everybody did what's promoted here. But it's easy enough: Fix the problem and file a patch. That's what I did last night.</p>
+<p>Please everybody: Run your dev environment with E_NOTICE, and fix problems when you find them. Let's make contrib and our site run clean.</p>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-186"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://agaric.com/" rel="nofollow" class="username">Benjamin Melançon (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-09-14 02:39</p>
+        <p class="comment-permalink"><a href="/comment/186#comment-186" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/186#comment-186" class="permalink" rel="bookmark">Best practice for turning on?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>What is the best practice for turning on– just using a development version of Drupal, editing the file (hacking core!), or enabling it in one's environment?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-187"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2010-09-14 02:43</p>
+        <p class="comment-permalink"><a href="/comment/187#comment-187" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/187#comment-187" class="permalink" rel="bookmark">I would say, use the dev version or pressflow</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>It's easiest to use a Drupal dev version or pressflow, but this is not hacking core. It's just making the one change that's always made between dev and stable releases.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-188"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Jochen (not verified)</span></p>
+        <p class="comment-time">Tue, 2010-09-14 03:24</p>
+        <p class="comment-permalink"><a href="/comment/188#comment-188" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/188#comment-188" class="permalink" rel="bookmark">So Randy, is it correct to</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>So Randy, is it correct to put this in my /etc/php5/php.ini file:</p>
+<p>error_reporting = E_ALL &amp; E_NOTICE</p>
+<p>???</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-189"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2010-09-14 03:29</p>
+        <p class="comment-permalink"><a href="/comment/189#comment-189" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/189#comment-189" class="permalink" rel="bookmark">Certainly correct, but Drupal overrides it</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>There's certainly nothing wrong with putting it in php.ini, but since Drupal overrides error_reporting, you need to fix this in Drupal.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-190"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Jochen (not verified)</span></p>
+        <p class="comment-time">Tue, 2010-09-14 04:28</p>
+        <p class="comment-permalink"><a href="/comment/190#comment-190" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/190#comment-190" class="permalink" rel="bookmark">Hmm, I don&#039;t get it. What</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hmm, I don't get it. What line do I need to change in includes/common.inc ?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-191"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2010-09-14 04:41</p>
+        <p class="comment-permalink"><a href="/comment/191#comment-191" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/191#comment-191" class="permalink" rel="bookmark">Edited the article to show exactly what to do</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I edited the article to <a href="http://randyfay.com/files/e_notice.patch">provide a patch</a>.</p>
+<p>This is what you need to do:<br />
+<code><br />
+diff --git includes/common.inc includes/common.inc<br />
+index 2ca8c72..39d6499 100644<br />
+--- includes/common.inc<br />
++++ includes/common.inc<br />
+@@ -631,7 +631,7 @@ function drupal_error_handler($errno, $message, $filename, $line, $context) {<br />
+     return;<br />
+   }</code></p>
+<ul>
+<li>if ($errno &amp; (E_ALL ^ E_DEPRECATED ^ E_NOTICE)) {</li>
+<li>
+<p>if ($errno &amp; (E_ALL ^ E_DEPRECATED)) {<br />
+ $types = array(1 =&gt; 'error', 2 =&gt; 'warning', 4 =&gt; 'parse error', 8 =&gt; 'notice', 16 =&gt; 'core error', 32 =&gt; 'core warning', 64 =&gt; 'compile error', 128 =&gt; 'compile warning', 256 =&gt; 'user error', 512 =&gt; 'user warning', 1024 =&gt; 'user notice', 2048 =&gt; 'strict warning', 4096 =&gt; 'recoverable fatal error');</p>
+<p>// For database errors, we want the line number/file name of the place that<br />
+</p>
+</li>
+</ul>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-193"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Jochen (not verified)</span></p>
+        <p class="comment-time">Tue, 2010-09-14 05:53</p>
+        <p class="comment-permalink"><a href="/comment/193#comment-193" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/193#comment-193" class="permalink" rel="bookmark">Hmm, yes, ... but the problem</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hmm, yes, ... but the problem is that our common.inc file is version controlled and I don't want this patch to be running on our PROD server :-)</p>
+<p>I could store this in a variable and make it environment independant ...</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-200"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2010-09-14 05:57</p>
+        <p class="comment-permalink"><a href="/comment/200#comment-200" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/200#comment-200" class="permalink" rel="bookmark">Settings.php?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p><del>The comment here about doing it in settings.php may work for you. Please give it a shot: <a href="http://randyfay.com/node/76#comment-192">http://randyfay.com/node/76#comment-192</a>. (I haven't used that technique).</del><br />
+As far as I can tell, changing the setting in settings.php has no effect.</p>
+<p>I actually think that E_NOTIFY probably should be on in production (but with warnings sent to watchdog instead of to the screen).</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-197"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Jochen (not verified)</span></p>
+        <p class="comment-time">Tue, 2010-09-14 05:55</p>
+        <p class="comment-permalink"><a href="/comment/197#comment-197" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/197#comment-197" class="permalink" rel="bookmark">Applied the patch, but I&#039;m</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Applied the patch, but I'm really getting a lof of these entries now :p</p>
+<p><code><br />
+php 14/09/2010 - 13:53  Use of undefined constant SUPERCRON_SCRIPT_NAME  ...   admin<br />
+</code></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-201"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2010-09-14 06:00</p>
+        <p class="comment-permalink"><a href="/comment/201#comment-201" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/201#comment-201" class="permalink" rel="bookmark">You have a patch to file against supercon :-)</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Time to help out the maintainer of supercron with a patch.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div></div></div><a id="comment-665"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://agaric.com" rel="nofollow" class="username">Benjamin Melançon (not verified)</a></p>
+        <p class="comment-time">Sat, 2011-01-15 04:43</p>
+        <p class="comment-permalink"><a href="/comment/665#comment-665" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/665#comment-665" class="permalink" rel="bookmark">Yay Drupal 7- just two lines in settings.php!</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p><code><br />
+error_reporting(-1);  // Have PHP complain about absolutely everything as noted by Ryan below.<br />
+$conf['error_level'] = 2;  // Show all messages on your screen, 2 = ERROR_REPORTING_DISPLAY_ALL.<br />
+ini_set('display_errors', TRUE);  // These lines just give you content on WSOD pages.<br />
+ini_set('display_startup_errors', TRUE);<br />
+</code></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-192"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://agaric.com/" rel="nofollow" class="username">Benjamin Melançon (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-09-14 04:56</p>
+        <p class="comment-permalink"><a href="/comment/192#comment-192" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/192#comment-192" class="permalink" rel="bookmark">Do it in settings.php?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Sorry, I was being flippant with the hacking core comment, but it would still be better to have a place people can just change, and it shouldn't be required to have a development copy of Drupal to</p>
+<p>Also, in Drupal 7, the relevant file is includes/bootstrap.inc for changing error_reporting to all.</p>
+<p>However, this in settings.php ought to do it no matter what?</p>
+<p>&lt;?php<br />
+error_reporting(E_ALL);<br />
+$conf['error_level'] = ERROR_REPORTING_DISPLAY_ALL;<br />
+?&gt;</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-194"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://blog.riff.org" rel="nofollow" class="username">FGM (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-09-14 05:53</p>
+        <p class="comment-permalink"><a href="/comment/194#comment-194" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/194#comment-194" class="permalink" rel="bookmark">E_STRICT ?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I tend to do most of my dev work (currently with PHP 5.3) with error_reporting(-1); to catch just about everything, including deprecation warnings and other minor issues.</p>
+<p>Why do you recommend limiting oneself to notices and ignoring deprecation and strict warnings ?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-196"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2010-09-14 05:54</p>
+        <p class="comment-permalink"><a href="/comment/196#comment-196" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/196#comment-196" class="permalink" rel="bookmark">Not at all</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I think your approach is great. Cleaner is better.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-199"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Jochen (not verified)</span></p>
+        <p class="comment-time">Tue, 2010-09-14 05:57</p>
+        <p class="comment-permalink"><a href="/comment/199#comment-199" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/199#comment-199" class="permalink" rel="bookmark">Thanks for the tip, I agree!</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks for the tip, I agree!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-198"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Jochen (not verified)</span></p>
+        <p class="comment-time">Tue, 2010-09-14 05:56</p>
+        <p class="comment-permalink"><a href="/comment/198#comment-198" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/198#comment-198" class="permalink" rel="bookmark">Ah, this seems to be better</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Ah, this seems to be better then using the variable :-)</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-206"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.BlakeSenftner.com" rel="nofollow" class="username">Blake Senftner (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-09-14 13:19</p>
+        <p class="comment-permalink"><a href="/comment/206#comment-206" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/206#comment-206" class="permalink" rel="bookmark">where is &quot;ERROR_REPORTING_DISPLAY_ALL&quot; coming from?</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p><code><br />
+error_reporting(E_ALL);<br />
+$conf['error_level'] = ERROR_REPORTING_DISPLAY_ALL;<br />
+</code></p>
+<p>I just added the above to the bottom of a settings.php file I'm using with one of the sites I'm developing. However, the use of "ERROR_REPORTING_DISPLAY_ALL" is triggering this error to display on my Drupal page:</p>
+<p><code><br />
+Notice: Use of undefined constant ERROR_REPORTING_DISPLAY_ALL - assumed 'ERROR_REPORTING_DISPLAY_ALL' in C:\wamp\www\ProjectHome\sites\default\settings.php on line 260<br />
+</code></p>
+<p>I'm getting the error on my page, thanks (I think) to the "error_reporting(E_ALL);"...</p>
+<p>Where should "ERROR_REPORTING_DISPLAY_ALL" live? I did a grep of a Drupal 6.19 I have locally, and it did not find it. The site in question is actually Pressflow, (not local)...</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-207"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://agaric.com/" rel="nofollow" class="username">Benjamin Melançon (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-09-14 13:37</p>
+        <p class="comment-permalink"><a href="/comment/207#comment-207" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/207#comment-207" class="permalink" rel="bookmark">Drupal 7</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hey, i'm sorry, Blake, i completely forgot to mention that that code was written up looking at Drupal 7.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-210"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.BlakeSenftner.com" rel="nofollow" class="username">Blake Senftner (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-09-14 16:23</p>
+        <p class="comment-permalink"><a href="/comment/210#comment-210" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/210#comment-210" class="permalink" rel="bookmark">thanks for your reply</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I tried just going with:<br />
+<code><br />
+error_reporting(E_ALL);<br />
+</code><br />
+as the last line of my settings.php, which works, but just traveling to the home page of a fresh installation of drupal 6.19 generates 396 messages, many of them being "Function ereg() is deprecated...", and "Undefined variable: [something]" from various modules.</p>
+<p>This many messages is too much to live with, so I am forced to turn this off. Too bad. As I travel around this new and empty site, the messages are overwhelming. The clients already gave me a freaked call wondering what I broke...</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-211"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2010-09-14 16:25</p>
+        <p class="comment-permalink"><a href="/comment/211#comment-211" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/211#comment-211" class="permalink" rel="bookmark">PHP 5.3 warnings</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>The warnings you're getting are about PHP 5.3 deprecated functions.</p>
+<p>Two things to note here:</p>
+<ol>
+<li>
+<p>I actually recommended just turning on E_NOTICE :-) You turned on deprecated as well, which you don't need IMO for D6.</p>
+</li>
+<li>
+<p>Drupal 6.19 core is free of these notices, so you have some modules that have not been updated to 5.3.</p>
+</li>
+</ol>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-212"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.BlakeSenftner.com" rel="nofollow" class="username">Blake Senftner (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-09-14 17:00</p>
+        <p class="comment-permalink"><a href="/comment/212#comment-212" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/212#comment-212" class="permalink" rel="bookmark">good info</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks Randy. Changing to E_NOTICE does reduce the number of messages, that's for sure. But I'm still seeing quite a few (over a hundred) generated by the jqueryMenu.module.</p>
+<p>They are all complaining about undefined variable usage...</p>
+<p>Interesting to note that locating where the 3 variables are being used without any declaration and fixing them causes the jQuery Menu to completely fail to generate any menu at all. Very strange...</p>
+<p>On the first case, it is an "output" variable that is used for the first time with a ".=" assignment. Simply setting that to the empty string before its first use completely breaks the menu. I think that's because the routine in question is recursive... very strange, since the $output variable is not one of the variables passed recursively, but is one of the variables built up recursively...</p>
+<p>On the other two cases, simply undeclared variables are being passed to another routine. I can set them fine, and the menu is still generated, but with 13 messages about undefined usage of $output...</p>
+<p>Oh well. I guess I'll file an issue with the module maintainer... thanks for your help!!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div></div><a id="comment-208"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Nick Mathew (not verified)</span></p>
+        <p class="comment-time">Tue, 2010-09-14 13:46</p>
+        <p class="comment-permalink"><a href="/comment/208#comment-208" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/208#comment-208" class="permalink" rel="bookmark">Since we&#039;re setting it at</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Since we're setting it at runtime, PHP recommends using the error_reporting function.</p>
+<p>So just add <strong>ini_set('error_reporting', 30719);</strong> to the ini_set section of settings.php</p>
+<p>Other values for the function can be found at<br />
+<a href="http://www.php.net/manual/en/errorfunc.constants.php">http://www.php.net/manual/en/errorfunc.constants.php</a></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-213"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Tue, 2010-09-14 17:25</p>
+        <p class="comment-permalink"><a href="/comment/213#comment-213" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/213#comment-213" class="permalink" rel="bookmark">Does not work for me on a stock Drupal 6.19</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I can't get any of the settings.php related approaches suggested today to work on a stock Drupal 6.19 instance.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-214"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.BlakeSenftner.com" rel="nofollow" class="username">Blake Senftner (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-09-14 17:34</p>
+        <p class="comment-permalink"><a href="/comment/214#comment-214" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/214#comment-214" class="permalink" rel="bookmark">I just went with this as the</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I just went with this as the last line of settings.php:<br />
+<code><br />
+error_reporting(E_NOTICE);<br />
+</code></p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div><a id="comment-215"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Scott Reynen (not verified)</span></p>
+        <p class="comment-time">Tue, 2010-09-14 18:02</p>
+        <p class="comment-permalink"><a href="/comment/215#comment-215" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/215#comment-215" class="permalink" rel="bookmark">I don&#039;t believe settings.php can help in D6</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I'm pretty sure the error reporting level is irrelevant. Drupal uses <a href="http://php.net/set_error_handler">set_error_handler()</a>, which - according to the linked description on php.net - disregards the error reporting level. So the only way to change what Drupal does is to set a different error handler function (this is what Pressflow does) or edit the existing function (this is what Randy's patch does).</p>
+<p>Unfortunately, you can't set a different error handler function in settings.php, because that's loaded before common.inc, and the last handler set is the one actually used. If people really want to fix this in D6 without touching core, I think it'll require a contrib module. Moshe has <a href="http://drupal.org/node/820334">already indicated</a> he's not interested in doing something like this in devel. I can't think of another existing module where this would make sense; maybe a new module?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-666"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://agaric.com" rel="nofollow" class="username">Benjamin Melançon (not verified)</a></p>
+        <p class="comment-time">Sat, 2011-01-15 04:48</p>
+        <p class="comment-permalink"><a href="/comment/666#comment-666" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/666#comment-666" class="permalink" rel="bookmark">Revised Drupal 7.0+ settings.php lines</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>error_reporting(-1);  // Via Ryan below.<br />
+$conf['error_level'] = 2;  // The constant ERROR_REPORTING_DISPLAY_ALL, as error.inc is not yet loaded.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div><a id="comment-202"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Scott Reynen (not verified)</span></p>
+        <p class="comment-time">Tue, 2010-09-14 06:41</p>
+        <p class="comment-permalink"><a href="/comment/202#comment-202" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/202#comment-202" class="permalink" rel="bookmark">Needs to be easier, will be in D7</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Having spent an hour last weekend trying to figure out how to change this setting (to fix notices someone kindly reported in an issue queue), I'm happy to see more notice of, er, notices in D7. Unfortunately, I expect this won't do much to solve the problems. First, there is way too much information online about how to turn notices <em>off</em> to actually find anything in a search like this about turning them on. Second, as indicated by the comments here, patching core or using a different version of core in development aren't great solutions for many people.</p>
+<p>I was going to suggest adding an interface for changing this to a new or existing module (e.g. devel), but it looks like it's already done in D7 core. Yay.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-203"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://ryanparman.com" rel="nofollow" class="username">Ryan Parman (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-09-14 07:38</p>
+        <p class="comment-permalink"><a href="/comment/203#comment-203" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/203#comment-203" class="permalink" rel="bookmark">Actually, Rasmus recommends</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Actually, Rasmus recommends developing with error_reporting(-1);. This enables ALL possible error reporting in PHP. This includes E_STRICT, E_ALL, E_NOTICE, and everything else!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-204"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.blogthingee.com" rel="nofollow" class="username">Sean (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-09-14 09:57</p>
+        <p class="comment-permalink"><a href="/comment/204#comment-204" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/204#comment-204" class="permalink" rel="bookmark">changed my development efficiency</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I had the pleasure of working on a project with Randy a year ago, and when he walked me through this little gem... it changed my development forever.  Great Stuff, Thanks!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-216"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://advomatic.com" rel="nofollow" class="username">dalin (not verified)</a></p>
+        <p class="comment-time">Tue, 2010-09-14 23:10</p>
+        <p class="comment-permalink"><a href="/comment/216#comment-216" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/216#comment-216" class="permalink" rel="bookmark">AMEN brotha! If everyone was</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>AMEN brotha!</p>
+<p>I everyone was developing with all errors blaring in their face there wouldn't have been any issue when PHP 5.3 came out.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-218"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.istos.it" rel="nofollow" class="username">Ronald (not verified)</a></p>
+        <p class="comment-time">Wed, 2010-09-15 04:11</p>
+        <p class="comment-permalink"><a href="/comment/218#comment-218" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/218#comment-218" class="permalink" rel="bookmark">MAMP on a mac</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>If you work with MAC a nice way to do things is switch all error reporting on, open up the log and have that running alongside your installation.</p>
+<p>This way you get all the errors - updated dynamically on the log and your browser screen is clean.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-219"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Lucas Weeks (not verified)</span></p>
+        <p class="comment-time">Wed, 2010-09-15 08:56</p>
+        <p class="comment-permalink"><a href="/comment/219#comment-219" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/219#comment-219" class="permalink" rel="bookmark">Thanks, Randy. And thanks,</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks, Randy. And thanks, Ronald. Works like a charm on the mac.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/76%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div>      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/node/76" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>

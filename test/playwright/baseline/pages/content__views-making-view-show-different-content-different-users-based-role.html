@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+<link rel="shortcut icon" href="{{BASE_URL}}/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="canonical" href="{{BASE_URL}}/content/views-making-view-show-different-content-different-users-based-role" />
+
+    <title>Views: Making a view show different content to different users based on role | RandyFay.com</title>
+    <link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="all" />
+<link rel="stylesheet" href="{{BASE_URL}}/sites/default/files/css/css_{{HASH}}.css" media="print" />
+    <script>window.Backdrop = {{SETTINGS}};</script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+<script src="{{BASE_URL}}/sites/default/files/js/js_{{HASH}}.js"></script>
+  </head>
+  <body class="page node-type-blog">
+    <div class="layout--moscone-flipped layout">
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+
+      <header class="l-header" role="banner" aria-label="Site header">
+      <div class="l-header-inner container container-fluid">
+        <div class="no-tabs"><div class="block block-system-header">
+
+
+  <div class="block-content">
+    
+  <div class="name-and-slogan">
+                  <div class="site-name"><strong>
+          <a href="/" title="Home" rel="home"><span>RandyFay.com</span></a>
+        </strong></div>
+                    <div class="site-slogan">Randy Fay's Blog</div>
+      </div> <!-- /#name-and-slogan -->
+
+  </div>
+</div>
+</div>      </div>
+    </header>
+  
+  <div class="l-wrapper">
+    <div class="l-wrapper-inner container container-fluid">
+
+      
+      <div class="l-page-title">
+        <a id="main-content"></a>
+                          <h1 class="page-title">Views: Making a view show different content to different users based on role</h1>
+                      </div>
+
+      
+      
+              <div class="l-top">
+          <div class="block block-system-breadcrumb">
+
+
+  <div class="block-content">
+    <nav class="breadcrumb" aria-label="Website Orientation"><ol><li><a href="/">Home</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blog">Blogs</a><span class="breadcrumb-separator" aria-hidden="true"> » </span></li><li><a href="/blogs/rfay">rfay&#039;s blog</a></li></ol></nav>  </div>
+</div>
+        </div>
+      
+      <div class="l-middle row">
+        <main class="l-content col-md-9" role="main" aria-label="Main content">
+          <article id="node-77" class="node node-blog promoted view-mode-full clearfix">
+
+    <header>
+            
+          <div class="meta submitted">
+                Fri, 2010-09-17 15:50 by rfay      </div>
+      </header>
+  
+  <div class="content clearfix">
+    <div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-hidden clearfix"><ul class="links"><li class="taxonomy-term-reference-0"><a href="/topics/planet-drupal">Planet Drupal</a></li></ul></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p><a href="http://drupal.org/user/36762">greggles</a> showed me how to make a view show different content to different users by role the other day, so I thought I'd write it down.</p>
+<p><b>The goal:</b> Displaying different nodes to administrators than I show to just authenticated users and that different than what anon users see. (In this case, I'll show pages to administrators, stories to authenticated users who are not administrators, and articles to anonymous users.)</p>
+<p><b>The strategy:</b> Create three different displays in the view, each of which is limited to a particular role, and each of which has its own filter. The administrator display has a filter that chooses pages, auth user one that chooses stories, etc.</p>
+<p><b>The devil's details:</b> The displays must be ordered by most restrictive to anonymous. The displays are apparently attempted in the order they're shown on the views edit screen. So we need the most restrictive (administrator) first. On that one only administrators will succeed. The next display has the authenticated users, etc.</p>
+<p>I've attached a feature that demonstrates this. It provides a page, story, and article content type (provided in the feature) and a demonstration view. And some content in them.  You'll need <a href="http://drupal.org/project/features">Features Module</a> to try it out. But if you haven't tried out features yet, your life is draining away before your very eyes, so use this as a chance to try it out.</p>
+<p>Thanks to all of you who pointed out on Twitter other ways to do this (with other tools):</p>
+<ul>
+<li><a href="http://drupal.org/project/panels">Panels</a> knows how to do this easily using the CTools context system.</li>
+<li><a href="http://drupal.org/project/content_access">Content Access</a> and all related node access modules can do it by denying access to content (which we're not doing here; we're just affecting the display).</li>
+</ul>
+<p>(And thanks Greggles for this great working solution.)</p>
+<p>I don't <i>think</i> <a href="http://drupal.org/project/context">Context module</a> knows how to change the primary content for a URL. It can do everything with the rest of the stuff on the page. Please correct me!</p>
+</div></div></div><div class="field field-name-upload field-type-file field-label-hidden"><div class="field-items"><div class="field-item even"><table class="sticky-enabled">
+ <thead><tr><th>Attachment</th><th>Size</th> </tr></thead>
+<tbody>
+ <tr class="odd"><td><span class="file"><img class="file-icon" alt="Binary Data" title="application/octet-stream" src="/core/modules/file/icons/application-octet-stream.png" /> <a href="{{BASE_URL}}/sites/default/files/demo_role_content_feature-6.x-1.0.tar_.gz" type="application/octet-stream; length=0" title="demo_role_content_feature-6.x-1.0.tar_.gz">demo_role_content_feature-6.x-1.0.tar_.gz</a></span></td><td>0 bytes</td> </tr>
+</tbody>
+</table>
+</div></div></div>  </div>
+
+      <footer class="link-wrapper">
+      <ul class="links inline"><li class="blog-usernames-blog odd first"><a href="/blogs/rfay" title="Read rfay&#039;s latest blog entries.">rfay&#039;s blog</a></li><li class="comment-forbidden even last"><span><a href="/user/login?destination=comment/reply/77%23comment-form">Log in</a> to post comments</span></li></ul>    </footer>
+  
+      <section class="comments">
+              <h2 class="title">Comments</h2>
+        <a id="comment-224"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><a href="http://www.foggyperspective.com" rel="nofollow" class="username">Craig (not verified)</a></p>
+        <p class="comment-time">Fri, 2010-09-17 19:39</p>
+        <p class="comment-permalink"><a href="/comment/224#comment-224" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/224#comment-224" class="permalink" rel="bookmark">Great info!</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I didn't realize views quite worked that way.  I feel pretty confident in what I know about views and this is something new I've learned!  Awesome!</p>
+<p>There are ways the context module could solve this, but not quite as elegant as this.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/77%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-273"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Jochen Hebbrecht (not verified)</span></p>
+        <p class="comment-time">Wed, 2010-09-29 00:58</p>
+        <p class="comment-permalink"><a href="/comment/273#comment-273" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/273#comment-273" class="permalink" rel="bookmark">Hmm, Randy, I want to add</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hmm, Randy, I want to add some comments to this quote of yours: "But if you haven't tried out features yet, your life is draining away before your very eyes, so use this as a chance to try it out."</p>
+<p>We didn't actually speak with each other in the past, but I saw 2 presentations of you at DrupalCON CPH. You seemed to me a brilliant developer, but I can't understand why you are so happy with Features.</p>
+<p>I have 2 problems:<br />
+a) if you want to update your Feature (because you did a change to a CT, view, ... whatever), you have to use drush to update your feature. I like drush, but I have colleagues who are not really willing to work with it. And the problem is: there's no UI action to update your Feature :-/ ...</p>
+<p>b) if you change a setting on a CT like "Workflow settings: Multilingual support: Enabled, with translation" =&gt; this setting isn't picked up by Features. This settings DOES get picked up with the EXPORT function of a CT. So I'm missing the point why Features fails in this ...</p>
+<p>So, as a conclusion: I do see advantages in Features, but I also see some disadvantages :-) ...</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/77%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-274"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2010-09-29 06:42</p>
+        <p class="comment-permalink"><a href="/comment/274#comment-274" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/274#comment-274" class="permalink" rel="bookmark">Features</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Thanks for the nice compliment...</p>
+<p>On features:</p>
+<p>a) Updating from the GUI: You can update from the GUI, it's just awkward. You have to re-save the file. Drush can do it in place. I have to say that if I couldn't use drush to update I might not like features either. The UI cannot update the feature directly for the very reason that features exists: Drupal can (mostly) only update the database from the GUI. It can't update its own modules. In D7 there's a workaround for this for a little bit of relief (updates from the gui, but they require you to put in an ftp password.)</p>
+<p>b) Content Type settings: I'm surprised. I think that's a bug or at least a missing feature and encourage you to take it up in the features issue queue, at least as a support request.</p>
+<p>The biggest disadvantages to features to date, IMO, are 1) that it doesn't cover everything and 2) it doesn't cover <em>ever</em> database tables that are driven by numeric indexes instead of machine names. That leaves out a lot of things.</p>
+<p>(I am a Features fanboy. You can see it in the <a href="https://docs.google.com/present/edit?id=0ATSj3ekASkFxZGRzZDVzdzdfMzM4YzI1NTI0ZHc&amp;hl=en">presentation on features I sometimes give</a>.</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/77%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-275"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Jochen Hebbrecht (not verified)</span></p>
+        <p class="comment-time">Wed, 2010-09-29 08:15</p>
+        <p class="comment-permalink"><a href="/comment/275#comment-275" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/275#comment-275" class="permalink" rel="bookmark">Hi Randy,
+I did post this in</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Hi Randy,</p>
+<p>I did post this in the issue queue of Features. Check this comment: <a href="http://drupal.org/node/792472#comment-3265134">http://drupal.org/node/792472#comment-3265134</a></p>
+<p>So eventually, this issue got moved to Strongarm and solved by a patch in Strongarm. But I don't like the idea to install Strongarm, just to export my content type. Therefore, I replied with this comment: <a href="http://drupal.org/node/792472#comment-3502682">http://drupal.org/node/792472#comment-3502682</a></p>
+<p>So ... it's not a bug, it's by design. But I don't like the idea to install 3 modules to keep track of DB changes. I want to keep my contrib modules as less as possible</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/77%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-276"></a>
+<article class="comment comment-by-node-author comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">rfay</span></p>
+        <p class="comment-time">Wed, 2010-09-29 08:19</p>
+        <p class="comment-permalink"><a href="/comment/276#comment-276" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/276#comment-276" class="permalink" rel="bookmark">strongarm is an essential part of features</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I really don't understand why strongarm is a separate module. It's required for most "real" uses of features. So that's probably just one of those Drupal things :-)</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/77%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+
+<div class="indented"><a id="comment-277"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Jochen Hebbrecht (not verified)</span></p>
+        <p class="comment-time">Wed, 2010-09-29 08:22</p>
+        <p class="comment-permalink"><a href="/comment/277#comment-277" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/277#comment-277" class="permalink" rel="bookmark">I didn&#039;t installed Strongarm,</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>I didn't installed Strongarm, so that could be the reason why I ran into this bug?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/77%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-278"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Jochen Hebbrecht (not verified)</span></p>
+        <p class="comment-time">Thu, 2010-09-30 01:22</p>
+        <p class="comment-permalink"><a href="/comment/278#comment-278" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/278#comment-278" class="permalink" rel="bookmark">Fixed by installing Strongarm</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Fixed by installing Strongarm and CTools. But I still have my doubts using 3 contrib modules, to control Content Types ... :-)</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/77%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+</div></div></div></div><a id="comment-2350"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">jlyon (not verified)</span></p>
+        <p class="comment-time">Sun, 2012-07-08 17:18</p>
+        <p class="comment-permalink"><a href="/comment/2350#comment-2350" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/2350#comment-2350" class="permalink" rel="bookmark">How to get working with node_access</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>Great info, but unfortunately I can't get this working for my situation.  I am trying to display different views based on whether or not the user has node access on a node on a node passed as a contextual filters argument.  I tried changing the Access Control to Permission -&gt; View published content and doing the access checking in the contextual filter with no luck.  I also tried changing the Access Control to PHP with return node_access('update', node_load(arg(1))); with no luck either.  It seems like this might only work if Access Control is set to Role.</p>
+<p>Any ideas of how to get something like this to work without using context or panels?</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/77%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+<a id="comment-3552"></a>
+<article class="comment comment-by-anonymous comment-title-custom clearfix">
+  <header class="comment-header">
+    <div class="attribution">
+      
+      <div class="submitted">
+        <p class="commenter-name"><span class="username">Annie (not verified)</span></p>
+        <p class="comment-time">Mon, 2014-11-24 20:24</p>
+        <p class="comment-permalink"><a href="/comment/3552#comment-3552" class="permalink" rel="bookmark">Permalink</a></p>
+      </div>
+    </div> <!-- /.attribution -->
+  </header> <!-- /.comment-header -->
+
+  <div class="comment-text">
+    <div class="comment-arrow"></div>
+    
+                <h3 class="comment-title"><a href="/comment/3552#comment-3552" class="permalink" rel="bookmark">simple and elegant</a></h3>
+          
+    <div class="content">
+      <div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>...and I would never have had any idea it could be done if I hadn't happened on this post. In my case I wanted to use parameterized links from the summary page view to get to 'detail' views  - with all fields for auth users, some private fields removed for anon. users. Clone page, remove field(s), change role access - done. Thanks!</p>
+</div></div></div>    </div> <!-- /.content -->
+
+    <footer class="comment-footer">
+      
+      <nav><ul class="links inline"><li class="comment-forbidden odd first last"><span><a href="/user/login?destination=comment/reply/77%23comment-form">Log in</a> to post comments</span></li></ul></nav>
+    </footer> <!-- /.comment-footer -->
+
+  </div> <!-- /.comment-text -->
+</article>
+      
+          </section>
+  
+</article>
+<div class="block block-block-3">
+
+  <h2 class="block-title">Where to find me</h2>
+
+  <div class="block-content">
+    <p>Email me, randy at randyfay.com, Find me on <a href="http://ddev.com/contact">ddev.com</a>, Drupal.org and Slack: rfay, Facebook: <a href="http://facebook.com/randyfay">randyfay</a>, <a href="http://hobobiker.com">Hobobiker.com</a>: The story of our 2 1/2 year bike trip.</p>
+<p>Updated 2025-12-03</p>
+  </div>
+</div>
+<div class="block block-search-form" role="search">
+
+  <h2 class="block-title">Search</h2>
+
+  <div class="block-content">
+    <form class="search-block-form search-box" action="/content/views-making-view-show-different-content-different-users-based-role" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="form-item form-type-search form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the keywords you wish to search for." type="search" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-search" />
+</div>
+<input type="hidden" name="form_build_id" value="{{TOKEN}}" />
+<input type="hidden" name="form_id" value="search_block_form" />
+<div class="form-actions" id="edit-actions"><input class="button-primary form-submit" type="submit" id="edit-submit" name="op" value="Search" /></div></div></form>  </div>
+</div>
+        </main>
+        <div class="l-sidebar l-sidebar-first col-md-3">
+                  </div>
+      </div><!-- /.l-middle -->
+
+      
+    </div><!-- /.l-wrapper-inner -->
+  </div><!-- /.l-wrapper -->
+
+  </div><!-- /.layout--moscone-flipped -->
+          </body>
+</html>
