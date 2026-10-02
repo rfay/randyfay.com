@@ -5,6 +5,8 @@ migration target (a static export, a Drupal 11 rebuild, another CMS) is judged b
 against the same baseline.
 
 For the whole strategy in plain language, read the kit's `test/playwright/kit/docs/how-it-works.md` first.
+The static-HTML path builds on Karen Stevenson's Lullabot series on retiring Drupal sites; see
+`test/playwright/kit/docs/retirement-approach.md` for the credit, links and how we apply it.
 
 This project (a Backdrop CMS site) is the rehearsal for a harder real target, hobobiker.com, a
 much older Drupal 6 site that goes through two migration paths in a public three-part series
