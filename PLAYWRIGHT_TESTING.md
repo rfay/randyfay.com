@@ -4,6 +4,8 @@ How this site's behavior is frozen before a migration, and checked afterward, so
 migration target (a static export, a Drupal 11 rebuild, another CMS) is judged by the same suite
 against the same baseline.
 
+For the whole strategy in plain language, read the kit's `test/playwright/kit/docs/how-it-works.md` first.
+
 This project (a Backdrop CMS site) is the rehearsal for a harder real target, hobobiker.com, a
 much older Drupal 6 site that goes through two migration paths in a public three-part series
 ("Hobobiker Rides Again"). The reusable parts live in
@@ -32,7 +34,7 @@ runner for everything else.
 
 | Need | Why Playwright | Status |
 |---|---|---|
-| **Pages built by JavaScript.** Content that exists only after scripts run: hobobiker's `document.write()` email obfuscation (node 3804), lightbox galleries, the Google Maps embeds, and anything the old theme builds in the browser. A text fetch sees only the script, never the result, so it cannot tell whether the migration kept it. | A real browser executes the scripts and reads what a visitor reads | **Not built yet.** The first thing to add for hobobiker. |
+| **Text a visitor can actually read.** Text can be in the HTML yet hidden by CSS, or exist only after a script runs (hobobiker's `document.write()` email obfuscation on node 3804, lightbox galleries, anything the old theme builds in the browser). A text fetch sees only the HTML, so it cannot tell. | A real browser runs the scripts and `innerText` returns only what is visible | **Built** (`visible:` tier, opt-in: 244 pages in about 11 seconds). Not yet tried against script-built content, since this site has little. |
 | **Embeds that render as nothing.** Dead Flash `<object>` tags and dead script widgets look fine in the HTML and show a blank box in a browser. | Render the page; check for a visible, non-empty element | Not built yet |
 | **Failures a visitor can see.** Failed image or script requests, JavaScript exceptions, console errors. | `page.on('console')` and `page.on('requestfailed')` | Not built yet |
 | **How it looks.** A curated sample of pages as screenshots, for a human to review. A migration may intentionally change the theme, so this is informational, never a pass/fail gate. | `toHaveScreenshot`, full-page, masked dynamic regions | Built (6 pages) |
@@ -49,10 +51,21 @@ Select a tier by test-title prefix with `--grep`.
 
 | Tier | Prefix | What it checks | Needs a browser |
 |---|---|---|---|
-| Semantic | `semantic:` | Every baseline page's title, content lines, images (and that they load), links, menus; every discovered route (home, listings, taxonomy); every baseline asset resolves. Nothing may be missing; extras are fine. Deliberate differences live in `expected-differences.json`. | No |
+| Semantic | `semantic:` | Every baseline page's title, content lines, images (and that they load), links, menus; every discovered route (home, listings, taxonomy); every baseline asset resolves. Nothing may be missing; extras are fine. Optional strictness in `migration.config.mjs` (`strict: { order, alt }`, both on here) also requires the same line order and unchanged image alt text. Deliberate differences live in `expected-differences.json`. | No |
+| Visible text | `visible:` | In a real browser, every baseline content line is visible to a visitor (catches text hidden by CSS and content scripts add or remove). Opt-in; compared case-insensitively because the browser applies CSS capitalization | Yes |
 | Access | `access:` | Unpublished nodes still answer 403 to anonymous visitors (40 checks: 20 nodes, each alias) | No |
 | Assets | `asset:` | Every captured file still has the same size and SHA-256 (26 files) | No |
 | Visual | `visual:` | Screenshots of 6 curated pages (one per content type, plus nodes with layout overrides). Informational: a mismatch is attached to the report, not failed | Yes |
+
+Two scripts sit beside the tiers and are not tests (run from `test/playwright`, with the development
+site up):
+
+- `node kit/scripts/additions-report.mjs --target <url>` lists what a target shows that the baseline
+  never recorded, such as a leaked template code or stray text. It subtracts the source page's own
+  surroundings, so dev against itself reports nothing. Informational only.
+- `node kit/scripts/check-source-drift.mjs` re-reads the original site and reports whether anything
+  (including additions and reordering) changed since the baseline was frozen. Exit code 1 means it did.
+  Run it before a migration starts, so a failure can be blamed on the target and not on a moved source.
 
 The semantic tier is the one that judges a migration. See the kit's `docs/semantic-tier.md` for how
 it works and what building it taught us.
@@ -98,6 +111,7 @@ ddev playwright test                                  # everything, against the 
 ddev playwright test --grep "semantic:"               # one tier
 ddev playwright test --grep "semantic:.*@smoke"       # one page per content type
 ddev playwright test --grep "semantic:.*@route"       # listing, taxonomy and home routes
+ddev playwright test --grep "visible:"                # the in-browser visible-text tier (opt-in)
 ddev playwright test --grep "semantic:.*@blog"        # one content type
 ddev playwright test --grep "semantic:.*@section-override"
 ddev playwright test --shard=1/4                      # split a large run across workers
@@ -110,12 +124,12 @@ spec-file path.
 
 ```bash
 ddev exec -d /var/www/html/test/playwright \
-  'TEST_BASE_URL=https://migration-a.example.com npx playwright test --grep "semantic:|access:|asset:"'
+  'TEST_BASE_URL=https://migration-a.example.com npx playwright test --grep "semantic:|access:|asset:|visible:"'
 ```
 
 - **Set the variable inside the container.** `TEST_BASE_URL=... ddev playwright ...` on the host is not
   forwarded and silently tests the development site again.
-- **Use the three tiers above, not the whole suite.** `visual:` compares screenshots against the
+- **Use the four tiers above, not the whole suite.** `visual:` compares screenshots against the
   original theme and is informational; run it separately when you want to look at a target.
 - **For a static export on disk,** let the kit serve it for the length of one run. It starts the server,
   sets `TEST_BASE_URL`, runs your command, stops the server and returns the command's exit code:
@@ -131,10 +145,15 @@ ddev exec -d /var/www/html/test/playwright \
 
 ## Verified on this site
 
-- The semantic tier passes 246 of 246 against the development site, and 246 of 246 against a `wget`
+- The semantic tier passes 246 of 246 against the development site, and 246 of 246 against a fresh `wget`
   static mirror of it (`kit/scripts/mirror-static.mjs` and `serve-static.mjs`).
 - Deleting a paragraph, a linked PDF and an image from the mirror is each reported, by name.
-- The full suite is 318 tests (246 semantic, 40 access, 26 asset, 6 visual). The semantic export takes about 25 seconds; the semantic suite about 3.
+- Each later addition has its own negative control on a deliberately broken mirror: a CSS-hidden
+  paragraph is caught only by the visible-text tier; two swapped paragraphs and a changed alt text are
+  caught only by the strict options; a leaked-macro line appears only in the additions report; and a
+  tampered baseline copy is flagged page by page by the drift check, which returns exit code 1.
+- The full suite is 562 tests, all passing in about 13 seconds (246 semantic, 244 visible, 40 access,
+  26 asset, 6 visual). The semantic export takes about 25 seconds; the semantic suite about 3.
 
 ## Where things are
 

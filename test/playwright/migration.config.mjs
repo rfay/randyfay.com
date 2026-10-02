@@ -56,5 +56,8 @@ export default {
     return manifest.files.map((f) => f.url);
   },
 
+  // Strictness beyond "nothing is missing": lines must keep their order, and images keep their alt text.
+  strict: { order: true, alt: true },
+
   expectedDifferences: 'expected-differences.json',
 };

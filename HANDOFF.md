@@ -437,10 +437,14 @@ Production runs DDEV from this repo with primary URL `https://randyfay.com`; eve
   `ddev exec -d /var/www/html/test/playwright 'TEST_BASE_URL=<target> npx playwright test --grep "semantic:"'`.
 - **Rehearsal results:** 246 semantic tests pass against the development site and 246 of 246 against a
   `wget` static mirror (`kit/scripts/mirror-static.mjs` + `serve-static.mjs`), and negative controls
-  (delete a paragraph, an image, a linked file) are each caught and named. Full suite: 318 tests after the raw-HTML tier was deleted.
+  (delete a paragraph, an image, a linked file) are each caught and named. Full suite: 318 tests after the raw-HTML tier was deleted (562 once the visible tier was added).
   Testing a second target found five bugs in the *suite*: routes missing from the content list (home,
   listings, taxonomy), link presence vs. resolution, a root `index.html` normalizer bug, assets the DB lists
   but the server 404s, and the env-forwarding false pass.
+- **Added 2026-10-02, each verified with a negative control:** the `visible:` tier (real browser, hidden
+  text), the additions report, the source-drift check (`kit/scripts/check-source-drift.mjs`), and
+  `strict: { order, alt }` options (on here). `serve-static.mjs --run` starts, tests and stops a static
+  target in one command. Plain-language overview: `kit/docs/how-it-works.md`. Full suite: 562 tests.
 - **Not done:** the access, hash and visual tiers are still site-local (not in the kit); redirects are not
   modeled; the auto-mode classifier rehearsal (`kit/docs/safe-demo-environment.md`) has not been run;
   untested against hobobiker's D6 specifics (PHP-evaluated nodes, render-time macros, comments invisible to
