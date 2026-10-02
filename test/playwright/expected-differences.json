@@ -1,4 +1,23 @@
 {
   "_comment": "Deliberate, reviewed differences between the baseline and a migration target. Anything not listed fails the semantic suite. Add an entry only for a decision a human made, with a reason. Empty means: the target must reproduce everything the baseline recorded.",
-  "entries": []
+  "entries": [
+    {
+      "path": "*",
+      "kind": "access",
+      "match": "got 404",
+      "target": "static",
+      "reason": "A static archive contains no unpublished pages, so they answer 404; a missing page is as private as a 403. Applies only when MIGRATION_TARGET=static, so other targets are still held to 403."
+    },
+    {
+      "path": "*",
+      "kind": [
+        "lines",
+        "visible",
+        "order"
+      ],
+      "equals": "Search",
+      "target": "static",
+      "reason": "Prep step 20-remove-search-block removed the search block (a form cannot work on a static site). 'Search' is that block's heading, which route pages captured. Exact match: no other line is hidden."
+    }
+  ]
 }

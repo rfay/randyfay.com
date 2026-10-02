@@ -449,3 +449,31 @@ Production runs DDEV from this repo with primary URL `https://randyfay.com`; eve
   modeled; the auto-mode classifier rehearsal (`kit/docs/safe-demo-environment.md`) has not been run;
   untested against hobobiker's D6 specifics (PHP-evaluated nodes, render-time macros, comments invisible to
   anonymous users).
+
+## Retirement rehearsal: three sites and a pipeline (2026-10-02)
+
+Static-HTML path, following Karen Stevenson's Lullabot series on retiring Drupal sites (credit and links in
+`test/playwright/kit/docs/retirement-approach.md`). Three sibling DDEV projects on this Coder workspace:
+
+| Project | Role |
+|---|---|
+| `randyfay` (this one) | The original and reference. The retirement pipeline never modifies it. |
+| `randyfay-prep` | A copy rebuilt from a pristine restore, then prepared by scripts. |
+| `randyfay-static` | The crawled HTML of the prep copy. |
+
+- **Pipeline:** `retire/` in this repo. `00-snapshot-pristine.sh` once (database dump to
+  `~/workspace/randyfay-artifacts/`, outside every repository), then `retire/run.sh`: restore prep, prepare
+  (`retire/prep/*.sh`, each prints a count), crawl into `randyfay-static/public/`, verify. About 45 seconds;
+  556 checks pass. Until the static project's docroot is changed to `public/`, run it as
+  `LOCAL_SERVE=1 retire/run.sh`. All destructive steps refuse to run unless the target project's name
+  contains `prep`.
+- **Prep steps and why:** close the 12 still-open comment threads (keeps all 670 comments' text; do not
+  disable comments, that would delete content), and remove the search block from both layouts (a form cannot
+  work statically). Reviewed differences this causes are in `test/playwright/expected-differences.json`
+  (the "Search" heading on listing pages; and, for the static target only, a private page answering 404
+  instead of 403).
+- **Run the suite against the static copy** with `MIGRATION_TARGET=static` (set inside the container; see the
+  `TEST_BASE_URL` gotcha above), so the static-only decisions apply and a Drupal 11 target is still held to 403.
+- **Open (needs the user):** set `randyfay-static`'s docroot to `public/` and add an nginx rule for
+  extensionless URLs; and finish removing ddev-playwright from `randyfay-prep`. Its add-on files and the
+  committed `dev-tools` hook are still there, and the hook reinstalls the add-on on the next start there.

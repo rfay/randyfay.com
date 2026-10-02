@@ -7,7 +7,7 @@
 //
 // Each difference is { kind, item } so an expected-differences allowlist can name it.
 //
-//   kind: 'status' | 'title' | 'lines' | 'images' | 'links' | 'menu' | 'assets' | 'order' | 'alt' | 'visible'
+//   kind: 'status' | 'title' | 'lines' | 'images' | 'links' | 'menu' | 'assets' | 'order' | 'alt' | 'visible' | 'access'
 //
 // Optional strictness (off by default, enabled with config.strict = { order: true, alt: true }):
 //   order  baseline lines must appear in the same order
@@ -90,18 +90,28 @@ export function compareSemantic(base, target, { knownPaths, checkLinks = true, s
 }
 
 // Split diffs into those covered by the reviewed expected-differences list and the rest.
-// Entries: { path: '<path>' | '*', kind: '<kind>' | '*', match?: '<substring>', reason: '...' }
-// Returns { unexpected, allowed, unusedEntries } where unusedEntries lets a run flag a stale
-// allowlist (an entry that no longer matches anything).
-export function applyExpectedDifferences(pagePath, diffs, entries, usage = new Map()) {
+// Entries: { path: '<path>' | '*', kind: '<kind>' | ['<kind>', ...] | '*', match?: '<substring>', equals?: '<exact text>',
+//            target?: '<name>', reason: '...' }
+// Prefer `equals` over `match` for a single known line: a substring can quietly hide other differences.
+//
+// `target` scopes an entry to one kind of migration target, named by the MIGRATION_TARGET
+// environment variable for the run (for example "static" or "drupal11"). An entry with no `target`
+// applies to every run. This is how "a static archive has no private pages, so a 404 is as private
+// as a 403" can be allowed for the static target without weakening the check on a Drupal 11 target.
+//
+// Returns { unexpected, allowed, usage } where usage lets a run flag a stale allowlist (an entry
+// that no longer matches anything).
+export function applyExpectedDifferences(pagePath, diffs, entries, usage = new Map(), targetName = process.env.MIGRATION_TARGET) {
   const unexpected = [];
   const allowed = [];
   for (const d of diffs) {
     const idx = entries.findIndex(
       (e) =>
         (e.path === '*' || e.path === pagePath) &&
-        (e.kind === '*' || e.kind === d.kind) &&
-        (!e.match || String(d.item).includes(e.match))
+        (e.kind === '*' || (Array.isArray(e.kind) ? e.kind.includes(d.kind) : e.kind === d.kind)) &&
+        (!e.match || String(d.item).includes(e.match)) &&
+        (!e.equals || String(d.item) === e.equals) &&
+        (!e.target || e.target === targetName)
     );
     if (idx >= 0) {
       usage.set(idx, (usage.get(idx) ?? 0) + 1);
