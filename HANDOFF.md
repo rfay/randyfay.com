@@ -4,9 +4,16 @@ Context: working through the [Lullabot/ddev-playwright](https://github.com/Lulla
 "Getting Started" workflow on this Backdrop CMS project, inside a Coder-hosted sandbox where
 `*.ddev.site` URLs are not directly reachable from the browser — everything has to go through a
 `coder.ddev.com` reverse-proxy translation layer (see the [ddev/coder-ddev](https://github.com/ddev/coder-ddev)
-section below). Basic `ddev playwright test` works. `show-report` runs and is reachable *from
-inside the sandbox*, but is **not currently reachable from an actual browser** in this environment
-— see item 0.
+section below). `ddev playwright test` works. As of 2026-10-02 both blockers to `show-report` are fixed
+upstream: the host binding in ddev-playwright v0.5.7 (PR #142, installed copy verified identical to
+upstream) and the Coder route collision in [ddev/coder-ddev#201](https://github.com/ddev/coder-ddev/pull/201)
+(merged 2026-09-21). The sections below keep the original analysis for the record.
+
+**Current state and where things live (2026-10-02):** the platform-independent test tier and the
+reusable method are in [rfay/site-migration-kit](https://github.com/rfay/site-migration-kit),
+vendored here into `test/playwright/kit/` — see "Semantic tier and the kit" at the end of this file.
+`AGENTS.md` describes this checkout as a disposable development copy. `DISCOVERIES.md` is the log of
+inconsistencies found.
 
 ## Strategies for a "real" test setup and migration
 
@@ -173,6 +180,11 @@ smaller site, written to generalize to that harder one.
 
 ## TODOs for Lullabot/ddev-playwright (upstream issues/PRs to file)
 
+*Status check 2026-10-02 against upstream `main` (v0.5.9): item 4 is fixed (below). Items 1 and 3
+are still valid — `commands/web/playwright` still starts with a bare relative
+`cd "${PLAYWRIGHT_TEST_DIR:-test/playwright}" || exit 1`. Items 2, 5 and 6 were not re-checked.
+The add-on enable/disable issue is a separate, newer item: see "Dev-only tooling" below.*
+
 1. **`web/playwright` command assumes `ddev exec` lands in `/var/www/html`.**
    `.ddev/commands/web/playwright` does `cd "${PLAYWRIGHT_TEST_DIR:-test/playwright}" || exit 1` —
    a bare relative path. `ddev exec`'s cwd is the service's `working_dir`, which DDEV derives from
@@ -206,7 +218,8 @@ smaller site, written to generalize to that harder one.
    produced the "can't find the report" symptom — the real failure was several steps upstream with
    no clue given. Add `echo "..." >&2` before exiting with the path it tried and why.
 
-4. **`ddev playwright show-report` is unreachable out of the box — defaults to `localhost` bind.**
+4. **FIXED UPSTREAM in v0.5.7 (PR #142, issue #103) — kept for the record.** *Do not file this.*
+   **`ddev playwright show-report` is unreachable out of the box — defaults to `localhost` bind.**
    Verified via `npx playwright show-report --help`: `--host <host>` defaults to `"localhost"`.
    Docker's port publishing (and DDEV's router on top of it) forwards to the container's network
    interface, not its loopback, so a server bound to `127.0.0.1` inside the container cannot be
@@ -249,11 +262,8 @@ smaller site, written to generalize to that harder one.
    `.env.web`'s `PLAYWRIGHT_TEST_DIR=/var/www/html/test/playwright` may no longer be needed. Keep
    it for now (it's what makes `ddev playwright test`/`show-report` work today) but revisit so we
    don't have two files setting the "same" variable long-term.
-3. **Decide whether to commit `test/playwright/node_modules` and `playwright-report/`.** These are
-   currently untracked (`test/` shows as `??` in git status) — likely want a `.gitignore` for
-   `test/playwright/node_modules`, `test/playwright/test-results`, and
-   `test/playwright/playwright-report` while keeping `tests/`, `package.json`,
-   `playwright.config.ts` tracked.
+3. ~~Decide whether to commit `test/playwright/node_modules` and `playwright-report/`.~~ Done:
+   `test/playwright/.gitignore` ignores them; the suite, baseline and vendored kit are committed.
 4. **Do NOT commit the ddev-playwright add-on's `.ddev/` files** — production runs DDEV from this
    same repo, and the add-on adds a large web-image build, a VNC daemon and extra ports. They are
    gitignored and installed on demand instead; see "Dev-only tooling" below. (An earlier version of
@@ -275,10 +285,11 @@ here so a future agent doesn't have to rediscover it.
    `.ddev/providers/randyfay.com.yaml`, rsync-based over SSH against
    `rfay@ddevprod.thefays.us`. It was run successfully in the past (evidence: 14MB of real
    content assets — images, PDFs — were already sitting in `.ddev/.downloads/files/`, matching
-   `file_managed` DB rows that otherwise 404'd). **It cannot be re-run right now in this
-   session** — the SSH key needed for it was intentionally removed. Don't waste time trying it;
-   if file assets are needed and the ones already on disk (see next point) aren't sufficient,
-   ask the user to restore SSH access first.
+   `file_managed` DB rows that otherwise 404'd). SSH access was later restored and the provider
+   works, but **a human runs `ddev auth ssh` and `ddev pull`; an agent never does** (see `AGENTS.md`).
+   The provider's `push` section has been removed from this repo and from hobobiker, so there is no
+   way to write to production through DDEV. Full restore of a development copy: `ddev import-db`
+   (database), `ddev import-files` (files), or a human-run `ddev pull randyfay.com` plus `git reset`.
 
 3. **Public files needed a symlink, not `upload_dirs` — first attempt at this was wrong, corrected
    below.** An earlier pass through this problem added `upload_dirs: "sites/default/files"` to
@@ -382,9 +393,54 @@ Production runs DDEV from this repo with primary URL `https://randyfay.com`; eve
 - **A fresh dev clone takes two starts.** DDEV reads `config.*.yaml` before pre-start hooks run, so
   the add-on's config is not active on the start that installs it. The first start installs and
   prints "run `ddev restart` once"; the second enables the image build and activates everything.
-  Verified by removing the add-on and restarting twice: the suite passes (287 tests).
+  Verified by removing the add-on and restarting twice: the full suite passes (533 tests).
 - Docker Compose profiles don't fit here: Playwright is baked into the `web` image via
   `web-build/Dockerfile.*`, not a separate compose service like xhgui. A possible upstream
   issue: a real enable/disable switch in ddev-playwright (today only `Dockerfile.playwright`
   gates the heavy build; the other pieces are unconditional), and the recurring
   "unexpected #ddev-generated" warning on `Dockerfile.playwright`.
+- **The add-on changes PHP-FPM sizing on every start, with no Playwright gate (found 2026-10-02).**
+  `web-entrypoint.d/php-fpm-capacity.sh` (added in v0.5.7) rewrites the pool in
+  `/etc/php/<ver>/fpm/pool.d/www.conf` on every web container start: `pm.max_children` becomes
+  2×CPU cores (clamped 8..96), plus start/spare servers. Verified here: `pm.max_children = 24` on a
+  12-core host (DDEV default is 8). That is exactly the kind of change that must not reach production,
+  and it applies even when the Playwright build is "off". It is now in the root `.gitignore`; an earlier
+  version of this file wrongly dismissed `.ddev/web-entrypoint.d/` as boilerplate.
+- `dev-tools` pins add-on **v0.5.8**; upstream is **v0.5.9** (a WebKit libsoup pin inside the gated
+  Dockerfile; no gating changes). Bump the pin deliberately, then re-run the suite.
+- Upstream's stated design (README): "Only installs the heavy Playwright dependencies if a given
+  local opts in to them" and "Install the addon and commit the generated configuration." The gap our
+  setup exposes is that only the browser layer is opt-in; the PHP-FPM tuning, go-task/uv layers, ports,
+  daemon and tmpfs volume apply to everyone who commits the add-on. Closest existing issue: #32
+  (closed, "Provide clear uninstall/remove instructions"), about removal, not disabling. Draft issue: `docs/upstream/ddev-playwright-enable-switch.md` in the
+  site-migration-kit repo. **Not yet filed**; revised 2026-10-02 to lead with the php-fpm finding, name the
+  version tested (v0.5.8, files identical on v0.5.9), quote the README's opt-in design and link #32.
+
+## Semantic tier and the kit (2026-10-02)
+
+- **Why:** the first content tier compared normalized HTML, which only passes when the target is the
+  same platform. The semantic tier records what a visitor sees (content lines, images, links, menus,
+  routes, assets) and checks nothing is missing from a target, so one suite judges both a static export
+  and a Drupal 11 rebuild. Docs: `test/playwright/kit/docs/semantic-tier.md`.
+- **Layout:** generic code is in the kit repo and vendored here as **plain files** in
+  `test/playwright/kit/` (`KIT_VERSION` records the commit). Not a git submodule, deliberately:
+  submodules need clone flags and don't update on pull, and this repo's `.gitmodules` already carries two
+  dead entries. Never edit `kit/` here; change the kit, then `scripts/vendor-into.sh <site>/test/playwright`.
+  Site-specific: `test/playwright/migration.config.mjs`, `expected-differences.json`, `baseline/semantic/`.
+- **Run:** `ddev playwright test --grep "semantic:"` (select by title; tests register from the kit file, so
+  a file path filter finds nothing). Export the baseline with
+  `node kit/scripts/export-semantic-baseline.mjs` from `test/playwright` (set `NODE_EXTRA_CA_CERTS` to
+  mkcert's root CA for host-side node).
+- **Gotcha: `TEST_BASE_URL=... ddev playwright ...` does NOT work.** ddev runs the command inside the
+  container and host env vars are not forwarded, so it silently tests the development site again. Use
+  `ddev exec -d /var/www/html/test/playwright 'TEST_BASE_URL=<target> npx playwright test --grep "semantic:"'`.
+- **Rehearsal results:** 245 semantic tests pass against the development site and 245 of 245 against a
+  `wget` static mirror (`kit/scripts/mirror-static.mjs` + `serve-static.mjs`), and negative controls
+  (delete a paragraph, an image, a linked file) are each caught and named. Full suite: 533 tests.
+  Testing a second target found five bugs in the *suite*: routes missing from the content list (home,
+  listings, taxonomy), link presence vs. resolution, a root `index.html` normalizer bug, assets the DB lists
+  but the server 404s, and the env-forwarding false pass.
+- **Not done:** the access, hash and visual tiers are still site-local (not in the kit); redirects are not
+  modeled; the auto-mode classifier rehearsal (`kit/docs/safe-demo-environment.md`) has not been run;
+  untested against hobobiker's D6 specifics (PHP-evaluated nodes, render-time macros, comments invisible to
+  anonymous users).

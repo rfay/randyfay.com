@@ -31,4 +31,5 @@ docroot/sites/*/private
 /.ddev/web-build/xstartup
 /.ddev/web-build/playwright/
 /.ddev/web-entrypoint.d/mkcert-nssdb.sh
+/.ddev/web-entrypoint.d/php-fpm-capacity.sh
 /.ddev/.env.web
