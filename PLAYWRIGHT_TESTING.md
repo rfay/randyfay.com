@@ -123,10 +123,10 @@ ddev exec -d /var/www/html/test/playwright \
 
 ## Verified on this site
 
-- The semantic tier passes 245 of 245 against the development site, and 245 of 245 against a `wget`
+- The semantic tier passes 246 of 246 against the development site, and 246 of 246 against a `wget`
   static mirror of it (`kit/scripts/mirror-static.mjs` and `serve-static.mjs`).
 - Deleting a paragraph, a linked PDF and an image from the mirror is each reported, by name.
-- The full suite is 533 tests. The semantic export takes about 25 seconds; the semantic suite about 3.
+- The full suite is 318 tests (246 semantic, 40 access, 26 asset, 6 visual). The semantic export takes about 25 seconds; the semantic suite about 3.
 
 ## Where things are
 
@@ -140,11 +140,3 @@ ddev exec -d /var/www/html/test/playwright \
 | `test/playwright/baseline/assets/`, `baseline/manifest.json` | asset bytes and hashes; unpublished-node statuses |
 | `test/playwright/tests/` | `semantic.spec.ts`, `regression-access.spec.ts`, `regression-assets.spec.ts`, `visual.spec.ts` |
 | `DISCOVERIES.md` | inconsistencies found; none were fixed |
-
-## Leftover
-
-The first version of this suite compared normalized HTML byte for byte
-(`tests/regression-content.spec.ts`, `lib/normalize.mjs`, and the `baseline/pages/` HTML files
-that `scripts/export-baseline.mjs` also writes). It only passes a platform
-against itself, so it adds nothing the semantic tier does not do better, and it fails every page on any
-other platform. It is not part of this strategy and can be deleted.

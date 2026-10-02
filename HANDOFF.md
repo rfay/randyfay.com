@@ -393,7 +393,7 @@ Production runs DDEV from this repo with primary URL `https://randyfay.com`; eve
 - **A fresh dev clone takes two starts.** DDEV reads `config.*.yaml` before pre-start hooks run, so
   the add-on's config is not active on the start that installs it. The first start installs and
   prints "run `ddev restart` once"; the second enables the image build and activates everything.
-  Verified by removing the add-on and restarting twice: the full suite passes (533 tests).
+  Verified by removing the add-on and restarting twice: the full suite passed (533 tests at the time; 318 after the raw-HTML tier was removed).
 - Docker Compose profiles don't fit here: Playwright is baked into the `web` image via
   `web-build/Dockerfile.*`, not a separate compose service like xhgui. A possible upstream
   issue: a real enable/disable switch in ddev-playwright (today only `Dockerfile.playwright`
@@ -419,7 +419,8 @@ Production runs DDEV from this repo with primary URL `https://randyfay.com`; eve
 ## Semantic tier and the kit (2026-10-02)
 
 - **Why:** the first content tier compared normalized HTML, which only passes when the target is the
-  same platform. The semantic tier records what a visitor sees (content lines, images, links, menus,
+  same platform. It has been deleted (2026-10-02: `regression-content.spec.ts`, `lib/normalize.mjs`,
+  `baseline/pages/`); the semantic tier replaces it. The semantic tier records what a visitor sees (content lines, images, links, menus,
   routes, assets) and checks nothing is missing from a target, so one suite judges both a static export
   and a Drupal 11 rebuild. Docs: `test/playwright/kit/docs/semantic-tier.md`.
 - **Layout:** generic code is in the kit repo and vendored here as **plain files** in
@@ -434,9 +435,9 @@ Production runs DDEV from this repo with primary URL `https://randyfay.com`; eve
 - **Gotcha: `TEST_BASE_URL=... ddev playwright ...` does NOT work.** ddev runs the command inside the
   container and host env vars are not forwarded, so it silently tests the development site again. Use
   `ddev exec -d /var/www/html/test/playwright 'TEST_BASE_URL=<target> npx playwright test --grep "semantic:"'`.
-- **Rehearsal results:** 245 semantic tests pass against the development site and 245 of 245 against a
+- **Rehearsal results:** 246 semantic tests pass against the development site and 246 of 246 against a
   `wget` static mirror (`kit/scripts/mirror-static.mjs` + `serve-static.mjs`), and negative controls
-  (delete a paragraph, an image, a linked file) are each caught and named. Full suite: 533 tests.
+  (delete a paragraph, an image, a linked file) are each caught and named. Full suite: 318 tests after the raw-HTML tier was deleted.
   Testing a second target found five bugs in the *suite*: routes missing from the content list (home,
   listings, taxonomy), link presence vs. resolution, a root `index.html` normalizer bug, assets the DB lists
   but the server 404s, and the env-forwarding false pass.

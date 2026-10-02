@@ -1,5 +1,5 @@
 // Tier 4: access-control parity check for unpublished nodes. This is deliberately a
-// separate tier from regression-content.spec.ts, not a variant of it — it verifies that
+// separate check from the semantic tier, not a variant of it: it verifies that
 // anonymous access to unpublished content is still denied after migration, which a
 // content-diff alone would never catch (a node flipping from 403 to 200, or vice versa, is
 // an access-control regression, not a content regression). See PLAYWRIGHT_TESTING.md.
