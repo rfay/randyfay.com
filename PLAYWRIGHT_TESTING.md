@@ -117,6 +117,14 @@ ddev exec -d /var/www/html/test/playwright \
   forwarded and silently tests the development site again.
 - **Use the three tiers above, not the whole suite.** `visual:` compares screenshots against the
   original theme and is informational; run it separately when you want to look at a target.
+- **For a static export on disk,** let the kit serve it for the length of one run. It starts the server,
+  sets `TEST_BASE_URL`, runs your command, stops the server and returns the command's exit code:
+  ```bash
+  ddev exec -d /var/www/html/test/playwright \
+    'node kit/scripts/serve-static.mjs --dir /tmp/site-static --run "npx playwright test --grep \"semantic:|access:|asset:\""'
+  ```
+  `kit/scripts/mirror-static.mjs --out /tmp/site-static` builds a `wget` mirror of the development
+  site to try this on.
 - **Give every target run a negative control.** Delete a paragraph, an image and a linked file from the
   target and confirm the suite names each one. A result that is identical to the self-check, or
   suspiciously fast, deserves suspicion.
