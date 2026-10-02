@@ -474,6 +474,11 @@ Static-HTML path, following Karen Stevenson's Lullabot series on retiring Drupal
   instead of 403).
 - **Run the suite against the static copy** with `MIGRATION_TARGET=static` (set inside the container; see the
   `TEST_BASE_URL` gotcha above), so the static-only decisions apply and a Drupal 11 target is still held to 403.
-- **Open (needs the user):** set `randyfay-static`'s docroot to `public/` and add an nginx rule for
-  extensionless URLs; and finish removing ddev-playwright from `randyfay-prep`. Its add-on files and the
-  committed `dev-tools` hook are still there, and the hook reinstalls the add-on on the next start there.
+- **Static project setup (done, 2026-10-02):** `ddev config --docroot=public`, plus the nginx snippet in
+  `randyfay-static/.ddev/nginx/static-urls.conf` (a copy lives in the kit as `templates/static-urls.nginx.conf`)
+  so extensionless URLs resolve. `retire/run.sh` now verifies through the real URL
+  (`https://randyfay-static.ddev.site`): 556 pass in about 43 seconds, and four deliberate breaks in the
+  served files were each caught by the right tier. `LOCAL_SERVE=1` is only needed before the static project is
+  set up. The static project is not a git repository; recreate it from the kit template and the crawl.
+- **Open:** finish removing ddev-playwright from `randyfay-prep`. Its add-on files and the committed
+  `dev-tools` hook are still there, and the hook reinstalls the add-on on the next start in that project.
