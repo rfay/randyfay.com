@@ -1,0 +1,254 @@
+{
+  "title": "What Can Individuals Do To Prevent Burnout? | RandyFay.com",
+  "primaryHeading": "What Can Individuals Do To Prevent Burnout?",
+  "contentFound": true,
+  "lines": [
+    "Thu, 2011-08-11 10:55 by rfay",
+    "Planet Drupal",
+    "Burnout",
+    "This post is one of a series in preparation for the Burnout core conversation at Drupalcon London. The first post discussed what burnout is; this one talks about what individuals can do about burnout, and the final two will discuss what about burnout is distinctive to the Drupal community, and what the Drupal community can do to deal with burnout. Also, please see Arianek's excellent post about burnout",
+    "There are dozens, even hundreds of books addressing individuals and burnout. I was amazed how many of them are aimed squarely at church members, pastors, and other caring professionals. Interestingly enough, the Drupal community can be a bit like many churches: plenty of needy people, lots of ideas, an amazing amount of work that \"ought\" to be done, and most of it done by volunteers or vastly overloaded professionals. These books have pretty uniform advice to the individual for dealing with burnout, and of course it's what you already know:",
+    "Don't just work all the time, regardless of the load. Enforce your work hours.",
+    "Prioritize. Take on reasonable obligations that you can meet.",
+    "Take time off.",
+    "Develop and love hobbies besides Drupal.",
+    "Socialize.",
+    "From Scientific American Mind1:",
+    "1. Budget your physical resources. Eat wholesome foods at mealtimes. Exercise regularly. Get enough sleep.",
+    "2. Workaholics must aim for equilibrium between tension and relaxation. \"Find your work-life balance\".",
+    "3. Cultivate close social contacts. Spending time with friends, family, or even colleagues at work protects against excessive stress.",
+    "4. So Important: The decisive step must be made first in your head: \"As early as possible in your career, you must absorb the idea that physical and mental health are at least as important as anything you can do seeking success at work\".",
+    "Pretty easy sounding, huh?",
+    "Next time we'll talk about things from an organizational perspective: what is distinctive about Drupal and burnout?",
+    "Scientific American Mind, June/July 2006, \"Burned Out\", by Ulrich Kraft ↩︎",
+    "Comments",
+    "Jimmy Berry (not verified)",
+    "Thu, 2011-08-11 21:11",
+    "Permalink",
+    "Agreed",
+    "I can personally testify to burnout related to working on Drupal. Making sure to do non-Drupal things is something I have worked very hard to accomplish.",
+    "Log in to post comments",
+    "zachary (not verified)",
+    "Fri, 2011-08-12 10:09",
+    "Permalink",
+    "I have found that practicing",
+    "I have found that practicing Tai Chi is the essential compliment to Drupal, because it eases tension in the whole body, is a social experience, and makes you more open to how things work, which in turn makes working with drupal easier.",
+    "Log in to post comments",
+    "Austin (not verified)",
+    "Fri, 2011-08-12 11:21",
+    "Permalink",
+    "Nootropics & Adaptogens for preventing & treating burnout",
+    "What about using nootropics (brain drugs) http://en.wikipedia.org/wiki/Nootropic to increase brain power & adaptogens http://en.wikipedia.org/wiki/Adaptogens to help deal with stress ?",
+    "If you are smarter & can handle stress better, then you are way less likely to burn out. I can provide a list of a few of my favorites if anyone is interested.",
+    "Log in to post comments",
+    "Rick Manelius (not verified)",
+    "Sat, 2011-08-13 08:06",
+    "Permalink",
+    "Perfect timing",
+    "I've recently gone through a similar learning experience as my body was physically shutting down after putting gobs and gobs of hours into programming.",
+    "I've taken a few breaks and feel on top of the world again. But I gotta remember not to go too far down the path of work with no play.",
+    "Thanks Randy! This is an important message for everyone in the community, particularly those contributing more than half of their time to core and the initiatives!",
+    "Log in to post comments",
+    "Matt Butcher (not verified)",
+    "Mon, 2011-08-15 11:12",
+    "Permalink",
+    "Burnout in Software Dev",
+    "I too noticed that most of the resources for burnout were oriented toward pastors. (The best I've seen was actually a podcast on \"replenishment\" by Bill Hybels -- targeted toward pastors and high-level execs.)",
+    "But burnout in software development seems to be its own phenomenon, and while I've found lots and lots of descriptions of \"what it is\", I've found very few resources on how to recover from, and prevent, software developer burnout.",
+    "I find the two most frequently pieces of advice proffered to be platitudes: \"socialize\" and \"work-life balance\". Well, YES, we need work-life balance, and who on earth wants to socialize when they're burned out? No amount of shouting \"work-life\" balance is going to correct anyone's burnout. Achieving it on the front end might forestall it, but it won't solve it. And socialization is even trickier -- friends with a poor outlook can make burnout even worse. (And you, with your burnout-bad attitude can actually harm your friends with your complaining.)",
+    "For software developers, I think the crucial link is not between work-life balance as much as opportunity for creative expression. The quickest way to kill a software developer is to assign them menial \"code janitor\" duties. Or ask them to spend day after day shepherding an issue through the issue queue. Or expect them to respond to comment after inane comment on a constantly derailed discussion. Or make the codebase so complex and convoluted that even simple ideas require lots and lots of code. When this process becomes the daily routine, burnout is immanent.",
+    "Good process can fix at least some of that. (Yes, I'm saying it can be someone else's responsibility to fix burnout). Good code can fix another big chunk of that -- where \"good\" is measured like this: http://pragprog.com/magazines/2011-08/how-virtuous-is-your-code",
+    "Too frequently, a good developer will find that the solution to her/his own burnout is finding a different project. There should be other ways.",
+    "Log in to post comments",
+    "Thomas Zahreddin (not verified)",
+    "Tue, 2011-08-16 04:20",
+    "Permalink",
+    "Drupal Organisation",
+    "Hi,",
+    "i came to this post via Drupal feed aggregator.",
+    "The problem as i see it: Drupals code and the number of contributers grew and grew - but not the rules of the organisation or the structure.",
+    "And i don't see enough cooperation:",
+    "or how do you explain things like this: http://drupal.org/node/1240284#comment-4838380 ?",
+    "So drupal needs a better organization … but not many agree on that.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://london2011.drupal.org/coreconversation/1700-1730-burnout",
+      "text": "Burnout core conversation at Drupalcon London"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/107",
+      "text": "what burnout is"
+    },
+    {
+      "internal": false,
+      "key": "http://westendgirl.ca/preventing-and-dealing-burnout",
+      "text": "Arianek's excellent post about burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://www.scientificamerican.com/article.cfm?id=burned-out",
+      "text": "Scientific American Mind"
+    },
+    {
+      "internal": false,
+      "key": "http://blog.boombatower.com",
+      "text": "Jimmy Berry (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2018",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2018",
+      "text": "Agreed"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/109%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2022",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2022",
+      "text": "I have found that practicing"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/109%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.timelessdomain.com",
+      "text": "Austin (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2023",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2023",
+      "text": "Nootropics & Adaptogens for preventing & treating burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://en.wikipedia.org/wiki/Nootropic",
+      "text": "http://en.wikipedia.org/wiki/Nootropic"
+    },
+    {
+      "internal": false,
+      "key": "http://en.wikipedia.org/wiki/Adaptogens",
+      "text": "http://en.wikipedia.org/wiki/Adaptogens"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/109%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://rickmanelius.com",
+      "text": "Rick Manelius (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2024",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2024",
+      "text": "Perfect timing"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/109%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://technosophos.com",
+      "text": "Matt Butcher (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2032",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2032",
+      "text": "Burnout in Software Dev"
+    },
+    {
+      "internal": false,
+      "key": "http://pragprog.com/magazines/2011-08/how-virtuous-is-your-code",
+      "text": "http://pragprog.com/magazines/2011-08/how-virtuous-is-your-code"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/109%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2039",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2039",
+      "text": "Drupal Organisation"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1240284#comment-4838380",
+      "text": "http://drupal.org/node/1240284#comment-4838380"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/109%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

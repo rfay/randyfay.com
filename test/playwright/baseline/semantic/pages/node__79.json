@@ -1,0 +1,395 @@
+{
+  "title": "Drupal 7 Render Arrays (and the new Render Example) | RandyFay.com",
+  "primaryHeading": "Drupal 7 Render Arrays (and the new Render Example)",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2010-10-03 22:25 by rfay",
+    "Planet Drupal",
+    "If you're like me you've heard \"render arrays\" or \"renderable arrays\" over and over again in the Drupal 7 development cycle, but you might not have really understood what it was all about. Here are the results of my own exploration in developing the new Render Example for the Examples project.",
+    "Remember the Form API? Or the content section of a $node or a $user in Drupal 6? Basically now everything is kept in a form like that until the very last minute in D7.",
+    "What's this about \"rendering\"?",
+    "Rendering in the Drupal world means turning structured \"render\" arrays into HTML.",
+    "What is a render array?",
+    "A render array is a classic Drupal structured array that provides data (probably nested) along with hints as to how it should be rendered (properties, like #type). A page array might look like this:",
+    "$page = array(",
+    "'#show_messages' => TRUE,",
+    "'#theme' => 'page',",
+    "'#type' => 'page',",
+    "'content' => array(",
+    "'system_main' => array(...),",
+    "'another_block' => array(...),",
+    "'#sorted' => TRUE,",
+    "),",
+    "'sidebar_first' => array(",
+    "...",
+    "),",
+    "'footer' => array(",
+    "...",
+    "),",
+    "...",
+    ");",
+    "Why was this done?",
+    "Before Drupal 7, we could alter things like forms (with hook_form_alter()), but so many other things that needed to be altered by a module or a theme had already been rendered into HTML before any rational thing could be done with them.",
+    "Now, in Drupal 7, a module or a theme can use hook_page_alter() to change the layout or content of the page at the very last moment. This means that a tidbit of PHP code in a theme can put that block over on the right side on one page when the customer needs it there.",
+    "Altering",
+    "Both blocks and pages can be altered just as forms have been alterable for some time. Many other types are also alterable. With hook_page_alter() we can do things like this:",
+    "function mymodule_page_alter(&$page) {",
+    "// Move search form into the footer.",
+    "$page['footer']['search_form'] = $page['sidebar_first']['search_form'];",
+    "unset($page['sidebar_first']['search_form']);",
+    "// Remove the \"powered by Drupal\" block",
+    "unset($page['footer']['system_powered-by']);",
+    "}",
+    "Creating Content With Arrays",
+    "Unlike in past versions of Drupal, almost any time a module creates content, it should be in the form of a render array. A page callback should return a render array, as should hook_block_view()'s $block['content']. This allows your module and other modules to treat the content as data for as long as possible in the page generation process. This will lead to amazing performance, caching, and micro-rendering techniques as we go forward, as well as the wonderful play-candy we now have with being able to alter everything.",
+    "So a page callback might return this instead of the Drupal 6 method of rendering the data and gathering it as HTML:",
+    "return array(",
+    "'first_para' => array(",
+    "'#type' => 'markup',",
+    "'#markup' => 'A first paragraph',",
+    "),",
+    "'second_para' => array(",
+    "array('first item', 'second item', 'third item'),",
+    "'#theme' => 'item_list',",
+    "),",
+    ");",
+    "Examples of Specific Array Types",
+    "As in the past, every Drupal \"element\" (see hook_element_info(), which was hook_elements() in Drupal 6) is a type. So anything that core exposes as an element or that an installed module exposes is available. Looking through system_element_info() we see a pile of predefined #types, including page, form, html_tag, value, markup, link, fieldset and many more. You can also create types and properties on the fly. It's the Wild West out there.",
+    "Here are three example pulled from the Examples Project's Render Example.",
+    "$demos = array(",
+    "t('Super simple #markup') => array(",
+    "'#markup' => t('Some basic text in a #markup (shows basic markup and how it is rendered)'),",
+    "),",
+    "'prefix_suffix') => array(",
+    "'#markup' => t('This one adds a prefix and suffix, which put a div around the item'),",
+    "'#prefix' => '",
+    "(prefix)",
+    "',",
+    "'#suffix' => '",
+    "(suffix)",
+    "',",
+    "),",
+    "'theme for an element' => array(",
+    "'child' => array(",
+    "t('This is some text that should be put together'),",
+    "t('This is some more text that we need'),",
+    "),",
+    "'#separator' => ' | ', // Made up for this theme function.",
+    "'#theme' => 'render_example_aggregate',",
+    "),",
+    ");",
+    "A Sampling of Properties",
+    "Many, many properties can be applied in a given render array, and they can be created as needed. This will attempt to cover some of the most common.",
+    "Note that many of these properties are documented in the Form API Reference because the Form API has always used Render API properties, but they've traditionally not been documented as Render API properties, which they clearly are now in Drupal 7.",
+    "Property",
+    "Description",
+    "#type",
+    "The Element type. If this array is an element, this will cause the default element properties to be loaded, so in many ways this is shorthand for a set of predefined properties which will have been arranged through hook_element_info().",
+    "#markup",
+    "The simplest property, this simply provides a markup string for #type == 'markup'",
+    "#prefix/#suffix",
+    "A string to be prefixed or suffixed to the element being rendered",
+    "#pre_render",
+    "An array of functions which may alter the actual render array before it is rendered. They can rearrange, remove parts, set #printed = TRUE to prevent further rendering, etc.",
+    "#post_render",
+    "An array of functions which may operate on the rendered HTML after rendering. A #post_render function receives both the rendered HTML and the render array from which it was rendered, and can use those to change the rendered HTML (it could add to it, etc.). This is in many ways the same as #theme_wrappers except that the theming subsystem is not used.",
+    "#theme",
+    "A theme hook (or array of theme hooks, but usually a singleton) which will take full responsibility for rendering this array element, including its children. It has predetermined knowledge of the structure of the element. Note: #theme in Drupal 7 and #theme in Drupal 6 are not really related. If you just stop thinking about Drupal 6 here you will have an easier time.",
+    "#theme_wrappers",
+    "An array of theme hooks which will get the chance to add to the rendering after children have been rendered and placed into #children. This is typically used to add HTML wrappers around rendered children, and is commonly used when the children are being rendered recursively using their own theming information. It is rare to use it with #theme.",
+    "#cache",
+    "Mark the array as cacheable and determine its expiration time, etc. Once the given render array has been rendered, it will not be rendered again until the cache expires. Caching uses standard Drupal cache_get() and cache_set() techniques. This is an array of",
+    "'keys' => an array of keys which will be concatenated to form the cache key.",
+    "'bin' => the name of the cache bin to be used (as in 'cache' or 'cache_page', etc.",
+    "'expire' => a Unix timestamp indicating the expiration time of the cache.",
+    "'granularity' => a bitmask indicating the cache type. This should be DRUPAL_CACHE_PER_PAGE, DRUPAL_CACHE_PER_ROLE, or DRUPAL_CACHE_PER_USER",
+    "Note that items marked with #cache will not be expired until cron runs, regardless of the expiration time used.",
+    "Since every element type can declare its own properties, there are many more. Many of these (often specific to a particular element type) are described on the Form API Reference handbook page.",
+    "Corrections",
+    "I'm not one of the designers or developers of the new Render API, so I'm well aware that there are gaps in my understanding. I'll attempt to update this article with all feedback I receive. More important, the Drupal.org handbook now has a page where this information can be captured.",
+    "Resources",
+    "Render Array Handbook Page on Drupal.org",
+    "Moshe Weitzman's Drupalcon San Francisco Presentation",
+    "The drupal_render() code.",
+    "The Render Example module in the Examples Project is a great way to explore render arrays. It has demonstrations of their use and allows you to explore the actual arrays describing any page.",
+    "Comments",
+    "betz (not verified)",
+    "Mon, 2010-10-04 03:06",
+    "Permalink",
+    "thanks!",
+    "One little remark: in your first mymodule_page_alter example, you unset",
+    "$page['footer']['search_form']",
+    "think it should be",
+    "$page['sidebar_first']['search_form']",
+    "anyhow, thanks for the great article!",
+    "Tom",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2010-10-04 04:48",
+    "Permalink",
+    "Fixed it. Thanks!",
+    "Fixed it. Thanks!",
+    "Log in to post comments",
+    "Andrew (not verified)",
+    "Mon, 2010-10-04 05:44",
+    "Permalink",
+    "Thanks!",
+    "From someone who hasn't been following D7 as closely as you: thanks for taking the time to share your knowledge in such a well thought out post.",
+    "Log in to post comments",
+    "Chris Cohen (not verified)",
+    "Tue, 2010-10-05 10:37",
+    "Permalink",
+    "Thanks",
+    "Just wanted to say thanks for a write-up like this. While it's all going to be buried in the documentation somewhere, having it explained in this way is very useful.",
+    "Log in to post comments",
+    "tcindie (not verified)",
+    "Wed, 2011-01-12 12:13",
+    "Permalink",
+    "Thanks for sharing yet",
+    "Thanks for sharing yet another brilliant improvement in D7!",
+    "I'm excited to begin using it on a more regular basis. Seems like every day for the past several weeks I've been discovering something new and simply amazing about D7..",
+    "I don't know that many people really realize the powerful changes that have come with the new version, and it's posts like this one that make those changes not only more well known, but much easier to understand.",
+    "Log in to post comments",
+    "szantog (not verified)",
+    "Wed, 2011-08-31 06:08",
+    "Permalink",
+    "<?php 'second_para' => array",
+    "<?php",
+    "'second_para' => array(",
+    "array('first item', 'second item', 'third item'),",
+    "'#theme' => 'item_list',",
+    "),",
+    "?>",
+    "I can't do it, as you wrote. I saw on http://api.drupal.org/api/drupal/includes--theme.inc/function/theme_item... this function wait a $items parameter as array.",
+    "Then change it:",
+    "<?php",
+    "'second_para' => array(",
+    "'#items' = array('first item', 'second item', 'third item'),",
+    "'#theme' => 'item_list',",
+    "),",
+    "?>",
+    "And could see the good themed item list.",
+    "Log in to post comments",
+    "Travis Uribe (not verified)",
+    "Fri, 2013-05-03 06:41",
+    "Permalink",
+    "#cache",
+    "Typo: #cache, not #cached",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2013-05-03 07:29",
+    "Permalink",
+    "Fixed, thanks!",
+    "Fixed, thanks!",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples Project's"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7",
+      "text": "Form API Reference"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/930760",
+      "text": "a page where this information can be captured"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/930760",
+      "text": "Render Array Handbook Page"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/page-render-drill-down-drupal-7",
+      "text": "Moshe Weitzman's Drupalcon San Francisco Presentation"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/drupal_render/7",
+      "text": "drupal_render() code"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples Project"
+    },
+    {
+      "internal": false,
+      "key": "http://betz.hooked.be",
+      "text": "betz (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/282",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/282",
+      "text": "thanks!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/79%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/283",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/283",
+      "text": "Fixed it. Thanks!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/79%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/284",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/284",
+      "text": "Thanks!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/79%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://tiger-fish.com",
+      "text": "Chris Cohen (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/285",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/285",
+      "text": "Thanks"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/79%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://willvincent.com",
+      "text": "tcindie (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/659",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/659",
+      "text": "Thanks for sharing yet"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/79%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://szantogabor.com",
+      "text": "szantog (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2072",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2072",
+      "text": "<?php 'second_para' => array"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/includes--theme.inc/function/theme_item_list/7",
+      "text": "http://api.drupal.org/api/drupal/includes--theme.inc/function/theme_item..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/79%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://turibe.com",
+      "text": "Travis Uribe (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3396",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3396",
+      "text": "#cache"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/79%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3397",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3397",
+      "text": "Fixed, thanks!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/79%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

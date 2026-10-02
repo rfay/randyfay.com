@@ -1,0 +1,490 @@
+{
+  "title": "Cygwin Quickstart for Drupal Users | RandyFay.com",
+  "primaryHeading": "Cygwin Quickstart for Drupal Users",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2010-08-15 23:16 by rfay",
+    "Planet Drupal",
+    "Cygwin is a great set of Unix/Linux utilities for Windows. Here are quickstart instructions for using it in a Drupal context (for git, patch, ssh, or whatever)",
+    "Grab the small setup.exe from http://cygwin.com",
+    "Run it. If you're on Windows Vista or later, you'll want to run the setup with administrative privileges (Right click on setup.exe and \"Run as administrator\")",
+    "Take all the defaults - we'll end up with an install in c:\\cygwin",
+    "When you get to the package selection screen, select at least: openssh, git, rxvt, patch, patchutils, telnet, unzip, nano, vim, rsync, wget, connect-proxy. Then let it download and install.",
+    "Run \"Rxvt Native\" from the start menu. (If on Vista or later, you need to run it as administrator this time because we'll be setting up links in a privileged directory). The first time you do this it will install default profile files for you.",
+    "In rxvt we'll now set up symbolic links to the Windows filesystem. Do this for each drive you have... I'm showing the C: and D: drives here:",
+    "cd /",
+    "ln -s /cygdrive/c",
+    "ln -s /cygdrive/d",
+    "Now you can navigate into the Windows filesystem to wherever your Drupal install is. /c is the root of the C: drive; /d is the root of the D: drive. For example, if you have Acquia's DAMP installed, it might be in /c/Users/rfay/Documents/Sites/acquia-drupal or something like that.",
+    "Using cvs, you could check out the Examples project, for example:",
+    "export CVSROOT=:pserver:anonymous@cvs.drupal.org:/cvs/drupal-contrib",
+    "cvs login (your password is 'anonymous')",
+    "cvs -z6 checkout -d examples-HEAD contributions/modules/examples",
+    "and now you have a HEAD version of Examples.",
+    "Using git you could get Examples from git.drupalfr.org:",
+    "git clone git://git.drupalfr.org/git/contributions-new-date/examples.git",
+    "Or apply a patch using patch.... or create a patch using git diff --no-prefix...",
+    "The world is your oyster. You have the easy-to-use editor nano if you want to edit within Cygwin, but you can just use the Windows editor of your choice as well.",
+    "You may also want to watch the Lullabot video on installing Cygwin, which is old, but still useful and valid.",
+    "Edit: You can now use drush successfully on Windows! See Installing Drush on Windows Using Cygwin.",
+    "Comments",
+    "Wim Mostrey (not verified)",
+    "Mon, 2010-08-16 00:26",
+    "Permalink",
+    "Cygwin + Drush",
+    "One other great use I can imagine for Cygwin is Drush. There appear to be a couple of issues to get Drush (and Drush 3 specifically) running with Cygwin though. I think a lot of people would appreciate a follow-up article on Cygwun + Drush. It looks like it hasn't been done before.",
+    "Log in to post comments",
+    "rocksoup (not verified)",
+    "Mon, 2010-08-16 01:48",
+    "Permalink",
+    "Drush 3 + Cygwin",
+    "I set up Cygwin with Drush 3 today using this: http://drupal.org/node/594744 and a similar approach to the method above. Drush 3 on window$ ftw!",
+    "Log in to post comments",
+    "greg.1.anderson (not verified)",
+    "Tue, 2010-08-17 08:36",
+    "Permalink",
+    "Drush + Windows",
+    "Drush + Windows has definitely been done, but there are a few issues. I just committed a Windows-related fix to drush-HEAD; we could definitely use some good Windows hands in the drush queue to suggest and test patches.",
+    "Thanks for the great cygwin article.",
+    "Log in to post comments",
+    "David Corbacho (not verified)",
+    "Mon, 2010-08-16 01:20",
+    "Permalink",
+    "Mintty",
+    "I personally recommend to grab in the package selection \"mintty\". It's an alternative interface over Cygwin that makes everything nicer visually and more natural behaviors for Windows-users like selection of text, Right Click -> Copy, windows resizable, Drag&drop etc",
+    "Also can be grabbed as a standalone program http://code.google.com/p/mintty/",
+    "Log in to post comments",
+    "Andy (not verified)",
+    "Mon, 2010-08-16 05:08",
+    "Permalink",
+    "Also, unlike rxvt it supports",
+    "Also, unlike rxvt it supports Unicode (i.e. UTF-8), which is the default in latest Cygwin.",
+    "Log in to post comments",
+    "mikeytown2 (not verified)",
+    "Mon, 2010-08-16 02:26",
+    "Permalink",
+    "andLinux",
+    "I'm a huge fan of andLinux",
+    "http://www.andlinux.org/",
+    "http://drupal.org/node/505974",
+    "Log in to post comments",
+    "Vacilando (not verified)",
+    "Thu, 2012-01-05 15:55",
+    "Permalink",
+    "Still now?",
+    "I am interested to know -- are you still using andLinux, mikeytown2, or have you moved to a more promising system?",
+    "Log in to post comments",
+    "smk-ka (not verified)",
+    "Mon, 2010-08-16 20:59",
+    "Permalink",
+    "Typing by hand?!",
+    "Are you serious ;) To get an Explorer context menu entry for directories instead, you",
+    "<",
+    "ul>",
+    "also grab chere and mintty packages",
+    "run the following command and be done:",
+    "chere -i -t mintty -e \"&Bash Here\"",
+    "The -e option allows you to change the text to be shown in the context menu to your likings.",
+    "Log in to post comments",
+    "AaronELBorg (not verified)",
+    "Wed, 2010-08-18 00:16",
+    "Permalink",
+    "I wish the windows keyboard",
+    "I wish the windows keyboard shortcuts stuff was more reliable. It works......occasionally.",
+    "I hate having to grab the mouse and click on an icon to simply open up a gd shell.",
+    "What's the key here??",
+    "Log in to post comments",
+    "blainelang (not verified)",
+    "Mon, 2010-10-18 09:09",
+    "Permalink",
+    "had to also specify the --binary option with patch",
+    "Randy, I found your article looking for a solution to errors I was getting trying to apply a patch using Cygwin:",
+    "Assertion failed: hunk, file ../patch-2.5.9-src/patch.c, line 354",
+    "Using the --binary option solved this for me.",
+    "as in:",
+    "$ patch -p0 --binary < /cygdrive/f/depot/patches/filedepot-use_url_for_links.patch",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2010-10-18 09:25",
+    "Permalink",
+    "Cygwin with Linux line endings?",
+    "I suspect you may have installed cygwin not taking the default line ending setup (which is to use Unix/Linux line endings) and instead using Windows line endings. I haven't had this problem patching in cygwin myself. But since Cygwin is really a Linux environment, it's important to use the Unix/Linux-style line endings when doing cygwin.",
+    "Log in to post comments",
+    "Vacilando (not verified)",
+    "Sun, 2012-01-29 09:35",
+    "Permalink",
+    "Symbolic links incompatible with drush",
+    "The symbolic linking mentioned in the article (e.g. ln -s /cygdrive/c) has a problem with drush. I've installed drush 5 with WAMP today easily thanks to http://drupal.org/node/594744 but simple downloads such as drush dl devel were being installed in a Windows folder of the same name as the symbolic link.",
+    "E.g. on site \"/c/www\" (folder \"www\" on C drive) the above drush command created a folder \"c\" on C drive.",
+    "Solution: avoid the symbolic links and simply run drush on the default cygwin path, e.g. \"/cygwin/c/www\".",
+    "Log in to post comments",
+    "Vacilando (not verified)",
+    "Wed, 2012-02-08 10:25",
+    "Permalink",
+    "I meant: avoid the symbolic",
+    "I meant: avoid the symbolic links and simply run drush on the default cygwin path, e.g. \"/cygdrive/c/www\"!",
+    "Log in to post comments",
+    "Peter Cossey (not verified)",
+    "Wed, 2012-02-08 07:46",
+    "Permalink",
+    "Update for Drush 5 and Windows 7",
+    "Hey Randy your article really helped me setup Drush on a Windows 7 machine, I created a page for the Drupal Community Docs here: http://drupal.org/node/1432756",
+    "As usual you make it look easy!",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2012-02-08 08:49",
+    "Permalink",
+    "Added to the article",
+    "Thanks so much. I added the link to the article. Thanks for pioneering and documenting this great work.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://cygwin.com",
+      "text": "Cygwin"
+    },
+    {
+      "internal": false,
+      "key": "http://cygwin.com",
+      "text": "http://cygwin.com"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/patch",
+      "text": "patch using patch"
+    },
+    {
+      "internal": false,
+      "key": "http://www.lullabot.com/videos/install-cygwin-windows-xp",
+      "text": "the Lullabot video on installing Cygwin"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1432756",
+      "text": "Installing Drush on Windows Using Cygwin"
+    },
+    {
+      "internal": false,
+      "key": "http://mostrey.be",
+      "text": "Wim Mostrey (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/154",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/154",
+      "text": "Cygwin + Drush"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://stonebergdesign.com",
+      "text": "rocksoup (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/156",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/156",
+      "text": "Drush 3 + Cygwin"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/594744",
+      "text": "http://drupal.org/node/594744"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://greenknowe.org",
+      "text": "greg.1.anderson (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/161",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/161",
+      "text": "Drush + Windows"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://corbacho.info",
+      "text": "David Corbacho (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/155",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/155",
+      "text": "Mintty"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/p/mintty",
+      "text": "http://code.google.com/p/mintty/"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/158",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/158",
+      "text": "Also, unlike rxvt it supports"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/157",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/157",
+      "text": "andLinux"
+    },
+    {
+      "internal": false,
+      "key": "http://www.andlinux.org",
+      "text": "http://www.andlinux.org/"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/505974",
+      "text": "http://drupal.org/node/505974"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://vacilando.org",
+      "text": "Vacilando (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2186",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2186",
+      "text": "Still now?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/159",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/159",
+      "text": "Typing by hand?!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/163",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/163",
+      "text": "I wish the windows keyboard"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.nextide.ca",
+      "text": "blainelang (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/349",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/349",
+      "text": "had to also specify the --binary option with patch"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/350",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/350",
+      "text": "Cygwin with Linux line endings?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://vacilando.org",
+      "text": "Vacilando (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2198",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2198",
+      "text": "Symbolic links incompatible with drush"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/594744",
+      "text": "http://drupal.org/node/594744"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://vacilando.org",
+      "text": "Vacilando (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2203",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2203",
+      "text": "I meant: avoid the symbolic"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://earthviaradio.wordpress.com",
+      "text": "Peter Cossey (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2201",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2201",
+      "text": "Update for Drush 5 and Windows 7"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1432756",
+      "text": "http://drupal.org/node/1432756"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2202",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2202",
+      "text": "Added to the article"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/70%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

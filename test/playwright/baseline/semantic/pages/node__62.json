@@ -1,0 +1,49 @@
+{
+  "title": "Examples Project Code Sprint | RandyFay.com",
+  "primaryHeading": "Examples Project Code Sprint",
+  "contentFound": true,
+  "lines": [
+    "Wed, 2010-04-21 22:52 by rfay",
+    "Planet Drupal",
+    "Tomorrow (Thursday, 22 April) we'll be working 9-5 US Pacific time on the Examples Project. A list of tasks is posted on groups.drupal.org and there's plenty of fun for everybody. We'd love to have you join us wherever you are in the world, or physically at the Drupalcon sprint location."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples Project"
+    },
+    {
+      "internal": false,
+      "key": "http://groups.drupal.org/node/63518",
+      "text": "is posted on groups.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/post-conference-sprint",
+      "text": "physically at the Drupalcon sprint location"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

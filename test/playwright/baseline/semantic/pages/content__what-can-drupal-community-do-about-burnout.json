@@ -1,0 +1,277 @@
+{
+  "title": "What can the Drupal Community do about Burnout? | RandyFay.com",
+  "primaryHeading": "What can the Drupal Community do about Burnout?",
+  "contentFound": true,
+  "lines": [
+    "Fri, 2011-08-19 00:40 by rfay",
+    "Planet Drupal",
+    "Burnout",
+    "This post is the last in a series in preparation for the Burnout core conversation at Drupalcon London 2011. The first post discussed what burnout is; the second is about what individuals can do about burnout; the third was about how the Drupal Community burns people out.",
+    "The key point of this series is that we need to do strategic thinking as a community about how to treasure and keep our wonderful contributors. That's the point of the core conversation. It will not be a support group for people to share their burnout stories, but a gathering to think strategically about how the community can prevent or heal burnout to protect and keep our members.",
+    "We must value, keep, and grow our contributors. Burnout is not a problem we can ignore. It costs incredible productivity, of course, when a contributor becomes contribution-disabled or disappears. It actually costs huge sums of money to all the economically invested members of the community. But most important, we as a community care about our members and don't want to see them damaged by the fact that they care and invest themselves.",
+    "To begin the conversation, here is some brainstorming (thanks for your notes @Bojhan!). Here are some free-form thoughts to prime the pump for our core conversation:",
+    "Explicitly and deliberately eschew unsustainable processes and projects: We have a number of projects that seem to only increase disillusion and hopelessness because they're unsustainable the way we currently look at them. We'll have to figure out how to define what \"unsustainable\" is, of course.",
+    "The docs and UX projects are potential examples. What do we have to do to change these tasks to make them sustainable?",
+    "The full project application process currently has applications in \"Needs review\" that go back many weeks, and even a significant backlog of RTBC applications that have not been promoted. What do we do to make this sustainable?",
+    "Creating a module or theme implicitly makes you the owner/maintainer, multiplying the commitments (or guilt level) of our most prolific contributors. Can we find a way to do this differently?",
+    "There are some places where we can deliberately increase the resources available and resolve the strain that way. In the Drupal.org redesign, which was mired in never-never land for a long time, money, organization, and paid work were leveraged to lead to a (very) successful conclusion. Money is an easy answer, but there are many other ways to increase resources for a project. What are they?",
+    "Does Drupal need a human resources department? A human resources initiative leader?",
+    "Develop explicit replacement strategies for people. Provide a \"recycling\" area or forum where people can explicitly publicize responsibilities they're trying to get rid of.",
+    "Promote and publicize the personal side of burnout management, as discussed in the first couple of posts here.",
+    "Promote balance in community responsibilities.",
+    "Learn from what we do right.",
+    "We do much right with contrib modules. Maintainers are enabled to do what they need to do with their modules. Others are enabled to get involved through the issue queue. This is all good. What are other examples of what we do right?",
+    "The new D8 initiatives, with lieutenants and more explicit decisionmaking authority, may be a real step forward in dealing with the \"lack of control of our work\" issues.",
+    "Recognize that enabling others requires giving up some control. Bring on co-maintainers, for example. Mentor them. But let them work. Some will stick. Module owners may need to be more liberal in granting commit access.",
+    "Make it clear to all that there are alternatives to withdrawing from the community. Publicize those alternatives.",
+    "Establish communication channels amongst community leadership, develop leadership support groups.",
+    "Understand that timely communication is half the work. Often people communicate too late, requiring passionate people to do damage control rather than creating something great.",
+    "Increase the visibility of \"coordination\" efforts such as docs team lead, git migration lead, etc..",
+    "Say \"No\" when necessary. If we can't be successful individually or as a community and retain our balance, let's not undertake the project.",
+    "List and study the areas where a lack of control by contributors leads to ineffectiveness and burnout.",
+    "Cultivate the resilience and health of our overall community. We've long valued civility. Let's grow that civility and community health. We need to commit to courtesy, civility, and valuing our community. Every aggressive tweet will hurt somebody's feelings. Promote civility. Even on Twitter.",
+    "A last note: Burnout as Opportunity",
+    "We should remember that people wearing out on their projects is actually an opportunity. If we can get them moved to new things they can be more effective and motivated, and if we can get new people into the burned-out areas, we can get better maintenance there. If people know they can move around, they can be refreshed. New blood can be inserted into key tasks.",
+    "Please comment with your ideas",
+    "In preparation for the core conversation, please post ideas here that can be included on Monday, whether you can be there or not.",
+    "Comments",
+    "Thomas Svenson (not verified)",
+    "Fri, 2011-08-19 06:55",
+    "Permalink",
+    "The d.o Getting Involved section",
+    "I think a good place to start is the http://drupal.org/getting-involved, in particular the http://drupal.org/getting-involved-guide. They contains tons and tons of pages and information. Mostly talking about how to get involved, not why getting involved is important.",
+    "Since it is using the Book module, it simply gets too much for many that take a look at how they can help out more. Even someone like myself who been in the community for 3 years now, just feels an urge of closing the browser tab instead of trying to find the right info.",
+    "When I go to a website for a company that I might needs something from, I always look for a \"Meet the Team\" page where I hope to find pictures and a short blurb about the people working there. This gives me a better picture about the company, not just the products or services they offer.",
+    "The information on the pages are great, but if most people are \"put off\" from even reading it, then what purpose do they fill more than just being there?",
+    "The answer is that it needs to be simplified, a lot, and and broken up in easy to digest focused subsection sections where the main page of each section contain a short overview telling why this is important, what is needed and how anyone can help.",
+    "The main section page should also have a picture and short blurb of the coordinator. This will directly show that there is person behind this that is there not only to coordinate, but also to help mentoring it. It would make such a difference for most people seeing that. There could even be a page presenting all the people that volunteers to help out with that particular task/section.",
+    "It should also be clear the the coordinators role is just that, coordinating that initiative, keeping the section and info on those pages updated and leading/mentoring the initiative. The coordinator will of course also be free to also do other things as well.",
+    "I strongly believe something like this would dramatically help more, especially new, user getting involved and also getting started.",
+    "I know these things are being discussed in the Prairie Initiative as well, hopefully we will see some of it trickle through soon.",
+    "Log in to post comments",
+    "hal (not verified)",
+    "Fri, 2011-08-19 09:57",
+    "Permalink",
+    "The *expansion* of the Drupal",
+    "The *expansion* of the Drupal community is dependent on burnout, not crippled by it. If, as an anti-burnout strategy, contributors were compensated at a level on par with their contributions, there would be far fewer Drupal-based businesses that could afford to do business. The \"community\" and Acquia absolutely depend on hoovering up the economic value created by developers who work in exchange for prestige or enjoyment rather than money. A Drupal developer who is paid for 40 hours of work to create a module, and then maintains it, uncompensated, for the next several years, might be temporarily placated by the intangible sops of a high CTR or Klout score, but that won't pay the rent, directly. So she moves on, and a fresh recruit, willing to work in exchange for non-monetary value, takes her place. That's not a broken system, that's how it works. The fallback for the parts of the system that are starting to break down is Acquia, which is in the financial position, thanks to the value created by contributors and the investments of VCs, to identify and fix the areas that are starting to show their age.",
+    "Log in to post comments",
+    "Thomas Svenson (not verified)",
+    "Fri, 2011-08-19 11:29",
+    "Permalink",
+    "Well maintained modules is advertising",
+    "I don't fully agree with you. A well maintained module is inexpensive advertising for a Drupal developer. It may also generate more paid work for new, and old, clients, either implement it or add new features for it. An unmaintained module has the opposite effect.",
+    "But, developing modules is not the only thing needed on d.o. There are tons of other things that must be done to make sure the community had a well functioning infrastructure to manage the projects on. However, almost all other tasks needed to be done is not something a client is going to pay for, developing modules/themes at least have the potential to generate paid work for the author.",
+    "I think this is a reason why its so hard for most open source projects to have top notch documentation and other needed things. The few that volunteer doing it end up with way to much on their plate and little in return. Unless they manage to find someone to sponsor them, which is quite unlikely.",
+    "Maybe the best way is to have more paid staff, using the money earned from DrupalCon and memberships for this. If it done openly and everyone knows where the money goes, then I'm sure a lot are willing to pay the €22 for an individual membership or donate a little to it. It would be a cheap way of getting access to a better structured community and updated documents that saves everyone tons of time.",
+    "Log in to post comments",
+    "hal (not verified)",
+    "Sat, 2011-08-20 10:03",
+    "Permalink",
+    "Very astute observations!",
+    "Very astute observations! I think that once we can acknowledge that burnout or developer churn is actually central to the economic engine that powers the growth of the Drupal community, rather than a mere problem that needs to be eliminated, we can deal with the various issues in much more efficient ways. I especially like the suggestion of the human resources approach suggested by Randy. It should be possible to create a system for Drupal to deal with its contributors with the same encompassing professionalism and rigor with which Walmart deals with its associates. One idea to throw out there might be that new developers can be made more explicitly aware of their indebtedness to the creative work of all who preceded them, perhaps by adjusting CTR scores so that new developers initially start with a *negative* score that they need to work off, rather than starting at zero. By demonstrating a willingness to contribute even with minimal compensation they can then move into positive territory. Once they've demonstrated that they have created value for the community or for Acquia, or however you want to frame it, they could be rewarded with access to more resources, eventually ascending to Acquia services - with Acquia as the \"mothership\" orbiting the Drupal Planet, a collaboratively created artificial moon always under construction, always expanding, making more room for new people, ideas, modules and products. And developers who aren't ready, willing or able to work in such a manner are free to move on and do their own thing.",
+    "Log in to post comments",
+    "rfay",
+    "Sat, 2011-08-20 10:07",
+    "Permalink",
+    "Karma but no advertising or money :-)",
+    "I have to say that I don't think I ever got much advertising from my modules as a module maintainer, and am not sure I know anybody who has. It seems the people who understand what module maintainership is aren't the same people who are making project decisions or cutting checks. I've gotten lots of karma in the community, sure, but that's not where the purchasing decisions are made.",
+    "Log in to post comments",
+    "juan_g (not verified)",
+    "Mon, 2011-08-22 16:56",
+    "Permalink",
+    "Re: What can the Drupal Community do about Burnout?",
+    "A related issue, with one of the things we can do: Create a place for contributor support",
+    "Log in to post comments",
+    "Tim Plunkett (not verified)",
+    "Tue, 2011-08-23 10:44",
+    "Permalink",
+    "Feedback from Core Conversations",
+    "Suggest \"term limits\" for maintainership/responsibility",
+    "Devise an \"Adopt a Module\" process, proactively recycle abandoned modules",
+    "An unknown or newbie maintainer is better than a bad or AWOL maintainer",
+    "Reasonable expectations for responsibility/maintainer roles",
+    "Graceful shifting of maintainership, both leaving and returning",
+    "Stepping back into a project should be as acceptable as leaving",
+    "Saying \"thanks\" when committing a patch is very easy or important",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": true,
+      "key": "node/107",
+      "text": "what burnout is"
+    },
+    {
+      "internal": true,
+      "key": "node/109",
+      "text": "about what individuals can do about burnout"
+    },
+    {
+      "internal": true,
+      "key": "node/110",
+      "text": "how the Drupal Community burns people out"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/projectapplications",
+      "text": "full project application"
+    },
+    {
+      "internal": false,
+      "key": "http://www.tsvenson.com",
+      "text": "Thomas Svenson (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2040",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2040",
+      "text": "The d.o Getting Involved section"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/getting-involved",
+      "text": "http://drupal.org/getting-involved"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/getting-involved-guide",
+      "text": "http://drupal.org/getting-involved-guide"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/111%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2041",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2041",
+      "text": "The *expansion* of the Drupal"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/111%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.tsvenson.com",
+      "text": "Thomas Svenson (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2042",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2042",
+      "text": "Well maintained modules is advertising"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/111%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2043",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2043",
+      "text": "Very astute observations!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/111%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2044",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2044",
+      "text": "Karma but no advertising or money :-)"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/111%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2048",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2048",
+      "text": "Re: What can the Drupal Community do about Burnout?"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1244152",
+      "text": "Create a place for contributor support"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/111%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2051",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2051",
+      "text": "Feedback from Core Conversations"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/111%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

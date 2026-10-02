@@ -1,0 +1,309 @@
+{
+  "title": "Views: Making a view show different content to different users based on role | RandyFay.com",
+  "primaryHeading": "Views: Making a view show different content to different users based on role",
+  "contentFound": true,
+  "lines": [
+    "Fri, 2010-09-17 15:50 by rfay",
+    "Planet Drupal",
+    "greggles showed me how to make a view show different content to different users by role the other day, so I thought I'd write it down.",
+    "The goal: Displaying different nodes to administrators than I show to just authenticated users and that different than what anon users see. (In this case, I'll show pages to administrators, stories to authenticated users who are not administrators, and articles to anonymous users.)",
+    "The strategy: Create three different displays in the view, each of which is limited to a particular role, and each of which has its own filter. The administrator display has a filter that chooses pages, auth user one that chooses stories, etc.",
+    "The devil's details: The displays must be ordered by most restrictive to anonymous. The displays are apparently attempted in the order they're shown on the views edit screen. So we need the most restrictive (administrator) first. On that one only administrators will succeed. The next display has the authenticated users, etc.",
+    "I've attached a feature that demonstrates this. It provides a page, story, and article content type (provided in the feature) and a demonstration view. And some content in them. You'll need Features Module to try it out. But if you haven't tried out features yet, your life is draining away before your very eyes, so use this as a chance to try it out.",
+    "Thanks to all of you who pointed out on Twitter other ways to do this (with other tools):",
+    "Panels knows how to do this easily using the CTools context system.",
+    "Content Access and all related node access modules can do it by denying access to content (which we're not doing here; we're just affecting the display).",
+    "(And thanks Greggles for this great working solution.)",
+    "I don't think Context module knows how to change the primary content for a URL. It can do everything with the rest of the stuff on the page. Please correct me!",
+    "Attachment",
+    "Size",
+    "demo_role_content_feature-6.x-1.0.tar_.gz",
+    "0 bytes",
+    "Comments",
+    "Craig (not verified)",
+    "Fri, 2010-09-17 19:39",
+    "Permalink",
+    "Great info!",
+    "I didn't realize views quite worked that way. I feel pretty confident in what I know about views and this is something new I've learned! Awesome!",
+    "There are ways the context module could solve this, but not quite as elegant as this.",
+    "Log in to post comments",
+    "Jochen Hebbrecht (not verified)",
+    "Wed, 2010-09-29 00:58",
+    "Permalink",
+    "Hmm, Randy, I want to add",
+    "Hmm, Randy, I want to add some comments to this quote of yours: \"But if you haven't tried out features yet, your life is draining away before your very eyes, so use this as a chance to try it out.\"",
+    "We didn't actually speak with each other in the past, but I saw 2 presentations of you at DrupalCON CPH. You seemed to me a brilliant developer, but I can't understand why you are so happy with Features.",
+    "I have 2 problems:",
+    "a) if you want to update your Feature (because you did a change to a CT, view, ... whatever), you have to use drush to update your feature. I like drush, but I have colleagues who are not really willing to work with it. And the problem is: there's no UI action to update your Feature :-/ ...",
+    "b) if you change a setting on a CT like \"Workflow settings: Multilingual support: Enabled, with translation\" => this setting isn't picked up by Features. This settings DOES get picked up with the EXPORT function of a CT. So I'm missing the point why Features fails in this ...",
+    "So, as a conclusion: I do see advantages in Features, but I also see some disadvantages :-) ...",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2010-09-29 06:42",
+    "Permalink",
+    "Features",
+    "Thanks for the nice compliment...",
+    "On features:",
+    "a) Updating from the GUI: You can update from the GUI, it's just awkward. You have to re-save the file. Drush can do it in place. I have to say that if I couldn't use drush to update I might not like features either. The UI cannot update the feature directly for the very reason that features exists: Drupal can (mostly) only update the database from the GUI. It can't update its own modules. In D7 there's a workaround for this for a little bit of relief (updates from the gui, but they require you to put in an ftp password.)",
+    "b) Content Type settings: I'm surprised. I think that's a bug or at least a missing feature and encourage you to take it up in the features issue queue, at least as a support request.",
+    "The biggest disadvantages to features to date, IMO, are 1) that it doesn't cover everything and 2) it doesn't cover ever database tables that are driven by numeric indexes instead of machine names. That leaves out a lot of things.",
+    "(I am a Features fanboy. You can see it in the presentation on features I sometimes give.",
+    "Log in to post comments",
+    "Jochen Hebbrecht (not verified)",
+    "Wed, 2010-09-29 08:15",
+    "Permalink",
+    "Hi Randy,",
+    "I did post this in",
+    "Hi Randy,",
+    "I did post this in the issue queue of Features. Check this comment: http://drupal.org/node/792472#comment-3265134",
+    "So eventually, this issue got moved to Strongarm and solved by a patch in Strongarm. But I don't like the idea to install Strongarm, just to export my content type. Therefore, I replied with this comment: http://drupal.org/node/792472#comment-3502682",
+    "So ... it's not a bug, it's by design. But I don't like the idea to install 3 modules to keep track of DB changes. I want to keep my contrib modules as less as possible",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2010-09-29 08:19",
+    "Permalink",
+    "strongarm is an essential part of features",
+    "I really don't understand why strongarm is a separate module. It's required for most \"real\" uses of features. So that's probably just one of those Drupal things :-)",
+    "Log in to post comments",
+    "Jochen Hebbrecht (not verified)",
+    "Wed, 2010-09-29 08:22",
+    "Permalink",
+    "I didn't installed Strongarm,",
+    "I didn't installed Strongarm, so that could be the reason why I ran into this bug?",
+    "Log in to post comments",
+    "Jochen Hebbrecht (not verified)",
+    "Thu, 2010-09-30 01:22",
+    "Permalink",
+    "Fixed by installing Strongarm",
+    "Fixed by installing Strongarm and CTools. But I still have my doubts using 3 contrib modules, to control Content Types ... :-)",
+    "Log in to post comments",
+    "jlyon (not verified)",
+    "Sun, 2012-07-08 17:18",
+    "Permalink",
+    "How to get working with node_access",
+    "Great info, but unfortunately I can't get this working for my situation. I am trying to display different views based on whether or not the user has node access on a node on a node passed as a contextual filters argument. I tried changing the Access Control to Permission -> View published content and doing the access checking in the contextual filter with no luck. I also tried changing the Access Control to PHP with return node_access('update', node_load(arg(1))); with no luck either. It seems like this might only work if Access Control is set to Role.",
+    "Any ideas of how to get something like this to work without using context or panels?",
+    "Log in to post comments",
+    "Annie (not verified)",
+    "Mon, 2014-11-24 20:24",
+    "Permalink",
+    "simple and elegant",
+    "...and I would never have had any idea it could be done if I hadn't happened on this post. In my case I wanted to use parameterized links from the summary page view to get to 'detail' views - with all fields for auth users, some private fields removed for anon. users. Clone page, remove field(s), change role access - done. Thanks!",
+    "Log in to post comments"
+  ],
+  "images": [
+    {
+      "src": "/core/modules/file/icons/application-octet-stream.png",
+      "name": "application-octet-stream.png",
+      "alt": "Binary Data"
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/36762",
+      "text": "greggles"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/features",
+      "text": "Features Module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/panels",
+      "text": "Panels"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/content_access",
+      "text": "Content Access"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/context",
+      "text": "Context module"
+    },
+    {
+      "internal": true,
+      "key": "sites/default/files/demo_role_content_feature-6.x-1.0.tar_.gz",
+      "text": "demo_role_content_feature-6.x-1.0.tar_.gz"
+    },
+    {
+      "internal": false,
+      "key": "http://www.foggyperspective.com",
+      "text": "Craig (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/224",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/224",
+      "text": "Great info!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/77%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/273",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/273",
+      "text": "Hmm, Randy, I want to add"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/77%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/274",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/274",
+      "text": "Features"
+    },
+    {
+      "internal": false,
+      "key": "https://docs.google.com/present/edit?id=0ATSj3ekASkFxZGRzZDVzdzdfMzM4YzI1NTI0ZHc&hl=en",
+      "text": "presentation on features I sometimes give"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/77%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/275",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/275",
+      "text": "Hi Randy, I did post this in"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/792472#comment-3265134",
+      "text": "http://drupal.org/node/792472#comment-3265134"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/792472#comment-3502682",
+      "text": "http://drupal.org/node/792472#comment-3502682"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/77%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/276",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/276",
+      "text": "strongarm is an essential part of features"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/77%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/277",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/277",
+      "text": "I didn't installed Strongarm,"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/77%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/278",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/278",
+      "text": "Fixed by installing Strongarm"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/77%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2350",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2350",
+      "text": "How to get working with node_access"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/77%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3552",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3552",
+      "text": "simple and elegant"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/77%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

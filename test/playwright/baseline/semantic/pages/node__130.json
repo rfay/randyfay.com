@@ -1,0 +1,309 @@
+{
+  "title": "Remote Drupal/PHP Debugging with Xdebug and PHPStorm | RandyFay.com",
+  "primaryHeading": "Remote Drupal/PHP Debugging with Xdebug and PHPStorm",
+  "contentFound": true,
+  "lines": [
+    "Tue, 2013-12-10 16:45 by rfay",
+    "debugging",
+    "Planet Drupal",
+    "Step-debugging is one of the key skills for any developer, and it can be baffling. When you start trying to control a remote webserver with an IDE running on your local workstation though, it gets even more complicated with the network problems. This article will deal directly with Xdebug as the debugging engine on the PHP end and Jetbrains PHPStorm 7.x as the IDE on the workstation side, but these techniques will work for other IDEs like Eclipse or Komodo, and they'll work for the Zend debugging engine as well.",
+    "The Basics: How Remote Debugging Works",
+    "The first thing that you absolutely must understand is the sequence of events and how they're initiated. If you have xdebug configured in your PHP configuration (I'll show how later), then when PHP starts executing:",
+    "If the PHP session is started with a URL like http://example.com/?XDEBUG_SESSION_START=PHPSTORM (or it was earlier, creating a cookie), then Xdebug within the PHP execution will attempt to make a connection to an IDE, which defaults to be at localhost, port 9000. (If it can't make a connection, it just moves on.)",
+    "If the IDE is listening, it gives instructions to Xdebug about breakpoints and such.",
+    "When a breakpoint is encountered, Xdebug notifies the IDE on this connection.",
+    "You'll notice that the remote machine is attempting to make a connection to an IDE that is, in our situation, on another machine. Unfortunately with actual server configurations, there is usually no way that an outgoing TCP connection can get to your local workstation. If it can you can just configure that in your php.ini or xdebug.ini by setting xdebug.remote_host and you won't have to do all the things we're about to do. But for now we're going to assume you're trying to debug a machine that is out on the internet that cannot directly access your workstation.",
+    "To make this happen we'll do three things:",
+    "Configure the remote server for xdebug",
+    "Tunnel the remote Xdebug connection to our local machine via ssh",
+    "Configure PHPStorm on the local machine",
+    "Remote Server Configuration",
+    "On the remote server:",
+    "Make sure the php5-xdebug package or its equivalent is installed. On Debian/Ubuntu this is sudo apt-get install php5-xdebug. On RedHat/Fedora/CentOS this may be sudo yum install php53u-pecl-xdebug depending on the repositories and PHP version you are working with.",
+    "Configure the PHP ini file for the xdebug extension. Debian/Ubuntu: /etc/php5/conf.d/xdebug.ini or /etc/php5/conf.d/20-xdebug.ini, RedHat/Fedora/Centos: /etc/php.d/xdebug.ini. You'll need:",
+    "xdebug.remote_enable=1",
+    "in there. The default host to connect to is localhost, and that's the way we're going to leave it, since we're going to tunnel/proxy the connection to our local machine. (If you cannot use port 9000 because it's already in play, you'll have to also configure xdebug.remote_port here and on your local IDE. But we're not going to go there right now.)",
+    "Restart Apache or whatever webserver you're using. (If you're using php-fpm, restart it instead). Check for errors of course.",
+    "Visit the phpinfo of the remote machine with a web browser. On drupal you can just visit /admin/reports/status/php to get the full output. You should see \"with Xdebug v2.2.3, Copyright\" … in there. If you see it, you can scroll down to the xdebug section and check that the config is as you set it, especially remote_enable and remote_host (which should be localhost).",
+    "Check to see that port 9000 is not already in use (especially by php-fpm if you use that). You can do this by making a connection using the venerable telnet tool. telnet localhost 9000 on the remote machine (install it if you don't already have it by installing the telnet package). If you can make a connection to this point, before proxying the port, then things aren't going to work because something else is there on port 9000. You'll need to find out what it is and work around it one way or another. (To find out what process is using it, try lsof | grep 9000. If you don't have lsof, install it.)",
+    "(Had you been working on a remote machine that had direct access to your workstation, you could have set xdebug.remote_host to your workstation's hostname or IP address and not have to do the ssh tunneling/proxying that we'll do in the next step.)",
+    "Proxying/Tunneling Your Debugger Connection",
+    "Now we need to bring port 9000 to our local machine. What we're doing here is putting a \"feeler\" on the remote host that will listen on port 9000 and bring anything that happens there to our local machine on port 9000.",
+    "ssh -R 9000:localhost:9000 some_user_account@www.example.com",
+    "You'll need to re-establish this connection any time the tunnel is interrupted due to network connectivity or a remote or local host reboot, etc.",
+    "Set Up The Local IDE",
+    "On your local machine you need these things:",
+    "A matching set of code to what's on the remote machine. This can be a remote mount via sshfs or other techniques or a copy, git checkout, etc. Of course if you have a copy you can get very confused by having the wrong code presented to you at a breakpoint. We'll demonstrate sshfs and git checkout below.",
+    "PHPStorm opened to a project with the code which matches the remote machine and with the \"Zero Configuration Debugging\" button turned on (listening).",
+    "So:",
+    "Mount the remote code to your local machine or check out a copy locally that exactly matches. For example:",
+    "If you have sshfs configured on your workstation, sshfs some_user_account@www.example.com:/var/www/myproject /tmp/myprojectwould mount the remote code into /tmp/myproject (which you must create ahead of time). If you don't have sshfs yet, google it to figure out how to configure it. It's nice and it's easy.",
+    "If you want to run a copy, do something like cd /tmp; git clone git://github.com/example/myproject.git to get an identical codebase.",
+    "If you prefer, PHPStorm has code syncing capabilities that can maintain a copy for you, but I find it cumbersome.",
+    "Run PHPStorm and choose File->Open Directory (or open an already existing project, of course). Open the directory where your local copy or mount is.",
+    "Click the \"Start Listen for PHP Debug Connections\" button on the top toolbar to turn on listening.",
+    "At this point you should be able to 'telnet localhost 9000' on your local workstation and get a connection. If you click to turn off listening, you should not get a connection.",
+    "On the remote machine the same behavior should now be proxied. telnet localhost 9000 should result in a connection when PHPStorm is listening and the ssh proxy is working, and it should result in no connection when PHPStorm is not listening.",
+    "Debug!",
+    "If all has gone well,",
+    "Set a breakpoint early in your PHP project. For example, in Drupal set a breakpoint on the first line of index.php.",
+    "Visit your remote website in the browser with \"?XDEBUG_SESSION_START=PHPSTORM\" at the end of the URL. For example, http://example.com?XDEBUG_SESSION_START=PHPSTORM. (Note: As far as I can tell, with this configuration it doesn't matter what XDEBUG_SESSION_START is set to. PHPSTORM is just a placeholder here because all connections are going to the same place.)",
+    "PHPStorm should pop up and let you start debugging.",
+    "Troubleshooting",
+    "Check these things:",
+    "Make sure that on the server you can use telnet to connect to port 9000 when PHPStorm is listening, and not when it's not.",
+    "Make sure you have a breakpoint set and PHPStorm is listening.",
+    "Make sure Xdebug is configured by visiting phpinfo any way you want to.",
+    "Resources",
+    "The Xdebug site, xdebug.org, is easy, once you understand what's going on and why. It has full configuration instructions. Send a little (or big) donation while you're there. Derick Rethans has been maintaining Xdebug faithfully for years and years.",
+    "PHPStorm is available for a demo download and there are many instructions and blog posts on \"Zero-configuration debugging\", which essentially means that PHPStorm will listen for an accept anything, as I've demonstrated here.",
+    "You can also debug command-line php activity on a remote server using nearly the same technique. See my related article on remote command-line debugging. It basically involves doing what we've done here and setting the environment variables XDEBUG_CONFIG=\"idekey=PHPSTORM\" and PHP_IDE_CONFIG=\"serverName=yourservername\", where yourservername is the name of a PHPStorm \"server\" you've set up to map remote to local paths for your project.",
+    "More than one person can debug on a remote server at the same time, but it requires a dbgp proxy to be running on the remote server which will accept connections and connect to the correct local workstation based on the IDEKEY. Configuring PhpStorm, XDebug, and DBGp Proxy Settings for Remote Debugging with Multiple Users explains this quite nicely and explains where to obtain a proxy (pydbgpproxy) that will do the work required.",
+    "Comments",
+    "Roger Nyman (not verified)",
+    "Thu, 2013-12-12 15:34",
+    "Permalink",
+    "A very much welcome and",
+    "A very much welcome and especially well written step trough. Many thanks to you Randy for taking the time to pin it down.",
+    "Log in to post comments",
+    "kostajh (not verified)",
+    "Thu, 2014-01-16 14:12",
+    "Permalink",
+    "Worked perfectly with a Vagrant box",
+    "Thanks for this post!",
+    "Just to note for others, you don't need to do the SSH tunnel with your Vagrant box. You do need to make sure that xdebug.remote_host= is set correctly. Best way is to do vagrant ssh, then run last | head to figure out what IP to place there. I also had to open up port 9000 on my host machine.",
+    "Log in to post comments",
+    "Mike (not verified)",
+    "Thu, 2014-05-29 01:09",
+    "Permalink",
+    "How do I make the ssh connection from Windows machine?",
+    "Thank you for this, I was getting desperate trying to get remote debugging work with PhpStorm and linux remote host. However I don't quite understand how this is supposed to work:",
+    "ssh -R 9000:localhost:9000 some_user_account@www.example.com",
+    "It looks like linux command line for me, but it has to be run on local (Windows) machine, so that can not be - I'm confused. Could you please still clear this for me, I'm quite sure there are others with same problem?",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2014-05-30 17:17",
+    "Permalink",
+    "Cygwin, Git bash, any ssh client, putty",
+    "You can do all of this on Windows. My most comfortable is to use Cygwin (See http://randyfay.com/content/cygwin-quickstart-drupal-users). But the ssh that comes with git bash in git for windows (http://git-scm.com/downloads) will work for you. And I'm sure you can make putty do it too.",
+    "Log in to post comments",
+    "Ryan (not verified)",
+    "Wed, 2014-09-10 01:18",
+    "Permalink",
+    "PuTTY SSH Tunnel",
+    "You can use PuTTY easily enough. When configuring your PuTTY session, click on Tunnels under Connection->SSH.",
+    "Make sure the \"Local ports accept connections from other hosts\" box is checked.",
+    "Under the \"Add new forwarded port\" section, enter your remote debug port in the \"Source port\" field (this should match whatever port you used for the xdebug remote_port setting--default is 9000).",
+    "In the \"Destination\" field, enter the IP address and port of your workstation, like this 192.168.1.10:9000 (of course, you'll use your own actual IP address and port)., Then make sure to check the \"Remote\" radio button at the bottom. Then click \"Add\". If done right, the \"Forwarded ports\" box should show a line that looks like this:",
+    "R9000 192.168.1.10:9000",
+    "Save your configuration.",
+    "When that's all done, you can connect to the server using that session configuration and it will open the tunnel for you and keep it open as long as your PuTTY session is alive.",
+    "Log in to post comments",
+    "Eyal L (not verified)",
+    "Mon, 2014-11-24 17:17",
+    "Permalink",
+    "Thank you !",
+    "Made my way through researching debuging with eclipse easier. Thank you.",
+    "ssh -R 9000:localhost:9000 some_user_account@www.example.com",
+    "Log in to post comments",
+    "dawehner (not verified)",
+    "Tue, 2015-02-10 09:38",
+    "Permalink",
+    "I got pointed to xdebug",
+    "I got pointed to xdebug.remote_connect_back recently which makes",
+    "all that setup, at least for local vagrant boxes, really easy.",
+    "It certainly should just be used in full controlled environments, as every client",
+    "can get a xdebug connection back.",
+    "Log in to post comments"
+  ],
+  "images": [
+    {
+      "src": "/sites/default/files/blog_image/phpstorm_not_listening.png",
+      "name": "phpstorm_not_listening.png",
+      "alt": "PHPStorm not listening"
+    },
+    {
+      "src": "/sites/default/files/blog_image/phpstorm_listening.png",
+      "name": "phpstorm_listening.png",
+      "alt": "PHPStorm listening"
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://xdebug.org",
+      "text": "Xdebug"
+    },
+    {
+      "internal": false,
+      "key": "http://www.jetbrains.com/phpstorm",
+      "text": "Jetbrains PHPStorm 7.x"
+    },
+    {
+      "internal": false,
+      "key": "http://xdebug.org",
+      "text": "xdebug.org"
+    },
+    {
+      "internal": false,
+      "key": "http://www.jetbrains.com/phpstorm",
+      "text": "PHPStorm"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/130",
+      "text": "my related article on remote command-line debugging"
+    },
+    {
+      "internal": false,
+      "key": "http://matthardy.net/blog/configuring-phpstorm-xdebug-dbgp-proxy-settings-remote-debugging-multiple-users",
+      "text": "Configuring PhpStorm, XDebug, and DBGp Proxy Settings for Remote Debugging with Multiple Users"
+    },
+    {
+      "internal": true,
+      "key": "comment/3450",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3450",
+      "text": "A very much welcome and"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/130%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3462",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3462",
+      "text": "Worked perfectly with a Vagrant box"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/130%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3520",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3520",
+      "text": "How do I make the ssh connection from Windows machine?"
+    },
+    {
+      "internal": false,
+      "key": "mailto:some_user_account@www.example.com",
+      "text": "some_user_account@www.example.com"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/130%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3521",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3521",
+      "text": "Cygwin, Git bash, any ssh client, putty"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/content/cygwin-quickstart-drupal-users",
+      "text": "http://randyfay.com/content/cygwin-quickstart-drupal-users"
+    },
+    {
+      "internal": false,
+      "key": "http://git-scm.com/downloads",
+      "text": "http://git-scm.com/downloads"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/130%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3535",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3535",
+      "text": "PuTTY SSH Tunnel"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/130%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3551",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3551",
+      "text": "Thank you !"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/130%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3561",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3561",
+      "text": "I got pointed to xdebug"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/130%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

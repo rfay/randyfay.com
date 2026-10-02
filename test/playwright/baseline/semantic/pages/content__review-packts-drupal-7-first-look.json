@@ -1,0 +1,117 @@
+{
+  "title": "Review of Packt's Drupal 7 First Look | RandyFay.com",
+  "primaryHeading": "Review of Packt's Drupal 7 First Look",
+  "contentFound": true,
+  "lines": [
+    "Wed, 2011-02-23 19:03 by rfay",
+    "Planet Drupal",
+    "Book Reviews",
+    "(Disclaimer: The book for review was provided gratis by the publisher.)",
+    "Drupal 7 First Look, by Mark Noble (Packt) should probably be named \"What Drupal 6 Developers Need to Know about Drupal 7\". It would kind of make sense then. If you need a book-length (252-page) introduction to what's changed in D7, this is a lot better than reading the horrendous D7 Module Upgrade Guide. However, I can't recommend it for any purpose other than that. It's not one of the leading books. It's not authoritative or particularly accurate, not well edited, and doesn't have clear scope.",
+    "Here's what I liked: The chapter on the Drupal 7 PDO Database Interface (DBTNG) is really quite good. I don't have enough depth in PDO myself to check it for accuracy, but it seemed to have a very solid tutorial approach, with a lot of detail. Quite nicely done.",
+    "Unfortunately, most of the book is just the Module Developer's Guide, the Theme Developer's Guide and the Drupal 7 Release Notes rehashed in a manner that doesn't add enough value. There are huge swaths of code printouts from templates, lists of changed functions, and the like that don't offer enough value.",
+    "I don't want to beat a dead horse. It's a tremendously difficult thing to write a book like this, and everybody who tries deserves our respect, especially when they take on something as hard and fast moving as D7 was at the end. If you want to go through a careful (though not particularly reliable) rundown of the changes between D6 and D7, buy it. If you want a pretty nice chapter on DBTNG, buy it. Otherwise, spend your money on Packt's absolutely excellent Drupal 7 Module Development and read the online resources.",
+    "Comments",
+    "Larry Garfield (not verified)",
+    "Thu, 2011-02-24 19:35",
+    "Permalink",
+    "Drupal 7 Module Development",
+    "We have a section on DBTNG, too. Technically it's an appendix, but I wrote it so it must be good. :-)",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2011-02-24 20:18",
+    "Permalink",
+    "Yeah but D7 Module",
+    "Yeah but D7 Module Development is so good that it just fits in.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/book-reviews",
+      "text": "Book Reviews"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/update/modules/6/7",
+      "text": "D7 Module Upgrade Guide"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/update/modules/6/7",
+      "text": "Module Developer's Guide"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/update/themes/6/7",
+      "text": "Theme Developer's Guide"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/drupal-7-released",
+      "text": "the Drupal 7 Release Notes"
+    },
+    {
+      "internal": false,
+      "key": "https://www.packtpub.com/drupal-7-module-development/book",
+      "text": "Drupal 7 Module Development"
+    },
+    {
+      "internal": false,
+      "key": "http://www.garfieldtech.com",
+      "text": "Larry Garfield (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/775",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/775",
+      "text": "Drupal 7 Module Development"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/95%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/776",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/776",
+      "text": "Yeah but D7 Module"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/95%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

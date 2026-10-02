@@ -1,6 +1,15 @@
 # Pre-Migration Playwright Baseline Strategy
 
-**Status: implemented and verified on this project, not yet committed.** Everything
+> **Update: the cross-platform check is now the semantic tier.** The raw-HTML comparison described
+> below (`regression-content.spec.ts`) only works when the target is the same platform. For a static
+> export or a Drupal 11 rebuild use the semantic tier, which records what a visitor sees (content
+> lines, images, links, menus, routes, assets) instead of markup. It lives in the
+> [site-migration-kit](https://github.com/rfay/site-migration-kit) (vendored into `test/playwright/kit/`,
+> configured by `test/playwright/migration.config.mjs`). See `test/playwright/kit/docs/semantic-tier.md`.
+> Select its tests by title: `ddev playwright test --grep "semantic:"`. The raw-HTML tier, the access
+> tier (unpublished nodes stay 403), the asset hash tier and the visual tier remain here.
+
+**Status: implemented, verified and committed on this project.** Everything
 described below exists under `test/playwright/` and has been run end-to-end: manifest
 generated (126 nodes, 33 file assets), baseline frozen (215 pages, 40 access checks, 26
 assets), and the full suite passes (`287 passed`) as a self-check against its own baseline.
@@ -61,13 +70,13 @@ Instead, the plan freezes the current site into a plain, explicitly-owned, commi
 directory of files (`test/playwright/baseline/`) — normalized HTML text plus asset bytes and
 hashes. That's just data on disk: safe to git-tag as the canonical reference point, safe to
 diff against repeatedly and indefinitely, independent of how many migration attempts happen
-or what the live Backdrop DB does afterward. Playwright's own screenshot diffing is still
+or what the development site's Backdrop DB does afterward. Playwright's own screenshot diffing is still
 used, but only for a small curated **visual** sample where its tooling is genuinely the
 right fit (see Tier 3 below).
 
 ## Site inventory this strategy is built around
 
-Gathered from the live DB (`ddev mysql`) and code exploration:
+Gathered from the development site's DB (`ddev mysql`) and code exploration:
 
 - **Content**: 106 published + 20 unpublished nodes. Types: blog 79/16, book 23/0, page 3/3,
   story 1/1. `url_alias` has 164 rows — several nodes have 2-3 aliases pointing at them.
@@ -108,7 +117,7 @@ real migration bug: a node's published/unpublished status flipping during migrat
 
 But unpublished nodes can't be treated like published ones for the content diff, either —
 fetching one anonymously doesn't return its content, it returns an access-denied page.
-Verified against the live site: `curl .../node/2` (an unpublished node) → **HTTP 403**, not
+Verified against the development site: `curl .../node/2` (an unpublished node) → **HTTP 403**, not
 404, not 200. So:
 
 - **Published nodes**: fetched, normalized, and diffed against frozen baseline content, as
@@ -186,7 +195,7 @@ diffs.
 ### 3. Freezing the baseline — `test/playwright/scripts/export-baseline.mjs`
 
 Reads `data/manifest.json`; for every **published** node's canonical path and every alias,
-and every asset, fetches it from the live Backdrop site (plain `fetch()` — Node 24 has this
+and every asset, fetches it from the development Backdrop site (plain `fetch()` — Node 24 has this
 built in, no new dependency), normalizes HTML via `lib/normalize.mjs`, and writes:
 
 - `test/playwright/baseline/<url-safe-path>.html` — normalized page text, one per path.
@@ -200,7 +209,7 @@ built in, no new dependency), normalizes HTML via `lib/normalize.mjs`, and write
 **This is the one-time "freeze the base" operation.** Run it once, commit `baseline/`, and
 **git-tag that commit** (e.g. `git tag pre-migration-baseline`). The tag is what makes the
 reference point unambiguously recoverable no matter what either migration attempt does, or
-what the live Backdrop DB looks like by the time you get around to attempt #2.
+what the development Backdrop DB looks like by the time you get around to attempt #2.
 
 If real content changes before either migration starts (e.g. final edits), re-run this
 script and re-freeze — but treat a frozen, tagged `baseline/` as immutable once either
@@ -211,7 +220,7 @@ migration is actually underway.
 **Tier 1 — `tests/regression-content.spec.ts`** (full coverage, ~270 checks: every published
 node's canonical path + every alias). `request.get(path)` via Playwright's
 `APIRequestContext` — no browser, fast — against `process.env.TEST_BASE_URL` (defaults to
-the live Backdrop site itself, so running with no override is a self-check: it should read
+the development Backdrop site itself, so running with no override is a self-check: it should read
 ~100% match against the baseline just taken). Normalizes via the same shared function and
 asserts equality against the frozen file in `baseline/`. Only loops over `published: true`
 manifest entries — see Tier 4 for unpublished ones.
@@ -259,9 +268,11 @@ ddev playwright test tests/visual.spec.ts --project=chromium
 # Parallel split of the full content tier, if it's ever slow
 ddev playwright test tests/regression-content.spec.ts --shard=1/4
 
-# Point at a migration target instead of the default live site
-TEST_BASE_URL=https://migration-a.example.com ddev playwright test --grep @smoke
-TEST_BASE_URL=https://migration-b.example.com ddev playwright test
+# Point at a migration target instead of the default development site.
+# NOTE: a host-side `TEST_BASE_URL=... ddev playwright ...` does NOT work: ddev runs the command
+# inside the container and the host environment is not forwarded. Set it inside the container:
+ddev exec -d /var/www/html/test/playwright 'TEST_BASE_URL=https://migration-a.example.com npx playwright test --grep @smoke'
+ddev exec -d /var/www/html/test/playwright 'TEST_BASE_URL=https://migration-b.example.com npx playwright test'
 ```
 
 Both migration targets diff against the exact same `baseline/` files — that's what makes
@@ -271,7 +282,7 @@ this reusable across as many migration attempts as needed, not just one.
 
 | Path | Purpose |
 |---|---|
-| `test/playwright/playwright.config.ts` | modified: `baseURL` from `TEST_BASE_URL` env (default: live site), named projects |
+| `test/playwright/playwright.config.ts` | modified: `baseURL` from `TEST_BASE_URL` env (default: development site), named projects |
 | `test/playwright/scripts/generate-manifest.mjs` | DB → `data/manifest.json` |
 | `test/playwright/lib/normalize.mjs` | shared HTML cleanup used by both the export script and the tests |
 | `test/playwright/scripts/export-baseline.mjs` | freezes `baseline/` from the live site |
@@ -292,7 +303,7 @@ this reusable across as many migration attempts as needed, not just one.
    against the inventory numbers above.
 3. Run `export-baseline.mjs` once against the live DDEV site; confirm `baseline/` is
    populated (215 HTML pages + 26 assets, as verified); commit and tag it.
-4. `ddev playwright test` (no env override) → should pass ~100% (self-check: live site vs.
+4. `ddev playwright test` (no env override) → should pass ~100% (self-check: development site vs.
    its own just-taken baseline).
 5. `ddev playwright test --grep @smoke` → confirm it runs a handful of checks in seconds.
 6. `ddev playwright show-report --host=0.0.0.0` → confirm a `visual.spec.ts` diff shows as

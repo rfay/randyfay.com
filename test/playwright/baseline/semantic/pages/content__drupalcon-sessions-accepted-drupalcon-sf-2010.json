@@ -1,0 +1,64 @@
+{
+  "title": "Drupalcon sessions accepted for Drupalcon SF 2010 | RandyFay.com",
+  "primaryHeading": "Drupalcon sessions accepted for Drupalcon SF 2010",
+  "contentFound": true,
+  "lines": [
+    "Sat, 2010-02-27 05:52 by rfay",
+    "Drupal",
+    "drupalcon",
+    "Planet Drupal",
+    "I have 3 sessions accepted for Drupalcon San Francisco 2010, all with other collaborators:",
+    "AJAX and Javascript in Drupal7 (for developers)",
+    "Best practices in contrib development and support",
+    "Advanced Forms with Drupal 7 FAPI"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupalcon",
+      "text": "drupalcon"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "text": "AJAX and Javascript in Drupal7 (for developers)"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "text": "Best practices in contrib development and support"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/advanced-forms-drupal-7-fapi",
+      "text": "Advanced Forms with Drupal 7 FAPI"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

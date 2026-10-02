@@ -1,0 +1,188 @@
+{
+  "title": "portfolio | RandyFay.com",
+  "primaryHeading": "portfolio",
+  "contentFound": true,
+  "lines": [
+    "Portfolio and Resume",
+    "Thu, 2009-04-09 12:04 by rfay",
+    "Drupal",
+    "portfolio",
+    "I've been doing a lot of Drupal jobs and websites over the years, and sometimes update this portfolio.",
+    "A couple of my own websites:",
+    "hobobiker.com. A blog with theming and custom modules for mapping of routes.",
+    "warmshowers.org. A social networking site: Reciprocal hospitality for touring cyclists. Much custom drupal work, including Ajax-driven Google maps display and geolocation. And now it'sinternationalized and translated into Spanish, French, and Portuguese.",
+    "A sampling of drupal work, upgrades, modules development:",
+    "Many core patches contributed to and accepted into Drupal 7 and a couple for Drupal 6",
+    "Examples module: Key examples for Drupal developers",
+    "Amazon module Comaintainer with Jeff Eaton.",
+    "Amazon Store module.",
+    "Role Change Notify module",
+    "Translatable Regions module, which allows dynamic machine translation of specific sections of a page.",
+    "CTools Plugin Examples component of the CTools module.",
+    "Comaintainer of the Drupal core AJAX subsystem",
+    "Much work for Marie Thacker, including a Smackdown rewrite and many other modules for Sparkleshelf.com, custom modules, troubleshooting, etc. Feel free to contact her",
+    "Drupal.org",
+    "I'm a regular speaker at Drupalcons and Drupalcamps:",
+    "Dynamic forms using AJAX at Drupalcon SF 2010 and Drupalcamp Colorado 2010",
+    "Features for site management and deployment at Drupalcamp Colorado 2010",
+    "Debugging Drupal at DrupalCon Copenhagen 2010 and Paris 2009",
+    "Many, many contributions on drupal.org including projects, manual pages, patches, bug reports, troubleshooting, etc.",
+    "Member of the Drupal Association",
+    "Resume: And my resume is attached, detailing 30 years of work in the computer field, from Unix development to C# to perl to network administration and more.",
+    "Attachment",
+    "Size",
+    "Randy Fay Resume, updated 2015",
+    "0 bytes",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [
+    {
+      "src": "/core/modules/file/icons/application-pdf.png",
+      "name": "application-pdf.png",
+      "alt": "PDF icon"
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "portfolio",
+      "text": "Portfolio and Resume"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/portfolio",
+      "text": "portfolio"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "hobobiker.com"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org",
+      "text": "warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/amazon",
+      "text": "Amazon module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/amazon_store",
+      "text": "Amazon Store"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/role_change_notify",
+      "text": "Role Change Notify"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/translatableregions",
+      "text": "Translatable Regions"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/ctools",
+      "text": "CTools"
+    },
+    {
+      "internal": false,
+      "key": "http://mariethacker.com/contact-me",
+      "text": "Marie Thacker"
+    },
+    {
+      "internal": false,
+      "key": "http://sparkleshelf.com/versus/voteresult/smackdown_image",
+      "text": "Smackdown rewrite"
+    },
+    {
+      "internal": false,
+      "key": "http://sparkleshelf.com",
+      "text": "Sparkleshelf.com"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "text": "Drupalcon SF 2010"
+    },
+    {
+      "internal": false,
+      "key": "http://colorado2010.camps.drupal.org/drupalcampcolorado.org/sessions/dynamic-forms-drupal-7-ajax-and-states.html",
+      "text": "Drupalcamp Colorado 2010"
+    },
+    {
+      "internal": false,
+      "key": "http://colorado2010.camps.drupal.org/drupalcampcolorado.org/sessions/site-configuration-management-and-staging-using-features-module.html",
+      "text": "Drupalcamp Colorado 2010"
+    },
+    {
+      "internal": false,
+      "key": "http://cph2010.drupal.org/sessions/debugging-drupal-hands-techniques",
+      "text": "Copenhagen 2010"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "text": "Paris 2009"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/search/apachesolr_search/rfay?filters=uid:30906",
+      "text": "Many, many contributions on drupal.org including projects, manual pages, patches, bug reports, troubleshooting, etc."
+    },
+    {
+      "internal": false,
+      "key": "http://association.drupal.org",
+      "text": "Drupal Association"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/sites/default/files/RandyFayResume2012.pdf",
+      "text": "resume is attached"
+    },
+    {
+      "internal": true,
+      "key": "sites/default/files/RandyFayResume2015.pdf",
+      "text": "Randy Fay Resume, updated 2015"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

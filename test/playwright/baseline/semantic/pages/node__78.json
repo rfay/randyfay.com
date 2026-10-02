@@ -1,0 +1,58 @@
+{
+  "title": "Coolest modules (and theme) of the week | RandyFay.com",
+  "primaryHeading": "Coolest modules (and theme) of the week",
+  "contentFound": true,
+  "lines": [
+    "Sat, 2010-09-18 04:13 by rfay",
+    "Planet Drupal",
+    "I met some incredibly cool new modules (and a theme) this week that have really increased my range as a sitebuilder. You should check them out if you haven't already:",
+    "Sweaver: Incredibly, this lets you adjust your site's appearance easily and intuitively on the fly. Just diddle with the font! Change the background color of a region, or add a background graphic. Incredible.",
+    "Context: Quit procrastinating. Context is easy to use and easy to understand and will vastly increase your ability to configure the appearance and behavior of a page or section. Seriously. You don't have to wait. It just works. It's intuitive. Try it.",
+    "@Font-your-face: You can really have a billion free web fonts that actually work in all modern browsers on all platforms. No more weird graphics creation. So easy to use. Again, this doesn't take any time or effort. Just try it.",
+    "Omega theme: I'm finally being dragged kicking and screaming and naive into the 960gs world. I'm clearly no designer, but Omega's robust capabilities and documentation are going to work for me. And there's even a D7 version already. This one takes a little time to come to terms with, but it's well worth the effort. Lots of great documentation and videos."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/sweaver",
+      "text": "Sweaver"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/context",
+      "text": "Context"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/fontyourface",
+      "text": "@Font-your-face"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/omega",
+      "text": "Omega theme"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

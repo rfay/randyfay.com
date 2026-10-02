@@ -1,0 +1,54 @@
+{
+  "title": "What are AJAX Forms in Drupal? | RandyFay.com",
+  "primaryHeading": "What are AJAX Forms in Drupal?",
+  "contentFound": true,
+  "lines": [
+    "AJAX forms in Drupal are provided by the Form API.",
+    "You write the form using the Drupal Form API.",
+    "You specify what element activates the AJAX behavior.",
+    "You specify what part of the form's HTML is to be replaced by the callback.",
+    "You write a callback that selects and returns the piece of the form which gets replaced.",
+    "Drupal manages everything so that when the button or control is used, the callback gets called and the replacement of HTML is done.",
+    "Although Javascript is involved (supplied by Drupal) you don't write any and you don't see any.",
+    "Drupal",
+    "Book Navigation",
+    "‹ Drupal 7 AJAX Forms",
+    "up",
+    "Examples of AJAX forms in Drupal ›"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "‹ Drupal 7 AJAX Forms"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ajax-forms-drupal",
+      "text": "Examples of AJAX forms in Drupal ›"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Drupal 7 AJAX Forms",
+        "key": "ajax"
+      }
+    ]
+  }
+}

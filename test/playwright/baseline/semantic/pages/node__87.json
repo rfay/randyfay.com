@@ -1,0 +1,61 @@
+{
+  "title": "Review of Drupal 7 Module Development | RandyFay.com",
+  "primaryHeading": "Review of Drupal 7 Module Development",
+  "contentFound": true,
+  "lines": [
+    "Sat, 2011-01-15 11:48 by rfay",
+    "Planet Drupal",
+    "Drupal 7 Module Development (Matt Butcher et all, Packt Press, December, 2010) is a great step forward for Drupal 7. It packages up key D7 information about theming, the render system, entities, fields, the Form API, node access, and the File API all in one place. Summary: If you're doing D7 module development, either for the first time or switching moving from Drupal 6, you need this book.",
+    "Some parts of the book were more familiar to me, and as a result less impressive, so I'll focus on the parts that were most useful to me:",
+    "Chapters 3 and 4 on the Render System and theming: This is the first published information on the render subsystem that I've seen, and it's excellent. It's critical for both module developers and themers to understand render arrays in D7 and these chapters do the job.",
+    "Chapters 6 and 7 on Entities and Fields: This is the first published information on entities I've run across, and it looks like a great start, both conceptually and technically. The Examples for Developers project has a field example, but does not yet have an entity example (see the issue though).",
+    "Chapter 9 on Node Access gives great coverage to a relatively obscure topic. I think the Node Access example in Examples should be reviewed in light of this chapter. If anybody would care to do that, the issue is here.",
+    "This is a great book, tremendously useful to developers, and highly recommended.",
+    "My only real complaint is that I want volumes 2 and 3 of this. There is at least three times this much important new material in D7. Yes, I know it couldn't make it into this one. But I'd love to see two more volumes of this quality.",
+    "If you're writing a book, though, I encourage you to adapt/improve the examples in Examples for Developers to meet your needs. That way you get a maintained set of examples that will always be available and where you're not even responsible for the bugs!"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "https://www.packtpub.com/drupal-7-module-development/book",
+      "text": "Drupal 7 Module Development"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/893842",
+      "text": "the issue"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1028162",
+      "text": "here"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

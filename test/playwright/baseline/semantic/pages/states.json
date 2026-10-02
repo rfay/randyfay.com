@@ -1,0 +1,1020 @@
+{
+  "title": "Drupal 7 FAPI's #states: A Great New UI Improvement For Forms | RandyFay.com",
+  "primaryHeading": "Drupal 7 FAPI's #states: A Great New UI Improvement For Forms",
+  "contentFound": true,
+  "lines": [
+    "Mon, 2010-04-12 14:16 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "The little-known #states feature has gone into Drupal 7, and it rocks.",
+    "Before you read on, try this dynamic form live at d7.drupalexamples.info. It's developed without using a line of javascript, just plain Form API.",
+    "Essentially, you can provide dynamic behavior in a form based on changes to other elements in the form. An easy example: Often you only need to collect information if a particular element is selected. If they select type=student, you don't have to require them to fill in a further \"Employer\" field.",
+    "The new #states example in the Examples module's Form Example shows how a dynamic form can work. You can try it out live as well at d7.drupalexamples.info.",
+    "The idea of #states is that you add a #states property to a form element that is supposed to change when some other form element changes. So if a form element is supposed to be shown or hidden, the #states property will be added on that element, not on the element that caused the change.",
+    "The #states property is a structured array of action => condition arrays. The action is 'visible' or 'checked' or 'required' or several other options. The condition is an associative array of 'jquery_selector' => array(value_statement). But mostly you can do it by copying and pasting examples. Much of the time the jquery selector can be \":input[name=field_name]\" and the rest of the array can be cookbook from example code.",
+    "In the example, the 'tests_taken' field is only to be visible if the form-filler is a high school student:",
+    "$form['tests_taken'] = array(",
+    "'#type' => 'checkboxes',",
+    "'#options' => drupal_map_assoc(array(t('SAT'), t('ACT'))),",
+    "'#title' => t('What standardized tests did you take?'),",
+    "'#states' => array(",
+    "'visible' => array( // action to take.",
+    "':input[name=student_type]' => array('value' => t('High School')),",
+    "),",
+    "),",
+    ");",
+    "So we set the action to 'visible' when the condition (our select called student_type is set to 'High School') is true.",
+    "That's basically all there is to it.",
+    "So when would you use #states as opposed to AJAX forms or a sprinkling of jquery?",
+    "If your form actually changes under the hood based on user input, then you need to use AJAX forms. #states doesn't fundamentally change any of the elements, it just changes their presentation.",
+    "If you don't change the form, but need a transformation that simple conditional logic can't do, you'll have to roll some jQuery.",
+    "For more detailed comments and possibilities, read the #states example.",
+    "Comments",
+    "tstoeckler (not verified)",
+    "Tue, 2010-04-13 02:14",
+    "Permalink",
+    "What about people who have",
+    "What about people who have JavaScript disabled?",
+    "Will the above example never be shown, or will the whole #states thing simply be ignored?",
+    "If the former, I guess it would be better to use eg 'invisible' than 'visible'",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2010-04-13 08:12",
+    "Permalink",
+    "All is shown if javascript is disabled",
+    "If javascript is disabled, the whole form is shown. It's as if the #states properties didn't exist (because they essentially don't).",
+    "So the form works, but you might need extra text and might want to use fieldsets to organize the data, for example.",
+    "Log in to post comments",
+    "Wim Mostrey (not verified)",
+    "Tue, 2010-04-13 08:48",
+    "Permalink",
+    "Drupal 6: conditional fields",
+    "Or try this Drupal 6 module conditional fields which allows you to create these forms without a single line of javascript or php code! In a couple of clicks you set up the perfect cck form.",
+    "Log in to post comments",
+    "Dave Reid (not verified)",
+    "Wed, 2010-04-14 11:08",
+    "Permalink",
+    "Try Ctools dependencies instead",
+    "Looks like Conditional Fields can only be used with CCK. States can be used with any Form API elements.",
+    "If you want #states type things in Drupal 6, I'd much rather recommend Ctool's 'Dependent' system which is what was shaped in the states system in D7.",
+    "http://drupal.org/project/ctools",
+    "Log in to post comments",
+    "Kyle (not verified)",
+    "Sun, 2011-08-21 19:00",
+    "Permalink",
+    "I am no drupal expert. And",
+    "I am no drupal expert. And before finding this page, i did try conditional field on D7. But I don't think conditional field can check whether a field's value equal to \"High school\" or not. Am I right?",
+    "Log in to post comments",
+    "Visitor (not verified)",
+    "Wed, 2010-04-21 14:52",
+    "Permalink",
+    "How does #states handle the #tree attribute",
+    "I'm trying to use the #state attribute in my form with a tree=TRUE fieldset. How do I set ':input[name=]' when there is a treed fieldset?",
+    "Thanks",
+    "Log in to post comments",
+    "Visitor (not verified)",
+    "Thu, 2010-04-22 08:03",
+    "Permalink",
+    "Answer in case anyone else needs help.....",
+    "I found the answer through experimentation in case this helps anyone else:",
+    "If you are using a fieldset in front of your elements, then you must account for this in your jQuery selector. For example, if you have a fieldset such as 'ask' with a number textfield you want to expose when some other textfield is filled.",
+    "$form['ask']['number'] = array(",
+    "'#type' => 'textfield',",
+    "'#options' => ...",
+    "'#states' => array(",
+    "'visible' => array( // action to take.",
+    "':input[name=ask[so_no]]' => array ('filled' => TRUE),",
+    "),",
+    "In the input selector you must account for the fieldset by prefacing the name with the fieldset as shown above. Perhaps Randy can add this tidbit to the documentation at http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.....",
+    "HTH",
+    "Log in to post comments",
+    "IntoTheWoods (not verified)",
+    "Thu, 2012-01-19 22:18",
+    "Permalink",
+    "Double Quotes Needed",
+    "The input selector needs double quotes around the name value to work:",
+    "':input[name=\"ask[so_no]\"]' => array ('filled' => TRUE),",
+    "For a single checkbox, it would be",
+    "':input[name=\"ask[so_no]\"]' => array ('checked' => TRUE),",
+    "Log in to post comments",
+    "JohnAlbin (not verified)",
+    "Mon, 2010-07-05 22:15",
+    "Permalink",
+    "The examples URL has changed",
+    "The link to the examples needs to be updated to: http://d7.drupalexamples.info/examples/form_example/states",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2010-07-05 22:38",
+    "Permalink",
+    "Thanks - updated",
+    "Thanks - I just updated and think I got all instances.",
+    "Log in to post comments",
+    "CSÉCSY László (not verified)",
+    "Sat, 2011-03-26 10:57",
+    "Permalink",
+    "How to depend on multiple fields properly?",
+    "Having three fields on a form: year-from, year-to and a title, all textfields. The title field should be enabled if and only if either of the year fields is filled, and having considered that Form API's #disabled attribute cannot be used for this. So I've came up with this:",
+    "<?php",
+    "function mymodule_myform() {",
+    "$form = array();",
+    "$form['yearfrom'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('Year from'),",
+    ");",
+    "$form['yearto'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('Year to'),",
+    ");",
+    "$form['title'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('Title'),",
+    "'#states' => array(",
+    "'enabled' => array(",
+    "'#edit-yearfrom' => array('filled' => TRUE),",
+    "'#edit-yearto' => array('filled' => TRUE),",
+    "),",
+    "'disabled' => array(",
+    "'#edit-yearfrom' => array('empty' => TRUE),",
+    "'#edit-yearto' => array('empty' => TRUE),",
+    "),",
+    "),",
+    ");",
+    "}",
+    "?>",
+    "This ensures that the form comes up with all the three fields being empty, and the title field being disabled (by jQuery, only on client-side). This ensures that when either of the year fields has anything in it, the title field becomes enabled. Speaking CS: both the enabler and disabler conditions are OR'ed together, but the disabler ones should be AND'ed.",
+    "But this solution also has a problem: if either of the year fields gets empty, the title field gets disabled, though it should be only getting disabled if both the year fields become empty. How should I address this?",
+    "In other words: the above example is quite good for an OR relation, but how to implement an AND relation between the (disabler) conditions?",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2011-03-27 20:01",
+    "Permalink",
+    "Answered over on http:/",
+    "Answered over on http://drupal.org/node/1106388#comment-4269336.",
+    "I don't think I can help you do OR. If you have other questions, please provide a sample module (perhaps in a sandbox?)",
+    "Log in to post comments",
+    "Maestro (not verified)",
+    "Sun, 2011-07-24 15:23",
+    "Permalink",
+    "Preprocess form question",
+    "I'm trying to add state in the preprocess form function. Just for testing.",
+    "function karapuziki_preprocess_recipe_node_form(&$variables) {",
+    "$variables['form']['make_link'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => 'Make link',",
+    ");",
+    "$variables['form']['in_new_window'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => 'in new window',",
+    "'#states' => array('visible' => array(",
+    "'input[name=\"make_link\"]' => array('checked' => TRUE),",
+    ")),",
+    ");",
+    "}",
+    "This new two fields appear in the form, but both of them are visible and #states conditions doesn't work. I tried to add states conditions to field that already exist in the form",
+    "$variables['form']['recipe_source']['#states'] = array(",
+    "'visible' => array( // action to take.",
+    "':input[name=recipe_yeld]' => array('filled' => TRUE),",
+    "),",
+    ");",
+    "but #states doesn't work too. May be it can't work if I use preprocess hook? Please give me advice :)",
+    "Log in to post comments",
+    "Boris Gordon (not verified)",
+    "Wed, 2011-08-10 23:15",
+    "Permalink",
+    "Depending on non-form items",
+    "Is it possible to have a form element's state depend on value of a non-form element with #states or is this a custom jQuery job?",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2011-08-11 08:01",
+    "Permalink",
+    "Probably not",
+    "I since the dependency is just a jquery target, you could... EXCEPT: The states that you can depend on are all form element states. I wouldn't be surprised if you could depend on the existence of some element though. Give it a try.",
+    "Log in to post comments",
+    "Pete (not verified)",
+    "Wed, 2011-09-21 15:54",
+    "Permalink",
+    "What about GUI forms?",
+    "I create forms using the webform user interface rather than code. Is there any way to add #states in the GUI? Any examples out there?",
+    "Alternatively, is there any way to take my GUI form and extract the Drupal code from it?",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-09-21 16:07",
+    "Permalink",
+    "I'm not familiar with any way",
+    "I'm not familiar with any way to use #states in webform module, but I don't use it often. I'm quite sure that webform will not generate a module for you. But these would be good support issues in the Webform issue queue.",
+    "Log in to post comments",
+    "Ben McFerren (not verified)",
+    "Mon, 2011-10-24 19:00",
+    "Permalink",
+    "Conditional #options ?",
+    "Great write up on how to make the visibility of fields conditional! Many thnx for the clarity.",
+    "I am searching for a solution on how to make particular checkbox options conditional so that:",
+    "If user selects checkbox A in Field (i), a certain array of checkbox selections in Field (v) are visible. Additionally, if user also selects checkbox B in Field (i), a different array of checkbox selections is visible as well in Field (v).",
+    "I have a few taxonomy vocabularies (iii), one of which (x) has a few term reference fields that are populated with values derived from the additional vocabularies (iii).",
+    "In my \"add node\" form, I am trying to present the (iii) taxonomy fields at the top, then have the (x) taxonomy field below. I'd the checkbox selections in field (x) to be dependent upon the choices made previously in the (iii) taxonomy fields above.",
+    "Thnx in advance for your time and consideration.",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2011-10-24 20:06",
+    "Permalink",
+    "Don't forget about #ajax and multistep forms",
+    "Although #states is great for lots of things, it's not as expressive as PHP, so you might have to use #ajax or mutistep forms to get what you want.",
+    "I don't think you'll be able to say \"If A then one-set-of-things, if B then another-set-of-things, if A AND B, a third-set.",
+    "But you can easily make two sub-fieldsets, and everything is easy.",
+    "Log in to post comments",
+    "Ben McFerren (not verified)",
+    "Fri, 2011-11-11 20:37",
+    "Permalink",
+    "Great Suggestion!",
+    "Hi Randy - I greatly appreciate you pointing me in the right direction!",
+    "After much tinkering, I was able to get the #ajax to perform the first iteration of what I'm looking for.",
+    "I've posted it here for anyone to use or improve:",
+    "http://pastebin.com/2YPCyPYK",
+    "Now I am working on making the entire visibility of the topblock fieldset (and the entire topic field) contigent on whether checks have been made in the previous fields. I will keep you updated on my progress.",
+    "Many thnx for your help and guidance.",
+    "-Ben",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2011-11-11 20:53",
+    "Permalink",
+    "Thanks",
+    "Thanks! Hey - for more permanence (somebody might come by and want to know what you did in a year or so) you might want to post your code on http://gist.github.com or as a sandbox on drupal.org, or something like that. Keeping your code in a repository is good for you too, as it helps you find things that you know you did sometime.",
+    "Log in to post comments",
+    "GaëlG (not verified)",
+    "Mon, 2012-02-20 03:31",
+    "Permalink",
+    "Performance",
+    "For faster rendering of big forms, use IDs in your JQuery selectors : something like '#edit-field-name' instead of ':input[name=field_name]'.",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2012-02-20 07:43",
+    "Permalink",
+    "Requires uniqueness, and no AJAX",
+    "Thanks. The only problem with that, of course, is that the ID must be unique on the page. And you can't be using AJAX in any of those elements (which would be strange anyway... one should generally use either #states or AJAX) because AJAX messes with the ID on every load.",
+    "Log in to post comments",
+    "Pete (not verified)",
+    "Mon, 2012-03-12 13:43",
+    "Permalink",
+    "Huh?",
+    "What do you mean AJAX messes with the ID? Changes the primary key on every request?",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2012-03-12 13:49",
+    "Permalink",
+    "HTML ID changes on every request",
+    "In D7, the HTML ID changes on every request, due to drupal_html_id(). In practice, it's always the same on the initial page load, but after that, any part replaced by an AJAX action will result in an unpredictable ID (which will be different).",
+    "Log in to post comments",
+    "LateAtNight (not verified)",
+    "Sat, 2012-10-27 02:31",
+    "Permalink",
+    "Dynamic forms doesn't work",
+    "Hi, I wrote this code, it seems right but my dynamic form doesn't work. When page loads (it loads inside a popup) all fields are shown. My hook_menu calls ripa_slideshow_edit_page() to show only the form without entire page.",
+    "I tried several variants but nothing seems work",
+    "function ripa_slideshow_edit_page(){",
+    "$output = drupal_get_form('ripa_slideshow_edit_form');",
+    "print render($output);",
+    "}",
+    "[edited out]",
+    "Log in to post comments",
+    "rfay",
+    "Sat, 2012-10-27 08:35",
+    "Permalink",
+    "Start with #states Examples",
+    "There is a major example of #states in the Examples project. I recommend starting there and then working with that to understand how to build what you want. There's also a #states exercise that shows nearly everything #states can do.",
+    "For support, probably the best place is http://drupal.stackexchange.com/",
+    "Log in to post comments",
+    "LateAtNight (not verified)",
+    "Tue, 2012-11-13 01:06",
+    "Permalink",
+    "Resolved",
+    "I resolved the problem. When you call print render(...) function drupal stops its workflow and prints page immediatly so no js files are included and dynamic forms don't works.",
+    "Log in to post comments",
+    "dave (not verified)",
+    "Sat, 2012-11-10 15:36",
+    "Permalink",
+    "uncheck checkbox programmatically",
+    "States property is great but I've found a little problem. Let's say we have a radio buttons like 'Cars' and 'Air Planes'. If 'Cars' button is checked another two checkboxes shows like 'Ferrari' and 'Mercedes'. If 'Air Planes' is checked also two different checkboxes are shown, it's 'Concorde' and 'Boeing'. Simple right? Now, lets say that user decided to choose Cars and then checks 'Ferrari'. After that our user changes his mind and checks 'Air Planes' without unchecking previous 'Ferrari'. And here is the problem, now user can check 'Boeing' and click 'Submit', however our form remember a 'Ferrari' value and 'Boeing' value which is incorrect. The purpose of choosing radio buttons is to give user one option to choose (OR) not many (AND). Does anyone knows how to uncheck 'Ferrari' checkbox automatically/programmatically at the momment when user chooses 'Air Planes'?",
+    "Log in to post comments",
+    "CSÉCSY László (not verified)",
+    "Sun, 2012-11-11 10:39",
+    "Permalink",
+    "Difference between choosing one or many",
+    "Ferrari, Mercedes AND Concorde, Boeing should belong to the same radio group, all the four. This way the user may choose only one, whilst the #states only _helps_ her choosing the right one. Remember: #states is client side stuff, so cannot be relied upon. In other words, #states is for display/UX purposes, not logic (at least as I see it).",
+    "Log in to post comments",
+    "StudiOrange (not verified)",
+    "Mon, 2012-11-12 15:28",
+    "Permalink",
+    "Signup Module",
+    "I tried the states form entries in a signup form, unfortunately it did not work. Do you have any idea on how to embed conditional fields in the signup module? I see the they us a standard $form entry for settings like \"Phonenumber\" etc so it shouldn't be to difficult.",
+    "Any help is appreciated",
+    "Log in to post comments",
+    "Jeff Greenberg (not verified)",
+    "Sun, 2014-04-20 11:32",
+    "Permalink",
+    "Select all",
+    "Hi Randy. I'm trying to use this to achieve the functionality of having a checkbox that, when selected, causes a range of checkboxes to all be selected. I made the selectall box a separate form field, and it looks like this, and works not a lick:",
+    "$form['report_group']['selectall'] = array(",
+    "'#type' => 'checkbox',",
+    "'#default_value' => 0,",
+    ");",
+    "$form['report_group']['boxes'] = array(",
+    "'#type' => 'checkboxes',",
+    "'#options' => $boxes,",
+    "'#states' => array(",
+    "'checked' => array(",
+    "':input[name=\"report_group[selectall]\"]' => array('checked' => TRUE),",
+    "),",
+    "),",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2014-04-20 15:28",
+    "Permalink",
+    "Too rusty",
+    "Sorry, I'm awfully rusty on this - try http://drupal.stackexchange.com.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/form_example/states",
+      "text": "d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/form_example_states_form/7",
+      "text": "#states example"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/form_example/states",
+      "text": "d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/form_example_states_form/7",
+      "text": "#states example"
+    },
+    {
+      "internal": true,
+      "key": "comment/75",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/75",
+      "text": "What about people who have"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/76",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/76",
+      "text": "All is shown if javascript is disabled"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://mostrey.be",
+      "text": "Wim Mostrey (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/77",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/77",
+      "text": "Drupal 6: conditional fields"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/conditional_fields",
+      "text": "conditional fields"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.davereid.net",
+      "text": "Dave Reid (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/78",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/78",
+      "text": "Try Ctools dependencies instead"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/ctools",
+      "text": "http://drupal.org/project/ctools"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2046",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2046",
+      "text": "I am no drupal expert. And"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://aol.com",
+      "text": "Visitor (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/82",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/82",
+      "text": "How does #states handle the #tree attribute"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://aol.com",
+      "text": "Visitor (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/83",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/83",
+      "text": "Answer in case anyone else needs help....."
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7#states",
+      "text": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference...."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2193",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2193",
+      "text": "Double Quotes Needed"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://john.albin.net",
+      "text": "JohnAlbin (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/106",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/106",
+      "text": "The examples URL has changed"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/form_example/states",
+      "text": "http://d7.drupalexamples.info/examples/form_example/states"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/107",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/107",
+      "text": "Thanks - updated"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://kybest.hu",
+      "text": "CSÉCSY László (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/857",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/857",
+      "text": "How to depend on multiple fields properly?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/860",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/860",
+      "text": "Answered over on http:/"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1106388#comment-4269336",
+      "text": "http://drupal.org/node/1106388#comment-4269336"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://karapuziki.com.ua",
+      "text": "Maestro (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1998",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1998",
+      "text": "Preprocess form question"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2015",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2015",
+      "text": "Depending on non-form items"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2016",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2016",
+      "text": "Probably not"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.kpdirection.com",
+      "text": "Pete (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2098",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2098",
+      "text": "What about GUI forms?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2099",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2099",
+      "text": "I'm not familiar with any way"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/webform",
+      "text": "Webform issue queue"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2115",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2115",
+      "text": "Conditional #options ?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2116",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2116",
+      "text": "Don't forget about #ajax and multistep forms"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2135",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2135",
+      "text": "Great Suggestion!"
+    },
+    {
+      "internal": false,
+      "key": "http://pastebin.com/2YPCyPYK",
+      "text": "http://pastebin.com/2YPCyPYK"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2136",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2136",
+      "text": "Thanks"
+    },
+    {
+      "internal": false,
+      "key": "http://gist.github.com",
+      "text": "http://gist.github.com"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://techoop.insite.coop/blogs/gaelg",
+      "text": "GaëlG (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2208",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2208",
+      "text": "Performance"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2209",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2209",
+      "text": "Requires uniqueness, and no AJAX"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://petetracey.com",
+      "text": "Pete (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2229",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2229",
+      "text": "Huh?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2230",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2230",
+      "text": "HTML ID changes on every request"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/includes%21common.inc/function/drupal_html_id/7",
+      "text": "drupal_html_id()"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.riparotto.com",
+      "text": "LateAtNight (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2723",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2723",
+      "text": "Dynamic forms doesn't work"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2724",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2724",
+      "text": "Start with #states Examples"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/sandbox/rfay/1269964",
+      "text": "#states exercise"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.stackexchange.com",
+      "text": "http://drupal.stackexchange.com/"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.riparotto.com",
+      "text": "LateAtNight (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2809",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2809",
+      "text": "Resolved"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2785",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2785",
+      "text": "uncheck checkbox programmatically"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://csecsy.hu",
+      "text": "CSÉCSY László (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2794",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2794",
+      "text": "Difference between choosing one or many"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.studioorange.nl",
+      "text": "StudiOrange (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2804",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2804",
+      "text": "Signup Module"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://theaccidentalcoder.com",
+      "text": "Jeff Greenberg (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3507",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3507",
+      "text": "Select all"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3508",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3508",
+      "text": "Too rusty"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.stackexchange.com",
+      "text": "http://drupal.stackexchange.com"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/58%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

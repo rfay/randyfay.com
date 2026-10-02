@@ -1,0 +1,379 @@
+{
+  "title": "Burnout | RandyFay.com",
+  "primaryHeading": "Burnout",
+  "contentFound": true,
+  "lines": [
+    "What is Burnout?",
+    "Mon, 2011-08-08 09:24 by rfay",
+    "Planet Drupal",
+    "Burnout",
+    "This article is one of a series in preparation for the Burnout core conversation at Drupalcon London. This article will discuss what burnout is; future posts will cover how individuals can respond to burnout, what about burnout is unique to the Drupal community, and what the Drupal community can do to deal with burnout.",
+    "What is burnout? Many of us \"just know\" the answer to this, as we've we've struggled with it ourselves in our professional, personal, or community work. I found a couple of high quality discussions of burnout. The first is the book The Truth about Burnout: How Organizations Cause Personal Stress and What to Do About It1, written by the leading researcher in the field, Christina Maslach. The second was the seminal article Burned Out2 from Scientific American Mind magazine.",
+    "First, a more formal definition of burnout from Preventing Burnout3:",
+    "Burnout is a state of emotional, mental, and physical exhaustion caused by excessive and prolonged stress. It occurs when you feel overwhelmed and unable to meet constant demands. As the stress continues, you begin to lose the interest or motivation that led you to take on a certain role in the first place.",
+    "Burnout reduces your productivity and saps your energy, leaving you feeling increasingly helpless, hopeless, cynical, and resentful. Eventually, you may feel like you have nothing more to give.",
+    "Most of us have days when we feel bored, overloaded, or unappreciated; when the dozen balls we keep in the air aren't noticed, let alone rewarded; when dragging ourselves out of bed requires the determination of Hercules. If you feel like this most of the time, however, you may be flirting with burnout.",
+    "Maslach describes three dimensions of burnout:",
+    "Exhaustion: Feeling overextended, both emotionally and physically",
+    "Cynicism: Taking a cold, cynical attitude toward responsibilities.",
+    "Ineffectiveness: When people feel ineffective, they feel a growing sense of inadequacy.",
+    "She goes on to describe these causes of the syndrome:",
+    "We feel overloaded.",
+    "We lack control over what we do.",
+    "We are not rewarded for our work.",
+    "We experience a breakdown in community.",
+    "We aren't treated fairly.",
+    "We have to deal with conflicting values.",
+    "The conventional wisdom is that burnout is primarily a problem of the individual: People burn out because of flaws in their characters, behavior, or productivity. In other words, *people* are the problem, and the solution is to change them or get rid of them.",
+    "But our research argues most emphatically otherwise. We believe that burnout is not a problem of the people themselves but of the *social environment* in which people work. The structure and functioning of the workplace shape how people interact with one another and how they carry out their jobs.",
+    "The Scientific American Mind article describes twelve stages of burnout.:",
+    "A compulsion to prove oneself (demonstrating worth obsessively) \"It tends to hit the best employees, those with enthusiasm who accept responsibility readily.\"",
+    "Working harder and longer; an inability to switch off.",
+    "Neglecting our own needs (erratic sleeping, eating disrupted, lack of social interaction)",
+    "Displacement of conflicts (problems are dismissed, we may feel threatened, panicky and jittery)",
+    "Revision of values (values are skewed, friends and family dismissed, hobbies seen as irrelevant, work is only focus)",
+    "Denial of emerging problems (intolerance, perceiving collaborators as stupid, lazy, demanding, or undisciplined, social contacts harder. Cynicism, aggression. Problems are viewed as caused by time pressure and work, not because of life changes)",
+    "Withdrawal (social life small or non-existent, need to feel relief from stress, alcohol/drugs)",
+    "Odd behavior (changes in behavior obvious, friends and family concerned)",
+    "Depersonalization (Seeing neither self nor others as valuable, and no longer perceive own needs.)",
+    "Inner Emptiness",
+    "Depression: Feeling lost and unsure, exhausted, future feels bleak and dark",
+    "Burnout Syndrome: Can include total mental and physical collapse. Time for full medical attention.",
+    "This has been a quick list-oriented discussion of burnout, but the book and article I used as sources are recommended.",
+    "In the next post, we'll talk about what individuals can do about burnout.",
+    "Resources",
+    "The Truth about Burnout: How Organizations Cause Personal Stress and What to Do About It, by Christina Maslach and Michael P. Leiter, Jossey-Bass Publishers, 1997 ↩︎",
+    "Scientific American Mind, June/July 2006, \"Burned Out\", by Ulrich Kraft ↩︎",
+    "Preventing Burnout: Signs, Symptoms, Causes, and Coping Strategies ↩︎",
+    "What Can Individuals Do To Prevent Burnout?",
+    "Thu, 2011-08-11 10:55 by rfay",
+    "Planet Drupal",
+    "Burnout",
+    "This post is one of a series in preparation for the Burnout core conversation at Drupalcon London. The first post discussed what burnout is; this one talks about what individuals can do about burnout, and the final two will discuss what about burnout is distinctive to the Drupal community, and what the Drupal community can do to deal with burnout. Also, please see Arianek's excellent post about burnout",
+    "There are dozens, even hundreds of books addressing individuals and burnout. I was amazed how many of them are aimed squarely at church members, pastors, and other caring professionals. Interestingly enough, the Drupal community can be a bit like many churches: plenty of needy people, lots of ideas, an amazing amount of work that \"ought\" to be done, and most of it done by volunteers or vastly overloaded professionals. These books have pretty uniform advice to the individual for dealing with burnout, and of course it's what you already know:",
+    "Don't just work all the time, regardless of the load. Enforce your work hours.",
+    "Prioritize. Take on reasonable obligations that you can meet.",
+    "Take time off.",
+    "Develop and love hobbies besides Drupal.",
+    "Socialize.",
+    "From Scientific American Mind1:",
+    "1. Budget your physical resources. Eat wholesome foods at mealtimes. Exercise regularly. Get enough sleep.",
+    "2. Workaholics must aim for equilibrium between tension and relaxation. \"Find your work-life balance\".",
+    "3. Cultivate close social contacts. Spending time with friends, family, or even colleagues at work protects against excessive stress.",
+    "4. So Important: The decisive step must be made first in your head: \"As early as possible in your career, you must absorb the idea that physical and mental health are at least as important as anything you can do seeking success at work\".",
+    "Pretty easy sounding, huh?",
+    "Next time we'll talk about things from an organizational perspective: what is distinctive about Drupal and burnout?",
+    "Scientific American Mind, June/July 2006, \"Burned Out\", by Ulrich Kraft ↩︎",
+    "How Does the Drupal Community Burn People Out?",
+    "Mon, 2011-08-15 10:15 by rfay",
+    "Planet Drupal",
+    "Burnout",
+    "This post is one of a series in preparation for the Burnout core conversation at Drupalcon London. The first post discussed what burnout is; the second is about what individuals can do about burnout, and the final one will discuss what the Drupal community can do to prevent and deal with burnout. Also, please see Arianek's excellent post about burnout.",
+    "One of the striking things about the Drupal community is that so many of us have such loose or nonexistent boundaries between work and home, Drupal and work, hobbies and work. And, being techies, we're always connected. The result is that Drupal can dominate every aspect of our lives. Not so good.",
+    "Let's revisit the six causes of burnout from The Truth about Burnout: How Organizations Cause Personal Stress and What to Do About It1. The author of that book, Christina Maslach, a leading researcher in the field, makes the bold claim that burnout is in many ways a result of organizational choices, not just individual ones.",
+    "We feel overloaded. Many, many of us are helpless suckers for love and approval, and the Drupal community has an infinite number of tasks that need to be done that we can do. There's an opportunity for approval and an existing need at every bend. It's infinite. We're not.",
+    "We lack control over what we do. Many aspects of Drupal (need I name core work?) involve an enormous lack of control over the final result, many times due to our community-collaboration culture. One can participate in an issue for years before it finally lands. A huge discussion (sometimes ending in deadlock) may be required before something can get done that an individual could just take on and do.",
+    "We are not rewarded for our work. While the Drupal community is quite good at acknowledging efforts, there are certainly many who do not feel adequately acknowledged (or compensated) for their superhuman efforts.",
+    "We experience a breakdown in community. Although we value the vibrance of our social community, it's not all roses. Many, many newcomers feel that it's hard to break in, and others feel slighted or off-put by the difficulty of actually getting involved. Note also the breakdowns we saw during the final days leading to Drupal 7's release. Some key contributors were making hopeless, sad statements demonstrating a kind of breakdown at a critical time.",
+    "We aren't treated fairly. Many of us have nearly given up after being lambasted by some more senior community member (who was probably burned out). Many of us have seen contributions languish despite the best efforts. The rather chaotic and often unwritten rules in the community can seem impossible to figure out. How do I get somebody to answer the issue I filed? How do I communicate with a project maintainer? What happens if they don't answer? How do I get somebody to acknowledge me on IRC? (Suggestion: We can make our hierarchy, organization, and rules more explicit.)",
+    "We have to deal with conflicting values. In the Drupal community, the tension between work responsibilities, economic realities, community contribution desires and commitments, and quality is always at play. This is quite a lot more complicated than ordinary work tensions.",
+    "In addition, there are many examples of explicit choices we've made that cause community burnout. They're mostly procedures that could never be accomplished even with an army of paid help:",
+    "Module contributors automatically become module maintainers. Their contribution innately adds to their future responsibilities.",
+    "There is no explicit \"way out\" of community responsibilities even though the DCOC says \"step down gracefully\"",
+    "We have created some tasks and processes which are innate tarpits. For example, our documentation team is hopelessly overworked, with no known path to sustainability, and the Full Project Application process has never been sustainable. (There are more than 200 full project applications in \"needs review\", the oldest untouched for 8 weeks. There are 15 applications in RTBC, one for 7 weeks.)",
+    "I'm sure you have other examples of choices we make in our procedures that overload community members - please add them in the comments.",
+    "The Truth about Burnout: How Organizations Cause Personal Stress and What to Do About It, by Christina Maslach and Michael P. Leiter, Jossey-Bass Publishers, 1997 ↩︎",
+    "What can the Drupal Community do about Burnout?",
+    "Fri, 2011-08-19 00:40 by rfay",
+    "Planet Drupal",
+    "Burnout",
+    "This post is the last in a series in preparation for the Burnout core conversation at Drupalcon London 2011. The first post discussed what burnout is; the second is about what individuals can do about burnout; the third was about how the Drupal Community burns people out.",
+    "The key point of this series is that we need to do strategic thinking as a community about how to treasure and keep our wonderful contributors. That's the point of the core conversation. It will not be a support group for people to share their burnout stories, but a gathering to think strategically about how the community can prevent or heal burnout to protect and keep our members.",
+    "We must value, keep, and grow our contributors. Burnout is not a problem we can ignore. It costs incredible productivity, of course, when a contributor becomes contribution-disabled or disappears. It actually costs huge sums of money to all the economically invested members of the community. But most important, we as a community care about our members and don't want to see them damaged by the fact that they care and invest themselves.",
+    "To begin the conversation, here is some brainstorming (thanks for your notes @Bojhan!). Here are some free-form thoughts to prime the pump for our core conversation:",
+    "Explicitly and deliberately eschew unsustainable processes and projects: We have a number of projects that seem to only increase disillusion and hopelessness because they're unsustainable the way we currently look at them. We'll have to figure out how to define what \"unsustainable\" is, of course.",
+    "The docs and UX projects are potential examples. What do we have to do to change these tasks to make them sustainable?",
+    "The full project application process currently has applications in \"Needs review\" that go back many weeks, and even a significant backlog of RTBC applications that have not been promoted. What do we do to make this sustainable?",
+    "Creating a module or theme implicitly makes you the owner/maintainer, multiplying the commitments (or guilt level) of our most prolific contributors. Can we find a way to do this differently?",
+    "There are some places where we can deliberately increase the resources available and resolve the strain that way. In the Drupal.org redesign, which was mired in never-never land for a long time, money, organization, and paid work were leveraged to lead to a (very) successful conclusion. Money is an easy answer, but there are many other ways to increase resources for a project. What are they?",
+    "Does Drupal need a human resources department? A human resources initiative leader?",
+    "Develop explicit replacement strategies for people. Provide a \"recycling\" area or forum where people can explicitly publicize responsibilities they're trying to get rid of.",
+    "Promote and publicize the personal side of burnout management, as discussed in the first couple of posts here.",
+    "Promote balance in community responsibilities.",
+    "Learn from what we do right.",
+    "We do much right with contrib modules. Maintainers are enabled to do what they need to do with their modules. Others are enabled to get involved through the issue queue. This is all good. What are other examples of what we do right?",
+    "The new D8 initiatives, with lieutenants and more explicit decisionmaking authority, may be a real step forward in dealing with the \"lack of control of our work\" issues.",
+    "Recognize that enabling others requires giving up some control. Bring on co-maintainers, for example. Mentor them. But let them work. Some will stick. Module owners may need to be more liberal in granting commit access.",
+    "Make it clear to all that there are alternatives to withdrawing from the community. Publicize those alternatives.",
+    "Establish communication channels amongst community leadership, develop leadership support groups.",
+    "Understand that timely communication is half the work. Often people communicate too late, requiring passionate people to do damage control rather than creating something great.",
+    "Increase the visibility of \"coordination\" efforts such as docs team lead, git migration lead, etc..",
+    "Say \"No\" when necessary. If we can't be successful individually or as a community and retain our balance, let's not undertake the project.",
+    "List and study the areas where a lack of control by contributors leads to ineffectiveness and burnout.",
+    "Cultivate the resilience and health of our overall community. We've long valued civility. Let's grow that civility and community health. We need to commit to courtesy, civility, and valuing our community. Every aggressive tweet will hurt somebody's feelings. Promote civility. Even on Twitter.",
+    "A last note: Burnout as Opportunity",
+    "We should remember that people wearing out on their projects is actually an opportunity. If we can get them moved to new things they can be more effective and motivated, and if we can get new people into the burned-out areas, we can get better maintenance there. If people know they can move around, they can be refreshed. New blood can be inserted into key tasks.",
+    "Please comment with your ideas",
+    "In preparation for the core conversation, please post ideas here that can be included on Monday, whether you can be there or not.",
+    "Happy Notes! (About *not* burning out!)",
+    "Thu, 2011-10-13 10:56 by rfay",
+    "Burnout",
+    "Planet Drupal",
+    "As you know, I've been writing and talking and thinking about burnout lately.",
+    "One of the key causes of burnout is the situation where we lack control over what we do.",
+    "For a long time, it seemed impossible to move Drupal.org (or our workflow or methodologies) forward. It just seemed like we were stuck with what we had. We lacked control over our website and our community processes.",
+    "Recently, though we've come light-years from the old ways. Incredible improvements to longstanding problem areas like the Follow! Instead of subscribe comments, Deployment of BUEditor on d.o, API Change Notices, Issue summaries, testing contrib projects with dependencies and Images for all on drupal.org demonstrate that we do have control of our work environment and our territory. What great news! In addition, progress in the docs team toward a more sustainable strategy (with curated and uncurated docs) is a huge step forward.",
+    "The improvement of Drupal processes and d.o features can and will go a long way toward improving the health of our community and avoiding burnout. Congratulations to all who have led this sea-change in how our community works.",
+    "And if you want to participate in making Drupal.org awesome, read webchick's post. Hurry!",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/what-burnout",
+      "text": "What is Burnout?"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://london2011.drupal.org/coreconversation/1700-1730-burnout",
+      "text": "Burnout core conversation at Drupalcon London"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/109",
+      "text": "how individuals can respond to burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://www.helpguide.org/mental/burnout_signs_symptoms.htm#what",
+      "text": "Preventing Burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://www.amazon.com/Truth-About-Burnout-Organizations-Personal/dp/0787908746",
+      "text": "The Truth about Burnout: How Organizations Cause Personal Stress and What to Do About It"
+    },
+    {
+      "internal": false,
+      "key": "http://www.scientificamerican.com/article.cfm?id=burned-out",
+      "text": "Scientific American Mind"
+    },
+    {
+      "internal": false,
+      "key": "http://www.helpguide.org/mental/burnout_signs_symptoms.htm",
+      "text": "Preventing Burnout: Signs, Symptoms, Causes, and Coping Strategies"
+    },
+    {
+      "internal": true,
+      "key": "content/what-can-individuals-do-prevent-burnout",
+      "text": "What Can Individuals Do To Prevent Burnout?"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://london2011.drupal.org/coreconversation/1700-1730-burnout",
+      "text": "Burnout core conversation at Drupalcon London"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/107",
+      "text": "what burnout is"
+    },
+    {
+      "internal": false,
+      "key": "http://westendgirl.ca/preventing-and-dealing-burnout",
+      "text": "Arianek's excellent post about burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://www.scientificamerican.com/article.cfm?id=burned-out",
+      "text": "Scientific American Mind"
+    },
+    {
+      "internal": true,
+      "key": "content/how-does-drupal-community-burn-people-out",
+      "text": "How Does the Drupal Community Burn People Out?"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://london2011.drupal.org/coreconversation/1700-1730-burnout",
+      "text": "Burnout core conversation at Drupalcon London"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/107",
+      "text": "what burnout is"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/109",
+      "text": "about what individuals can do about burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://westendgirl.ca/preventing-and-dealing-burnout",
+      "text": "Arianek's excellent post about burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/dcoc#stepping-down",
+      "text": "DCOC"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/projectapplications?order=last_comment_timestamp&sort=asc&status=8",
+      "text": "more than 200 full project applications in \"needs review\""
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/projectapplications?order=last_comment_timestamp&sort=asc&status=14",
+      "text": "15 applications in RTBC"
+    },
+    {
+      "internal": false,
+      "key": "http://www.amazon.com/Truth-About-Burnout-Organizations-Personal/dp/0787908746",
+      "text": "The Truth about Burnout: How Organizations Cause Personal Stress and What to Do About It"
+    },
+    {
+      "internal": true,
+      "key": "content/what-can-drupal-community-do-about-burnout",
+      "text": "What can the Drupal Community do about Burnout?"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": true,
+      "key": "node/107",
+      "text": "what burnout is"
+    },
+    {
+      "internal": true,
+      "key": "node/109",
+      "text": "about what individuals can do about burnout"
+    },
+    {
+      "internal": true,
+      "key": "node/110",
+      "text": "how the Drupal Community burns people out"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/projectapplications",
+      "text": "full project application"
+    },
+    {
+      "internal": true,
+      "key": "content/happy-notes-about-not-burning-out",
+      "text": "Happy Notes! (About *not* burning out!)"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1306444",
+      "text": "Follow! Instead of subscribe comments"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/424400",
+      "text": "Deployment of BUEditor on d.o"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/648218",
+      "text": "API Change Notices"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1036132",
+      "text": "Issue summaries"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1241704",
+      "text": "testing contrib projects with dependencies"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/528682",
+      "text": "Images for all on drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1293124",
+      "text": "webchick's post"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

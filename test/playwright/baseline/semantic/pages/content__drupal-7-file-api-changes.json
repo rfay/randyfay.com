@@ -1,0 +1,141 @@
+{
+  "title": "Drupal 7 File API Changes | RandyFay.com",
+  "primaryHeading": "Drupal 7 File API Changes",
+  "contentFound": true,
+  "lines": [
+    "Mon, 2010-09-06 10:38 by rfay",
+    "Planet Drupal",
+    "Drupal 7 has had a major (read huge, life-altering) change to its file API. Hopefully it's all good, but you definitely need to understand it if you're porting or developing any D7 modules.",
+    "There are two key changes, which I'll deal with one at at time:",
+    "Files are accessed using \"streamwrapper\" or \"scheme\" notation, and your module doesn't even have a way to know where they are located. This means filenames like \"public://my_module/some_file.jpg\", \"private://my_module/some_privately_controlled_file.txt\", or \"temporary://tempfile.txt\".",
+    "The APIs have been split into \"managed\" and \"unmanaged\" versions. So if you're using a file that needs to be tracked in the database, you use the managed version of a function (like file_copy()), but if you're just uploading a file or moving it around and no reference needs to be maintained in the database, you use the unmanaged version (like file_unmanaged_copy()).",
+    "Streamwrappers, schemes, and targets",
+    "A long time ago in a faraway place a decision was made to hide the structure of files from applications using the files. This system was called \"streams\" and was a cornerstone of the Unix system, which is now the Linux system that powers all our webservers. The idea was that you could use one set of functions (system calls) to interact with any kind of filesystem (or things that weren't files) and you'd never know the difference. The idea called \"streams\" has made it into nearly all modern computing, and has been enhanced in PHP with the idea of naming files with a \"streamwrapper\" notation. This just means that the filename has a \"scheme\" followed by \"://\" and then a \"target\", which is essentially the path in the filesystem (assuming there is a filesystem).",
+    "So in Drupal 7 we have switched almost entirely to using streamwrapper notation for filenames. For public files it would be public://something..., for private private://something..., and temporary files are also available. In addition, a Drupal module can implement the DrupalStreamWrapperInterface class to provide more streamwrappers. The File Example module provides session://, which allows file storage in $_SESSION as a demonstration. (Hopefully there's no legitimate use for this.)",
+    "PHP also provides a number of other types of scheme, including file://, ftp://, http://, etc.",
+    "The rules of what functions can access what streamwrappers are basically:",
+    "PHP file functions (like fopen()) can use any streamwrapper file (including Drupal schemes public://, private://, or other Drupal-module-provided schemes)",
+    "Unmanaged Drupal API functions (like file_unmanaged_copy()) can access any streamwrapper filename",
+    "Managed Drupal API functions like (file_copy()) can access only Drupal-provided streamwrapper schemes (including those provided by add-on modules)",
+    "Basically, it's just like the old days, though, you open, copy, or write to a file. It happens that when you open the file you use a streamwrapper-based filename like \"public://\". Most people, most of the time, will just use \"public://something\".",
+    "Managed and Unmanaged Drupal APIs",
+    "There are two \"layers\" of Drupal File APIs now, the \"managed\" and the \"unmanaged\". (And then of course there are the PHP file functions as well.) The \"managed\" APIs maintain an entry in the file_managed table so that the file can be accessed later. Most modules that use a file for more than an immediate one-time need will be using managed files.",
+    "The unmanaged functions do basically the same thing as their underlying PHP counterparts. If you ask file_unmanaged_copy() to copy a file, it does it, which checking permissions and a number of other things. Nothing gets put in the database.",
+    "The File Example in Examples Project",
+    "The new File Example in the Examples for Developers Project demonstrates how to use a number of these APIs. It also implements a full Drupal streamwrapper interface, but that's a topic for another blog post.",
+    "File API Documentation in the Handbook",
+    "Here are some documentation starters for the Drupal 7 File API. More work is needed, of course, so please improve these pages.",
+    "D7 File API entry point",
+    "Important Drupal 7 File API Functions",
+    "File API changes from Drupal 6 to Drupal 7",
+    "API.drupal.org on file functions in Drupal 7",
+    "Comments",
+    "Ryan (not verified)",
+    "Mon, 2010-09-06 19:02",
+    "Permalink",
+    "Excellent write-up, Randy.",
+    "Excellent write-up, Randy. It's a very helpful introduction to something I was afraid I'd have to spend hours grokking when we prepare digital products in Drupal Commerce. The way you've explained it here, it doesn't seem like we'll have any trouble at all, and will actually have a much better API to use private files for purchasable files only w/ public for all the rest. Yay, Drupal 7. : D",
+    "Log in to post comments",
+    "mike (not verified)",
+    "Fri, 2010-10-15 04:45",
+    "Permalink",
+    "Greatly improved",
+    "I am happy to see file_move() update the database for you now, as well as a recursive mkdir() option.",
+    "Now I don't have to code workarounds for that. Sadly it wants stdClass for everything and not arrays (I am a fan of arrays, not of objects...) but oh well :)",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/file_example/7",
+      "text": "File Example"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers Project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/555118",
+      "text": "D7 File API entry point"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/877212",
+      "text": "Important Drupal 7 File API Functions"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/877214",
+      "text": "File API changes from Drupal 6 to Drupal 7"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/file/7",
+      "text": "API.drupal.org on file functions in Drupal 7"
+    },
+    {
+      "internal": false,
+      "key": "http://www.bywombats.com",
+      "text": "Ryan (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/184",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/184",
+      "text": "Excellent write-up, Randy."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/73%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://michaelshadle.com",
+      "text": "mike (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/335",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/335",
+      "text": "Greatly improved"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/73%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "title": "AJAX Form Resources | RandyFay.com",
+  "primaryHeading": "AJAX Form Resources",
+  "contentFound": true,
+  "lines": [
+    "Download the Examples project and experiment with it. There are many more examples there that show graceful degradation and more complex situations, like dependent dropdowns. View it live at http://drupalexamples.info/examples/ajax_example. See the code without downloading on api.drupal.org.",
+    "The Drupal.org handbook page on D7 AJAX forms",
+    "Form API Documentation, AJAX section",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ AJAX Example: Select control and generated checkboxes",
+    "up"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalexamples.info/examples/ajax_example",
+      "text": "http://drupalexamples.info/examples/ajax_example"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--ajax_example--ajax_example.module/7",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/752056",
+      "text": "The Drupal.org handbook page on D7 AJAX forms"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/file/developer/topics/forms_api_reference.html/7#ajax",
+      "text": "Form API Documentation, AJAX section"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-select-control-and-generated-checkboxes",
+      "text": "‹ AJAX Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Drupal 7 AJAX Forms",
+        "key": "ajax"
+      }
+    ]
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "title": "Debugging Strategies | RandyFay.com",
+  "primaryHeading": "Debugging Strategies",
+  "contentFound": true,
+  "lines": [
+    "Turn on your brain first",
+    "Before beginning a debugging effort, turn on your brain. Ask yourself some questions:",
+    "Have you looked at the Drupal log yet? Going to admin->reports->dblog has solved many a problem... after I've spent an hour trying to figure it out.",
+    "Have you looked at the Apache log yet? If you're debugging a WSOD (White Screen of Death) and haven't looked at the Apache log yet, you're wasting your time. If you don't yet know where the apache log is on sites you maintain, find out now.",
+    "Has anything changed on the site lately?",
+    "Is your internet connection working?",
+    "Are other sites on the same server working correctly?",
+    "Does the dev or staging version of your site still work?",
+    "Divide and Conquer: Binary Search",
+    "Almost any piece of software or any debugging problem is too large to understand all at once. So you have to figure out ways to divide the problem. If you can divide the problem in half a couple of times you'll rapidly have a more understandable problem.",
+    "There are many ways to divide up a problem:",
+    "Divide it into different sections of code",
+    "Divide it into different modules or different combinations of modules",
+    "Divide it into different versions (if it appears to be a version-related issue)",
+    "Best practices that will make problem-solving easier",
+    "Many of the items in this tutorial may require you to learn a new technique or two. Commit to breaking out of the stalemate. Don't let skills that you haven't yet mastered keep you from really resolving a problem. Learn them, even if it means investing in them in the midst of a crisis. Never let a mysterious site remain mysterious. Commit the resources you need to shine the light on your Drupal installation. It's worth it - it will pay off in no time.",
+    "Keep a log of changes on the site. Note when a new module is installed, when a patch is applied, when an upgrade is done. You may want to consider using the journal module to help with this. But a simple log like this one can make problemsolving easier.",
+    "Keep your code under source control, and know how to use it.",
+    "Keep multiple backups of your database. Use the Backup and Migrate module for small sites, or another backup technique for larger sites.",
+    "Make sure you have an environment set up that is similar to your production environment where you can set up a clone of the production site at a moment's notice.",
+    "Use a notebook to record changes as you make them when you're working through a lot of experiments, like enabling and disabling modules. Otherwise you may not be able to remember where you came from or how to get back there.",
+    "Drupal",
+    "debugging",
+    "Book Navigation",
+    "‹ Drupal Debugging",
+    "up",
+    "Debugging Tools: Preparation and Investment Ahead of Time ›"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/158043",
+      "text": "WSOD (White Screen of Death)"
+    },
+    {
+      "internal": false,
+      "key": "http://wiki.apache.org/httpd/DistrosDefaultLayout",
+      "text": "find out now"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/journal",
+      "text": "journal"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org/changelog",
+      "text": "this one"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/backup_migrate",
+      "text": "Backup and Migrate"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "debugging",
+      "text": "‹ Drupal Debugging"
+    },
+    {
+      "internal": true,
+      "key": "debugging",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-tools-preparation-and-investment-ahead-time",
+      "text": "Debugging Tools: Preparation and Investment Ahead of Time ›"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Drupal Debugging",
+        "key": "debugging"
+      }
+    ]
+  }
+}

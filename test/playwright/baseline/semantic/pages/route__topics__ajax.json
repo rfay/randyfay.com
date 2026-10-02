@@ -1,0 +1,718 @@
+{
+  "title": "AJAX | RandyFay.com",
+  "primaryHeading": "AJAX",
+  "contentFound": true,
+  "lines": [
+    "AHAH Changes for Drupal 7 (It's now called #AJAX)",
+    "Drupal 7 AHAH has changed its name to AJAX to use a more familiar term and to be slightly more trendy. A version of this presentation for D7 AJAX is at http://randyfay.com/ajax. D7 AJAX handling is massively simplified.",
+    "The AJAX Example for D7 is now in the Examples Module and will be maintained there. If you find AJAX features that you'd like to see in it that aren't there, file a request or submit a patch.",
+    "Drupal",
+    "AHAH",
+    "AJAX",
+    "Book Navigation",
+    "‹ AHAH Resources",
+    "up",
+    "Examples of AJAX forms in Drupal",
+    "Book module (core) (Rebuilds the form so you can select an appropriate book and parent page)",
+    "Poll module (core) (Click a submit button and it adds another question)",
+    "Examples module (Drupal 7) provides a number of AJAX examples in the \"AJAX Example module\".",
+    "Quicktabs module (Configuration options change with the type of tab)",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ What are AJAX Forms in Drupal?",
+    "up",
+    "30 Seconds on the Drupal Form API ›",
+    "30 Seconds on the Drupal Form API",
+    "It's pretty easy to forget all the details of the Drupal Forms API, so we'll stop for a minute for a very short review.",
+    "(This one is at ahah_demo/simple_form.)",
+    "You add a form to your page like this:",
+    "$output .= drupal_get_form('ahah_demo_simplest_form');",
+    "?>",
+    "Often that's done right from the hook_menu implementation.",
+    "The layout of a form is as below:",
+    "/**",
+    "* A Hello-world for Forms API (FAPI)",
+    "*/",
+    "function ajax_demo_simplest_form($form, &$form_state) {",
+    "$form['explanation'] = array(",
+    "'#type' => 'markup',",
+    "'#value' => '",
+    "' . t('This is a basic form with just a bit of information') . '",
+    "',",
+    ");",
+    "$form['experience'] = array(",
+    "'#type' => 'select',",
+    "'#title' => t('What is your experience level in Drupal?'),",
+    "'#options' => array(",
+    "'expert' => t('Expert'),",
+    "'journeyman' => t('Journeyman'),",
+    "'beginner' => t('Beginner')),",
+    ");",
+    "$form['more'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t(\"Say more about yourself\"),",
+    "'#description' => t('Surely one word can\\'t describe you.'),",
+    ");",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "function ajax_demo_simplest_form_submit($form, &$form_state) {",
+    "drupal_set_message(t('You have claimed to be %experience: %more',",
+    "array(",
+    "'%experience'=>$form_state['values']['experience'],",
+    "'%more' => $form_state['values']['more'],",
+    ")",
+    "));",
+    "}",
+    "?>",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ Examples of AJAX forms in Drupal",
+    "up",
+    "AJAX Simplest Example ›",
+    "AJAX Simplest Example",
+    "The essence of AJAX forms is that you mark an element of a form as the one that activates AJAX behavior, and you tell it what section of the HTML is to be replaced when it's activated.",
+    "The form we're using here has a textfield with a description, which is just plain HTML. It has a prefix and suffix that mention its CSS ID. The CSS ID will be used by the javascript running in the background to determine what's to be replaced.",
+    "$form['changethis'] is marked as AJAX-enabled with the \"#ajax\" marker, which tells the Form API its callback function and the HTML ID (wrapper) to replace.",
+    "When $form['changethis'] is changed, javascript provided by Drupal makes a request to the server, which rebuilds the form and calls the callback, which selects a piece of the form. The resulting form piece is rendered and returned to the page, and is replaced by the javascript that made the original call.",
+    "(This one is live at http://d7.drupalexamples.info/examples/ajax_example/simplest and the code is on api.drupal.org at http://api.drupal.org/api/function/ajax_example_simplest/7)",
+    "Here's an example of the very simplest AJAX behavior from the Examples module.",
+    "/**",
+    "* Simple form whose ajax-enabled 'changethis' member causes a text change",
+    "* in the description of the 'replace_textfield' member.",
+    "*/",
+    "function ajax_example_simplest($form, &$form_state) {",
+    "$form = array();",
+    "$form['changethis'] = array(",
+    "'#title' => t(\"Choose something and explain why\"),",
+    "'#type' => 'select',",
+    "'#options' => array(",
+    "'one' => 'one',",
+    "'two' => 'two',",
+    "'three' => 'three',",
+    "),",
+    "'#ajax' => array(",
+    "'callback' => 'ajax_example_simplest_callback',",
+    "'wrapper' => 'replace_textfield_div',",
+    "),",
+    ");",
+    "// This entire form element will be replaced with an updated value.",
+    "// However, it has to have the prefix/suffix to work right, as the entire",
+    "// div is replaced.",
+    "// In this example, the description is dynamically updated during form",
+    "// rebuild.",
+    "$form['replace_textfield'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t(\"Why\"),",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    ");",
+    "if (!empty($form_state['values']['changethis'])) {",
+    "$form['replace_textfield']['#description'] = t(\"Say why you chose\") . \" '{$form_state['values']['changethis']}'\";",
+    "}",
+    "return $form;",
+    "}",
+    "/**",
+    "* Callback for ajax_example_simplest.",
+    "*",
+    "* The form item 'replace_textfield' has already been processed and changed",
+    "* when the form was submitted and rebuilt during the AJAX call, so now",
+    "* we just return the piece of the form that changed.",
+    "*/",
+    "function ajax_example_simplest_callback($form, $form_state) {",
+    "// The form has already been submitted and updated. We can return the replaced",
+    "// item as it is.",
+    "return $form['replace_textfield'];",
+    "}",
+    "?>",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ 30 Seconds on the Drupal Form API",
+    "up",
+    "AJAX Example: Textfields driven by checkboxes ›",
+    "AJAX Example: Select control and generated checkboxes",
+    "In this example we use a select control to determine how many checkboxes are generated.",
+    "(This one is live at http://d7.drupalexamples.info/examples/ajax_example/autocheckboxes and the code on api.drupal.org at http://api.drupal.org/api/function/ajax_example_autocheckboxes/7)",
+    "/**",
+    "* AJAX-enabled select element causes replacement of a set of checkboxes",
+    "* based on the selection.",
+    "*/",
+    "function ajax_example_autocheckboxes($form, &$form_state) {",
+    "$default = !empty($form_state['values']['howmany']) ? $form_state['values']['howmany'] : 1;",
+    "$form['howmany_select'] = array(",
+    "'#title' => t('How many checkboxes do you want?'),",
+    "'#type' => 'select',",
+    "'#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4),",
+    "'#default_value' => $default,",
+    "'#ajax' => array(",
+    "'callback' => 'ajax_example_autocheckboxes_callback',",
+    "'wrapper' => 'checkboxes-div',",
+    "'method' => 'replace',",
+    "'effect' => 'fade',",
+    "),",
+    ");",
+    "$form['checkboxes_fieldset'] = array(",
+    "'#title' => t(\"Generated Checkboxes\"),",
+    "// The prefix/suffix provide the div that we're replacing, named by",
+    "// #ajax['wrapper'] above.",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#type' => 'fieldset',",
+    "'#description' => t('This is where we get automatically generated checkboxes'),",
+    ");",
+    "$num_checkboxes = !empty($form_state['values']['howmany_select']) ? $form_state['values']['howmany_select'] : 1;",
+    "for ($i=1; $i<=$num_checkboxes; $i++) {",
+    "$form['checkboxes_fieldset'][\"checkbox$i\"] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => \"Checkbox $i\",",
+    ");",
+    "}",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Submit'),",
+    ");",
+    "return $form;",
+    "}",
+    "/**",
+    "* Callback element needs only select the portion of the form to be updated.",
+    "* Since #ajax['callback'] return can be HTML or a renderable array (or an",
+    "* array of commands), we can just return a piece of the form.",
+    "*/",
+    "function ajax_example_autocheckboxes_callback($form, $form_state) {",
+    "return $form['checkboxes_fieldset'];",
+    "}",
+    "?>",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ AJAX Example: Textfields driven by checkboxes",
+    "up",
+    "AJAX Form Resources ›",
+    "AJAX Form Resources",
+    "Download the Examples project and experiment with it. There are many more examples there that show graceful degradation and more complex situations, like dependent dropdowns. View it live at http://drupalexamples.info/examples/ajax_example. See the code without downloading on api.drupal.org.",
+    "The Drupal.org handbook page on D7 AJAX forms",
+    "Form API Documentation, AJAX section",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ AJAX Example: Select control and generated checkboxes",
+    "up",
+    "AJAX Example: Textfields driven by checkboxes",
+    "In this example, we just use checkboxes to determine whether textboxes are displayed.",
+    "One of the fundamental ideas of having a form change based on selections within the form is that the form is reconfiguring itself based on $form_state. So here, the generation of the form is driven by $form_state['values']. If the checkbox for last name is checked, then we generate a textfield for last name.",
+    "(Experiment with this one at http://d7.drupalexamples.info/examples/ajax_example/autotextfields or see the current code at http://api.drupal.org/api/function/ajax_example_autotextfields/7.)",
+    "/**",
+    "* Show/hide textfields based on AJAX-enabled checkbox clicks.",
+    "*/",
+    "function ajax_example_autotextfields($form, &$form_state) {",
+    "$form['ask_first_name'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => t('Ask me my first name'),",
+    "'#ajax' => array(",
+    "'callback' => 'ajax_example_autotextfields_callback',",
+    "'wrapper' => 'textfields',",
+    "'effect' => 'fade',",
+    ")",
+    ");",
+    "$form['ask_last_name'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => t('Ask me my last name'),",
+    "'#ajax' => array(",
+    "'callback' => 'ajax_example_autotextfields_callback',",
+    "'wrapper' => 'textfields',",
+    "'effect' => 'fade',",
+    "),",
+    ");",
+    "$form['textfields'] = array(",
+    "'#title' => t(\"Generated text fields for first and last name\"),",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#type' => 'fieldset',",
+    "'#description' => t('This is where we put automatically generated textfields'),",
+    ");",
+    "if (!empty($form_state['values']['ask_first_name']) && $form_state['values']['ask_first_name']) {",
+    "$form['textfields']['first_name'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('First Name'),",
+    ");",
+    "}",
+    "if (!empty($form_state['values']['ask_last_name']) && $form_state['values']['ask_last_name']) {",
+    "$form['textfields']['last_name'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('Last Name'),",
+    ");",
+    "}",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "/**",
+    "* Selects the piece of the form we want to use as replacement text and returns",
+    "* it as a form (renderable array).",
+    "*",
+    "* @return renderable array (the textfields element)",
+    "*/",
+    "function ajax_example_autotextfields_callback($form, $form_state) {",
+    "return $form['textfields'];",
+    "}",
+    "?>",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ AJAX Simplest Example",
+    "up",
+    "AJAX Example: Select control and generated checkboxes ›",
+    "Form API Changes for Drupal 7, Part 2: AJAX/AHAH Changes",
+    "Tue, 2010-09-07 03:41 by rfay",
+    "AJAX",
+    "Planet Drupal",
+    "Forms",
+    "Continuing from Form API Changes for Drupal 7, Part 1: $form_state changes.",
+    "One of the many pleasant improvements to the Drupal Form API is that AJAX Forms are now really easy. Really easy. We used to call them AHAH forms, and the concept was the same, but they were so complicated that few people attempted them. In D7 we even changed the name to distance ourselves from \"AHAH\" :-)",
+    "In Drupal 6 you had to make a menu entry in hook_menu() that pointed to an AJAX callback handler that was complete black magic. (See a sanitized example.) People did this part differently, and it was hard to figure out the right way. (If you're doing D6 AHAH, the gory details and resources are here.)",
+    "In Drupal 7 there is none of that. But we still have to start with the basics so that you'll understand what's going on:",
+    "The key idea here is that manipulating a form element will make something active happen (usually replacement of a piece of the form) without a full page refresh. For example, changing a select might change the options in the rest of the form, without a page refresh.",
+    "To use AJAX forms, you don't need to know or use or see any javascript. It's all handled for you by the Form API.",
+    "To AJAX-enable a form element (to make it do something active when it's manipulated) you just set the #ajax property on it",
+    "When the form element changes (or is clicked, or whatever) a form submission is done by the client in the background.",
+    "The server-side code rebuilds the form (in the formbuilder function) in a different way",
+    "The #ajax['callback'] function chooses what part of the form to replace on the page",
+    "Replacement HTML is returned to the client javascript code, which replaces a part of the page.",
+    "OK, so here's all you have to do to AJAXify a form:",
+    "In your form, set #ajax on an element, perhaps a select.",
+    "Your formbuilder function should have logic to rebuild differently when the select changes. (See the simple formbuilder in ajax_example_autocheckboxes.)",
+    "#ajax['callback'] will point to a (typically simple) function which often only selects and returns the changed piece of the form. (See the tremendously simple ajax_example_autocheckboxes_callback.)",
+    "That's basically it. Of course you can do lots and lots more than this, but the basic entry point for AJAX forms is mighty easy.",
+    "Submit handler is not called when a non-submit is called",
+    "One key change from Drupal 6 to be aware of is that when you activate a non-submit AJAX-enabled form element, the submit handlers are not called. In Drupal 6, submit handlers were called, and a bit of spaghetti code was typically done there.",
+    "Drupal 7 AJAX Forms Resources",
+    "Drupal.org handbook page on AJAX Forms",
+    "Examples for Developers AJAX Example has many AJAX Form examples, including more complex gracefully-degrading techniques. This is also quickly accessible on api.drupal.org",
+    "Explanation details for the some of the AJAX Examples",
+    "Key D7 AJAX Open Issues",
+    "There are still a few of important open issues for D7 AJAX that you may want to look at:",
+    "Fix drupal_add_js() and drupal_add_css() to work for AJAX requests too by adding lazy-load to AJAX framework (Absolutely critical - add your +1 to this, or help out)",
+    "#type 'link' is not ajaxifiable",
+    "Improve drupalPostAJAX() to be used more easily, leading to better AJAX test coverage",
+    "Next time: Drupal 7 multistep form changes.",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "ahah/drupal7",
+      "text": "AHAH Changes for Drupal 7 (It's now called #AJAX)"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/ajax",
+      "text": "http://randyfay.com/ajax"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples Module"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-resources",
+      "text": "‹ AHAH Resources"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ajax-forms-drupal",
+      "text": "Examples of AJAX forms in Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/quicktabs",
+      "text": "Quicktabs module"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/what-are-ajax-forms-drupal",
+      "text": "‹ What are AJAX Forms in Drupal?"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/30-seconds-drupal-form-api",
+      "text": "30 Seconds on the Drupal Form API ›"
+    },
+    {
+      "internal": true,
+      "key": "content/30-seconds-drupal-form-api",
+      "text": "30 Seconds on the Drupal Form API"
+    },
+    {
+      "internal": true,
+      "key": "ahah_demo/simple_form",
+      "text": "ahah_demo/simple_form"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ajax-forms-drupal",
+      "text": "‹ Examples of AJAX forms in Drupal"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-simplest-example",
+      "text": "AJAX Simplest Example ›"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-simplest-example",
+      "text": "AJAX Simplest Example"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/ajax_example/simplest",
+      "text": "http://d7.drupalexamples.info/examples/ajax_example/simplest"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_simplest/7",
+      "text": "http://api.drupal.org/api/function/ajax_example_simplest/7"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/30-seconds-drupal-form-api",
+      "text": "‹ 30 Seconds on the Drupal Form API"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-textfields-driven-checkboxes",
+      "text": "AJAX Example: Textfields driven by checkboxes ›"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-select-control-and-generated-checkboxes",
+      "text": "AJAX Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/ajax_example/autocheckboxes",
+      "text": "http://d7.drupalexamples.info/examples/ajax_example/autocheckboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_autocheckboxes/7",
+      "text": "http://api.drupal.org/api/function/ajax_example_autocheckboxes/7"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-textfields-driven-checkboxes",
+      "text": "‹ AJAX Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-form-resources",
+      "text": "AJAX Form Resources ›"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-form-resources",
+      "text": "AJAX Form Resources"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalexamples.info/examples/ajax_example",
+      "text": "http://drupalexamples.info/examples/ajax_example"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--ajax_example--ajax_example.module/7",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/752056",
+      "text": "The Drupal.org handbook page on D7 AJAX forms"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/file/developer/topics/forms_api_reference.html/7#ajax",
+      "text": "Form API Documentation, AJAX section"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-select-control-and-generated-checkboxes",
+      "text": "‹ AJAX Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-textfields-driven-checkboxes",
+      "text": "AJAX Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/ajax_example/autotextfields",
+      "text": "http://d7.drupalexamples.info/examples/ajax_example/autotextfields"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_autotextfields/7",
+      "text": "http://api.drupal.org/api/function/ajax_example_autotextfields/7"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-simplest-example",
+      "text": "‹ AJAX Simplest Example"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-select-control-and-generated-checkboxes",
+      "text": "AJAX Example: Select control and generated checkboxes ›"
+    },
+    {
+      "internal": true,
+      "key": "content/form-api-changes-drupal-7-part-2-ajaxahah-changes",
+      "text": "Form API Changes for Drupal 7, Part 2: AJAX/AHAH Changes"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/forms",
+      "text": "Forms"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/66",
+      "text": "Form API Changes for Drupal 7, Part 1: $form_state changes"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ahah_example_callback_helper/6",
+      "text": "sanitized example"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/ahah",
+      "text": "here"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7#ajax",
+      "text": "#ajax"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7#ajax",
+      "text": "#ajax"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_autocheckboxes/7",
+      "text": "ajax_example_autocheckboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_autocheckboxes_callback/7",
+      "text": "ajax_example_autocheckboxes_callback"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/752056",
+      "text": "Drupal.org handbook page on AJAX Forms"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/ajax_examples/7",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/ajax",
+      "text": "Explanation details for the some of the AJAX Examples"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/561858",
+      "text": "Fix drupal_add_js() and drupal_add_css() to work for AJAX requests too by adding lazy-load to AJAX framework"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/647228",
+      "text": "#type 'link' is not ajaxifiable"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/789186",
+      "text": "Improve drupalPostAJAX() to be used more easily, leading to better AJAX test coverage"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,422 @@
+{
+  "title": "Simpler Rebasing (avoiding unintentional merge commits) | RandyFay.com",
+  "primaryHeading": "Simpler Rebasing (avoiding unintentional merge commits)",
+  "contentFound": true,
+  "lines": [
+    "Sat, 2011-05-21 20:21 by rfay",
+    "git rebase",
+    "Planet Drupal",
+    "git",
+    "Executive summary: Set up to automatically use a git pull --rebase",
+    "Please just do this if you do nothing else:",
+    "git config --global pull.rebase true",
+    "About rebasing and pulling",
+    "Edit 2021-06-17: Updated the suggested command from the old git config --global branch.autosetuprebase always to the current (from a long time) git config --global pull.rebase true",
+    "I've written a couple of articles on rebasing and why to do it, but it does seem that the approaches can be too complex for some workflows. So I'd like to propose a simpler rebase approach and reiterate why rebasing is important in a number of situations.",
+    "Here's a simple way to avoid evil merge commits but not do the fancier topic branch approaches:",
+    "Go ahead and work on the branch you commit on (say 7.x-1.x)",
+    "Make sure that when you pull you do it with git pull --rebase",
+    "Push when you need to.",
+    "That's it.",
+    "Reasons to rebase to keep your history clean",
+    "There are two major reasons not to go with the default \"git pull\" merge technique.",
+    "Unintentional merge commits are evil: As described in the Git disasters article, doing the default git pull with a merge can result in merge commits that hide information, present cryptic merge commits like \"Merge branch '7.x' of /home/rfay/workspace/d7git into 7.x\" which explain nothing at all, and may contain toxic changes that you didn't intend. There is nothing wrong with merges or merge commits if you intend to present a merge. But having garbage merges every time you do a pull is really a mess, as described in the article above.",
+    "Intentional merge commits are OK if you really want that branch history there: If a significant, long-term piece of work has gone on and should be shown as a branch in the future history of the project, then go ahead and merge it before you commit, using git merge --no-ff to show a specific intentional merge. However, if the work you're committing is really a single piece of work (the equivalent of a Drupal.org patch), then why should it show up in the long-term history of the project as a branch and a merge?",
+    "I'll write again about merging and rebasing workflows, but for now we're just going to deal with #1: The case where you share a branch with others and you want to pull in their work without generating unintentional merge commits.",
+    "How to use git pull --rebase",
+    "The first and most important thing if you're a committer working on a branch shared with other committers is to never use the default git pull. Use the rebase version, git pull --rebase. That takes your commits that are not on the remote version of your branch and reworks/rebases them so that they're ahead of (on top of) the new commits you pull in with your pull.",
+    "Automatically using git pull --rebase",
+    "It's very easy to set up so that you don't ever accidentally use the merge-based pull. To configure a single branch this way:",
+    "git config branch.7.x.rebase true",
+    "To set it up so every branch you ever create on any repository is set to pull with rebase:",
+    "git config --global pull.rebase true",
+    "That should do the trick. Using this technique, no matter whether you use techniques to keep your history linear or not, whether you use topic branches or not, whether you squash or not, you won't end up with git disasters.",
+    "Bottom line: No matter what you do, please use git pull --rebase. To do that automatically forever without thinking,",
+    "git config --global pull.rebase true",
+    "Comments",
+    "grendzy (not verified)",
+    "Sun, 2011-05-22 10:34",
+    "Permalink",
+    "Rebasing is a lie!",
+    "For a contrary perspective, checkout Thou Shalt Not Lie: git rebase, ammend, squash, and other lies:",
+    "Rebasing using `git rebase foo` allows you to rebase your topic branch on foo, instead of whatever it was based on before. This makes it look like you were working from foo the whole time. However, each commit to your topic branch was birthed in a context and by a sequence of events that was unique to that time and that topic branch. You are yanking those commits out of their context and putting them into a totally new context.",
+    "Rebasing is effectively a retroactive merge. It is pretending that you \"merged\" foo into your topic branch 3 days ago, but you didn't. You merged it in today, and you are lying to everyone.",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2011-05-22 12:58",
+    "Permalink",
+    "The question: Is it worth exposing your topic branch",
+    "The issue, of course, is \"Does it help anybody in the future to see my topic branch and the various garbage commits on it.\" The answer, much of the time, is \"no\". That's what serious rebasing is about. The \"rebasing\" discussed in this tiny article is just about making sure your local changes go on top of what's already been committed, so you don't end up with stupid, dangerous, useless merge commits that don't help anything.",
+    "Log in to post comments",
+    "grendzy (not verified)",
+    "Sun, 2011-05-22 21:07",
+    "Permalink",
+    "I don't understand why you",
+    "I don't understand why you keep saying merges are so dangerous - the only danger I see here is your advice to do something \"automatically forever without thinking\". The previous article about git disasters really only showed that \"--force\" is dangerous, which is practically a truism. Cleaning your own history with rebase is fine, but you can't clean other people's history, or commits that have otherwise been shared.",
+    "It's also worth noting that Linus has suggested that we consider \"pull\" a synchronization point - a time to merge in a specific known changeset, and test the result. It's not a good idea to pull too frequently or at random times.",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2011-05-22 21:13",
+    "Permalink",
+    "Git disaster was not about force",
+    "The git disaster was not about force. It was about merges that were unintentional. Please take another look.",
+    "The problem is that when multiple people work on the same branch, they get unintentional merge commits when they pull. Those merge commits not only obscure the history, they can contain badness, which is what that article was about.",
+    "Log in to post comments",
+    "sdboyer (not verified)",
+    "Sun, 2011-05-22 21:42",
+    "Permalink",
+    "\"Contrary perspective\" is not applicable",
+    "Piling on to rfay's response to your comment, let me also assert that the post you've linked to is NOT talking about rebasing in the same context. It it not a \"contrary perspective,\" or at least not a directly contrary one.",
+    "Log in to post comments",
+    "Michael Curry (not verified)",
+    "Mon, 2011-05-30 19:45",
+    "Permalink",
+    "Correcting a misstatement is not a lie",
+    "Perhaps I've misunderstood your argument, but it seems to me that using --amend to correct an incorrect commit message is not a lie. In fact, quite the opposite, the original commit message was incorrect and misleading, therefore using --amend to correct it is perfectly valid, if that's the best and/or only way to make the correction.",
+    "(I realize this is somewhat off-topic for the original discussion, but I thought I'd add my $.02 worth, since @grendzy's referenced posting paints a rather broad brush about 'lying' to git (and hence those viewing the git repository. He has a point, though it's not relevant in all cases.)",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2011-05-30 20:12",
+    "Permalink",
+    "Rewriting a commit before pushing it is like revising a story",
+    "OK, so let's try this. Before you push something, it's yours to rework and amend as you see fit, right? So doing a git commit --amend or any kind of rebase is just editing your own story before publishing it, is it not?",
+    "I think people get confused between rebasing a publicly exposed commit (which can certainly cause confusion, but which is not even currently allowed on drupal.org) and rebasing before push (as with a git commit --amend on something that hasn't been pushed). In the latter case, don't you have the right to get your stuff the way you want it to appear in public?",
+    "Log in to post comments",
+    "MSG (not verified)",
+    "Thu, 2016-04-07 14:09",
+    "Permalink",
+    "Actually, wouldn't this also",
+    "Actually, wouldn't this also be true about a merge too? When you merge your branch (instead of rebasing it) your set of changes are inserted into a different context given by the top of the branch you merge into. You still need to asses whether your set of changes (in your feature branch) that are now part of the merged commit are still consistent with your intended fix. (a merge and a rebase both could change the context of the set of changes you introduced).",
+    "Log in to post comments",
+    "fndtn357 (not verified)",
+    "Sun, 2011-05-29 16:50",
+    "Permalink",
+    "rebase",
+    "This quote helped me immensely to understand \"why\" to use rebase in this circumstance.",
+    "What rebase really says is to consider the changes that are about to be made to the branch FIRST get the changes that have already been COMMITTED to the branch, and then re-apply changes on top of that, irrespective of when the changes were made.",
+    "Log in to post comments",
+    "Hans (not verified)",
+    "Mon, 2011-05-30 08:41",
+    "Permalink",
+    "Would it be safe if some",
+    "Would it be safe if some developers on a repository use git pull --rebase and some don't?",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2011-05-30 09:04",
+    "Permalink",
+    "It's not unsafe to mix them.",
+    "It's not unsafe to mix them. It's just ugly to do a pull with merge. So the devs that use the merge pull will introduce merge commits, which are ugly and can include errors. But there's nothing about the two workflows together that make this any worse.",
+    "Log in to post comments",
+    "Mike (not verified)",
+    "Fri, 2012-10-05 22:45",
+    "Permalink",
+    "GUI Interfaces",
+    "If you have setup the global autorebase configuration, but use an application such as Tower, can you still just click \"Pull\"? Will it utilize the global config change I made? There is a secondary option in Tower after clicking pull, which is rebase, but just wondering if I really have to press it even though I've made this config change.",
+    "Log in to post comments",
+    "rfay",
+    "Sat, 2012-10-06 08:28",
+    "Permalink",
+    "All the guis I've seen use git",
+    "All the GUIs I've seen use git and its configuration under the cover.",
+    "Log in to post comments",
+    "ChrisH (not verified)",
+    "Mon, 2016-03-28 23:37",
+    "Permalink",
+    "And it seems that",
+    "And it seems that",
+    "git config --global branch.autosetuprebase always",
+    "is now (since v1.7.9)",
+    "git config --global pull.rebase true",
+    "(from https://news.ycombinator.com/item?id=11144061)",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/git-rebase",
+      "text": "git rebase"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/taxonomy/term/26",
+      "text": "rebasing and why to do it"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/89",
+      "text": "Git disasters"
+    },
+    {
+      "internal": false,
+      "key": "http://www.metaltoad.com/people/dylan-tack",
+      "text": "grendzy (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1110",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1110",
+      "text": "Rebasing is a lie!"
+    },
+    {
+      "internal": false,
+      "key": "http://paul.stadig.name/2010/12/thou-shalt-not-lie-git-rebase-ammend.html",
+      "text": "Thou Shalt Not Lie: git rebase, ammend, squash, and other lies"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1113",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1113",
+      "text": "The question: Is it worth exposing your topic branch"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/91",
+      "text": "serious rebasing"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.metaltoad.com/people/dylan-tack",
+      "text": "grendzy (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1121",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1121",
+      "text": "I don't understand why you"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1122",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1122",
+      "text": "Git disaster was not about force"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/146719",
+      "text": "sdboyer (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1123",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1123",
+      "text": "\"Contrary perspective\" is not applicable"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://exodusdev.com",
+      "text": "Michael Curry (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1180",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1180",
+      "text": "Correcting a misstatement is not a lie"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1181",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1181",
+      "text": "Rewriting a commit before pushing it is like revising a story"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3622",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3622",
+      "text": "Actually, wouldn't this also"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1166",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1166",
+      "text": "rebase"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1176",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1176",
+      "text": "Would it be safe if some"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1177",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1177",
+      "text": "It's not unsafe to mix them."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2664",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2664",
+      "text": "GUI Interfaces"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2665",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2665",
+      "text": "All the guis I've seen use git"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3621",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3621",
+      "text": "And it seems that"
+    },
+    {
+      "internal": false,
+      "key": "https://news.ycombinator.com/item?id=11144061",
+      "text": "https://news.ycombinator.com/item?id=11144061"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/103%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

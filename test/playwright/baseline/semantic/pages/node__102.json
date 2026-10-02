@@ -1,0 +1,202 @@
+{
+  "title": "Handling the new .gitignore file in D7 and D8 | RandyFay.com",
+  "primaryHeading": "Handling the new .gitignore file in D7 and D8",
+  "contentFound": true,
+  "lines": [
+    "Tue, 2011-05-17 14:46 by rfay",
+    "Planet Drupal",
+    "git",
+    "Drupal 7 and Drupal 8 recently added a default (and sensible) .gitignore file to the standard repository, and while this solves some problems, it has also caused some confusion. (issue)",
+    "Here's a link to the actual new .gitignore. Essentially, it excludes the sites/default/files and sites/default/settings.php files from git source control.",
+    "What problems does having a default .gitignore solve?",
+    "The biggest problem it solves is that patches submitted to drupal.org were accidentally including things that they never should have included (like people's settings.php files) We just don't need that information, thank you very much.",
+    "It also sets a \"best practice\" for not source-controlling your files directory. Since the files directory is website-generated or user-generated content, it doesn't make any sense to put that in your git repository; most people have long come to a consensus on this, although not all agree.",
+    "What problems does having a default .gitignore create?",
+    "Mostly the problems created have to do with developer workflow.",
+    "A dev site may contain lots of deliberately uncontrolled modules or themes or libraries.",
+    "A site may want a completely different .gitignore due to various policy differences from the default.",
+    "How do I solve these problems?",
+    "Lots of ways:",
+    "If you don't want sites/all to be controlled at all (you want to ignore all modules and themes and libraries), add a file at sites/all/.gitignore with the contents a single line containing nothing but *",
+    "Simply change the .gitignore and commit the change. You won't be pushing it up to 7.x right?",
+    "If you track core code using downloads (and not git) you can simply change the .gitignore and check it into your own VCS.",
+    "Add extra things into .git/info/exclude. This basically works like .gitignore (it has good examples in it) and is not under source control at all.",
+    "Add an additional master gitignore capability with git config core.excludesfile .gitignore.custom and then put additional exclusions in the .gitignore.custom file.",
+    "Note that only 1 and 2 are completely source-controlled. In other words, #3, 4, and 5 would have a slight bit of configuration on a deployment site to work correctly, but they work perfectly for a random dev site.",
+    "How do I exclude things from Git that should always be excluded (Eclipse .project files, Netbeans nbproject directories, .orig files, etc.)?",
+    "You can have a global kill file. I use ~/.gitignore for things that I don't ever want to see show up as untracked files. You can activate that with git config --global core.excludesfile ~/.gitignore",
+    "Comments",
+    "Michael Prasuhn (not verified)",
+    "Tue, 2011-05-17 23:23",
+    "Permalink",
+    "1. The biggest problem it",
+    "1. The biggest problem it solves is that patches submitted to drupal.org were accidentally including things that they never should have included (like people's settings.php files) We just don't need that information, thank you very much.",
+    "This is a strawman argument since that file isn't included in git anyway. We don't include .patch and .orig and .rej files in the gitignore even through those are as likely to be included in a patch to d.o as a settings.php.",
+    "And from solutions",
+    "2. Simply change the .gitignore and commit the change. You won't be pushing it up to 7.x right?",
+    "This also goes around the very thing its supposed to prevent. If 1 of the goals is to prevent chagnes to settings.php from making their way in to patches (when the file isn't even versioned) aren't we going to end up seeing patches to d.o with hunks from .gitignore?",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-05-18 08:33",
+    "Permalink",
+    "On gitignore hunks, depends on how you make patches",
+    "On #2, gitignore hunks in patches, it does depend on how you make patches. If you make patches against your local tracking branch then no, it will work fine. If you make patches against the remote branch, then yes, you'll have the problem you suggest.",
+    "Perhaps .patch and .orig files and such should be included in the .gitignore. However, they're almost always in the untracked files, so less likely to be a problem. The problem is when settings.php is tracked.",
+    "Log in to post comments",
+    "sun (not verified)",
+    "Wed, 2011-05-18 19:01",
+    "Permalink",
+    "Additional .gitignore",
+    "1) Since I believe that an additional .gitignore will become sort of a standard, it would be a good idea to also set a standard in terms of \"common filename\". Therefore, changing project.gitignore into .gitignore.custom in this (and potentially all other copies of this) wonderful tutorial would be lovely.",
+    "2) Although possibly going into extremes, it's not clear to me whether one could have both an additional global core.excludesfile, in addition to one a per project.",
+    "3) Will you also publish/move these tutorials on d.o at some point? Obviously, I'd want to read them on your blog first, but middle-term, we should try hard to collect these tidbits in d.o handbooks.",
+    "P.S.: After preview, the submit+preview buttons appear at the very very very bottom of the screen/form.",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-05-18 21:59",
+    "Permalink",
+    "OK, will do...",
+    "#1 Done - works for me.",
+    "#2, Yes, you can have a global and also a project core.excludesfiles. I like it, because so many files just should never show up in my index. I use Eclipse, and never want any of its meta files to accidentally show up as untracked or in the index. So global is a great place.",
+    "#3, I agree very strongly, and try to get information like this into the d.o handbook. There are at least a couple reasons they start here. First, nobody would ever notice if I dropped them into the handbook. Second, I'm often spouting my own opinion here in order to see what the community will think of it. It's often too soon to try to promote \"best practices\". For example, almost all I wrote about rebasing turned out to be more than most people need. I'll need to write some more basic practices. And the great git docs team did in fact winnow down some of the more complex practices I was promoting.",
+    "Thanks, sun.",
+    "Log in to post comments",
+    "sun (not verified)",
+    "Thu, 2011-05-19 08:34",
+    "Permalink",
+    "All of your posts about git",
+    "All of your posts about git are highly interesting to me. Digging further on the net, it seemed that many (non-Drupal) git users agree with your best practices on rebasing. That has been very valuable input.",
+    "But yes, at the same time, git noobs like me get slighlty confused and worried about whether they're merging public/remote branches correctly, whether (default?) squash merges are correct, or whether patches should not rather be committed separately to every other remote branch (related to that strange fast-forward thing?), aso... Losing or properly maintaining log/change history is what concerns me most.",
+    "In other words, I've now understood that I should be using rebase for local remote tracking branches as long as I keep them local and intend to merge them in the end. But proper handling of public/remote branches is not entirely clear to me. Right now, I'm committing changes to a leading/master branch, pull-merge them into remote topic branches, and push them back to the remote. Whether that is correct? No idea. ;)",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/917492",
+      "text": "issue"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalcode.org/project/drupal.git/blob_plain/refs/heads/7.x:/.gitignore",
+      "text": "a link"
+    },
+    {
+      "internal": false,
+      "key": "http://shomeya.com",
+      "text": "Michael Prasuhn (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1098",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1098",
+      "text": "1. The biggest problem it"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/102%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1100",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1100",
+      "text": "On gitignore hunks, depends on how you make patches"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/102%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.unleashedmind.com",
+      "text": "sun (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1101",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1101",
+      "text": "Additional .gitignore"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/102%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1102",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1102",
+      "text": "OK, will do..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/102%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.unleashedmind.com",
+      "text": "sun (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1103",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1103",
+      "text": "All of your posts about git"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/102%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

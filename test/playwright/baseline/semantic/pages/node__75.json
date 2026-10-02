@@ -1,0 +1,223 @@
+{
+  "title": "Want to help the Drupal Testing Infrastructure? Provide a testbot! | RandyFay.com",
+  "primaryHeading": "Want to help the Drupal Testing Infrastructure? Provide a testbot!",
+  "contentFound": true,
+  "lines": [
+    "Thu, 2010-09-09 06:37 by rfay",
+    "Planet Drupal",
+    "Edit: This initiative wasn't really successful, but since this was written the testbots migrated onto the OSUOSL Supercell infrastructure. The center for information about the testbots is the Testbot project and issue queue.",
+    "Do you have some spare computing power, or want to provide some to the Drupal testing infrastructure?",
+    "You probably know that every commit and every patch submitted to Drupal 7 Core gets a full test (more than 20,000 assertions) taking 25 minutes on non-trivial computer hardware. So we can generally use more computing power. For the code sprint at Drupalcon Copenhagen, we had 13 machines testing patches so that everybody could get the fastest possible turnaround.",
+    "Anyway, it's not hard to do it. You can either install a machine with Debian 5 and go through a simple setup, or just use the free Virtualbox program with a pre-set configuration. That way you don't have to blow away an existing machine's configuration, and you can still return it to its old life after it's served as a PIFR client for awhile. (PIFR is Project Issue File Review).",
+    "There is a new writeup on qa.drupal.org explaining how you too can provide a testbot. Your testbot has to be able to reach the internet (and qa.drupal.org) but it does not have to be reachable from the internet, and it does not have to have a fast internet connection. It just does its work and then returns the results.",
+    "The only thing we ask is that you take care of your testbot. Don't turn it off without first disabling it on qa.drupal.org. Don't forget about it and have it all broken and everything up there. It makes things complicated and it makes a mess on http://qa.drupal.org/pifr/status :-)",
+    "Thanks!",
+    "Comments",
+    "gapa (not verified)",
+    "Sat, 2010-09-18 13:54",
+    "Permalink",
+    "You should really add",
+    "You should really add this",
+    "The only thing we ask is that you take care of your testbot. Don't turn it off without first disabling it on qa.drupal.org. Don't forget about it and have it all broken and everything up there. It makes things complicated and it makes a mess on http://qa.drupal.org/pifr/status :-)",
+    "in here http://qa.drupal.org/node/84",
+    "Log in to post comments",
+    "rfay",
+    "Sat, 2010-09-18 15:47",
+    "Permalink",
+    "Doesn't the second bullet over there do the job?",
+    "Doesn't the second bullet over there do the job? Am I missing something?",
+    "Log in to post comments",
+    "gapa (not verified)",
+    "Sun, 2010-09-19 13:05",
+    "Permalink",
+    "For me it was much clearer",
+    "For me it was much clearer when I read it in your blog. And it still is. :) But maybe it's just me.",
+    "br,",
+    "gapa",
+    "Log in to post comments",
+    "mike (not verified)",
+    "Fri, 2010-10-15 04:49",
+    "Permalink",
+    "I'll have to look into this,",
+    "I'll have to look into this, I have something like 10 machines I could throw at it, most of them pretty decent and idle most of the time.",
+    "Log in to post comments",
+    "gapa (not verified)",
+    "Tue, 2012-03-27 14:56",
+    "Permalink",
+    "After such a long time I",
+    "After such a long time I would like again to setup testbot. As I can see \"few\" things changed so I can't setup testbot anymore. I have tried a bit with this but with no luck. Are there any better instructions? Or maybe virtual image of some kind?",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2012-03-28 10:59",
+    "Permalink",
+    "Testbot project is info source",
+    "The google doc is what I use to set up testbots; I set up 8 of them for the Drupalcon code sprint the other day. I maintain it as well when things change, and it has info on debugging. It can certainly be better.",
+    "I'll be happy to help you any time if you want to do this. However, we're not really looking for extra testbot contributions at this time, because they were too hard to handle (it required a lot of work to get in touch with the owner whenever anything went wrong.) At this point we're using the [OSUOSL's supercell](http://randyfay.com/node/99for testbots, and it's working quite well.",
+    "The center for information about the testbots is http://drupal.org/project/testbot, and the issue queue there is the best starting way to get in touch about any issue in this area.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/99",
+      "text": "migrated onto the OSUOSL Supercell infrastructure"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/testbot",
+      "text": "Testbot project and issue queue"
+    },
+    {
+      "internal": false,
+      "key": "http://qa.drupal.org/node/84",
+      "text": "new writeup on qa.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://qa.drupal.org/pifr/status",
+      "text": "http://qa.drupal.org/pifr/status"
+    },
+    {
+      "internal": true,
+      "key": "comment/226",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/226",
+      "text": "You should really add"
+    },
+    {
+      "internal": false,
+      "key": "http://qa.drupal.org/pifr/status",
+      "text": "http://qa.drupal.org/pifr/status"
+    },
+    {
+      "internal": false,
+      "key": "http://qa.drupal.org/node/84",
+      "text": "http://qa.drupal.org/node/84"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/75%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/227",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/227",
+      "text": "Doesn't the second bullet over there do the job?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/75%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/228",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/228",
+      "text": "For me it was much clearer"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/75%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://michaelshadle.com",
+      "text": "mike (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/336",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/336",
+      "text": "I'll have to look into this,"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/75%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2241",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2241",
+      "text": "After such a long time I"
+    },
+    {
+      "internal": false,
+      "key": "https://docs.google.com/document/d/1s2PG8GdWcovi9z8uCBiiHGBzALFQqt4noqLL4ADUbUw/edit?hl=en_US",
+      "text": "this"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/75%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2243",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2243",
+      "text": "Testbot project is info source"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/99for",
+      "text": "http://randyfay.com/node/99for"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/testbot",
+      "text": "http://drupal.org/project/testbot"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/75%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

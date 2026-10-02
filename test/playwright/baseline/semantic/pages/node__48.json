@@ -1,0 +1,92 @@
+{
+  "title": "Drupal 7 AJAX Forms | RandyFay.com",
+  "primaryHeading": "Drupal 7 AJAX Forms",
+  "contentFound": true,
+  "lines": [
+    "[This material was developed for a presentation at Drupalcamp Colorado in June of 2010. If you find any problems with it or want to suggest any improvements, send me an email or catch me on IRC (rfay).]",
+    "All of us know about \"Web 2.0\" and \"AJAX\", or \"Asynchronous Javascript and XML\". The basic idea behind AJAX is that a Javascript program running in the browser communicates (usually via HTTP and XML) with the webserver and gets information that it uses to do a task or update the page. Several Drupal modules use AJAX, and it's widely deployed on the web. It normally requires you to write and maintain some pretty good Javascript along with your PHP, and it's a powerful way to add interactive features to a website. Drupal's excellent contrib module Fivestar, for example, uses XML to allow you to vote without a page load.",
+    "Built into Drupal, though, is a no-visible-Javascript technique for doing AJAX form updates. It uses Javascript under the hood, but you never see it. Everything the programmer does is in PHP. And in Drupal 7 it's pretty darned easy.",
+    "Continue reading the entire presentation.",
+    "Drupal",
+    "What are AJAX Forms in Drupal?",
+    "Examples of AJAX forms in Drupal",
+    "30 Seconds on the Drupal Form API",
+    "AJAX Simplest Example",
+    "AJAX Example: Textfields driven by checkboxes",
+    "AJAX Example: Select control and generated checkboxes",
+    "AJAX Form Resources",
+    "Book Navigation",
+    "What are AJAX Forms in Drupal? ›"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "contact",
+      "text": "send me an email"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/fivestar",
+      "text": "Fivestar"
+    },
+    {
+      "internal": true,
+      "key": "node/49",
+      "text": "Continue reading the entire presentation"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/what-are-ajax-forms-drupal",
+      "text": "What are AJAX Forms in Drupal?"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ajax-forms-drupal",
+      "text": "Examples of AJAX forms in Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/30-seconds-drupal-form-api",
+      "text": "30 Seconds on the Drupal Form API"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-simplest-example",
+      "text": "AJAX Simplest Example"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-textfields-driven-checkboxes",
+      "text": "AJAX Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-select-control-and-generated-checkboxes",
+      "text": "AJAX Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-form-resources",
+      "text": "AJAX Form Resources"
+    },
+    {
+      "internal": true,
+      "key": "content/what-are-ajax-forms-drupal",
+      "text": "What are AJAX Forms in Drupal? ›"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

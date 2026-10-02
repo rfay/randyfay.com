@@ -1,0 +1,79 @@
+{
+  "title": "Translatable Regions Module: For user-contributed content in many languages | RandyFay.com",
+  "primaryHeading": "Translatable Regions Module: For user-contributed content in many languages",
+  "contentFound": true,
+  "lines": [
+    "Thu, 2010-06-10 14:18 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Drupal is great at handling multilingual situations, but how do you make user-contributed content in multiple languages accessible to those who can't read them?",
+    "The Translatable Regions module tackles this by using the automated Google AJAX Language API via the jquery-translate plugin.",
+    "What do you have to do?",
+    "Install the module.",
+    "Decide what selectors you want to have translation buttons.",
+    "Configure the selectors at admin/settings/translatableregions.",
+    "Whenever those selectors appear on the page, a button is added offering to translate to many languages, the default being the browser language.",
+    "Here's an example of the use on user profiles on http://warmshowers.org.",
+    "To see live user-generated content translation, to go The Portuguese-language forums on Warmshowers.org."
+  ],
+  "images": [
+    {
+      "src": "http://randyfay.com/files/translatable_regions_screenshot.png",
+      "name": "translatable_regions_screenshot.png",
+      "alt": ""
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/translatableregions",
+      "text": "Translatable Regions"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/apis/ajaxlanguage",
+      "text": "Google AJAX Language API"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/p/jquery-translate",
+      "text": "jquery-translate plugin"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org",
+      "text": "http://warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://pt.warmshowers.org/content/benvind-ao-warmshowers",
+      "text": "The Portuguese-language forums on Warmshowers.org"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

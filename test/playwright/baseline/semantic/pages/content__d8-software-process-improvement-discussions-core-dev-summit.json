@@ -1,0 +1,115 @@
+{
+  "title": "D8 Software Process Improvement Discussions at Core Dev Summit | RandyFay.com",
+  "primaryHeading": "D8 Software Process Improvement Discussions at Core Dev Summit",
+  "contentFound": true,
+  "lines": [
+    "Wed, 2010-04-14 08:27 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "We can substantially improve our core software development process with some simple steps in Drupal 8.",
+    "<",
+    "ol>",
+    "Improve our issue queue setup on drupal.org.",
+    "Our issue queue works the way it does because Drupal worked that way a long time ago. We can do better than that.",
+    "Each core issue should have an issue summary, and the issue summary should be correct and complete before commit.",
+    "An issue should have links to related and dependent issues.",
+    "There should be checkoffs for docs, usability, security, etc.",
+    "Of course we know how to do this with Drupal. Let's do it. Related issues: Improve the workflow for documentation of core API changes and Provide a mechanism for issue meta discussions",
+    "Full functional in-browser testing, including javascript and AJAX. I'll be presenting a brainstorm on this at the Core Dev Summit and there will be a BoF on this topic at 4pm on Monday in room 200. We have to solve our lack of test coverage in this area. AJAX and javascript get essentially no real test coverage, so it's like the old days... somebody has to report that something is broken. Even with things as important as install.php.",
+    "Every feature should have a full, working example in the tests module. We create \"mock modules\" to write tests against... but sometimes features actually go in that nobody knows how to use. A simple remedy: Before commit, there needs to be a comprehensive example in the related mock module in the tests. The comprehensive example can be used as fodder for tests, but it's also there for people to see how to use something. Enable the mock module, try it out. Recently the fantastic #states feature went in with no documentation and essentially no usage examples. And it wasn't testable because we don't have Javascript testing. But if we had the requirement of a comprehensive example, we'd have been fine (and several bugs would have been avoided.)",
+    "What are your suggestions for software process improvements in D8? Let's talk about this at the Core Dev Summit on Saturday!",
+    "Comments",
+    "Ronald (not verified)",
+    "Wed, 2010-04-14 15:26",
+    "Permalink",
+    "Tap into the long tail",
+    "Hi Randy, agree and hope to help. Wrote something about this on my blog today as well",
+    "Log in to post comments",
+    "moshe weitzman (not verified)",
+    "Wed, 2010-04-14 16:36",
+    "Permalink",
+    "first one please",
+    "fwiw, i'd really love to see #1 get immediate attention. this will speed up drupal development and make it less tedious. the issue queue is the most unfun part of core dev.",
+    "on the other hand, #3 will slow us down a little, in favor of better docs and quality. it makes sense, but lower priority IMO.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/648218",
+      "text": "Improve the workflow for documentation of core API changes"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/569552",
+      "text": "Provide a mechanism for issue meta discussions"
+    },
+    {
+      "internal": false,
+      "key": "http://www.istos.it",
+      "text": "Ronald (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/79",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/79",
+      "text": "Tap into the long tail"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/59%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/moshe",
+      "text": "moshe weitzman (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/80",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/80",
+      "text": "first one please"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/59%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

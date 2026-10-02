@@ -1,0 +1,119 @@
+{
+  "title": "AJAX Simplest Example | RandyFay.com",
+  "primaryHeading": "AJAX Simplest Example",
+  "contentFound": true,
+  "lines": [
+    "The essence of AJAX forms is that you mark an element of a form as the one that activates AJAX behavior, and you tell it what section of the HTML is to be replaced when it's activated.",
+    "The form we're using here has a textfield with a description, which is just plain HTML. It has a prefix and suffix that mention its CSS ID. The CSS ID will be used by the javascript running in the background to determine what's to be replaced.",
+    "$form['changethis'] is marked as AJAX-enabled with the \"#ajax\" marker, which tells the Form API its callback function and the HTML ID (wrapper) to replace.",
+    "When $form['changethis'] is changed, javascript provided by Drupal makes a request to the server, which rebuilds the form and calls the callback, which selects a piece of the form. The resulting form piece is rendered and returned to the page, and is replaced by the javascript that made the original call.",
+    "(This one is live at http://d7.drupalexamples.info/examples/ajax_example/simplest and the code is on api.drupal.org at http://api.drupal.org/api/function/ajax_example_simplest/7)",
+    "Here's an example of the very simplest AJAX behavior from the Examples module.",
+    "/**",
+    "* Simple form whose ajax-enabled 'changethis' member causes a text change",
+    "* in the description of the 'replace_textfield' member.",
+    "*/",
+    "function ajax_example_simplest($form, &$form_state) {",
+    "$form = array();",
+    "$form['changethis'] = array(",
+    "'#title' => t(\"Choose something and explain why\"),",
+    "'#type' => 'select',",
+    "'#options' => array(",
+    "'one' => 'one',",
+    "'two' => 'two',",
+    "'three' => 'three',",
+    "),",
+    "'#ajax' => array(",
+    "'callback' => 'ajax_example_simplest_callback',",
+    "'wrapper' => 'replace_textfield_div',",
+    "),",
+    ");",
+    "// This entire form element will be replaced with an updated value.",
+    "// However, it has to have the prefix/suffix to work right, as the entire",
+    "// div is replaced.",
+    "// In this example, the description is dynamically updated during form",
+    "// rebuild.",
+    "$form['replace_textfield'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t(\"Why\"),",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    ");",
+    "if (!empty($form_state['values']['changethis'])) {",
+    "$form['replace_textfield']['#description'] = t(\"Say why you chose\") . \" '{$form_state['values']['changethis']}'\";",
+    "}",
+    "return $form;",
+    "}",
+    "/**",
+    "* Callback for ajax_example_simplest.",
+    "*",
+    "* The form item 'replace_textfield' has already been processed and changed",
+    "* when the form was submitted and rebuilt during the AJAX call, so now",
+    "* we just return the piece of the form that changed.",
+    "*/",
+    "function ajax_example_simplest_callback($form, $form_state) {",
+    "// The form has already been submitted and updated. We can return the replaced",
+    "// item as it is.",
+    "return $form['replace_textfield'];",
+    "}",
+    "?>",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ 30 Seconds on the Drupal Form API",
+    "up",
+    "AJAX Example: Textfields driven by checkboxes ›"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/ajax_example/simplest",
+      "text": "http://d7.drupalexamples.info/examples/ajax_example/simplest"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_simplest/7",
+      "text": "http://api.drupal.org/api/function/ajax_example_simplest/7"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/30-seconds-drupal-form-api",
+      "text": "‹ 30 Seconds on the Drupal Form API"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-textfields-driven-checkboxes",
+      "text": "AJAX Example: Textfields driven by checkboxes ›"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Drupal 7 AJAX Forms",
+        "key": "ajax"
+      }
+    ]
+  }
+}

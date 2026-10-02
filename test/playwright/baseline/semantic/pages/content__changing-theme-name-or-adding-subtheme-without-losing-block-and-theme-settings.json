@@ -1,0 +1,138 @@
+{
+  "title": "Changing a theme name (or adding a subtheme) without losing block and theme settings | RandyFay.com",
+  "primaryHeading": "Changing a theme name (or adding a subtheme) without losing block and theme settings",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2011-05-08 19:27 by rfay",
+    "Planet Drupal",
+    "This happens to me periodically, so I thought I'd write it down.",
+    "Situation: An existing site has had its theme hacked in place, or just has a stock theme deployed and I need a subtheme. But that means that I'm going to have to change the name of the theme, which can mean having to go back and do all the theme and block settings again. I really don't like manual work, so this time I tried to write down what has to be done to create a new theme with the old theme's settings and block settings.",
+    "I did this on a Drupal 6 site, but I believe the basics are the same for any Drupal version. Edit (26 May 2011): Drupal 7 block table changed its name and one field, so a recipe for it is at the bottom of the article.",
+    "Create your new theme or subtheme. Our theme's machine name will be 'newtheme'. The theme we're replacing (which has the same regions and behavior) will be 'oldtheme'.",
+    "Create new records in the blocks table for the new theme",
+    "DELETE FROM blocks WHERE theme=\"newtheme\";",
+    "INSERT INTO blocks SELECT 0, module, delta, 'newtheme', status, weight, region, custom, throttle, visibility, pages, title, cache FROM blocks WHERE theme=\"oldtheme\";",
+    "Make a copy of the theme_settings information:",
+    "DELETE FROM variable WHERE name=\"theme_newtheme_settings\";",
+    "INSERT INTO variable SELECT 'theme_newtheme_settings', value from variable where name=\"theme_oldtheme_settings\";",
+    "You may have other theme specific variables. For example, if you use skinr...",
+    "DELETE FROM variable WHERE name=\"skinr_newtheme\";",
+    "INSERT INTO variable SELECT 'skinr_newtheme', value from variable where name=\"skinr_oldtheme\";",
+    "Clear your cache drush cc all",
+    "Now of course you should look around and see if it all worked, but this may give you a start.",
+    "Here's the full set of sql statements, and you can do these over and over with no damage.",
+    "DELETE FROM blocks WHERE theme=\"newtheme\";",
+    "DELETE FROM variable WHERE name IN ('theme_newtheme_settings', 'skinr_newtheme');",
+    "INSERT INTO variable SELECT 'theme_newtheme_settings', value FROM variable WHERE name=\"theme_oldtheme_settings\";",
+    "INSERT INTO variable SELECT 'skinr_newtheme', value FROM variable WHERE name=\"skinr_oldtheme\";",
+    "INSERT INTO blocks",
+    "SELECT 0, module, delta, 'newtheme', status, weight, region, custom, throttle, visibility, pages, title, cache",
+    "FROM blocks WHERE theme=\"oldtheme\";",
+    "For Drupal 7:",
+    "DELETE FROM block WHERE theme=\"newtheme\";",
+    "DELETE FROM variable WHERE name IN ('theme_newtheme_settings', 'skinr_newtheme');",
+    "INSERT INTO variable SELECT 'theme_newtheme_settings', value FROM variable WHERE name=\"theme_oldtheme_settings\";",
+    "INSERT INTO variable SELECT 'skinr_newtheme', value FROM variable WHERE name=\"skinr_oldtheme\";",
+    "INSERT INTO block",
+    "SELECT 0, module, delta, 'newtheme', status, weight, region, custom, visibility, pages, title, cache",
+    "FROM block WHERE theme=\"oldtheme\";",
+    "Edit: You'll need the color module's settings if you've used it also",
+    "Update the variables for color_themename_logo, color_themename_palette, color_themename_screenshot, and color_themename_stylesheets",
+    "Comments",
+    "ao2 (not verified)",
+    "Wed, 2011-05-11 03:52",
+    "Permalink",
+    "Drush command?",
+    "This looks like a good candidate for a new drush command, something like:",
+    "drush copy-theme-settings .",
+    "Thanks for sharing Randy.",
+    "Log in to post comments",
+    "cgmonroe (not verified)",
+    "Fri, 2011-06-10 12:42",
+    "Permalink",
+    "Minor Correction",
+    "First, thanks for saving me a bunch of time redoing settings on a renamed theme!",
+    "One minor typo in your sql statements... you use 'theme_settings_newtheme' a few times. This should be 'theme_newtheme_settings'. Only effects the delete statements.",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2011-06-10 14:11",
+    "Permalink",
+    "Thanks - I think I got it",
+    "Thanks - I think I got it fixed up. Appreciate the correction!",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://ao2.it",
+      "text": "ao2 (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1089",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1089",
+      "text": "Drush command?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/100%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1388",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1388",
+      "text": "Minor Correction"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/100%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1389",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1389",
+      "text": "Thanks - I think I got it"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/100%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

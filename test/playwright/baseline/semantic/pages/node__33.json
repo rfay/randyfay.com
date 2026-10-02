@@ -1,0 +1,183 @@
+{
+  "title": "AHAH Example: Select control and generated checkboxes | RandyFay.com",
+  "primaryHeading": "AHAH Example: Select control and generated checkboxes",
+  "contentFound": true,
+  "lines": [
+    "Note that this is currently maintained in the Examples project so the code here may not be the latest.",
+    "In this example we use a select control to determine how many checkboxes are generated.",
+    "(Experience this one at http://d6.drupalexamples.info/examples/ahah_example/autocheckboxes.)",
+    "/**",
+    "* @file",
+    "* A Self-configure a form based on a select control",
+    "* Add the number of checkboxes specified in the select",
+    "*/",
+    "function ahah_demo_autocheckboxes(&$form_state) {",
+    "$default = !empty($form_state['values']['howmany']) ? $form_state['values']['howmany'] : 1;",
+    "$form['howmany'] = array(",
+    "'#title' => t('How many checkboxes do you want?'),",
+    "'#type' => 'select',",
+    "'#options' => array(1=>1, 2=>2, 3=>3, 4=>4),",
+    "'#default_value' => $default,",
+    "'#ahah' => array(",
+    "'path' => 'ahah_demo/autocheckboxes/callback',",
+    "'wrapper' => 'checkboxes',",
+    "'effect' => 'fade',",
+    "),",
+    ");",
+    "$form['checkboxes'] = array(",
+    "'#title' => t(\"Generated Checkboxes\"),",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#type' => 'fieldset',",
+    "'#description' => t('This is where we get automatically generated checkboxes'),",
+    ");",
+    "$num_checkboxes = !empty($form_state['values']['howmany']) ? $form_state['values']['howmany'] : 1;",
+    "for ($i=1; $i<=$num_checkboxes; $i++) {",
+    "$form['checkboxes'][\"checkbox$i\"] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => \"Checkbox $i\",",
+    ");",
+    "}",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "/**",
+    "* Callback for autocheckboxes. Process the form with the number of checkboxes",
+    "* we want to provide",
+    "*/",
+    "function ahah_demo_autocheckboxes_callback() {",
+    "$form_state = array('storage' => NULL, 'submitted' => FALSE);",
+    "$form_build_id = $_POST['form_build_id'];",
+    "$form = form_get_cache($form_build_id, $form_state);",
+    "$args = $form['#parameters'];",
+    "$form_id = array_shift($args);",
+    "$form_state['post'] = $form['#post'] = $_POST;",
+    "$form['#programmed'] = $form['#redirect'] = FALSE;",
+    "// HACK: Select values changing never get recognized",
+    "unset ($form['howmany']['#value']);",
+    "drupal_process_form($form_id, $form, $form_state);",
+    "$form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);",
+    "$checkboxes = $form['checkboxes'];",
+    "$output = drupal_render($checkboxes);",
+    "// Final rendering callback.",
+    "print drupal_json(array('status' => TRUE, 'data' => $output));",
+    "exit();",
+    "}",
+    "?>",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ AHAH Example: Textfields driven by checkboxes",
+    "up",
+    "AHAH Notes and Issues ›",
+    "Comments",
+    "Visitor (not verified)",
+    "Fri, 2010-06-11 03:20",
+    "Permalink",
+    "how do I set if the checkbox generated are checked?",
+    "what do I do if I need check box 1 and 3 to be selected when its generated???",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2010-06-11 06:21",
+    "Permalink",
+    "Please look at the Examples module",
+    "Are you saying you want the checkboxes to retain their values?",
+    "Take a look at the current version of this in the Examples Project AHAH Example, where this is maintained. That was fixed recently.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://d6.drupalexamples.info/examples/ahah_example/autocheckboxes",
+      "text": "http://d6.drupalexamples.info/examples/ahah_example/autocheckboxes"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-textfields-driven-checkboxes",
+      "text": "‹ AHAH Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-notes-and-issues",
+      "text": "AHAH Notes and Issues ›"
+    },
+    {
+      "internal": false,
+      "key": "http://geshan.blogspot.com",
+      "text": "Visitor (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/93",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/93",
+      "text": "how do I set if the checkbox generated are checked?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/33%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/94",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/94",
+      "text": "Please look at the Examples module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples Project"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/33%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+        "key": "ahah"
+      }
+    ]
+  }
+}

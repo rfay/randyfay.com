@@ -1,0 +1,189 @@
+{
+  "title": "AHAH Resources | RandyFay.com",
+  "primaryHeading": "AHAH Resources",
+  "contentFound": true,
+  "lines": [
+    "Download the Example module and experiment with the AHAH Examples.",
+    "The Drupal.org handbook page on Drupal 6 AHAH",
+    "Forms API Documentation, AHAH section",
+    "AHAH Helper module, which does some of the work for you on the callback",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ AHAH Notes and Issues",
+    "up",
+    "AHAH Changes for Drupal 7 (It's now called #AJAX) ›",
+    "Comments",
+    "Visitor (not verified)",
+    "Sat, 2010-07-24 17:11",
+    "Permalink",
+    "Using AHAH to add multiple new fields",
+    "Hello-",
+    "I'm looking for help using AHAH to add new fields, much like when you have a node fields with an unlimited number of values. There is a button that says 'Add Another Item'. How can I implement this / where is the code in core that I can examine?",
+    "Thanks!",
+    "Jeff",
+    "Los Angeles, CA",
+    "Log in to post comments",
+    "rfay",
+    "Sat, 2010-07-24 18:22",
+    "Permalink",
+    "Add-another and node form",
+    "Hi Jeff-",
+    "Add another works just like the examples in the Examples project: Use a AHAH-enabled submit button, and build the form with another field. Essentially, you're driving it with a submit instead of a select or checkbox like in the example.",
+    "The D7 AJAX example has an explicit example of add-more - You may want to roll it for D6 and we'll add it to the Examples.",
+    "-Randy",
+    "Log in to post comments",
+    "Peter Cook (not verified)",
+    "Wed, 2013-01-09 13:25",
+    "Permalink",
+    "form example with add/remove textfields",
+    "Thanks for the examples. I wanted to make a form with the ability to add and remove textfields and having come up with some working code I thought I should share it. More details, an example and code can be found here:",
+    "http://www.petercook.com.au/Drupal6-AHAH-Examples",
+    "Thanks again,",
+    "Peter Cook.",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2013-01-09 13:31",
+    "Permalink",
+    "Contribute to Examples project",
+    "Thanks for the link! The central location for these examples became the Examples project some years ago... Could you provide a patch over there? It would be great to see this for Drupal 7 as well, as 6 is nearly obsolete.",
+    "Thanks!",
+    "-Randy",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Example module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/348475",
+      "text": "The Drupal.org handbook page on Drupal 6 AHAH"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/file/developer/topics/forms_api_reference.html/6#ahah",
+      "text": "Forms API Documentation, AHAH section"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/ahah_helper",
+      "text": "AHAH Helper"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-notes-and-issues",
+      "text": "‹ AHAH Notes and Issues"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "ahah/drupal7",
+      "text": "AHAH Changes for Drupal 7 (It's now called #AJAX) ›"
+    },
+    {
+      "internal": true,
+      "key": "comment/112",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/112",
+      "text": "Using AHAH to add multiple new fields"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/32%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/113",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/113",
+      "text": "Add-another and node form"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/32%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.petercook.com.au",
+      "text": "Peter Cook (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3389",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3389",
+      "text": "form example with add/remove textfields"
+    },
+    {
+      "internal": false,
+      "key": "http://www.petercook.com.au/Drupal6-AHAH-Examples",
+      "text": "http://www.petercook.com.au/Drupal6-AHAH-Examples"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/32%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3390",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3390",
+      "text": "Contribute to Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/32%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+        "key": "ahah"
+      }
+    ]
+  }
+}

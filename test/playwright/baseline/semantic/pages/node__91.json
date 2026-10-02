@@ -1,0 +1,1544 @@
+{
+  "title": "A Rebase Workflow for Git | RandyFay.com",
+  "primaryHeading": "A Rebase Workflow for Git",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2011-02-06 13:00 by rfay",
+    "Planet Drupal",
+    "git",
+    "git rebase",
+    "Update October, 2014: Lots of things have gotten easier over the years.",
+    "These days, the easy way to fix this set of things is with the Pull Request workflow, which is essentially the Integration Manager workflow discussed here (probably).",
+    "Use github or bitbucket or somebody that makes the PR workflow easy",
+    "Delegate a person as integration manager, who will pull or comment on the PR",
+    "Require contributors to rebase their own PR branch before pulling if there are conflicts.",
+    "Update: Just for clarification, I'm not opposed to merges. I'm only opposed to unintentional merges (especially with a git pull). This followup article describes a simple way to rebase most of the time without even thinking about it). Also, for local development I love the git merge --squash method described by joachim below.",
+    "In this post I'm going to try to get you to adopt a specific rebase-based workflow, and to avoid (mostly) the merge workflow.",
+    "What is the Merge Workflow?",
+    "The merge workflow consists of:",
+    "git commit -m \"something\"",
+    "git pull # this does a merge from origin and may add a merge commit",
+    "git push # Push back both my commit and the (possible) merge commit",
+    "Note that you normally are forced to do the pull unless you're the only committer and you committed the last commit.",
+    "Why Don't I Want the Merge Workflow?",
+    "As we saw in Avoiding Git Disasters, the multiple-committer merge workflow has very specific perils due to the fact that every committer for a time has responsibility for what the other committers have committed.",
+    "These are the problems with the merge workflow:",
+    "It has the potential for disaster, as that merge and merge commit have to be handled correctly by every committer. That said, most committers will have no trouble with it and will not mess it up. But if you have lots of committers, and they don't all understand Git, or they are using a GUI that hides the actual results from them, watch out.",
+    "Your history becomes a mess. It has all kinds of inexplicable merge commits (which you typically don't look inside to see what's there) and the history (gitk) becomes useless.",
+    "Debugging using git bisect is confused massively due to the merge commits.",
+    "When Is the Merge Workflow OK?",
+    "The merge workflow will do you no damage at all if you",
+    "Only have one committer (or a very small number of committers, and you trust them all)",
+    "and",
+    "You don't care much about reading your history.",
+    "OK, What is Rebasing?",
+    "First, definitions:",
+    "A branch is a separate line of work. You may have seen these before in other VCS's, but in Git they're so easy to use that they're addictive and life-altering. You can expose branches in the public repository (a public branch) or they may never get off of your machine (a topical branch).",
+    "A public branch is one that more than one person pulls from. In Drupal, 7.x-1.x for most modules and themes would be a public branch.",
+    "A topical branch (or feature branch) is a private branch that you alone are using, and will not exposed in the public repository.",
+    "A tracking branch is a local branch that knows where its remote is, and that can push to and pull from that remote. Assuming a remote named \"origin\" and a public branch named \"7.x-1.x\", we could create a tracking branch with git branch --track 7.x-1.x origin/7.x-1.x, or with newer versions of git, git checkout --track origin/7.x-1.x",
+    "The fundamental idea of rebasing is that you make sure that your commits go on top of the \"public\" branch, that you \"rebase\" them so that instead of being related to some commit way back when you started working on this feature, they get reworked a little so they go on top of what's there now.",
+    "Don't do your work on the public branch (Don't work on master or 6.x-1.x or whatever). Instead, work on a \"topical\" or \"feature\" branch, one that's devoted to what you want to do.",
+    "When you're ready to commit something, you rebase onto the public branch, plopping your work onto the very tip of the public branch, as if it were a single patch you were applying.",
+    "Here's the approach. We'll assume that we already have a tracking branch 7.x-1.x for the public 7.x-1.x branch.",
+    "git checkout 7.x-1.x # Check out the \"public\" branch",
+    "git pull # Get the latest version from remote",
+    "git checkout -b comment_broken_links_101026 # topical branch",
+    "... # do stuff here.. Make commits.. test...",
+    "git fetch origin # Update your repository's origin/ branches from remote repo",
+    "git rebase origin/7.x-1.x # Plop our commits on top of everybody else's",
+    "git checkout 7.x-1.x # Switch to the local tracking branch",
+    "git pull # This won't result in a merge commit",
+    "git rebase comment_broken_links_101026 # Pull those commits over to the \"public\" branch",
+    "git push # Push the public branch back up, with my stuff on the top",
+    "There are ways to simplify this, but I wanted to show it explicitly. The fundamental idea is that I as a developer am taking responsibility to make sure that my work goes right in on top of the everybody else's work. And that it \"fits\" there - that it doesn't require any magic or merge commits.",
+    "Using this technique, your work always goes on top of the public branch like a patch that is up-to-date with current HEAD. This is very much like the CVS patch workflow, and results in a clean history.",
+    "For extra credit, you can use git rebase -i and munge your commits into a single commit which has an excellent commit message, but I'm not going to go there today.",
+    "Merging and Merge Conflicts",
+    "Any time you do a rebase, you may have a merge conflict, in which Git doesn't know how to put your work on top of the work others have done. If you and others are working in different spaces and have your responsibilities well separated, this will happen rarely. But still, you have to know how to deal with it.",
+    "Every OS has good merge tools available which work beautifully with Git. Working from the command line you can use git mergetool when you have a conflict to resolve the conflict. We'll save that for another time.",
+    "Branch Cleanup",
+    "You can imagine that, using this workflow, you end up with all kinds of useless, abandoned topical branches. Yes you do. From time to time, clean them up with",
+    "git branch -d comment_broken_links_101026",
+    "or, if you haven't ever merged the topical branch (for example, if you just used it to prepare a patch)",
+    "git branch -D comment_broken_links_101026",
+    "Objections",
+    "If you read the help for git rebase it will tell you \"Be careful. You shouldn't rewrite history that will be exposed publicly because everybody will hate you.\". Note, though, that the way we're using rebase here, we only plop our commit(s) right on top, and then push. It does not change the public history. Of course there are other ways of using rebase that could change publicly-exposed history, and that is frowned upon.",
+    "Conclusion",
+    "This looks more complicated than the merge workflow. It is. It is not hard. It is valuable.",
+    "If you have improvements, suggestions, or alternate workflows to suggest, please post in the comments. If you find errors or things that can be stated more clearly or correctly, I'll fix the post.",
+    "I will follow up before long with a post on the \"integration manager\" workflow, which is essentially the github model. Everybody works in their own repositories, which are pseudo-private, and then when they have their work ready, they rebase it onto the public branch of the integration manager, push their work to the pseudo-private repo, and ask the integration manager to pull from it.",
+    "Resources",
+    "A Rebase-based Workflow",
+    "Pro Git book: Maintaining a Project",
+    "The Case for Git Rebase",
+    "A Git Workflow for Agile teams",
+    "Comments",
+    "Benjamin Melançon (not verified)",
+    "Sun, 2011-02-06 18:08",
+    "Permalink",
+    "Keeping up with remote changes",
+    "The one important omission from this workflow is updating your working branch with changes in the public branch before you are ready to push your changes.",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2011-02-06 18:13",
+    "Permalink",
+    "More detail please :-)",
+    "So on the feature branch we do a git fetch origin before rebasing, and then on the public branch (7.x-1.x) we do a git pull before rebasing the feature branch onto it. What would you do differently?",
+    "Log in to post comments",
+    "Benjamin Melançon (not verified)",
+    "Sun, 2011-02-06 20:33",
+    "Permalink",
+    "more detail, exactly",
+    "I'm not rebasing to release a feature. I'm in the \"... # do stuff here.. Make commits.. test...\" step, and i want the latest code. The detail in this \"...\" step is even more important if the feature branch will be a public branch also (re: Larry and yourself below), but regardless, the question is how do you recommend the feature branch we are working on follow the public 7.x-1.x in your example?",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2011-02-06 21:09",
+    "Permalink",
+    "Do a rebase on the feature branch any time you need",
+    "Any time you need your feature branch to catch up with the public branch it's following, do just what I listed as being done only at integration time:",
+    "git fetch origin",
+    "git rebase origin/7.x-1.x",
+    "That will update your feature branch to where it's right on schedule. Note that if (as one could hope) different committers are working on different features and not interfering with each other, this will be unnecessary.",
+    "Log in to post comments",
+    "Sergei (not verified)",
+    "Mon, 2011-02-07 23:32",
+    "Permalink",
+    "I am using similar workflow.",
+    "I am using similar workflow. The problem is when I do rebase 2nd and 3rd time I have to resolve all the same conflicts that I've already addressed first time. Suggestions?",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2011-02-07 23:36",
+    "Permalink",
+    "Don't think that sounds right",
+    "It sounds like you're not actually bringing the main public branch into your feature branch (putting your work on top of it). If you do that, I don't think you'd get the behavior you're describing.",
+    "Log in to post comments",
+    "Clint Modien (not verified)",
+    "Fri, 2011-03-18 18:41",
+    "Permalink",
+    "Checkout rerere http://progit",
+    "Checkout rerere http://progit.org/2010/03/08/rerere.html",
+    "Log in to post comments",
+    "Lee Kamentsky (not verified)",
+    "Tue, 2013-11-26 09:00",
+    "Permalink",
+    "Is it too late for rere?",
+    "I tried setting rere.enabled to true after getting into the situation where rebasing resulted in too many conflicts - didn't work, I'm guessing I have to do this before the first conflict.",
+    "Sometimes, all you want to do is chuck your personal clone and start fresh from your remote. Seems to me that you rarely want to do otherwise. When I do \"git rebase\" and the code for my local head matches the code for the remote, I'm desperately hoping that the command will just erase my history and make it identical to that of the remote. I know \"git rebase\" is doing something much more elegant, but I want stupid and obvious.",
+    "My workflow is to delete and reclone whenever things get just a little hairy. That works great.",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2013-11-26 09:55",
+    "Permalink",
+    "Just FYI, to throw away your",
+    "Just FYI, to throw away your branch just requires creating a new tracking branch and deleting the old one. You don't have to clone again. I use a new branch for every separate task, so my common workflow is just",
+    "git checkout -b 20111126_start_over origin/master",
+    "You can also use \"git checkout -B\" to reset an existing branch.",
+    "Log in to post comments",
+    "Larry Garfield (not verified)",
+    "Sun, 2011-02-06 19:22",
+    "Permalink",
+    "Small features only",
+    "That works great iff:",
+    "- You are the only person working on a feature.",
+    "- You never need to share that feature with anyone else until it's done and \"ready to be committed (pushed)\"",
+    "If I'm working on something that takes a week to do, I absolutely don't want to leave it on my laptop and nowhere else for all that time. I want it backed up to a remote repo, I want my colleagues to be able to review it and point out what a stupid thing I just did, etc. That means pushing any but the smallest feature branches to the remote authoritative server at some point, after which rebasing is a no-no (for very good reasons).",
+    "How would you resolve that? Go ahead and use merge for that?",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2011-02-06 19:46",
+    "Permalink",
+    "This works for large teams",
+    "There are two possibilities here:",
+    "You want your feature to be reviewable by others and copied safely onto the remote repo, but nobody else will be committing to it. In that case, you can just push the branch up and everything else stays the same.",
+    "git push origin comment_broken_links_101026",
+    "On the other hand, if you want others to be able to commit to this feature branch you've just pushed, then treat it just like any other public branch (and branch off of it for each section you work on, then rebase back onto it). When you've done this, it's just another public branch, and I'd treat it just as we were treating 7.x-1.x before. And then when you want to merge it into 7.x-1.x, the procedure here is the same.",
+    "Does that make any sense?",
+    "Log in to post comments",
+    "Larry Garfield (not verified)",
+    "Sun, 2011-02-06 21:24",
+    "Permalink",
+    "Almost",
+    "Right up until that last part. :-) If you have your master branch, and a big-new-feature branch that 5 people have been working on via local micro-branches while the master branch still had bug fixing going on, how would you handle finishing big-new-feature? It sounds like you're suggesting that one person rebase their copy onto master and then do a fast-forward merge, which would then invalidate everyone else's copy of big-new-feature. That violates what I understood to be the first rule of rebasing: Once you push, don't do that.",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2011-02-06 21:30",
+    "Permalink",
+    "Somebody has to do it",
+    "There is a time that communication has to happen. Yes, I think that when everybody has decided that the feature is done, one person should rebase it onto the original \"master\" (in the example 7.x-1.x) and delete the feature branch. In this case it would be",
+    "git push origin :comment_broken_links_101026",
+    "BTW, I can never remember how to delete a remote branch, so always find it on github: http://help.github.com/remotes/",
+    "Log in to post comments",
+    "Steven Jones (not verified)",
+    "Mon, 2011-02-07 11:43",
+    "Permalink",
+    "Presumably you could do a",
+    "Presumably you could do a merge at the 'end' of your feature branch? This would accurately represent the development history, as it happened in parallel and was then added to the main branch.",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2011-02-07 12:05",
+    "Permalink",
+    "Like with perl, there's more than one way to do it",
+    "On many feature branches, we don't need anything other than a single commit to represent the feature. But as you say, we might want to make this more explicit, and do a merge.",
+    "My understanding (haven't experimented with it) is that people use git merge --no-ff when they want to preserve history in this way.",
+    "I think the thing that I most want to prevent are accidental, garbage merges that hide most everything and just make a mess. Probably explicit merges of this type would be absolutely fine.",
+    "Log in to post comments",
+    "dalin (not verified)",
+    "Thu, 2011-02-10 23:08",
+    "Permalink",
+    "It would be great to see a",
+    "It would be great to see a more detailed breakdown of how this works. I'm not quite grasping things yet and I think this is the most common method of working:",
+    "1) Start working on feature X locally.",
+    "2) Somehow get changes onto staging server for client / co-worker review.",
+    "3) Make changes locally.",
+    "4) Repeat #2 and #3 as many times as necessary.",
+    "5) Get feature onto production branch and deploy.",
+    "And as Crell mentions this whole process may itself be on some mega feature that itself needs to get onto the real production branch.",
+    "According to everyone's claims Git is apparently great at merging. But it's unfortunate that it requires using three times as many commands as you would use with SVN. Many of which seem to be different words for the same thing (fetch, pull, and checkout all seem to update the current code with what's new in the repository). The increased confusion might not actually be worth it especially when there's people that need to work with the repository that don't have the abstract thinking skills of a developer (themers, clients that commit stuff, project managers).",
+    "Log in to post comments",
+    "Larry Garfield (not verified)",
+    "Fri, 2011-02-11 09:37",
+    "Permalink",
+    "Important differences",
+    "fetch pulls down new commit objects from a remote, but does nothing else.",
+    "merge moves a branch marker to a new commit object, or creates a new joined commit object if necessary.",
+    "Pull does both of those. It's best to think of pull as \"fetch && merge /\".",
+    "checkout changes which branch is currently the working copy.",
+    "Having used both, I definitely prefer Git over SVN at this point (and anything over CVS). That doesn't mean there aren't confusing bits, though. :-)",
+    "Log in to post comments",
+    "Joachim (not verified)",
+    "Sun, 2011-05-15 15:18",
+    "Permalink",
+    "When I'm ready to bring my",
+    "When I'm ready to bring my feature branch into the main branch, I merge rather than rebase, though I must admit having just tried the rebase technique, it's identical.",
+    "What you can do with merge however, is squash your entire branch down to one commit. If your branch is for a single bug, and in exploring and fixing that bug you've made lots of local commits (which is what git lets you do and why it's great), you don't need the whole world to see your commits that fix typos, remove whitespace, remove swearwords you put it comments while you were headdeasking and so on ;)",
+    "Once my feature has been rebased to the latest head of the main branch, I go:",
+    "git checkout main",
+    "git merge --squash feature",
+    "This puts the whole of the feature branch into the current tree and adds it, but does not commit it. It's equivalent to doing:",
+    "git checkout feature",
+    "git diff main > feature.patch",
+    "git checkout main",
+    "patch -p1 < feature.patch",
+    "git add .",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2011-05-15 17:13",
+    "Permalink",
+    "Your approach is quite",
+    "Your approach is quite reasonable and I think a great candidate for a workflow on Drupal.org. It's so nearly equivalent to the patch workflow that it fits nicely.",
+    "The rebase approach keeps everything in commits and still hides the fact that a bunch of work happened on a topic branch. If the topic branch was irrelevant to the long-term view of the production branch, and a clean history is important, then perhaps the rebase approach is cleaner. However, if the work that was done in the topic branch should be exposed as a branch, the merge is better. And a git merge --no-ff is better yet, because it makes the merge explicit.",
+    "Note that you can squash when rebasing in just the same way as you can squash when merging, but that the work stays in commits, rather than being dumped into the staging area at the last minute, as git merge --squash.",
+    "I like what you brought up here.",
+    "Log in to post comments",
+    "Joachim (not verified)",
+    "Mon, 2011-05-16 00:35",
+    "Permalink",
+    "What confuses me about the",
+    "What confuses me about the final rebase is this: I reread the git man page for rebase yesterday and according to that (and some head-scratching), doing this git rebase comment_broken_links_101026 ought to replay the master branch on top of the feature branch, and hence put your local commits *before* the remote commits you've just pulled in.",
+    "... which having tried it on a setup with new commits on master, is what happens.",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2011-05-16 09:19",
+    "Permalink",
+    "Hmm.. I'll try to take a look",
+    "Thanks for your careful work with this. I'll try to take a another look.",
+    "Log in to post comments",
+    "rfay",
+    "Sat, 2011-05-21 21:45",
+    "Permalink",
+    "Trying out a real example",
+    "No, I've checked and it seems to me that everything I suggested is correct. Let's try an example that we can work together. Perhaps there's something about your question I'm misunderstanding.",
+    "Here's a repository that has a main branch (7.x-1.x) and a topic branch (topic). The topic branch started from the first commit on the 7.x-1.x branch. Each has two additional commits.",
+    "You can clone this with git clone git://gist.github.com/985139.git rebase_example",
+    "Here's what the repository looks like right now. It has a main branch (7.x-1.x) and a topic branch (topic). Each has two new commits.",
+    "So first, let's rebase the topic branch so that it's up-to-date:",
+    "git checkout --track origin/7.x-1.x",
+    "git checkout --track topic",
+    "git rebase origin/7.x-1.x # This puts our topic commits on top of current 7.x-1.x",
+    "Now our topic branch is on a straight line with the 7.x-1.x branch, but two commits ahead:",
+    "git checkout 7.x-1.x",
+    "git rebase topic # now our 7.x-1.x is fast-forwarded to have the topic commits on it",
+    "Then we would have just fast-forwarded the 7.x-1.x to point at the same place as the topic branch had been:",
+    "Now instead of the last step we could have:",
+    "git merge --squash topic # as you suggest",
+    "that would leave us (after committing the results) with the topic branch dangling (OK) and no record of it in the 7.x-1.x branch:",
+    "which would have squashed the contents of the topic branch and dropped the resulting commit into the index ready to be committed. (This is not really a merge at all, so it's a bit hard to understand how it got into the merge command.). It works fine. You can then commit it with a good message.",
+    "We could also have:",
+    "git merge topic",
+    "This would have had the same basic effect as the rebase:",
+    "and finally, we could have:",
+    "git merge --no-ff topic",
+    "This would explicitly document our merge, adding a merge commit and leaving the merge showing in the history (see gitk or git log --graph). This would be the preferred approach for a long-running public branch.",
+    "Note: I used gitg on Linux for the pictures.",
+    "Log in to post comments",
+    "Joachim (not verified)",
+    "Sun, 2011-05-22 01:25",
+    "Permalink",
+    "Aha! Yes, that all makes",
+    "Aha! Yes, that all makes sense.",
+    "What I was missing was that once the topic branch is on a straight line ahead of 7.x-1.x, then a rebase has the desired effect. Which as you say, is identical to a 'git merge topic'.",
+    "I think that saying merge for this operation is preferable, as results in a clear mnemonic: rebase onto master branches, merge in topic branches.",
+    "But overall, --squash is the workflow I prefer for anything that's going to be more than a few hunks of diff. For me, the huge advantage is that on my topic branch I can work however I please: make tiny commits for typos, changes of variable names in my new code, and so on. I've often found that when working on a particularly thorny problem, I get to a point where it all *works* but it's a mess, and then I run the risk of accidentally breaking it again during my clean-up. With this workflow, I can just commit the messy version with a big 'Hurrah this works!' commit, and then get started on tidying up ;)",
+    "Log in to post comments",
+    "Philip Oakley (not verified)",
+    "Tue, 2011-06-21 02:46",
+    "Permalink",
+    "Which visualisation tool did you use?",
+    "In \"Trying out a real example\", which branch/commit visualisation tool did you use for those nice views? I know it isn't gitk ;-)",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2011-06-21 10:44",
+    "Permalink",
+    "So glad you asked that: gitg",
+    "I used gitg (on Debian/Ubuntu get it with apt-get upinstall gitg).",
+    "I am so glad you asked, because I've been popping around computers lately and had forgotten. For Linux users there's the classic gitk and also qgit and giggle.",
+    "For Mac users there is gitx, which I think is quite popular.",
+    "And then the various platform-specific tools like tortoise and tower probably have their own visualizers.",
+    "Log in to post comments",
+    "Jan Ivar Beddari (not verified)",
+    "Wed, 2011-11-09 04:33",
+    "Permalink",
+    "Thanks, really useful",
+    "This is perhaps the clearest and best explanation of the most commonly wanted git-workflow I've ever seen.",
+    "Immensely useful to see and have you comment on the different options when \"ending\" a topic branch, thanks!",
+    "Log in to post comments",
+    "Till (not verified)",
+    "Thu, 2012-01-12 11:29",
+    "Permalink",
+    "Did you do the merge on the",
+    "Did you do the merge on the original repo, or on the repo after the rebase. Because I was confused, because you did not get a merge commit on the repo after your \"git merge\" without the --no-ff. However when I checked out your example and performed the merges \"git merge topic\" and \"git merge --no-ff topic\" give absolutely the same result (which they should, since the branches diverged an a fast-forward is not possible).",
+    "The only way a fast forward and the a no-ff merge can differ is if one of the two commit is the merge base, as for example 7.x-1.x after the rebase (but not before).",
+    "Log in to post comments",
+    "Stephen (not verified)",
+    "Tue, 2011-12-20 21:38",
+    "Permalink",
+    "Lost :(",
+    "I am a bit lost here, new to git.",
+    "if we wanted to make each feature a public branch with that branch eventually being merged back into master how would we apply your rebase model command by command?",
+    "# setup some public repos feature1 and feature2 will both be public with several people working on them",
+    "git checkout master",
+    "git fetch",
+    "git rebase -p origin/master",
+    "git checkout -b feature1",
+    "git push origin feature1",
+    "git checkout master",
+    "git fetch",
+    "git rebase -p origin/master",
+    "git checkout -b feature2",
+    "git push origin feature2",
+    "# checkout feature 1 get the latest and setup a local private branch for work",
+    "git checkout feature1",
+    "git fetch",
+    "git rebase -p origin/feature1",
+    "git checkout -b feature1_private",
+    "# do some work on our feature1_private branch",
+    "work work work",
+    "git commit -am \"added some stuff\"",
+    "work work work",
+    "git commit -am \"added more\"",
+    "#once done working we update feature 1 with any changes from origin",
+    "git checkout feature1",
+    "git fetch",
+    "git rebase -p origin/feature1",
+    "# then switch back to our private feature and rebase it on the updated feature1",
+    "git checkout feature1_private",
+    "git rebase -i --autosquash feature1",
+    "# then merge the private feature back in to the public feature",
+    "git checkout feature1",
+    "git merge --no-ff feature1_private",
+    "Then when we were all done with the public feature to bring it back into master what would we do?",
+    "git checkout master",
+    "git fetch",
+    "git rebase -p origin/master",
+    "git merge --no-ff feature1",
+    "Or are we going about this all wrong??",
+    "Signed the seriously confused",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-12-21 09:27",
+    "Permalink",
+    "If a feature is a public branch, you can't rebase willy nilly",
+    "So you won't want to rebase on public branches. That will confuse everybody. Rebasing is absolutely fine for private (or de-facto-private) branches.",
+    "If you're only bringing in a feature branch once you have a lot of options:",
+    "Use git merge --squash feature_branch on the main branch. This magically squashes the entire feature branch and brings it in as a commit ready to happen on the main branch.",
+    "Use git rebase when you're ready for the single final commit onto the main branch",
+    "If you're going to be bringing the feature branch in more than once over its lifespan, you'll probably want to consider not squashing at all.",
+    "I guess my experience in the time since this article was written is that most people won't end up dealing with the complexity of rebasing in public. Lots of people use it on private feature branches.",
+    "While I'm talking... IMO it's OK to treat a nominally public branch as a private one. If I'm working on a branch called rfay_fix_up_broken_tests, and my team has a convention that that's my branch because it has my name on it, then I consider it private (and available for rebase) even though it's pushed to a public repo.",
+    "Log in to post comments",
+    "Stephen Major (not verified)",
+    "Fri, 2012-01-13 02:59",
+    "Permalink",
+    "I figured as much, I have",
+    "I figured as much, I have been doing a lot of research on git and the Gitgub Flow, I combined my readings from you and a few other sources into a tutorial along with a post-receive hook I wrote for deploying websites with the GitHub Flow model. http://www.exsyshost.com/clients/knowledgebase/142/Using-Gitolite-to-sec...",
+    "If you scroll past all the pre-setup stuff I outlined a detailed workflow then followed that with some aliases to make the workflow short and easy to remember.",
+    "http://www.exsyshost.com/clients/knowledgebase/142/Using-Gitolite-to-sec...",
+    "Thanks for your article it was extremely helpful in ,e understanding the correct way to handle things.",
+    "Log in to post comments",
+    "David Weinraub (not verified)",
+    "Tue, 2013-12-03 01:51",
+    "Permalink",
+    "Rebasing on \"nominally public\" branches",
+    "So, consider a feature branch that has 5 commits, worked on by one dev, and pushed (so it's now a nominally public branch). Now suppose that the task has been assigned to another dev (me!) and I want to add a commit or two and squash the whole thing down to a single commit using `git rebase -i`.",
+    "In principle, this is changing history. And until I push, no harm done.",
+    "But *if* I can be sure that no one has branched off those 5 public commits in the public history, then is it fair to assume that a `git push --force` will not be problematic for any other devs? In particular, when the original dev does his own fetch/pull on this branch, he'll just see the \"new\" history and his old commits are - if not gone, then at least - not (easily) accessible. Is that right?",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2013-12-03 07:37",
+    "Permalink",
+    "Github Pull Request model with lots of private/throwaway branche",
+    "Yes, the github PR model, with throwaway forks and branches has changed all of our views, I think.",
+    "The issue with rebasing is not whether something is public, but what the rules are around it. Of course I can rebase and force-push a branch on my fork... where the rules are that nobody else has the right to build off the work. And of course I can abandon a branch and start a new one, which is mostly the same thing.",
+    "Log in to post comments",
+    "Mark (not verified)",
+    "Mon, 2011-02-07 03:48",
+    "Permalink",
+    "Interesting",
+    "Thanks for the article, found it very interesting. I use Bazaar which is nowhere near this complicated so it's good preparation for the Drupal switch over.",
+    "Log in to post comments",
+    "Kyle Mathews (not verified)",
+    "Mon, 2011-02-07 12:09",
+    "Permalink",
+    "Isn't Bazaar vs. Git",
+    "It isn't Git that's complicated here, it's the workflow that is complicated. You could have just as complicated workflows in Bazaar if you wanted as well. This article provides a good overview of similar workflow options in Bazaar:",
+    "http://fourkitchens.com/blog/2009/04/20/alternatives-rebasing-bazaar",
+    "Log in to post comments",
+    "Alex Weber (not verified)",
+    "Mon, 2011-02-07 04:06",
+    "Permalink",
+    "Excellent!",
+    "Thanks, great post!",
+    "Log in to post comments",
+    "yogsototh (not verified)",
+    "Mon, 2011-02-07 17:34",
+    "Permalink",
+    "Is revert more difficult?",
+    "Hi,",
+    "Thanks for your article.",
+    "Isn't this workflow make it more difficult to revert some feature? How do you remember at which point in the history you started? Have I to use a tag each time?",
+    "For now I'm using git-flow (merge based workflow) because I'm not alone, and I believe git-flow is easier to explain than this rebase style method. Furthermore, I use github as a mean of synchronizing my work on many different computer. Isn't this workflow would force me to make some git push -f feature-branch",
+    "each time I rebase locally?",
+    "I also have a difficulty to understand why having a linear history is better? For me it feels more like loosing some information. As \"a branch = a feature\" is a valuable information for me. Or I may didn't understood something about this workflow.",
+    "Thanks.",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2011-02-07 22:58",
+    "Permalink",
+    "Much easier to revert, I think...",
+    "I would think it would be super-easy to revert a feature with this, since (if you squashed when rebasing) it's just one commit.",
+    "I'll look forward to learning more about git-flow and how it can help us.",
+    "If you are using github to sync between computers, then that's kind of like having multiple committers. Using this workflow should work perfectly. On the other hand, if you're always on just one computer (and never have commits pending on more than one) then you don't have to do anything - none of this. Just pull before you start working, and push when you're done. If you do have commits pending on more than one environment, then this will work perfectly, if you follow it.",
+    "I'm trying to do two things with this workflow:",
+    "1. Avoid unnecessary merge commits, which muddy the water and are potentially dangerous.",
+    "2. Make clean history",
+    "Log in to post comments",
+    "Bart Braem (not verified)",
+    "Tue, 2011-02-15 05:34",
+    "Permalink",
+    "Git and drupal with multiple repositories",
+    "First of all let me thank you for the interesting articles on Drupal and Git,",
+    "I really appreciate you taking the time to publish your vision!",
+    "I am contacting you to ask what your approach would be to handle multiple",
+    "repositories, as follows:",
+    "- a developer uses releases from an upstream repository, say the Acquia git",
+    "repository",
+    "- on a development machine, the developer adds contrib and custom modules",
+    "- on a production server, the result of the development is published",
+    "What would be the best way to organize this workflow? Especially getting all",
+    "git config files right seems hard. From time to time I would want to be able",
+    "to quickly change something on the production server and merge it on the",
+    "development machine. This would break the \"flow\" from upstream repository to",
+    "development to production, and I am not sure how to avoid the merge workflow",
+    "you discussed earlier.",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2011-02-15 06:59",
+    "Permalink",
+    "More of a deployment workflow",
+    "You're really talking about deployment, and there are conversations all over the place on drupal.org and elsewhere about it. And there's no consensus. People use drush make, the entire source tree checked into one repo, git submodules, and other techniques. But I don't think there's one true answer.",
+    "Log in to post comments",
+    "Naja Melan (not verified)",
+    "Sun, 2012-05-06 18:50",
+    "Permalink",
+    "I don't understand your proposition",
+    "Hi,",
+    "maybe I'm just not getting it, but could you explain the difference between what you are showing and:",
+    "git pull # Get the latest version from remote",
+    "git checkout 7.x-1.x # Switch to the local tracking branch",
+    "git checkout -b comment_101026 # create private feature branch",
+    "... # do stuff here.. Make commits.. test... ... this has taken some time, so:",
+    "git pull # since we only worked in the feature branch,",
+    "this is fast forward of our 7.x-1.x branch",
+    "git rebase 7.x-1.x # Plop our commits on top of everybody else's",
+    "git checkout 7.x-1.x # Switch to the local tracking branch",
+    "git merge comment_101026 # Do a fast forward because feature branch",
+    "is already rebased",
+    "git push # Push the public branch back up,",
+    "with my stuff on the top",
+    "This gets rid of one pull and doesn't resort to fetch. It also uses a merge instead of the second rebase. I don't really get the consequences of rebasing the public branch, but probably it is equivalent to a fast forward merge.",
+    "Log in to post comments",
+    "Philip Oakley (not verified)",
+    "Mon, 2012-05-07 06:23",
+    "Permalink",
+    "Partly it is a design choice.",
+    "Partly it is a design choice. If you are a sole developer, or in a very small team, then having lots of branches and merges, which create side loops in the history, is not a problem. You can see that the code 'just works' by inspection, and direct evaluation (running it). Your merges can include loads of fix ups and tweaks because everyone is involved. It could even be an evil merge (git style).",
+    "In a bigger environment, where either some folk are working in separate areas (so are left behind what you are doing) or you have QA and management, then you have that folk don't 'believe' that your branch code cleanly applies to the latest code base. They won't allow anything other than a clean merge, which is the same as a fast forward for a rebased branch.",
+    "By asking the author to do a rebase first, and fix any clashes, and run tests (or whatever is required), it means that no-one is surprised by the 'merge' , because it is a 'no-op' (fast forward). The rebase isn't any more work, it is simply the work that would have had to be done for the branch merge anyway. Plus you get to make your history look good a/k/a \"professional\" ;-) [rebase --interactive]",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2012-05-07 10:28",
+    "Permalink",
+    "Fast-forward, clean",
+    "I guess my basic concern is that wherever possible, don't have git doing textual merges without explicit (and necessary) involvement from a dev who really understands what's happening. So, wherever possible, play the game so you get fast-forward merges or their equivalent in rebases.",
+    "Really, the essence of this article is \"Don't let people do merges who don't understand what's going on in the merge\".",
+    "And yes, there is more than one way of accomplishing this.",
+    "Log in to post comments",
+    "Zach (not verified)",
+    "Wed, 2012-06-13 14:57",
+    "Permalink",
+    "Why not just rebase on pull?",
+    "Why not just work on a local topic branch that tracks the remote, and occasionally do a git pull --rebase, or just add \"autosetuprebase = true\" to your gitconfig and then just git pull?",
+    "PS: this comment form has the worst captcha I've ever seen.",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2012-06-13 16:04",
+    "Permalink",
+    "Simpler rebasing...",
+    "I certainly agree with you. It's what I do all the time now.",
+    "The captcha stops most spam on my site without frustrating (most) people as badly as something like mollom. Most people get here from the Drupal community, so they just know the answers.",
+    "Log in to post comments",
+    "Tomás Girardi (not verified)",
+    "Thu, 2012-10-18 12:50",
+    "Permalink",
+    "Did you ever wrote the article on Integration Manager Workflow?",
+    "Randy,",
+    "Excellent, excellent article! It solved several doubt I was having regarding merge commits and rebase.",
+    "Did you ever publish the article on Integration Manager Workflow you mentioned at the end? Sounds like something I really would like to read.",
+    "Thanks for the helpful info!",
+    "Regards,",
+    "Tomás",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2012-10-18 13:12",
+    "Permalink",
+    "Thanks, I guess I never wrote",
+    "Thanks, I guess I never wrote that. It's pretty easy though: Team members work on a development branch and then request that the integration manager do the rebasing. The integration manager rebases it and deals with any fallout (or pushes it back to them). The key is that the branch to be rebased should be prepared for merge/rebase, and hopefully will not result in a merge commit.",
+    "Log in to post comments",
+    "Tomás Girardi (not verified)",
+    "Thu, 2012-10-18 14:16",
+    "Permalink",
+    "Sounds simple, thanks!",
+    "Thanks! It sounds simple. I'll google it to see if there's any details or tips that could be useful.",
+    "Log in to post comments",
+    "Steve Schow (not verified)",
+    "Mon, 2014-10-27 12:41",
+    "Permalink",
+    "Great article",
+    "Great article and I am convinced already of using a rebasing approach in order to have clean histories without all the checkpoint commits on the main branch.",
+    "One question, I don't entirely understand the work flow shown above with two complete sets of fetch/rebase before the final push back to mainline. Seems like it has to rebase the remote tracking branch in addition to the the actual local working one. Can you please comment a litlte bit on that? What is that neccessary to mess with the remote tracking branch?",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2014-10-27 12:48",
+    "Permalink",
+    "Recommend PR workflow",
+    "These days, the easy way to fix this set of things is with the Pull Request workflow, which is essentially the Integration Manager workflow discussed here (probably).",
+    "Use github or bitbucket or somebody that makes the PR workflow easy",
+    "Delegate a person as integration manager, who will pull or comment on the PR",
+    "Require contributors to rebase their own PR branch before pulling if there are conflicts.",
+    "Log in to post comments",
+    "Steve Schow (not verified)",
+    "Mon, 2014-10-27 13:21",
+    "Permalink",
+    "right so i want to create",
+    "right so i want to create some wrapper scripts to make things somewhat dummy proof for contributors.",
+    "I love the forking PR model, because ultimately nobody but me can push stuff back to my repo without approval and discussion. This does complicate things a little more though as now for any given feature, there are essentially two origins and the local they are working on. And when *I* and working on stuff directly against the blessed repo I still want to use the rebase strategy, so I still kind of need to understand why you had to do two separate rebases in the above instructions...one from feature branch against origin/release and one against the working local release, that confused me a bit.",
+    "But then for contributors, presumably they would need to follow all of the above, except they now their local feature branch is referencing a remote on their forked repo. So the exact procedure for them to fetch or pull from the blessed repo, while updating their own repo at the same time, and also rebasing with their local working branch, and pushing back to their forked repo main, as well as finally sending the pull request in order to get theri change back to the blessed repo. That's where it all is a bit foggy to me at the moment and that is precisely why I want to make some scripts to make it dummy proof for any contributors.",
+    "Log in to post comments",
+    "Pages",
+    "1",
+    "2",
+    "next ›",
+    "last »"
+  ],
+  "images": [
+    {
+      "src": "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_002.png",
+      "name": "rfay_dell_gazelle_selection_002.png",
+      "alt": "Topic and 7.x-1.x branches"
+    },
+    {
+      "src": "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_003.png",
+      "name": "rfay_dell_gazelle_selection_003.png",
+      "alt": "After rebasing topic branch"
+    },
+    {
+      "src": "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_004.png",
+      "name": "rfay_dell_gazelle_selection_004.png",
+      "alt": "After rebasing 7.x-1.x"
+    },
+    {
+      "src": "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_005.png",
+      "name": "rfay_dell_gazelle_selection_005.png",
+      "alt": "git merge --squash topic"
+    },
+    {
+      "src": "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_006.png",
+      "name": "rfay_dell_gazelle_selection_006.png",
+      "alt": "git merge topic"
+    },
+    {
+      "src": "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_007.png",
+      "name": "rfay_dell_gazelle_selection_007.png",
+      "alt": "git merge --no-ff topic"
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/git-rebase",
+      "text": "git rebase"
+    },
+    {
+      "internal": false,
+      "key": "https://help.github.com/articles/using-pull-requests",
+      "text": "Pull Request workflow"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/103",
+      "text": "This followup article"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/comment/1093#comment-1093",
+      "text": "described by joachim below"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/89",
+      "text": "Avoiding Git Disasters"
+    },
+    {
+      "internal": false,
+      "key": "http://unethicalblogger.com/node/276",
+      "text": "A Rebase-based Workflow"
+    },
+    {
+      "internal": false,
+      "key": "http://progit.org/book/ch5-3.html",
+      "text": "Pro Git book: Maintaining a Project"
+    },
+    {
+      "internal": false,
+      "key": "http://darwinweb.net/articles/the-case-for-git-rebase",
+      "text": "The Case for Git Rebase"
+    },
+    {
+      "internal": false,
+      "key": "http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html",
+      "text": "A Git Workflow for Agile teams"
+    },
+    {
+      "internal": false,
+      "key": "http://agaric.com",
+      "text": "Benjamin Melançon (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/714",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/714",
+      "text": "Keeping up with remote changes"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/715",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/715",
+      "text": "More detail please :-)"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://agaric.com",
+      "text": "Benjamin Melançon (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/718",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/718",
+      "text": "more detail, exactly"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/720",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/720",
+      "text": "Do a rebase on the feature branch any time you need"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/734",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/734",
+      "text": "I am using similar workflow."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/735",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/735",
+      "text": "Don't think that sounds right"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/835",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/835",
+      "text": "Checkout rerere http://progit"
+    },
+    {
+      "internal": false,
+      "key": "http://progit.org/2010/03/08/rerere.html",
+      "text": "http://progit.org/2010/03/08/rerere.html"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.cellprofiler.org",
+      "text": "Lee Kamentsky (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3442",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3442",
+      "text": "Is it too late for rere?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3443",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3443",
+      "text": "Just FYI, to throw away your"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.garfieldtech.com",
+      "text": "Larry Garfield (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/716",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/716",
+      "text": "Small features only"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/717",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/717",
+      "text": "This works for large teams"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.garfieldtech.com",
+      "text": "Larry Garfield (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/721",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/721",
+      "text": "Almost"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/722",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/722",
+      "text": "Somebody has to do it"
+    },
+    {
+      "internal": false,
+      "key": "http://help.github.com/remotes",
+      "text": "http://help.github.com/remotes/"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.computerminds.co.uk",
+      "text": "Steven Jones (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/726",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/726",
+      "text": "Presumably you could do a"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/727",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/727",
+      "text": "Like with perl, there's more than one way to do it"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://advomatic.com",
+      "text": "dalin (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/738",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/738",
+      "text": "It would be great to see a"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.garfieldtech.com",
+      "text": "Larry Garfield (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/742",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/742",
+      "text": "Important differences"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1093",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1093",
+      "text": "When I'm ready to bring my"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1094",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1094",
+      "text": "Your approach is quite"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1095",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1095",
+      "text": "What confuses me about the"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1096",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1096",
+      "text": "Hmm.. I'll try to take a look"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1107",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1107",
+      "text": "Trying out a real example"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1108",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1108",
+      "text": "Aha! Yes, that all makes"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1547",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1547",
+      "text": "Which visualisation tool did you use?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1554",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1554",
+      "text": "So glad you asked that: gitg"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2133",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2133",
+      "text": "Thanks, really useful"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2188",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2188",
+      "text": "Did you do the merge on the"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2170",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2170",
+      "text": "Lost :("
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2171",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2171",
+      "text": "If a feature is a public branch, you can't rebase willy nilly"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.exsyshost.com",
+      "text": "Stephen Major (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2189",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2189",
+      "text": "I figured as much, I have"
+    },
+    {
+      "internal": false,
+      "key": "http://www.exsyshost.com/clients/knowledgebase/142/Using-Gitolite-to-securely-deploy-a-website-with-version-control-based-on-the-GitHub-Flow.html",
+      "text": "http://www.exsyshost.com/clients/knowledgebase/142/Using-Gitolite-to-sec..."
+    },
+    {
+      "internal": false,
+      "key": "http://www.exsyshost.com/clients/knowledgebase/142/Using-Gitolite-to-securely-deploy-a-website-with-version-control-based-on-the-GitHub-Flow.html",
+      "text": "http://www.exsyshost.com/clients/knowledgebase/142/Using-Gitolite-to-sec..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.papayasoft.com",
+      "text": "David Weinraub (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3444",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3444",
+      "text": "Rebasing on \"nominally public\" branches"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3445",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3445",
+      "text": "Github Pull Request model with lots of private/throwaway branche"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://codebaboon.com",
+      "text": "Mark (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/723",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/723",
+      "text": "Interesting"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://eduglu.com",
+      "text": "Kyle Mathews (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/728",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/728",
+      "text": "Isn't Bazaar vs. Git"
+    },
+    {
+      "internal": false,
+      "key": "http://fourkitchens.com/blog/2009/04/20/alternatives-rebasing-bazaar",
+      "text": "http://fourkitchens.com/blog/2009/04/20/alternatives-rebasing-bazaar"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.alexweber.com.br",
+      "text": "Alex Weber (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/724",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/724",
+      "text": "Excellent!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://yannesposito.com",
+      "text": "yogsototh (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/731",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/731",
+      "text": "Is revert more difficult?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/733",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/733",
+      "text": "Much easier to revert, I think..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/759",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/759",
+      "text": "Git and drupal with multiple repositories"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/760",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/760",
+      "text": "More of a deployment workflow"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "https://github.com/najamelan",
+      "text": "Naja Melan (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2314",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2314",
+      "text": "I don't understand your proposition"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2315",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2315",
+      "text": "Partly it is a design choice."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2316",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2316",
+      "text": "Fast-forward, clean"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2338",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2338",
+      "text": "Why not just rebase on pull?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2339",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2339",
+      "text": "Simpler rebasing..."
+    },
+    {
+      "internal": false,
+      "key": "http://www.randyfay.com/content/simpler-rebasing-avoiding-unintentional-merge-commits",
+      "text": "certainly agree with you"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2689",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2689",
+      "text": "Did you ever wrote the article on Integration Manager Workflow?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2690",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2690",
+      "text": "Thanks, I guess I never wrote"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2691",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2691",
+      "text": "Sounds simple, thanks!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3543",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3543",
+      "text": "Great article"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3544",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3544",
+      "text": "Recommend PR workflow"
+    },
+    {
+      "internal": false,
+      "key": "https://help.github.com/articles/using-pull-requests",
+      "text": "Pull Request workflow"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3546",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3546",
+      "text": "right so i want to create"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "content/rebase-workflow-git?page=1",
+      "text": "2"
+    },
+    {
+      "internal": true,
+      "key": "content/rebase-workflow-git?page=1",
+      "text": "next ›"
+    },
+    {
+      "internal": true,
+      "key": "content/rebase-workflow-git?page=1",
+      "text": "last »"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

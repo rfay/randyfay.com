@@ -1,0 +1,196 @@
+{
+  "title": "Drupal Community Conflict Resolution (and Twitter) | RandyFay.com",
+  "primaryHeading": "Drupal Community Conflict Resolution (and Twitter)",
+  "contentFound": true,
+  "lines": [
+    "Sat, 2011-09-17 11:32 by rfay",
+    "Planet Drupal",
+    "We value our community like a family, and have put loads of energy into the Drupal world. But we have some problems, and it's probably time for some discussion about our community manners and approach to problem-solving. We have the excellent Drupal Code of Conduct (copied from Ubuntu's model) but it doesn't yet address a number of specifics (especially conflict resolution). So I'd like to throw some ideas into the wild.",
+    "First of all, Controversy is not a bad thing. It's not a problem when people disagree on issues, even if they permanently disagree. It is a bad thing, though, when people start campaigns (on Twitter or otherwise) without understanding the problem or trying to resolve it directly. Feelings can be hurt, the community can be divided, contributor energy can be sapped, and it's mostly not the most likely way to resolve the situation anyway. Why do that?",
+    "Name Calling, Personal Attacks, and Twitter Pile-ons are not the way to resolve problems in the community. They just create new problems. I recently wrote and spoke about Burnout in the community and many people responded favorably - it seemed to strike a chord with the community, because everybody knows how dispiriting it is to get worn down with responsibilities. But if we add to that hurt feelings (and worse) due to misunderstandings, rudeness, and the like, we end up with something perhaps worse than burnout.",
+    "I propose that we discuss some additions to the Drupal Code of Conduct, either formally or informally.",
+    "When you see something that you think is wrong (or that you otherwise disagree with), approach the party responsible directly rather than making an immediate public statement.",
+    "Try to understand and resolve the situation directly with the parties directly involved. A discussion may help to",
+    "Understand the actual issue.",
+    "Understand the history behind the issue.",
+    "Have a complete understanding of the facts involved.",
+    "Understand how each party understands those facts",
+    "Understand the emotions involved involving each party.",
+    "Figure out a course of action to resolve the problem.",
+    "If direct communication fails, pursue formal or informal community conflict resolution channels. Let's establish a conflict resolution methodology. For starters, we have a number of trusted and level-headed community members who might be willing to serve as moderators or arbitrators.",
+    "I don't think that Twitter and related fast-communication techniques are bad for general discussion or notification, but they're really lousy for actually solving (or even understanding) real problems. Let's tone down the public pile-on (and related public attacks) and find more successful ways to actually get something done. And let's all just review the DCOC, especially Be Considerate, Be Repectful, Be Collaborative, When We Disagree We Consult Others. Oh, that's almost the whole thing, isn't it :-)",
+    "I'll write soon proposing some first ideas with an actual conflict resolution technique.",
+    "Comments",
+    "Evan Donovan (not verified)",
+    "Sun, 2011-09-18 05:42",
+    "Permalink",
+    "Thanks for this post. I think",
+    "Thanks for this post. I think approaching people directly first is almost always the best policy when dealing with conflict, especialy when there's a chance that the conflict is a simple misunderstanding. Especially it is helpful in a community where many people are not communicating in their native language, and so determining tone of voice becomes even more difficult than usual.",
+    "As a Christian, I see this advice as fitting well with Jesus' words in the Sermon on the Mount: \"If you have something against your neighbor, first go to him. If he will not hear you, then bring it before the elders...\"",
+    "Log in to post comments",
+    "nicl (not verified)",
+    "Sun, 2011-09-18 13:10",
+    "Permalink",
+    "I agree",
+    "I agree with this article and what Evan says above. I don't know at the moment whether Drupal has a proper conflict resolution / complaints procedure (so apologies if one already exists), but if not then we should definitely have one - just because Drupal is now quite big and the Association etc have legal status.",
+    "Log in to post comments",
+    "Moshe Weitzman (not verified)",
+    "Sun, 2011-09-18 17:48",
+    "Permalink",
+    "Yes to conflict resolution",
+    "Now that DCOC is well established, I agree it is time to establish a light conflict resolution process.",
+    "Log in to post comments",
+    "greggles (not verified)",
+    "Tue, 2011-09-20 15:15",
+    "Permalink",
+    "thanks!",
+    "Randy, between the burnout post series and this series you are making an enormous contribution to our community.",
+    "Thank you!",
+    "I think it would go along way to create a standard \"when complaining on twitter, link to details\" it's so easy to take things out of context or not get both sides in a way that escalates the problem.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/dcoc",
+      "text": "Drupal Code of Conduct"
+    },
+    {
+      "internal": false,
+      "key": "http://www.ubuntu.com/community/conduct",
+      "text": "Ubuntu's model"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/taxonomy/term/27",
+      "text": "Burnout in the community"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/dcoc",
+      "text": "Drupal Code of Conduct"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/dcoc",
+      "text": "DCOC"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/dcoc#consideration",
+      "text": "Be Considerate"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/dcoc#respect",
+      "text": "Be Repectful"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/dcoc#collaboration",
+      "text": "Be Collaborative"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/dcoc#conflict-resolution",
+      "text": "When We Disagree We Consult Others"
+    },
+    {
+      "internal": true,
+      "key": "comment/2093",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2093",
+      "text": "Thanks for this post. I think"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/112%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://room271.net",
+      "text": "nicl (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2094",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2094",
+      "text": "I agree"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/112%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/moshe",
+      "text": "Moshe Weitzman (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2095",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2095",
+      "text": "Yes to conflict resolution"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/112%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/36762",
+      "text": "greggles (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2097",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2097",
+      "text": "thanks!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/112%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

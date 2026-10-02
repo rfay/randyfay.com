@@ -1,0 +1,4 @@
+{
+  "_comment": "Deliberate, reviewed differences between the baseline and a migration target. Anything not listed fails the semantic suite. Add an entry only for a decision a human made, with a reason. Empty means: the target must reproduce everything the baseline recorded.",
+  "entries": []
+}

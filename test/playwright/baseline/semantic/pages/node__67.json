@@ -1,0 +1,238 @@
+{
+  "title": "AJAX Example: Textfields driven by checkboxes | RandyFay.com",
+  "primaryHeading": "AJAX Example: Textfields driven by checkboxes",
+  "contentFound": true,
+  "lines": [
+    "In this example, we just use checkboxes to determine whether textboxes are displayed.",
+    "One of the fundamental ideas of having a form change based on selections within the form is that the form is reconfiguring itself based on $form_state. So here, the generation of the form is driven by $form_state['values']. If the checkbox for last name is checked, then we generate a textfield for last name.",
+    "(Experiment with this one at http://d7.drupalexamples.info/examples/ajax_example/autotextfields or see the current code at http://api.drupal.org/api/function/ajax_example_autotextfields/7.)",
+    "/**",
+    "* Show/hide textfields based on AJAX-enabled checkbox clicks.",
+    "*/",
+    "function ajax_example_autotextfields($form, &$form_state) {",
+    "$form['ask_first_name'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => t('Ask me my first name'),",
+    "'#ajax' => array(",
+    "'callback' => 'ajax_example_autotextfields_callback',",
+    "'wrapper' => 'textfields',",
+    "'effect' => 'fade',",
+    ")",
+    ");",
+    "$form['ask_last_name'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => t('Ask me my last name'),",
+    "'#ajax' => array(",
+    "'callback' => 'ajax_example_autotextfields_callback',",
+    "'wrapper' => 'textfields',",
+    "'effect' => 'fade',",
+    "),",
+    ");",
+    "$form['textfields'] = array(",
+    "'#title' => t(\"Generated text fields for first and last name\"),",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#type' => 'fieldset',",
+    "'#description' => t('This is where we put automatically generated textfields'),",
+    ");",
+    "if (!empty($form_state['values']['ask_first_name']) && $form_state['values']['ask_first_name']) {",
+    "$form['textfields']['first_name'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('First Name'),",
+    ");",
+    "}",
+    "if (!empty($form_state['values']['ask_last_name']) && $form_state['values']['ask_last_name']) {",
+    "$form['textfields']['last_name'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('Last Name'),",
+    ");",
+    "}",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "/**",
+    "* Selects the piece of the form we want to use as replacement text and returns",
+    "* it as a form (renderable array).",
+    "*",
+    "* @return renderable array (the textfields element)",
+    "*/",
+    "function ajax_example_autotextfields_callback($form, $form_state) {",
+    "return $form['textfields'];",
+    "}",
+    "?>",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ AJAX Simplest Example",
+    "up",
+    "AJAX Example: Select control and generated checkboxes ›",
+    "Comments",
+    "Phil (not verified)",
+    "Wed, 2011-07-27 19:37",
+    "Permalink",
+    "behaving strangely in hook_form_alter",
+    "Hi,",
+    "I'm trying to ajaxify an existing form (drupal commerce checkout form) using a custom module with hook_form_alter. The code above pretty much does what I want to do - have a checkbox that alters other elements in the form when it is checked/unchecked.",
+    "I thought I'd start off by just C&Ping the code above into my hook_form_alter function. It works fine if I'm logged in - changing the select box causes the fieldset to be reloaded with the correct number of checkboxes.",
+    "However if visit the site as an anonymous user the ajax call is only made the first time I change the select box. Subsequent changes do nothing.",
+    "Any idea what I'm doing wrong?",
+    "Is hook_form_alter the right place to put this code if I'm modifying an existing form?",
+    "Thanks!",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-07-27 19:56",
+    "Permalink",
+    "Page caching?",
+    "Does turning off page caching affect the behavior?",
+    "Log in to post comments",
+    "Phil (not verified)",
+    "Wed, 2011-07-27 21:07",
+    "Permalink",
+    "no",
+    "turning off all caching makes no difference.",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-07-27 21:29",
+    "Permalink",
+    "Make a simple module that demonstrates it; make a sandbox",
+    "If you'll make a simple module (bare bones) that demonstrates this and push it to a sandbox or github or something, I'll take a look at it.",
+    "Probably best to make an issue in Commerce queue and point me to it.",
+    "Log in to post comments",
+    "Phil (not verified)",
+    "Wed, 2011-07-27 22:08",
+    "Permalink",
+    "thanks",
+    "Thanks Randy, will do.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/ajax_example/autotextfields",
+      "text": "http://d7.drupalexamples.info/examples/ajax_example/autotextfields"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_autotextfields/7",
+      "text": "http://api.drupal.org/api/function/ajax_example_autotextfields/7"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-simplest-example",
+      "text": "‹ AJAX Simplest Example"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-select-control-and-generated-checkboxes",
+      "text": "AJAX Example: Select control and generated checkboxes ›"
+    },
+    {
+      "internal": true,
+      "key": "comment/1999",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1999",
+      "text": "behaving strangely in hook_form_alter"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/67%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2000",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2000",
+      "text": "Page caching?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/67%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2001",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2001",
+      "text": "no"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/67%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2002",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2002",
+      "text": "Make a simple module that demonstrates it; make a sandbox"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/67%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2003",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2003",
+      "text": "thanks"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/67%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Drupal 7 AJAX Forms",
+        "key": "ajax"
+      }
+    ]
+  }
+}

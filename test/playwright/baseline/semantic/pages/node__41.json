@@ -1,0 +1,67 @@
+{
+  "title": "Debugging Tools: Preparation and Investment Ahead of Time | RandyFay.com",
+  "primaryHeading": "Debugging Tools: Preparation and Investment Ahead of Time",
+  "contentFound": true,
+  "lines": [
+    "If you invest in your infrastructure ahead of time, life will be so much easier. If you know how to load and dump the database quickly and how to get a file copy of a production database in moments, and you know how to revert to an earlier version of the code, life will be so much better. Learn how to do these things, whether you do \"code\" or not:",
+    "Have an environment where you can run a copy of any production website you're responsible for. This doesn't mean the exact same setup - it may not even need to be the same operating system. But you'll probably want to match PHP major versions and Mysql major versions. If you have PHP 5.2 and Mysql 5 on the production server, you'll probably need an environment that comes close to that. Yes, if your production site runs Linux, you'll probably want to be able to duplicate that. But many problems and issues can be demonstrated successfully on a Windows machine with Xampp or a Mac with Mamp. And most Drupal websites will run fine in many environments.",
+    "Learn how to clone your production website in moments. When a crisis time comes for your production website, you need to be able to make a copy of it to work with it. Trying to debug on a live site has enormous disadvantages: Your own conservatism about making changes is one of those, the risk that you'll break something worse is another, and just the fact that it's far away and harder to work with is a third. Working on a cloned website is non-negotiable, in my opinion, and will pay off at least 90% of the time.",
+    "Demonstration: Cloning a website in moments",
+    "Keep your site under source control and know how to use it. If your site is under source control, you can roll back any part of it in moments and you can experiment easily with different versions of the code.",
+    "Demonstration: Using source control to debug. (Delete a section. Delete modules. Revert to an earlier time. Move forward in time)",
+    "Learn Drush. You'll be happy you did.",
+    "Get Step-debugging going if you can work with PHP code. You really can't live without it.",
+    "Demonstration: Step debugging with Eclipse.",
+    "Drupal",
+    "debugging",
+    "Book Navigation",
+    "‹ Debugging Strategies",
+    "up",
+    "Debugging Techniques ›"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/drush",
+      "text": "Drush"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-strategies",
+      "text": "‹ Debugging Strategies"
+    },
+    {
+      "internal": true,
+      "key": "debugging",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-techniques",
+      "text": "Debugging Techniques ›"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Drupal Debugging",
+        "key": "debugging"
+      }
+    ]
+  }
+}

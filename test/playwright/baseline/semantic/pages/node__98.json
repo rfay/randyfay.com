@@ -1,0 +1,302 @@
+{
+  "title": "Playing around with Git | RandyFay.com",
+  "primaryHeading": "Playing around with Git",
+  "contentFound": true,
+  "lines": [
+    "Mon, 2011-03-28 11:21 by rfay",
+    "Planet Drupal",
+    "git",
+    "git rebase",
+    "Even if you've just arrived into the Gitworld, you've already noticed that things are really fast and flexible. Some people claim that the most important thing about the distributed nature of Git is that you can work on an airplane, but I claim that's totally bogus. The coolest thing about the distributed nature of Git is that you can fool around all you want, and try a million things, and even mess up your repo as much as you want... and still recover. Here's how, with a screencast at the bottom.",
+    "With CVS or Subversion or any number of other VCS's, when you commit or branch, you have the potential of causing yourself and others pain forever. And there's no way around it. You just have to do your best and hope it comes out OK. But with Git, you can try anything and rehearse it in advance, in a total no-consequence environment. Here are some suggestions of where to start.",
+    "Setting up a git-play area",
+    "First, let's pretend that we're a committer of Examples project. To do this, we don't have to have any privileges. Let's just make a copy of the Examples repo that we do have privileges on. We'll do this by creating a copy of the repository on Drupal.org in a throw-away directory:",
+    "cd /tmp",
+    "git clone --mirror git://git.drupal.org/project/examples.git",
+    "git clone examples.git --branch master",
+    "cd examples",
+    "Now we have a repo where we can do anything we want, experiment with anything, and it can never get back to the server, even though we have full push access. There is no way you can do anything wrong using this setup - you're able to commit, but you're committing to a local clone of Examples project.",
+    "Note that you could also just cp -r a local repo to /tmp or some similar junk play area. You just have to be careful in that case because if you had commit access in the original repo, you do also in the copy. The reason I did the mirror clone above was to give us commit access to a bogus local repository with no consequences.",
+    "Hard Reset",
+    "git reset --hard",
+    "Sometimes you just want to give up your work (or redo it, or just replay it from the authoritative repository. Then git reset --hard is what you want. You can throw away one or several commits, blow away changes you have staged, etc. If the commits in question are still on another branch (or on your branch in the remote repository), then you're not even doing anything destructive, but just fiddling with your local.",
+    "So first, let's experiment with what happens when we use the destructive git reset --hard, which sets the repository back to the commit we name. Let's set it back 3 commits:",
+    "git reset --hard HEAD~3",
+    "git log",
+    "We have just destroyed 3 commits! But did we do any damage? Nope.",
+    "git pull",
+    "pulls it right back into our local repository. All we actually did was to remote the memory of those 3 commits from our local branch.",
+    "Or let's say that those commits were not in the remote repo. We can still do all this with no risk:",
+    "git checkout master",
+    "git checkout -b play_branch",
+    "git reset --hard HEAD~3",
+    "Recover the commits from our original branch",
+    "git merge master",
+    "Resetting a commit so we can fix it up a bit",
+    "Let's say that all these commits are my own and they haven't been released into the wild yet. I'm going to rework the top commit just a bit because I didn't really like it. I essentially throw away the commit, but keep the files in my work tree.",
+    "git reset HEAD^",
+    "will undo the top commit, but leave the results of it in the working tree.",
+    "Amending a commit",
+    "Sometimes I have either messed up the commit message, forgotten to stage a file or a file deletion, or something of the like. It's just good to have another chance at the commit.",
+    "I can stage some additional stuff I want to commit just by doing a git add and then",
+    "git commit --amend",
+    "and the newly staged stuff gets added to the top commit, and I have the chance to change the commit message as well.",
+    "Yes, this is rewriting history, and it must be done only on commits that have not already been released into the wild.",
+    "Combining (squashing) 10 commits into one",
+    "Since we're playing let's combine 10 commits into one. This uses the rather exotic \"rebase\" command to do the exotic \"squash\" operation. But even though these sound forbidding, it's just a powerful way to combine many commits into one:",
+    "git rebase -i HEAD~10",
+    "We get the chance to turn the last 10 commits into any number of commits, or squash them into 1. To turn it all into one commit, change lines 2-10 from \"pick\" into an \"s\" (for \"squash\").",
+    "Cherry-picking",
+    "Let's make a new branch, go back in history by 10 commits, and then cherry pick some of the original commits that were on this branch back onto it. It's easy.",
+    "git log # Take a look at the commits",
+    "git checkout -b my_fiddle_branch # Make a play branch",
+    "git reset --hard HEAD~10 # Kill off the top 10 commits",
+    "git cherry-pick master^ # Take the next-to-top commit on master and apply it on this branch",
+    "Playing Around with Git from Randy Fay on Vimeo.",
+    "Comments",
+    "Brock Boland (not verified)",
+    "Wed, 2011-03-23 09:54",
+    "Permalink",
+    "Thanks",
+    "Thanks for posing this, Randy. I've been using git for a little over a year, but was always a little intimidated by some of these commands so I never fiddled around with them. This was really helpful.",
+    "Log in to post comments",
+    "Mark (not verified)",
+    "Mon, 2011-03-28 15:23",
+    "Permalink",
+    "Good Write Up",
+    "I've been using GIT for some time now, and can't imagine doing a web site without using it, much less try to collaborate on a project with others.",
+    "I've located my repository on the same server where my site resides (less than 425MB in size for .git folder).",
+    "I make changes on my local development environment, push them to the repository, and then pull them to the live site. I've even used GIT to have a way to sync files between machines!",
+    "Scott Chacon has an excellent book called Pro GIT published by Apress. If you're going to be using GIT with any frequency, it's well worth the purchase price. He has also made a free online version of the entire text available at http://progit.org/book/.",
+    "Log in to post comments",
+    "Keith Veleba (not verified)",
+    "Tue, 2011-03-29 09:35",
+    "Permalink",
+    "Doesn't seem to work.",
+    "Followed your instructions, but it fails.",
+    "On ubuntu Maverick.",
+    "I get",
+    "fatal: Not a git repository (or any of the parent directories): .git",
+    "when trying to checkout the master branch.",
+    "Ideas? Am I missing something fundamental here?",
+    "Thanks,",
+    "Keith",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2011-03-29 09:54",
+    "Permalink",
+    "Will need more information",
+    "Will need more information here... I don't know what you tried, so can't help much. You can be explicit here, but it's a lot easier to ask in #drupal-gitsupport on IRC. However, if you give me the context and the command you executed and what you expected to happen, I'll be happy to try to help here as well.",
+    "Log in to post comments",
+    "Keith Veleba (not verified)",
+    "Tue, 2011-03-29 10:16",
+    "Permalink",
+    "I opened a terminal, and",
+    "I opened a terminal, and typed the commands as you followed them. See below:",
+    "velebak@astrometrics:~$ cd /tmp",
+    "velebak@astrometrics:/tmp$ git clone --mirror git://git.drupal.org/project/examples.git",
+    "Initialized empty Git repository in /tmp/examples.git/",
+    "remote: Counting objects: 1767, done.",
+    "remote: Compressing objects: 100% (647/647), done.",
+    "remote: Total 1767 (delta 1198), reused 1665 (delta 1108)",
+    "Receiving objects: 100% (1767/1767), 536.23 KiB | 282 KiB/s, done.",
+    "Resolving deltas: 100% (1198/1198), done.",
+    "velebak@astrometrics:/tmp$ git checkout examples.git --branch master",
+    "fatal: Not a git repository (or any of the parent directories): .git",
+    "...and that's all she wrote. Thanks for the assist. Just trying to understand this new git world.",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2011-03-29 10:24",
+    "Permalink",
+    "Sorry - Fixed",
+    "I fixed that - not sure what happened there. It should have been",
+    "git clone examples.git --branch master",
+    "You're just cloning the full-blown repo that you have made in /tmp/examples.git",
+    "Log in to post comments",
+    "Keith Veleba (not verified)",
+    "Tue, 2011-03-29 10:28",
+    "Permalink",
+    "That was it, thanks!",
+    "That was it, thanks!",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/git-rebase",
+      "text": "git rebase"
+    },
+    {
+      "internal": false,
+      "key": "http://vimeo.com/21311829",
+      "text": "Playing Around with Git"
+    },
+    {
+      "internal": false,
+      "key": "http://vimeo.com/user5912539",
+      "text": "Randy Fay"
+    },
+    {
+      "internal": false,
+      "key": "http://vimeo.com",
+      "text": "Vimeo"
+    },
+    {
+      "internal": false,
+      "key": "http://www.drupaldork.com",
+      "text": "Brock Boland (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/854",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/854",
+      "text": "Thanks"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/98%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/863",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/863",
+      "text": "Good Write Up"
+    },
+    {
+      "internal": false,
+      "key": "http://progit.org/book",
+      "text": "http://progit.org/book/"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/98%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.veleba.net",
+      "text": "Keith Veleba (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/866",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/866",
+      "text": "Doesn't seem to work."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/98%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/867",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/867",
+      "text": "Will need more information"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/98%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.veleba.net",
+      "text": "Keith Veleba (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/868",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/868",
+      "text": "I opened a terminal, and"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/98%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/869",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/869",
+      "text": "Sorry - Fixed"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/98%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.veleba.net",
+      "text": "Keith Veleba (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/870",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/870",
+      "text": "That was it, thanks!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/98%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

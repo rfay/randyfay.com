@@ -1,0 +1,52 @@
+{
+  "title": "Updated Simpletest Tutorial, with sample modules | RandyFay.com",
+  "primaryHeading": "Updated Simpletest Tutorial, with sample modules",
+  "contentFound": true,
+  "lines": [
+    "Wed, 2009-07-29 23:19 by rfay",
+    "Drupal",
+    "Simpletest",
+    "Planet Drupal",
+    "I spent much of today updating the Simpletest Tutorial on Drupal.org. The tutorial has been revamped, with much more info, and there are downloadable sample modules for both Drupal 6 and Drupal 7.",
+    "Simpletest is making a big difference in the stability of Drupal, but we're going to have lots of work to do to get improved test coverage for the release of D7. Hopefully this will help in some small way."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/simpletest",
+      "text": "Simpletest"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/395012",
+      "text": "Simpletest Tutorial"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

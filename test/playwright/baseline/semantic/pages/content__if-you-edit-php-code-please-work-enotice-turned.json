@@ -1,0 +1,886 @@
+{
+  "title": "If you edit PHP code, please work with E_NOTICE turned on!!! | RandyFay.com",
+  "primaryHeading": "If you edit PHP code, please work with E_NOTICE turned on!!!",
+  "contentFound": true,
+  "lines": [
+    "Tue, 2010-09-14 02:09 by rfay",
+    "Planet Drupal",
+    "Best Practices",
+    "It's a Drupal and PHP best practice to develop with E_NOTICE turned on. Please do.",
+    "I installed a new contrib project from Drupal.org yesterday and found a whole bunch of warnings emitted to the screen. It turned out that the developer of the project had not (apparently) been working with E_NOTICE properly enabled in their development environment and so had never seen these. Two of them were actually obvious logic failures. You want to know when PHP is complaining about your code! (Make sure you have error/warning reporting to screen turned on during development too!)",
+    "So here's the deal: PHP has a flag called E_NOTICE. In release version of Drupal it's ignored (in includes/common.inc, drupal_error_handler()). In dev versions of Drupal and in Pressflow it's enabled. Anybody who ever edits PHP code during development should have this turned on. So you can",
+    "Use a development version of Drupal",
+    "Use Pressflow",
+    "Or apply this patch to your Drupal stable install (works on D6)",
+    "Why does this matter to you? Because if you make a single mistake, like using a misspelled variable, you won't know about it! You might do something like:",
+    "$x = $varable;",
+    "by accident, just a simple typo. If you have E_NOTICE enabled, you'll get a complaint and can fix it right away. If you don't, you've introduced a hard-to-find bug.",
+    "What about contrib modules/themes that have warnings? Well, we need to get them fixed. Please, fix them up. We wouldn't have this problem if all if everybody did what's promoted here. But it's easy enough: Fix the problem and file a patch. That's what I did last night.",
+    "Please everybody: Run your dev environment with E_NOTICE, and fix problems when you find them. Let's make contrib and our site run clean.",
+    "Comments",
+    "Benjamin Melançon (not verified)",
+    "Tue, 2010-09-14 02:39",
+    "Permalink",
+    "Best practice for turning on?",
+    "What is the best practice for turning on– just using a development version of Drupal, editing the file (hacking core!), or enabling it in one's environment?",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2010-09-14 02:43",
+    "Permalink",
+    "I would say, use the dev version or pressflow",
+    "It's easiest to use a Drupal dev version or pressflow, but this is not hacking core. It's just making the one change that's always made between dev and stable releases.",
+    "Log in to post comments",
+    "Jochen (not verified)",
+    "Tue, 2010-09-14 03:24",
+    "Permalink",
+    "So Randy, is it correct to",
+    "So Randy, is it correct to put this in my /etc/php5/php.ini file:",
+    "error_reporting = E_ALL & E_NOTICE",
+    "???",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2010-09-14 03:29",
+    "Permalink",
+    "Certainly correct, but Drupal overrides it",
+    "There's certainly nothing wrong with putting it in php.ini, but since Drupal overrides error_reporting, you need to fix this in Drupal.",
+    "Log in to post comments",
+    "Jochen (not verified)",
+    "Tue, 2010-09-14 04:28",
+    "Permalink",
+    "Hmm, I don't get it. What",
+    "Hmm, I don't get it. What line do I need to change in includes/common.inc ?",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2010-09-14 04:41",
+    "Permalink",
+    "Edited the article to show exactly what to do",
+    "I edited the article to provide a patch.",
+    "This is what you need to do:",
+    "diff --git includes/common.inc includes/common.inc",
+    "index 2ca8c72..39d6499 100644",
+    "--- includes/common.inc",
+    "+++ includes/common.inc",
+    "@@ -631,7 +631,7 @@ function drupal_error_handler($errno, $message, $filename, $line, $context) {",
+    "return;",
+    "}",
+    "if ($errno & (E_ALL ^ E_DEPRECATED ^ E_NOTICE)) {",
+    "if ($errno & (E_ALL ^ E_DEPRECATED)) {",
+    "$types = array(1 => 'error', 2 => 'warning', 4 => 'parse error', 8 => 'notice', 16 => 'core error', 32 => 'core warning', 64 => 'compile error', 128 => 'compile warning', 256 => 'user error', 512 => 'user warning', 1024 => 'user notice', 2048 => 'strict warning', 4096 => 'recoverable fatal error');",
+    "// For database errors, we want the line number/file name of the place that",
+    "Log in to post comments",
+    "Jochen (not verified)",
+    "Tue, 2010-09-14 05:53",
+    "Permalink",
+    "Hmm, yes, ... but the problem",
+    "Hmm, yes, ... but the problem is that our common.inc file is version controlled and I don't want this patch to be running on our PROD server :-)",
+    "I could store this in a variable and make it environment independant ...",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2010-09-14 05:57",
+    "Permalink",
+    "Settings.php?",
+    "The comment here about doing it in settings.php may work for you. Please give it a shot: http://randyfay.com/node/76#comment-192. (I haven't used that technique).",
+    "As far as I can tell, changing the setting in settings.php has no effect.",
+    "I actually think that E_NOTIFY probably should be on in production (but with warnings sent to watchdog instead of to the screen).",
+    "Log in to post comments",
+    "Jochen (not verified)",
+    "Tue, 2010-09-14 05:55",
+    "Permalink",
+    "Applied the patch, but I'm",
+    "Applied the patch, but I'm really getting a lof of these entries now :p",
+    "php 14/09/2010 - 13:53 Use of undefined constant SUPERCRON_SCRIPT_NAME ... admin",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2010-09-14 06:00",
+    "Permalink",
+    "You have a patch to file against supercon :-)",
+    "Time to help out the maintainer of supercron with a patch.",
+    "Log in to post comments",
+    "Benjamin Melançon (not verified)",
+    "Sat, 2011-01-15 04:43",
+    "Permalink",
+    "Yay Drupal 7- just two lines in settings.php!",
+    "error_reporting(-1); // Have PHP complain about absolutely everything as noted by Ryan below.",
+    "$conf['error_level'] = 2; // Show all messages on your screen, 2 = ERROR_REPORTING_DISPLAY_ALL.",
+    "ini_set('display_errors', TRUE); // These lines just give you content on WSOD pages.",
+    "ini_set('display_startup_errors', TRUE);",
+    "Log in to post comments",
+    "Benjamin Melançon (not verified)",
+    "Tue, 2010-09-14 04:56",
+    "Permalink",
+    "Do it in settings.php?",
+    "Sorry, I was being flippant with the hacking core comment, but it would still be better to have a place people can just change, and it shouldn't be required to have a development copy of Drupal to",
+    "Also, in Drupal 7, the relevant file is includes/bootstrap.inc for changing error_reporting to all.",
+    "However, this in settings.php ought to do it no matter what?",
+    "<?php",
+    "error_reporting(E_ALL);",
+    "$conf['error_level'] = ERROR_REPORTING_DISPLAY_ALL;",
+    "?>",
+    "Log in to post comments",
+    "FGM (not verified)",
+    "Tue, 2010-09-14 05:53",
+    "Permalink",
+    "E_STRICT ?",
+    "I tend to do most of my dev work (currently with PHP 5.3) with error_reporting(-1); to catch just about everything, including deprecation warnings and other minor issues.",
+    "Why do you recommend limiting oneself to notices and ignoring deprecation and strict warnings ?",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2010-09-14 05:54",
+    "Permalink",
+    "Not at all",
+    "I think your approach is great. Cleaner is better.",
+    "Log in to post comments",
+    "Jochen (not verified)",
+    "Tue, 2010-09-14 05:57",
+    "Permalink",
+    "Thanks for the tip, I agree!",
+    "Thanks for the tip, I agree!",
+    "Log in to post comments",
+    "Jochen (not verified)",
+    "Tue, 2010-09-14 05:56",
+    "Permalink",
+    "Ah, this seems to be better",
+    "Ah, this seems to be better then using the variable :-)",
+    "Log in to post comments",
+    "Blake Senftner (not verified)",
+    "Tue, 2010-09-14 13:19",
+    "Permalink",
+    "where is \"ERROR_REPORTING_DISPLAY_ALL\" coming from?",
+    "error_reporting(E_ALL);",
+    "$conf['error_level'] = ERROR_REPORTING_DISPLAY_ALL;",
+    "I just added the above to the bottom of a settings.php file I'm using with one of the sites I'm developing. However, the use of \"ERROR_REPORTING_DISPLAY_ALL\" is triggering this error to display on my Drupal page:",
+    "Notice: Use of undefined constant ERROR_REPORTING_DISPLAY_ALL - assumed 'ERROR_REPORTING_DISPLAY_ALL' in C:\\wamp\\www\\ProjectHome\\sites\\default\\settings.php on line 260",
+    "I'm getting the error on my page, thanks (I think) to the \"error_reporting(E_ALL);\"...",
+    "Where should \"ERROR_REPORTING_DISPLAY_ALL\" live? I did a grep of a Drupal 6.19 I have locally, and it did not find it. The site in question is actually Pressflow, (not local)...",
+    "Log in to post comments",
+    "Benjamin Melançon (not verified)",
+    "Tue, 2010-09-14 13:37",
+    "Permalink",
+    "Drupal 7",
+    "Hey, i'm sorry, Blake, i completely forgot to mention that that code was written up looking at Drupal 7.",
+    "Log in to post comments",
+    "Blake Senftner (not verified)",
+    "Tue, 2010-09-14 16:23",
+    "Permalink",
+    "thanks for your reply",
+    "I tried just going with:",
+    "error_reporting(E_ALL);",
+    "as the last line of my settings.php, which works, but just traveling to the home page of a fresh installation of drupal 6.19 generates 396 messages, many of them being \"Function ereg() is deprecated...\", and \"Undefined variable: [something]\" from various modules.",
+    "This many messages is too much to live with, so I am forced to turn this off. Too bad. As I travel around this new and empty site, the messages are overwhelming. The clients already gave me a freaked call wondering what I broke...",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2010-09-14 16:25",
+    "Permalink",
+    "PHP 5.3 warnings",
+    "The warnings you're getting are about PHP 5.3 deprecated functions.",
+    "Two things to note here:",
+    "I actually recommended just turning on E_NOTICE :-) You turned on deprecated as well, which you don't need IMO for D6.",
+    "Drupal 6.19 core is free of these notices, so you have some modules that have not been updated to 5.3.",
+    "Log in to post comments",
+    "Blake Senftner (not verified)",
+    "Tue, 2010-09-14 17:00",
+    "Permalink",
+    "good info",
+    "Thanks Randy. Changing to E_NOTICE does reduce the number of messages, that's for sure. But I'm still seeing quite a few (over a hundred) generated by the jqueryMenu.module.",
+    "They are all complaining about undefined variable usage...",
+    "Interesting to note that locating where the 3 variables are being used without any declaration and fixing them causes the jQuery Menu to completely fail to generate any menu at all. Very strange...",
+    "On the first case, it is an \"output\" variable that is used for the first time with a \".=\" assignment. Simply setting that to the empty string before its first use completely breaks the menu. I think that's because the routine in question is recursive... very strange, since the $output variable is not one of the variables passed recursively, but is one of the variables built up recursively...",
+    "On the other two cases, simply undeclared variables are being passed to another routine. I can set them fine, and the menu is still generated, but with 13 messages about undefined usage of $output...",
+    "Oh well. I guess I'll file an issue with the module maintainer... thanks for your help!!",
+    "Log in to post comments",
+    "Nick Mathew (not verified)",
+    "Tue, 2010-09-14 13:46",
+    "Permalink",
+    "Since we're setting it at",
+    "Since we're setting it at runtime, PHP recommends using the error_reporting function.",
+    "So just add ini_set('error_reporting', 30719); to the ini_set section of settings.php",
+    "Other values for the function can be found at",
+    "http://www.php.net/manual/en/errorfunc.constants.php",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2010-09-14 17:25",
+    "Permalink",
+    "Does not work for me on a stock Drupal 6.19",
+    "I can't get any of the settings.php related approaches suggested today to work on a stock Drupal 6.19 instance.",
+    "Log in to post comments",
+    "Blake Senftner (not verified)",
+    "Tue, 2010-09-14 17:34",
+    "Permalink",
+    "I just went with this as the",
+    "I just went with this as the last line of settings.php:",
+    "error_reporting(E_NOTICE);",
+    "Log in to post comments",
+    "Scott Reynen (not verified)",
+    "Tue, 2010-09-14 18:02",
+    "Permalink",
+    "I don't believe settings.php can help in D6",
+    "I'm pretty sure the error reporting level is irrelevant. Drupal uses set_error_handler(), which - according to the linked description on php.net - disregards the error reporting level. So the only way to change what Drupal does is to set a different error handler function (this is what Pressflow does) or edit the existing function (this is what Randy's patch does).",
+    "Unfortunately, you can't set a different error handler function in settings.php, because that's loaded before common.inc, and the last handler set is the one actually used. If people really want to fix this in D6 without touching core, I think it'll require a contrib module. Moshe has already indicated he's not interested in doing something like this in devel. I can't think of another existing module where this would make sense; maybe a new module?",
+    "Log in to post comments",
+    "Benjamin Melançon (not verified)",
+    "Sat, 2011-01-15 04:48",
+    "Permalink",
+    "Revised Drupal 7.0+ settings.php lines",
+    "error_reporting(-1); // Via Ryan below.",
+    "$conf['error_level'] = 2; // The constant ERROR_REPORTING_DISPLAY_ALL, as error.inc is not yet loaded.",
+    "Log in to post comments",
+    "Scott Reynen (not verified)",
+    "Tue, 2010-09-14 06:41",
+    "Permalink",
+    "Needs to be easier, will be in D7",
+    "Having spent an hour last weekend trying to figure out how to change this setting (to fix notices someone kindly reported in an issue queue), I'm happy to see more notice of, er, notices in D7. Unfortunately, I expect this won't do much to solve the problems. First, there is way too much information online about how to turn notices off to actually find anything in a search like this about turning them on. Second, as indicated by the comments here, patching core or using a different version of core in development aren't great solutions for many people.",
+    "I was going to suggest adding an interface for changing this to a new or existing module (e.g. devel), but it looks like it's already done in D7 core. Yay.",
+    "Log in to post comments",
+    "Ryan Parman (not verified)",
+    "Tue, 2010-09-14 07:38",
+    "Permalink",
+    "Actually, Rasmus recommends",
+    "Actually, Rasmus recommends developing with error_reporting(-1);. This enables ALL possible error reporting in PHP. This includes E_STRICT, E_ALL, E_NOTICE, and everything else!",
+    "Log in to post comments",
+    "Sean (not verified)",
+    "Tue, 2010-09-14 09:57",
+    "Permalink",
+    "changed my development efficiency",
+    "I had the pleasure of working on a project with Randy a year ago, and when he walked me through this little gem... it changed my development forever. Great Stuff, Thanks!",
+    "Log in to post comments",
+    "dalin (not verified)",
+    "Tue, 2010-09-14 23:10",
+    "Permalink",
+    "AMEN brotha! If everyone was",
+    "AMEN brotha!",
+    "I everyone was developing with all errors blaring in their face there wouldn't have been any issue when PHP 5.3 came out.",
+    "Log in to post comments",
+    "Ronald (not verified)",
+    "Wed, 2010-09-15 04:11",
+    "Permalink",
+    "MAMP on a mac",
+    "If you work with MAC a nice way to do things is switch all error reporting on, open up the log and have that running alongside your installation.",
+    "This way you get all the errors - updated dynamically on the log and your browser screen is clean.",
+    "Log in to post comments",
+    "Lucas Weeks (not verified)",
+    "Wed, 2010-09-15 08:56",
+    "Permalink",
+    "Thanks, Randy. And thanks,",
+    "Thanks, Randy. And thanks, Ronald. Works like a charm on the mac.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/best-practices",
+      "text": "Best Practices"
+    },
+    {
+      "internal": false,
+      "key": "http://php.net/manual/en/errorfunc.configuration.php",
+      "text": "E_NOTICE"
+    },
+    {
+      "internal": false,
+      "key": "http://pressflow.org",
+      "text": "Pressflow"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/sites/default/files/e_notice.patch",
+      "text": "this patch"
+    },
+    {
+      "internal": false,
+      "key": "http://agaric.com",
+      "text": "Benjamin Melançon (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/186",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/186",
+      "text": "Best practice for turning on?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/187",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/187",
+      "text": "I would say, use the dev version or pressflow"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/188",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/188",
+      "text": "So Randy, is it correct to"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/189",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/189",
+      "text": "Certainly correct, but Drupal overrides it"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/190",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/190",
+      "text": "Hmm, I don't get it. What"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/191",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/191",
+      "text": "Edited the article to show exactly what to do"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/files/e_notice.patch",
+      "text": "provide a patch"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/193",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/193",
+      "text": "Hmm, yes, ... but the problem"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/200",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/200",
+      "text": "Settings.php?"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/76#comment-192",
+      "text": "http://randyfay.com/node/76#comment-192"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/197",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/197",
+      "text": "Applied the patch, but I'm"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/201",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/201",
+      "text": "You have a patch to file against supercon :-)"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://agaric.com",
+      "text": "Benjamin Melançon (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/665",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/665",
+      "text": "Yay Drupal 7- just two lines in settings.php!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://agaric.com",
+      "text": "Benjamin Melançon (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/192",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/192",
+      "text": "Do it in settings.php?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://blog.riff.org",
+      "text": "FGM (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/194",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/194",
+      "text": "E_STRICT ?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/196",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/196",
+      "text": "Not at all"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/199",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/199",
+      "text": "Thanks for the tip, I agree!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/198",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/198",
+      "text": "Ah, this seems to be better"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.blakesenftner.com",
+      "text": "Blake Senftner (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/206",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/206",
+      "text": "where is \"ERROR_REPORTING_DISPLAY_ALL\" coming from?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://agaric.com",
+      "text": "Benjamin Melançon (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/207",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/207",
+      "text": "Drupal 7"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.blakesenftner.com",
+      "text": "Blake Senftner (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/210",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/210",
+      "text": "thanks for your reply"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/211",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/211",
+      "text": "PHP 5.3 warnings"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.blakesenftner.com",
+      "text": "Blake Senftner (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/212",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/212",
+      "text": "good info"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/208",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/208",
+      "text": "Since we're setting it at"
+    },
+    {
+      "internal": false,
+      "key": "http://www.php.net/manual/en/errorfunc.constants.php",
+      "text": "http://www.php.net/manual/en/errorfunc.constants.php"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/213",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/213",
+      "text": "Does not work for me on a stock Drupal 6.19"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.blakesenftner.com",
+      "text": "Blake Senftner (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/214",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/214",
+      "text": "I just went with this as the"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/215",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/215",
+      "text": "I don't believe settings.php can help in D6"
+    },
+    {
+      "internal": false,
+      "key": "http://php.net/set_error_handler",
+      "text": "set_error_handler()"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/820334",
+      "text": "already indicated"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://agaric.com",
+      "text": "Benjamin Melançon (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/666",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/666",
+      "text": "Revised Drupal 7.0+ settings.php lines"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/202",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/202",
+      "text": "Needs to be easier, will be in D7"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://ryanparman.com",
+      "text": "Ryan Parman (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/203",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/203",
+      "text": "Actually, Rasmus recommends"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.blogthingee.com",
+      "text": "Sean (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/204",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/204",
+      "text": "changed my development efficiency"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://advomatic.com",
+      "text": "dalin (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/216",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/216",
+      "text": "AMEN brotha! If everyone was"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.istos.it",
+      "text": "Ronald (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/218",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/218",
+      "text": "MAMP on a mac"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/219",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/219",
+      "text": "Thanks, Randy. And thanks,"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/76%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

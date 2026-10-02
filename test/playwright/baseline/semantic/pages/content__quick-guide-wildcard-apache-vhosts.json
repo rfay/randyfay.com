@@ -1,0 +1,559 @@
+{
+  "title": "Quick guide to wildcard Apache vhosts | RandyFay.com",
+  "primaryHeading": "Quick guide to wildcard Apache vhosts",
+  "contentFound": true,
+  "lines": [
+    "Tue, 2010-08-24 15:06 by rfay",
+    "Planet Drupal",
+    "[Edit: Added wildcard DNS section at the end, also link to dnsmasq setup instructions; also quick info on nginx defaults]",
+    "After my Debugging Drupal talk at Copenhagen today a lot of people wanted to know how to use a wildcard virtualhost, so I promised a quick writeup.",
+    "The purpose here is to be able to deploy new virtualhost-style Drupal sites on your localhost without doing any apache configuration (or /etc/hosts, if you deploy a nameserver).",
+    "Most of the time Drupal works better (and more like your production site) if you run it as a production site. If I have a site like debugging_example.com, I run it locally as debugging_example.l. That's way better than localhost/debugging_example, because all the URLs work right, and it's clean URLs.",
+    "The basic idea of what you have to do:",
+    "Enable mod_vhost_alias in Apache",
+    "Configure a catchall virtualhost",
+    "Tweak your .htaccess by uncommenting one line",
+    "Make an entry in your /etc/hosts",
+    "Here's the quick version of how to do it:",
+    "Enable the mod_vhost_alias Apache module with sudo a2enmod vhost_alias (on Debian/Ubuntu, or however on your environment).",
+    "/etc/init.d/apache2 restart",
+    "Configure your httpd.conf or apache2.conf or whatever to provide a catchall. I use Debian/Ubuntu, and this is done with:",
+    "Create the file /etc/apache2/sites-available/catchall. Here is my catchall. You'll note you have to change the base path.",
+    "a2ensite catchall",
+    "/etc/init.d/apache2/reload",
+    "Make an entry in your hosts file for the virtualhost you want to use.",
+    "In your drupal .htaccess, uncomment the line that says",
+    "# RewriteBase /",
+    "so it says instead:",
+    "RewriteBase /",
+    "And if you are ambitious and don't like adding each entry to /etc/hosts, here's a crude recipe for running bind9 (debian/ubuntu) to automatically resolve anything. I use *.l:",
+    "/etc/bind/named.conf.local, add",
+    "zone \"l\" {",
+    "type master;",
+    "file \"/etc/bind/db.l\";",
+    "notify no;",
+    "};",
+    "Add the file /etc/bind/db.l, adjusted for your use:",
+    "$ttl 38400",
+    "@ IN SOA l.l. admin.l. (",
+    "2009091700",
+    "10800",
+    "3600",
+    "604800",
+    "38400 )",
+    "l. IN NS localhost.",
+    "*.l. IN CNAME localhost",
+    "Change your computer to use localhost to resolve names. You can do this in the network config applet.",
+    "Update 2011-05-03: You might be interested in this article which shows how to do the same thing using dnsmasq, a lighter-weight DNS server.",
+    "Update 2011-05-03: To do the same thing in nginx as we did with Apache, this rule in /etc/nginx/sites-available/default will make nginx recognize any hostname like xxx.l or xxx.b or xxx.bigsony or www.xxx.b and send it to the /home/rfay/workspace/xxx directory.",
+    "server_name ~^(www.)?(?.+).(l|bigsony|b)$;",
+    "root /home/rfay/workspace/$domain;",
+    "Comments",
+    "Visitor (not verified)",
+    "Wed, 2010-08-25 01:19",
+    "Permalink",
+    "Could you clarify why we need",
+    "Could you clarify why we need to uncomment in .htaccess about RewriteBase, what's the reason behind this step?",
+    "Thank you very much,",
+    "Francesco",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2010-08-25 01:22",
+    "Permalink",
+    "Doesn't work without it.",
+    "Hi Francesco - Unfortunately you just can't use the VirtualDocumentRoot without doing that. Clean URLs don't work.",
+    "Log in to post comments",
+    "Francesco (not verified)",
+    "Wed, 2010-08-25 01:27",
+    "Permalink",
+    "I see, that's probably",
+    "I see, that's probably something that can be put at configuration level so you don't need everytime in .htaccess.",
+    "Is it possible to put the RewriteEngine On + RewriteBase / in the VirtualHost configuration?",
+    "Thanks for the quick reply!",
+    "Francesco",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2010-08-25 05:27",
+    "Permalink",
+    "I think it would work. Try it",
+    "I think it would work. Try it and report back. Thanks!",
+    "Log in to post comments",
+    "Aaron (not verified)",
+    "Wed, 2010-10-27 15:34",
+    "Permalink",
+    "Great guide",
+    "This is a fantastic guide, Randy.",
+    "Francesco: have you managed to get the directives to work in the Virtual Host configuration? I've played with your suggestion and others but it appears maybe RewriteBase cannot be specified in the vhost?",
+    "Log in to post comments",
+    "Scott (not verified)",
+    "Mon, 2011-02-07 09:30",
+    "Permalink",
+    "RewriteBase: only valid in",
+    "RewriteBase: only valid in per-directory config files",
+    "So it's only valid in the .htaccess files.",
+    "Log in to post comments",
+    "Bevan (not verified)",
+    "Wed, 2010-08-25 18:04",
+    "Permalink",
+    "My first Drupal patch",
+    "I'm glad to see my first patch to Drupal core — as trivial as it was — has been useful! :)",
+    "http://drupal.org/node/118569",
+    "Log in to post comments",
+    "drifter (not verified)",
+    "Wed, 2010-08-25 01:52",
+    "Permalink",
+    "you could also configure a wildcard DNS server",
+    "/etc/hosts doesn't support wildcard entries, but DNS entries do.",
+    "A bit more complicated, but you could enable a DNS server like BIND. Basically, set up DNS forwarding to your ISP's nameservers, or something like Google DNS or OpenDNS:",
+    "forwarders {",
+    "8.8.8.8; // google",
+    "8.8.4.4;",
+    "};",
+    "Create your own zonefile, setting in named.conf:",
+    "zone \"mac\" IN {",
+    "type master;",
+    "file \"mac.zone\";",
+    "allow-update { none; };",
+    "};",
+    "And the zonefile:",
+    "$TTL 86400",
+    "$ORIGIN mac.",
+    "@ 1D IN SOA @ root (",
+    "42 ; serial (d. adams)",
+    "3H ; refresh",
+    "15M ; retry",
+    "1W ; expiry",
+    "1D ) ; minimum",
+    "1D IN NS @",
+    "1D IN A 10.37.129.2",
+    "* IN A 10.37.129.2",
+    "I used 10.37.129.2, that's my virtual adapter connecting with Parallels Desktop, so I can reach the domains from Windows virtual machines too. You can use 127.0.0.1 instead.",
+    "From then on, just create a directory, modify .htaccess, and it should work, any domain ending in .mac: a.mac, b.mac etc...",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2010-08-25 05:28",
+    "Permalink",
+    "Added my config too",
+    "I added the config I use into the article. Thanks for posting this.",
+    "Log in to post comments",
+    "mavimo (not verified)",
+    "Wed, 2010-08-25 06:19",
+    "Permalink",
+    "dnsmasq",
+    "I prefer dnsmasq, a really, really, REALLY simple DNS manager.",
+    "sudo apt-get dnsmasq",
+    "sudo nano /etc/dnsmasq.conf",
+    "add",
+    "address=/l/127.0.0.1",
+    "on end and save",
+    "sudo /etc/init.d/dnsmaq restart",
+    "sudo nano /etc/resolv.conf",
+    "add (on top)",
+    "nameserver 127.0.0.1",
+    "and save",
+    "that's all :)",
+    "Log in to post comments",
+    "Chris Cohen (not verified)",
+    "Wed, 2010-08-25 08:43",
+    "Permalink",
+    "a2enmod?",
+    "When you say...",
+    "Enable the mod_vhost_alias Apache module with sudo a2ensite mod_vhost_alias",
+    "Should this be a2enmod rather than a2ensite?",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2010-08-25 08:59",
+    "Permalink",
+    "Fixed it",
+    "Sorry - fixed it. Of course it should be a2enmod. a2ensite is in my fingers.",
+    "Log in to post comments",
+    "Sean (not verified)",
+    "Wed, 2010-08-25 14:14",
+    "Permalink",
+    "Great Info",
+    "Great info on a tough topic, thanks Randy!",
+    "Log in to post comments",
+    "Henrik Sjökvist (not verified)",
+    "Mon, 2010-08-30 08:13",
+    "Permalink",
+    "Ghost",
+    "I use http://github.com/bjeanes/ghost to add DNS entries as needed.",
+    "To install (assuming you have ruby and RubyGems installed):",
+    "gem install ghost",
+    "To add a new entry pointing to 127.0.0.1 just enter something like:",
+    "sudo ghost add mysite.local",
+    "Log in to post comments",
+    "CSÉCSY László (not verified)",
+    "Sun, 2010-10-24 09:32",
+    "Permalink",
+    "Thanks for the recipe",
+    "I have translated it to Hungarian (available here), and packed some more techniques into the post, based on the comments.",
+    "Log in to post comments",
+    "marco (not verified)",
+    "Tue, 2011-09-06 07:50",
+    "Permalink",
+    "FYI: the catchall file is",
+    "FYI: the catchall file is gone :)",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2011-09-06 07:54",
+    "Permalink",
+    "Thanks for letting me know. I",
+    "Thanks for letting me know. I updated the pointer and it's here: http://randyfay.com/sites/default/files/catchall",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://cph2010.drupal.org/sessions/debugging-drupal-hands-techniques",
+      "text": "Debugging Drupal talk at Copenhagen"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/sites/default/files/catchall",
+      "text": "Here is my catchall"
+    },
+    {
+      "internal": false,
+      "key": "http://mojahmedia.com/using-dnsmasq-and-virtual-host-wildcards-drupal-development.html",
+      "text": "this article"
+    },
+    {
+      "internal": false,
+      "key": "http://www.xxx.b",
+      "text": "www.xxx.b"
+    },
+    {
+      "internal": true,
+      "key": "comment/167",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/167",
+      "text": "Could you clarify why we need"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/168",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/168",
+      "text": "Doesn't work without it."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/169",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/169",
+      "text": "I see, that's probably"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/171",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/171",
+      "text": "I think it would work. Try it"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/391",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/391",
+      "text": "Great guide"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/725",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/725",
+      "text": "RewriteBase: only valid in"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.geek.nz",
+      "text": "Bevan (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/177",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/177",
+      "text": "My first Drupal patch"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/118569",
+      "text": "http://drupal.org/node/118569"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/170",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/170",
+      "text": "you could also configure a wildcard DNS server"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/172",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/172",
+      "text": "Added my config too"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://mavimo.org",
+      "text": "mavimo (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/173",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/173",
+      "text": "dnsmasq"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://tiger-fish.com",
+      "text": "Chris Cohen (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/174",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/174",
+      "text": "a2enmod?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/175",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/175",
+      "text": "Fixed it"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.blogthingee.com",
+      "text": "Sean (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/176",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/176",
+      "text": "Great Info"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://henriksjokvist.net",
+      "text": "Henrik Sjökvist (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/182",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/182",
+      "text": "Ghost"
+    },
+    {
+      "internal": false,
+      "key": "http://github.com/bjeanes/ghost",
+      "text": "http://github.com/bjeanes/ghost"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://kybest.hu",
+      "text": "CSÉCSY László (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/366",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/366",
+      "text": "Thanks for the recipe"
+    },
+    {
+      "internal": false,
+      "key": "http://kybest.hu/blog/gyors-fejlesztesi-kornyezet",
+      "text": "here"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.texturecase.com",
+      "text": "marco (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2085",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2085",
+      "text": "FYI: the catchall file is"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2086",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2086",
+      "text": "Thanks for letting me know. I"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/sites/default/files/catchall",
+      "text": "http://randyfay.com/sites/default/files/catchall"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/71%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

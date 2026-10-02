@@ -1,0 +1,63 @@
+{
+  "title": "Ctools Plugin Example done, Finally! | RandyFay.com",
+  "primaryHeading": "Ctools Plugin Example done, Finally!",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2009-08-02 22:29 by rfay",
+    "Drupal",
+    "Panels",
+    "Ctools",
+    "I finally got the Ctools Plugin Example module and documentation updated and submitted. Merlin of Chaos seems happy with the idea, so I'm hoping it can make it as a module distributed with Ctools, which is a fundamental part of Panels.",
+    "One of the nicest things about Panels (now provided by Ctools) is the ability to write relatively simple pieces that extend it. But it's been kind of hard to figure out the magic. Hopefully this module + documentation will help out.",
+    "Update 19 August: It's been committed, so it will be in the upcoming full release of CTools."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/panels",
+      "text": "Panels"
+    },
+    {
+      "internal": true,
+      "key": "topics/ctools",
+      "text": "Ctools"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/537776",
+      "text": "Ctools Plugin Example"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/ctools",
+      "text": "Ctools"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/panels",
+      "text": "Panels"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

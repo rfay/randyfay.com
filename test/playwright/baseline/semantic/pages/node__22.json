@@ -1,0 +1,50 @@
+{
+  "title": "I helped with a fun facebook game | RandyFay.com",
+  "primaryHeading": "I helped with a fun facebook game",
+  "contentFound": true,
+  "lines": [
+    "Sat, 2009-06-13 07:52 by rfay",
+    "Development",
+    "facebook",
+    "I just got word from client Marie Thacker that one of the projects I helped out with is now live - it's a facebook game app. I helped do the live scoring stuff. Try it here."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/development",
+      "text": "Development"
+    },
+    {
+      "internal": true,
+      "key": "topics/facebook",
+      "text": "facebook"
+    },
+    {
+      "internal": false,
+      "key": "http://mariethacker.com",
+      "text": "Marie Thacker"
+    },
+    {
+      "internal": false,
+      "key": "http://fb.popcap.com/online-games/zuma",
+      "text": "here"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

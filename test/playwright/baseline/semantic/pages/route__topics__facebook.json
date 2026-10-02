@@ -1,0 +1,67 @@
+{
+  "title": "facebook | RandyFay.com",
+  "primaryHeading": "facebook",
+  "contentFound": true,
+  "lines": [
+    "I helped with a fun facebook game",
+    "Sat, 2009-06-13 07:52 by rfay",
+    "Development",
+    "facebook",
+    "I just got word from client Marie Thacker that one of the projects I helped out with is now live - it's a facebook game app. I helped do the live scoring stuff. Try it here.",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/i-helped-fun-facebook-game",
+      "text": "I helped with a fun facebook game"
+    },
+    {
+      "internal": true,
+      "key": "topics/development",
+      "text": "Development"
+    },
+    {
+      "internal": true,
+      "key": "topics/facebook",
+      "text": "facebook"
+    },
+    {
+      "internal": false,
+      "key": "http://mariethacker.com",
+      "text": "Marie Thacker"
+    },
+    {
+      "internal": false,
+      "key": "http://fb.popcap.com/online-games/zuma",
+      "text": "here"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

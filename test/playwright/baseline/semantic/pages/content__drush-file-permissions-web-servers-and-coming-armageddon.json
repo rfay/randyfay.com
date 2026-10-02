@@ -1,0 +1,806 @@
+{
+  "title": "Drush, File Permissions, and Web Servers - Lots of things can go wrong | RandyFay.com",
+  "primaryHeading": "Drush, File Permissions, and Web Servers - Lots of things can go wrong",
+  "contentFound": true,
+  "lines": [
+    "Sat, 2011-11-19 11:07 by rfay",
+    "Planet Drupal",
+    "drush",
+    "The marvelous drush makes an enormous number of things possible that would otherwise be tedious at best, and allows us to automate a shocking number of Drupal tasks.",
+    "But it has a dark side. Drush does tasks that would normally be done by the web server (cron, update.php, enabling modules), and that means that it can leave files laying around that the web server may not be able to access and control. It also does jobs that would normally be done by a site maintainer (drushpm-download, drushpm-updatecode) from the command line. These should create files that are not writeable by the web server.",
+    "The results of this dark side can cause enormous confusion to Drupal developers. If you do a drush cron as yourself and cron happens to write some files in sites/default/files, (for example, updating CSS or JS cache files), those files will never by default be deletable or possibly editable by the web server, meaning that Drupal will never be able to properly handle those files. The flip side is that if you do a command like \" drush cc all\" as yourself your drushcommand will not be able to delete or possibly edit files that were created (normally) by the web server.",
+    "I have debugged dozens of broken websites with subtle breakage (most of them my own) that were broken in this way.",
+    "In the future, I'd hope to see drush figure out how to categorize which of its jobs should be done as the web server user and which should be done as a non-web server user, and offer to do that for you (using sudo). But right now, here is some background and some workarounds to go with that background.",
+    "(Note: The problems described here are common to almost all Unix/Linux servers and the Mac, but usually do not affect Windows, CPanel, or Dreamhost shared hosting users. That's because traditional Unix servers run the web server as a separate user (\"www-data\" on Debian/Ubuntu, \"apache\" normally on RedHat/CentOS.)",
+    "Concepts",
+    "In Linux, every file and directory has an \"owner\" and a \"group\". Every user has a primary group. And every file has read, write, and execute permissions for owner, group, and all.",
+    "When a Linux user creates a file or directory, that file or directory by default gets the \"owner\" of the user that created it and the \"group\" of the primary group of the user that created it.",
+    "Only a user with permissions to write in a directory has permissions to delete or rename a file.",
+    "Workarounds",
+    "Add yourself and anybody who might use drush to the web server's group (www-data on Debian/Ubuntu). This will give you permissions, when using drush as a normal user, to update files created by the web server (but you still won't be able to delete files like CSS aggregation files created by the web server)",
+    "Please, please never do a \"sudo drush\" or run drush as root. This can leave scattered files laying around that neither you nor the web server can access. If you think you need to use sudo with drush something else is badly wrong. Unless, of course, you manage all your sites and files as root, which is another huge mistake from a system reliability and security perspective.",
+    "When issuing drush commands that do things the web server would normally do (cron, updatedb, enable, disable, cc, running simpletest tests) use sudo -u [web server_user] drush [whatever], which runs drush as the web server user. So, on Debian/Ubuntu: sudo -u www-data drush cc all",
+    "Make the files directory (and private files directory) and everything below them have the group of the web server and be writable by the web server user:",
+    "sudo chgrp -R www-data sites/default/files # Make all files have group www-data",
+    "sudo chmod -R ug+rw sites/default/files #Grant write permission to user and group recursively",
+    "sudo chmod g+s sites/default/files # Set the SGID bit so all files created inside the files directory will have group set for the files directory",
+    "Use this excellent technique to make sure the web server user's umask (default file permissions) are set to allow the group user to edit files.",
+    "Some examples of failures",
+    "OK, maybe you're not taking me seriously :-)",
+    "Install Backup and Migrate and install it for the first time using drush. drush en -y backup_migrate and then do a manual backup drush bb. By doing those two things you have created the backup_migrate directory... but with your own permissions. Backup Migrate can never write to that directory, and all accesses by the web server will fail. And generally we want backups to succeed. :-)",
+    "Use drush cc css+js to to clear all js and css aggregation files in sites/default/files/css, etc. If the files there are more than 30 days old (D7), you'll get these errors and the files won't be deleted, and sadly you'll see these messages forever, every time you clear the cache or do any action that clears the cache, until you go in and delete the files or solve the permissions problem. This is no great tragedy, but it just demonstrates what we're talking about:",
+    "unlink(/home/quickstart/websites/example.dev/sites/default/files/css/css_0HZDHWccQCzJ2oHZ0hVqMjDA4BAT77eUWYWDqQbAEM0.css):[warning]",
+    "Permission denied in drupal_unlink() (line 2139 of",
+    "/home/quickstart/websites/example.dev/includes/file.inc).",
+    "Install CSS Injector using drush (drush dl css_injector; drush en -y css_injector</code). Now when you go to try to create a CSS rule (which creates a file in the directory sites/default/files/css_injector, which the web server doesn't have write access to, you'll get",
+    "Error message",
+    "The directory /home/quickstart/websites/example.dev/sites/default/files/css_injector is not writable",
+    "These are just a few examples of unintended consequences of of using drush without understanding what happens with file permissions. There are many more.",
+    "If you use the workarounds described above, you can ameliorate all of these. If you don't, you can debug forever or be dogged by these problems forever.",
+    "Resources on drush:",
+    "drush.ws is the Drush documentation on a website.",
+    "This issue describes a partial approach to the permissions problem.",
+    "Armageddon",
+    "OK, I might have overstated the consequences. Not Armaggeddon, but really important to the stability of your website.",
+    "Please do leave your prescriptions for these issues in the comments!",
+    "Comments",
+    "Justin Ellison (not verified)",
+    "Sat, 2011-11-19 12:07",
+    "Permalink",
+    "passwordless sudo",
+    "What I've done in the past to prevent this is to move drush to something like drush.real, and then make drush be a shell script that simply calls 'exec sudo -u www-data /path/to/drush.real $@'",
+    "You then setup passwordless sudo to allow anyone from the webdevs group to run drush as www-data (or apache on CentOS/RHEL).",
+    "This way, the developers don't have to remember to run sudo. The admin doesn't have to add a new entry to sudoers for each new developer, he/she just needs to remember to add them to the webdevs group. If they should forget, the dev gets a notice, and the admin gets an email :)",
+    "If drush is run as www-data every time, there are none of the issues you point out.",
+    "Justin",
+    "Log in to post comments",
+    "rfay",
+    "Sat, 2011-11-19 12:25",
+    "Permalink",
+    "But there are drush actions that are not webserver actions",
+    "The problem with this (fairly useful) approach, as pointed out by several of the Drush developers, and a blocker for resolution, is that there are many drush actions which should be done with the user's permissions, not the webserver's permissions. For example, drush dl, if run the way you suggest, would download modules owned by www-data, which would mean the webserver could change them, a terrible thing from a security perspective, and the very reason that the webserver is run as a restricted user in the first place.",
+    "Log in to post comments",
+    "Justin Ellison (not verified)",
+    "Sat, 2011-11-19 12:28",
+    "Permalink",
+    "Good point. In our case,",
+    "Good point. In our case, developers are never running drush dl on production servers, that's done by a Jenkins job. So, not a problem for me, but I understand it's still a problem for much of the community.",
+    "Log in to post comments",
+    "attiks (not verified)",
+    "Mon, 2011-11-21 02:02",
+    "Permalink",
+    "aegir style",
+    "You can mimic what aegir is doing, create a new user, add it to the www-data group and use this user for drush dl like command, the benefit is that permissions are setup correctly (-rw-r--r--).",
+    "Log in to post comments",
+    "slashrsm (not verified)",
+    "Sat, 2011-11-19 13:46",
+    "Permalink",
+    "Great post. I'we noticed this",
+    "Great post. I'we noticed this issue few weeks ago, when I used drush to run cron, which fetched some nodes from rss feed. Those nodes included some images. When webserver wanted to update those pictures I got exactly that situation.",
+    "At the moment I \"fixed\" this with a simple bash script, which I use to set permissions on entire Drupal root folder. Permissions are set to 0777 when I start to work and reveted back (0444 for code and 0744 for files) when I finish. It's not very ellegant, but it works. :)",
+    "Log in to post comments",
+    "greg.1.anderson (not verified)",
+    "Sat, 2011-11-19 15:55",
+    "Permalink",
+    "Other alternatives for dealing with permissions",
+    "For a discussion on running cron from drush, see `drush topic docs-cron`. This drush topic advises running drush cron from the web server user's crontab. This keeps permissions consistent for cron.",
+    "My comments on permissions are here: http://drupal.org/node/1169776#comment-4612944",
+    "Log in to post comments",
+    "Samir Nassar (not verified)",
+    "Sun, 2011-11-20 09:59",
+    "Permalink",
+    "Workaround: mpm-itk",
+    "If you use mpm-itk, which runs any given webhost under specific user permissions, then these particular issues disappear as you can just sudo to the user the webhost belongs to.",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2011-11-20 10:03",
+    "Permalink",
+    "Yes, I think there's a number",
+    "Yes, I think there's a number of strategies like that that are often used by shared hosting providers. They have significant security issues, of course, in that if the website is compromised, so is everything the user it's running as. In this case, if the webserver or website is compromised, all my files are free to it. I know that some strategies like this chroot the webserver, etc. But there are good reasons for the classic linux approach.",
+    "Log in to post comments",
+    "Samir Nassar (not verified)",
+    "Sat, 2011-11-26 09:54",
+    "Permalink",
+    "User separation",
+    "If you are going to use something like mpm-itk and run all your sites as one user then I think you are using mpm-itk wrong.",
+    "User separation is the order of the day, so that if user01's website is compromised only that user's information is compromised. user01 cannot read data belonging to user04 for example.",
+    "Log in to post comments",
+    "Sean Burlington (not verified)",
+    "Mon, 2011-11-21 05:27",
+    "Permalink",
+    "umask",
+    "As well as running drush as a user who is in the apache group you probably also want to change the umask of the apache user so that files created by apache are writeable by others in the group",
+    "(by default apaches files are only writeable by the apache user)",
+    "I've written up some notes for this process at",
+    "http://www.practicalweb.co.uk/blog/11/05/31/drupal-files-directory-permi...",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2011-11-21 09:08",
+    "Permalink",
+    "Thanks for that - updated",
+    "I appreciate that bit of wizardry. I added it into the article with a link.",
+    "Log in to post comments",
+    "mcjim (not verified)",
+    "Tue, 2011-11-22 07:39",
+    "Permalink",
+    "Mac users",
+    "No solutions, I'm afraid, just a minor correction: Macs are no different to *nix regarding permissions, so exactly the same issues apply.",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2011-11-22 07:42",
+    "Permalink",
+    "Thanks - I edited the article",
+    "Thanks - I edited the article to reflect that.",
+    "Log in to post comments",
+    "ruben (not verified)",
+    "Mon, 2011-11-28 02:14",
+    "Permalink",
+    "thanks",
+    "Thanks Randy, This has really helped me. I now have a much better idea of how I screwed up my installation of the media module :(",
+    "Log in to post comments",
+    "mike stewart (not verified)",
+    "Thu, 2011-12-08 13:47",
+    "Permalink",
+    "files folder",
+    "Hmm, I hope I'm not totally missing your point? Otherwise, it seems to me the current Drupal documentation on Securing File Permissions addresses best practices and also avoids (most / all?) of the issues you bring up.",
+    "In short this shows how to setup rights so everything is setup as owned by \"your user\" (aka drush user) and in the www-data group with the MAJOR EXCEPTION of sites/*/files where it is instead owned by www-data and in the \"your user\" group.",
+    "see, this link http://drupal.org/node/244924 in the \"Configuration Examples\" section for details. Pay special attention to the directory listing in this section ... there is a TON of information being shown in these three lines and is easily missed if you don't notice the group changes, too.",
+    "This post also includes a handy (bash) shell script to automate.",
+    "Log in to post comments",
+    "mike stewart (not verified)",
+    "Fri, 2011-12-09 16:26",
+    "Permalink",
+    "Ok, back in the real world",
+    "thinking about it after I posted -- and assuming a vanilla setup -- when www-data user creates a file, it'll take ownership as both user and group. so although what I posted is useful... it doesn't solve anything you bring up Randy, without also additional setup (such as umask & setgid). sorry if I added any confusion",
+    "Log in to post comments",
+    "rfay",
+    "Sat, 2011-12-10 12:31",
+    "Permalink",
+    "About permissions problems, not security",
+    "Thanks for the followup. I'm glad you posted the important link to the article, but that deals with security aspects of web server setup, and doesn't deal with the practical aspects of the result, which is what this post is about.",
+    "Log in to post comments",
+    "jnettik (not verified)",
+    "Wed, 2011-12-28 11:13",
+    "Permalink",
+    "SuPHP",
+    "Awesome article. I've encountered this on many of my sites that we don't host ourselves.",
+    "One solution I've found is having SuPHP set as the PHP handler. That way anything the server does is run as my user.",
+    "Log in to post comments",
+    "Ilmari Oranen (not verified)",
+    "Tue, 2012-03-06 08:14",
+    "Permalink",
+    "Essential information",
+    "Great post. I don't see this documented very well on drupal.org.",
+    "I've certainly seen my share of mysterious problems that are originated on wrong file permissions set by drush. CSS/JS fails being rather common, and they can get exaggerated by caching (for example varnish caching links to \"dead\" css = ugly page).",
+    "Log in to post comments",
+    "Robin Millette (not verified)",
+    "Wed, 2012-03-28 15:07",
+    "Permalink",
+    "Aegir!",
+    "http://aegirproject.org/ is a great web front-end to drush ;-)",
+    "P.S.: just read your \"changing direction\" post, sorry to see you leave just as I'm getting comfortable with Commerce but following your heart is more important. Good luck!",
+    "Log in to post comments",
+    "pkou (not verified)",
+    "Mon, 2012-07-30 09:55",
+    "Permalink",
+    "ACL via chmod +a",
+    "The same problem is encountered in Symfony2 framework when running commands via cli or cron. The symfony2 installation page on \"Setting up Permissions\" (http://symfony.com/doc/current/book/installation.html) suggests another way to resolve the issue by using ACL's on systems that support it (via chmod +a or setfacl).",
+    "Log in to post comments",
+    "Randy S. (not verified)",
+    "Sat, 2014-01-11 14:40",
+    "Permalink",
+    "Still Relevant",
+    "I would like first of all to thank you for putting together a nice resource. I am sure most drush users would benifit from a look at this post. Google sent me here when search terms included something like ..",
+    "\"drush\", \"unlink(/sites/default/files [warning]\".",
+    "Drush could not manage updating modules files that had owner=group=6226. The files had been restored from a backup. DON'T USE ZIP BACKUPS for linux www files!",
+    "• use tar and gzip",
+    "• use sudo",
+    "• extract using sudo",
+    "Cheers Randy :)",
+    "Log in to post comments",
+    "jurgenhaas (not verified)",
+    "Thu, 2014-05-22 03:59",
+    "Permalink",
+    "Execute drush as webserver user is great, but:",
+    "The solution with a script file called drush which calls the real drush as the webserver user works perfectly well in our scenario as we do have deployment strategies that do not utilize drush for i.e. module updates or other functions that would have to write to any directories other than file directories where the webserver user has write permission anyways.",
+    "While this approach work perfectly well while being executed from a terminal console of a remote host, it does however throw some warnings when executed from my local terminal over SSH.",
+    "The command being executed is drush @remote.alias status and the warnings are:",
+    "tput: unknown terminal \"unknown\"",
+    "No entry for terminal type \"unknown\";",
+    "using dumb terminal settings.",
+    "I was looking around the web but couldn't find a solution yet. Those warnings do not appear if drush was called as the logged in user remotely, i.e. without the workaround described initially.",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2014-05-22 08:17",
+    "Permalink",
+    "This doesn't really do any",
+    "This doesn't really do any harm. You can probably set TERM variable to get around it. Try posting in the drush issue queue about this one, https://github.com/drush-ops/drush/issues.",
+    "Log in to post comments",
+    "JW (not verified)",
+    "Thu, 2015-09-24 13:35",
+    "Permalink",
+    "Thanks for this handy article",
+    "Thanks for this handy article.",
+    "I think the line:",
+    "> sudo chmod g+s sites/default/files # Set the \"sticky\" bit so all files created inside will have group of directory",
+    "Could be changed to:",
+    "> sudo chmod g+s sites/default/files # Set the SGID so all files created inside will have group of directory",
+    "I think setting the SGID (Set Group Id) is different from setting the sticky bit.",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2015-09-24 15:41",
+    "Permalink",
+    "Thanks, I updated with your",
+    "Thanks, I updated with your suggestion. You're right they're totally different. At least as different as bits get :)",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/drush",
+      "text": "drush"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/drush",
+      "text": "drush"
+    },
+    {
+      "internal": false,
+      "key": "http://www.practicalweb.co.uk/blog/11/05/31/drupal-files-directory-permissions-continuous-integration",
+      "text": "excellent technique"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/backup_migrate",
+      "text": "Backup and Migrate"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/css_injector",
+      "text": "CSS Injector"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/drush",
+      "text": "drush"
+    },
+    {
+      "internal": false,
+      "key": "http://drush.ws",
+      "text": "drush.ws"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/990812",
+      "text": "This issue"
+    },
+    {
+      "internal": false,
+      "key": "http://sysadminsjourney.com",
+      "text": "Justin Ellison (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2142",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2142",
+      "text": "passwordless sudo"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2143",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2143",
+      "text": "But there are drush actions that are not webserver actions"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://sysadminsjourney.com",
+      "text": "Justin Ellison (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2144",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2144",
+      "text": "Good point. In our case,"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.attiks.com",
+      "text": "attiks (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2149",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2149",
+      "text": "aegir style"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://janezurvc.name",
+      "text": "slashrsm (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2145",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2145",
+      "text": "Great post. I'we noticed this"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://drush.ws",
+      "text": "greg.1.anderson (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2146",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2146",
+      "text": "Other alternatives for dealing with permissions"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1169776#comment-4612944",
+      "text": "http://drupal.org/node/1169776#comment-4612944"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://samirnassar.com",
+      "text": "Samir Nassar (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2147",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2147",
+      "text": "Workaround: mpm-itk"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2148",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2148",
+      "text": "Yes, I think there's a number"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://samirnassar.com",
+      "text": "Samir Nassar (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2158",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2158",
+      "text": "User separation"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.practicalweb.co.uk",
+      "text": "Sean Burlington (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2151",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2151",
+      "text": "umask"
+    },
+    {
+      "internal": false,
+      "key": "http://www.practicalweb.co.uk/blog/11/05/31/drupal-files-directory-permissions-continuous-integration",
+      "text": "http://www.practicalweb.co.uk/blog/11/05/31/drupal-files-directory-permi..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2152",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2152",
+      "text": "Thanks for that - updated"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2153",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2153",
+      "text": "Mac users"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2154",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2154",
+      "text": "Thanks - I edited the article"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://tregeagle.com",
+      "text": "ruben (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2159",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2159",
+      "text": "thanks"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/media",
+      "text": "media"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://mediadoneright.com",
+      "text": "mike stewart (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2160",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2160",
+      "text": "files folder"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/244924",
+      "text": "Securing File Permissions"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/244924",
+      "text": "http://drupal.org/node/244924"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://mediadoneright.com",
+      "text": "mike stewart (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2161",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2161",
+      "text": "Ok, back in the real world"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2166",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2166",
+      "text": "About permissions problems, not security"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2185",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2185",
+      "text": "SuPHP"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://ilmari.oranen.com",
+      "text": "Ilmari Oranen (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2220",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2220",
+      "text": "Essential information"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://rym.waglo.com",
+      "text": "Robin Millette (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2253",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2253",
+      "text": "Aegir!"
+    },
+    {
+      "internal": false,
+      "key": "http://aegirproject.org",
+      "text": "http://aegirproject.org/"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2371",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2371",
+      "text": "ACL via chmod +a"
+    },
+    {
+      "internal": false,
+      "key": "http://symfony.com/doc/current/book/installation.html",
+      "text": "http://symfony.com/doc/current/book/installation.html"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://ic4ever.com",
+      "text": "Randy S. (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3460",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3460",
+      "text": "Still Relevant"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.paragon-es.de",
+      "text": "jurgenhaas (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3517",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3517",
+      "text": "Execute drush as webserver user is great, but:"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3518",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3518",
+      "text": "This doesn't really do any"
+    },
+    {
+      "internal": false,
+      "key": "https://github.com/drush-ops/drush/issues",
+      "text": "https://github.com/drush-ops/drush/issues"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3591",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3591",
+      "text": "Thanks for this handy article"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3592",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3592",
+      "text": "Thanks, I updated with your"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/114%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

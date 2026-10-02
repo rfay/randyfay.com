@@ -1,0 +1,39 @@
+{
+  "title": "Debugging Drupal Presentation posted | RandyFay.com",
+  "primaryHeading": "Debugging Drupal Presentation posted",
+  "contentFound": true,
+  "lines": [
+    "Thu, 2009-09-03 07:30 by rfay",
+    "Drupal",
+    "My presentation for Paris Drupalcon is posted: randyfay.com/debugging_drupal."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "debugging_drupal",
+      "text": "randyfay.com/debugging_drupal"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

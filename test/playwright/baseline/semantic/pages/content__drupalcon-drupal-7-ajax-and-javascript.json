@@ -1,0 +1,85 @@
+{
+  "title": "DrupalCon: Drupal 7 AJAX and Javascript | RandyFay.com",
+  "primaryHeading": "DrupalCon: Drupal 7 AJAX and Javascript",
+  "contentFound": true,
+  "lines": [
+    "Wed, 2010-04-14 13:24 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Rob Loach, Kat Bailey and I will be presenting Drupal 7 AJAX and Javascript Monday, 3-4pm, in room 307.",
+    "Here are the basics:",
+    "The new AJAX Framework",
+    "AJAX forms, with a complete how-to and sample, easy to understand code.",
+    "The fantastic new #states feature for dynamic forms.",
+    "D7 Javascript changes from D6.",
+    "Using Javascript Libraries.",
+    "We've made great strides in Drupal 7. Come and hear about it.",
+    "If you used AHAH in D6, you're probably afraid of AJAX forms. But if you never used #ahah, you'll walk out of the room feeling competent to try out #ajax. You can't believe how easy it is now.",
+    "Comments",
+    "Dave Reid (not verified)",
+    "Wed, 2010-04-14 17:19",
+    "Permalink",
+    "Would you also be able to",
+    "Would you also be able to give a recommendation for inline/popup forms in D7?",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "text": "Drupal 7 AJAX and Javascript"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/58",
+      "text": "#states feature"
+    },
+    {
+      "internal": false,
+      "key": "http://www.davereid.net",
+      "text": "Dave Reid (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/81",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/81",
+      "text": "Would you also be able to"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/60%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

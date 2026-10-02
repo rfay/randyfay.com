@@ -26,9 +26,10 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')` and `request.get('')`.
-     * Defaults to the live pre-migration site; override to point the exact same suite at a
+     * Defaults to the pre-migration development site (https://randyfay.ddev.site); override to point the exact same suite at a
      * migration target, e.g.:
-     *   TEST_BASE_URL=https://migration-a.example.com ddev playwright test
+     *   ddev exec -d /var/www/html/test/playwright 'TEST_BASE_URL=https://migration-a.example.com npx playwright test'
+     * (a host-side `TEST_BASE_URL=... ddev playwright ...` is NOT forwarded into the container)
      * See PLAYWRIGHT_TESTING.md for the full strategy. */
     baseURL: process.env.TEST_BASE_URL ?? 'https://randyfay.ddev.site',
 

@@ -1,0 +1,166 @@
+{
+  "title": "Debugging Links and Resources | RandyFay.com",
+  "primaryHeading": "Debugging Links and Resources",
+  "contentFound": true,
+  "lines": [
+    "Modules",
+    "devel module is all about instrumentation. It lets you see database queries and how long they're taking, tells you how long it took to render a page, and a thousand other indispensable things. Not recommended on a live site.",
+    "trace module will trace hooks and their execution. This is for people who understand what hooks are.",
+    "drush is not really a module. It allows you to rapidly and easily change the configuration of your system. Need to install devel? drush dl devel; drush enable devel. Sound pretty easy?",
+    "smtp is the way you test mail sending when you're not on the production site. Many people need it to do mail testing. Install it and point it at your gmail account and you can send mail all you want. Also check out reroute_email.",
+    "IDE Debuggers",
+    "Eclipse PDT.See Basic setup, Debugging setup and http://krimson.be/en/debugging-drupal-6-using-xdebug",
+    "Activestate Komodo IDE for debugging",
+    "Netbeans",
+    "Zend Studio",
+    "Links",
+    "Two outstanding articles on Debugging Drupal including much howto on Devel module and other great tips, and a complete tutorial on setting up a an environment for debugging and profiling Drupal on Ubuntu with Netbeans.",
+    "Fabulous.",
+    "Handbook: Setting up a development environment",
+    "2bits: Debugging resources and links",
+    "Configuring Eclipse",
+    "Easier Drupal Debugging with Trace",
+    "Debugging Drupal 6 with Xdebug and Eclipse",
+    "Drupalcon Paris (2009) video of this presentation",
+    "Drupal",
+    "debugging",
+    "Book Navigation",
+    "‹ Debugging Techniques",
+    "up"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/devel",
+      "text": "devel module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/trace",
+      "text": "trace module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/drush",
+      "text": "drush"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/smtp",
+      "text": "smtp"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/reroute_email",
+      "text": "reroute_email"
+    },
+    {
+      "internal": false,
+      "key": "http://www.eclipse.org/pdt",
+      "text": "Eclipse PDT"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/75242",
+      "text": "Basic setup"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/157609",
+      "text": "Debugging setup"
+    },
+    {
+      "internal": false,
+      "key": "http://krimson.be/en/debugging-drupal-6-using-xdebug",
+      "text": "http://krimson.be/en/debugging-drupal-6-using-xdebug"
+    },
+    {
+      "internal": false,
+      "key": "http://www.activestate.com/komodo",
+      "text": "Activestate Komodo"
+    },
+    {
+      "internal": false,
+      "key": "http://www.netbeans.org",
+      "text": "Netbeans"
+    },
+    {
+      "internal": false,
+      "key": "http://www.zend.com/en",
+      "text": "Zend Studio"
+    },
+    {
+      "internal": false,
+      "key": "http://ratatosk.backpackit.com/pub/1836982-debugging-drupal",
+      "text": "Debugging Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://ratatosk.backpackit.com/pub/1842524-drupal-on-ubuntu",
+      "text": "setting up a an environment for debugging and profiling Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/setting-up-development-environment",
+      "text": "Handbook: Setting up a development environment"
+    },
+    {
+      "internal": false,
+      "key": "http://2bits.com/articles/resources-and-links-on-debugging-tracing-and-profiling-drupal.html",
+      "text": "2bits: Debugging resources and links"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/75242",
+      "text": "Configuring Eclipse"
+    },
+    {
+      "internal": false,
+      "key": "http://ar.to/2006/12/easier-drupal-debugging-with-trace",
+      "text": "Easier Drupal Debugging with Trace"
+    },
+    {
+      "internal": false,
+      "key": "http://www.krimson.be/en/debugging-drupal-6-using-xdebug",
+      "text": "Debugging Drupal 6 with Xdebug and Eclipse"
+    },
+    {
+      "internal": false,
+      "key": "http://www.archive.org/details/DebuggingDrupal",
+      "text": "Drupalcon Paris (2009) video of this presentation"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-techniques",
+      "text": "‹ Debugging Techniques"
+    },
+    {
+      "internal": true,
+      "key": "debugging",
+      "text": "up"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Drupal Debugging",
+        "key": "debugging"
+      }
+    ]
+  }
+}

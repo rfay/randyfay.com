@@ -1,0 +1,105 @@
+{
+  "title": "AHAH Simplest Example: #ahah on the submit button, replace a region | RandyFay.com",
+  "primaryHeading": "AHAH Simplest Example: #ahah on the submit button, replace a region",
+  "contentFound": true,
+  "lines": [
+    "Note that this is currently maintained in the Examples project so the code here may not be the latest.",
+    "The essence of AHAH is that you mark an element of a form as the one that activates AHAH behavior, and you tell it what section of the HTML is to be replaced when it's activated.",
+    "The form we're using here has a \"markup\" element, which is just plain HTML. It has a prefix and suffix that mention its CSS ID. The CSS ID will be used by the javascript running in the background to determine what's to be replaced.",
+    "The submit is marked as an element with AHAH behavior with the \"#ahah\" marker. It's given a Drupal path for the callback. You can actually point your web browser at this path and see what happens as a debugging procedure. Here you can hit the callback in your browser (http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah/callback).",
+    "When the submit button is pressed, instead of doing the traditional HTTP submit of the page, javascript provided by Drupal calls the callback, gets the resulting HTML (as a JSON object), and then replaces the section of the code (The div with ID \"box\") with the HTML replacement.",
+    "(This one is at http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah.)",
+    "Here's an example of the very simplest AHAH behavior.",
+    "/**",
+    "* @file",
+    "* A Hello-world AHAH. Just swaps out a markup section on submit",
+    "*/",
+    "function ahah_demo_simplest() {",
+    "$initial_markup = '",
+    "' . t('This is a blue box') . '",
+    "';",
+    "$form['box'] = array(",
+    "'#type' => 'markup',",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#value' => $initial_markup,",
+    ");",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#ahah' => array(",
+    "'path' => 'ahah_demo/simplest_ahah/callback',",
+    "'wrapper' => 'box',",
+    "),",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "function ahah_demo_simplest_callback() {",
+    "$colors = array('red','orange','blue','green','black');",
+    "$color = $colors[array_rand($colors)];",
+    "$output = '",
+    "This is ' . $color . ' box",
+    "';",
+    "print drupal_json(array('status' => TRUE, 'data' => $output));",
+    "exit();",
+    "}",
+    "?>",
+    "AHAH",
+    "Book Navigation",
+    "‹ Drupal Forms API (FAPI) Basics - the 2-minute version",
+    "up",
+    "AHAH Example: Textfields driven by checkboxes ›"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah/callback",
+      "text": "http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah/callback"
+    },
+    {
+      "internal": false,
+      "key": "http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah",
+      "text": "http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-forms-api-fapi-basics-2-minute-version",
+      "text": "‹ Drupal Forms API (FAPI) Basics - the 2-minute version"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-textfields-driven-checkboxes",
+      "text": "AHAH Example: Textfields driven by checkboxes ›"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+        "key": "ahah"
+      }
+    ]
+  }
+}

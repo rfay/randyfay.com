@@ -1,0 +1,27 @@
+{
+  "title": "Screen Sharing | RandyFay.com",
+  "primaryHeading": "Screen Sharing",
+  "contentFound": true,
+  "lines": [
+    "Thu, 2009-09-10 05:21 by rfay",
+    "Topics:",
+    "screenshare",
+    "Hi - use this to let me share my screen with you. Just put the PIN I'll give you and your name below."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/screenshare",
+      "text": "screenshare"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

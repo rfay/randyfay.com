@@ -1,0 +1,1141 @@
+{
+  "title": "Drupal Deployment with Git Submodules | RandyFay.com",
+  "primaryHeading": "Drupal Deployment with Git Submodules",
+  "contentFound": true,
+  "lines": [
+    "Tue, 2011-12-20 18:09 by rfay",
+    "git",
+    "Planet Drupal",
+    "[Update October 2013: Warning: While I found submodules extraordinarily easy to use, especially when contributing back changes, I failed at nearly every turn to successfully involve other people with them. They always had unnecessary technical problems. So I have reverted back to a single repo for the entire project.]",
+    "(There are screencasts illustrating these concepts at the bottom.)",
+    "I've been using git submodules for Drupal site deployment for quite awhile now, and I wanted to share my experience (for good and bad) with others who might be interested in using submodules (and to solicit comments from those who know how to do it better).",
+    "What are git submodules?",
+    "First \"git submodules\" have nothing to do with Drupal modules. They're a way of including one git repository inside another, in its entirety, and managing it from within the parent repository.",
+    "In a regular git repository, you have one .git directory in the root directory of the project that contains the entire history and all the revisions for that project. Every change in the project is tracked in that one .git repository.",
+    "Using git submodules you have one or more sub-repositories of the main one. They look exactly like a regular git repository, but the parent repository knows just enough about them to manipulate them.",
+    "For example, if we're using the regular Drupal checkout as our main repository and checking out Drupal modules as submodules, we might do this:",
+    "git clone git://git.drupal.org/project/drupal.git --branch 7.x",
+    "git submodule add --branch 7.x-1.x git://git.drupal.org/project/examples.git sites/all/modules/examples",
+    "git submodule add --branch 7.x-3.x git://git.drupal.org/project/admin_menu.git sites/all/modules/admin_menu",
+    "This would check out Examples and Admin Menu into sites/all/modules in the Drupal tree, but as real first class git repositories (they have their own .git directories), but the parent repository (the Drupal repo in this case) knows what they are and what to do about them. I can now use all the git tools I can think of in the Examples or Admin Menu directories, including pulling (to follow a tracking branch), git bisect to debug, git checkout (to get a particular tag/version). I can also create a patch after solving a problem with the regular git tools and I can apply a patch with git apply in those directories, all without thinking twice. There are lots of reasons this appeals to me.",
+    "Practical deployment with git submodules",
+    "Once we have a repository that contains submodules, we can push it to a remote, as with any git repository. Note that we're not pushing the Drupal module submodules though (as in most cases we don't even have commit privileges on them).",
+    "When building a site based on Drupal I usually do this:",
+    "# Clone drupal into a directory \"mysite\"",
+    "git clone -b 7.x git://git.drupal.org/project/drupal.git mysite",
+    "cd mysite",
+    "# Create a new branch for our site deployment work",
+    "git checkout -b site",
+    "# Add a couple of submodules to it",
+    "git submodule add --branch 7.x-1.x git://git.drupal.org/project/examples.git sites/all/modules/examples",
+    "git submodule add --branch 7.x-3.x git://git.drupal.org/project/admin_menu.git sites/all/modules/admin_menu",
+    "git commit -m \"My site is ready to go\"",
+    "# Now change the remote named \"origin\" to \"drupal\"",
+    "git remote rename origin drupal",
+    "# and create a new remote that points to my repository",
+    "git remote add origin git@git.myrepo.example.com:mysite.git",
+    "git push origin site # Push the thing up there.",
+    "Now I have a local site that's all ready to go, and has been pushed to my private repository (or github, or whatever).",
+    "I can deploy this site on a server by just cloning it and then updating the submodules. The fact that you have to do two discreet steps is in fact unfortunate and it is easy to forget after cloning or pulling. But here's the process for deploying from the new private repository that we pushed to:",
+    "git clone --branch site git@git.myrepo.example.com:mysite.git",
+    "git submodule update --init",
+    "Not too hard. The git submodule update --init tells the main repository to go through all the submodules listed in its .gitmodules file and initialize each one (cloning it and checking out the correct revision).",
+    "Updating the main repository and submodules",
+    "When the time comes to update a deployment (or a dev environment; they're the same), we would use this technique.",
+    "To update the main repository based on what's already on the branch we're tracking (\"site\"):",
+    "git pull",
+    "git submodule update --init",
+    "To update the main repository to the latest Drupal version or to some specific version:",
+    "git fetch drupal # Get all the latest from drupal.org",
+    "git merge 7.x # Merge the latest Drupal from the drupal.org 7.x branch",
+    "git push origin site # push these new changes to our remote",
+    "To update submodules we just pull (or change branches, or check out a tag, or whatever) and then add the updated submodule to the main site repo. This example would update to the latest version of Examples, since it's set up to be tracking the origin/7.x-1.x branch:",
+    "cd sites/all/modules/examples",
+    "git pull",
+    "# to update the parent repository we have to get into its scope, so go up a directory",
+    "cd ..",
+    "git status",
+    "git add examples",
+    "git commit -m \"Updated examples\"",
+    "git push origin site",
+    "Two major directory structures",
+    "I know of two major ways to organize Drupal with submodules.",
+    "Using Drupal itself as the base repository, as I've done above. This is easy, intuitively obvious, and works beautifully with Drush.",
+    "Creating a main repository (which includes sites/all) and then adding Drupal as a submodule, and other projects also as submodules, This allows Drupal to exist as a separate repository rather than as a container for submodules, and also allows adding other assets, etc.",
+    "The structure in this case might be:",
+    "Master repo (containing directories named sites, assets, etc.)",
+    "Drupal as a submodule of the master repo and located in /drupal",
+    "Other projects as submodules of the master repo and located in the sites directory.",
+    "The great thing about this organization is that Drupal is a submodule just like everything else, and that non-Drupal assets can be added in other directories, etc.",
+    "The two drawbacks are:",
+    "The Drupal submodule's \"sites\" directory must be replace with a symbolic link that points to the master repo's sites directory (usually \"../sites\")",
+    "Out of the box, drush dl doesn't work with this configuration, although I still intend to figure out how to make it work.",
+    "Miscellanous Submodule Tidbits",
+    "drush has excellent integration with git submodules, which is one reason I love submodules and the basic \"use-Drupal-as-the-master-repo\" technique. drush dl mymodule --package-handler=git_drupalorg --gitsubmodule will happily download \"mymodule\" and set it up as a submodule. Just like that. If you want drush always to work this way put these lines in your ~/.drush/drushrc.php:",
+    "$options['package-handler'] = 'git_drupalorg';",
+    "$options['gitsubmodule'] = TRUE;",
+    "If you fork a Drupal project (if you have your own patches for it) you'll have to have your own forked repository for it, either as a sandbox on Drupal.org or in a private repository. The nice thing is that when the main module catches up to those patches, you can just change the remote on that submodule and do nothing else, and you'll be back in sync with the original project.",
+    "git submodule foreach can be delightful. For example, if all your submodules track a branch, you can do this to do a \"git pull\" on each submodule:",
+    "git submodule foreach git pull",
+    "Removing a submodule is rather awkward. If you can believe it, there is not yet a command to do this. You have to do three things:",
+    "Remove it from the .gitmodules",
+    "Remove it from .git/config",
+    "Remove it from the index: git rm --cached sites/all/modules/xxx",
+    "You'll probably want to use the excellent Git Deploy module, which figures out what version corresponds to the commit for each of your modules. The 2.x version seems to work much better than the previous 1.x versions.",
+    "This is probably obvious, but is worth saying: Everywhere you pull, you need to have network access to and permissions on all of the git repositories mentioned in the remotes of both your main repo and the submodules.",
+    "The Good, the Bad, and the Ugly",
+    "OK, yes there are tradeoffs in complexity and robustness with the git submodule deployment options",
+    "Good things",
+    "For a developer, the ability to make and apply patches is marvelous. If you just start working on a patch for a module, everything will work out and you can just use git to do what you need.",
+    "It's nicely integrated with drush dl and drush upc (pm-updatecode)",
+    "You can easily test with various versions of a project and do a git bisect with no trouble at all.",
+    "It's fantastic for rapidly changing environments (like D7 was for a very long time) as everything can be easily updated to any level.",
+    "It results in a completely source controlled environment, completely recreatable from original repositories, with full history, at any time.",
+    "Bad things",
+    "The required git submodule update --init is easy to forget when pulling, and it is annoying that it is required.",
+    "There isn't any explicit support for removing a submodule.",
+    "The fact that multiple repositories must be accessed to update a site adds complexity to the process, and some fragility.",
+    "Using git, the Drupal version number of modules is not in the info file, so git_deploy has to derive it. git describe --all can to tell you what version it's on, but that's a big awkward.",
+    "Submodule Resources",
+    "Pro Git has a great writeup on git submodules",
+    "If you have access to the CommerceGuys intranet, there's a writeup demonstrating the second directory structure (not using the drupal git repo as parent repo)",
+    "Screencasts",
+    "Basics of deploying with the \"Drupal as master repository\" repo organization technique:",
+    "Additional topics in part 2, including drush integration, different repository organizations, and pros and cons",
+    "Do you have comments from your own experience? Feel free to post them here. This is sometimes a controversial topic.",
+    "Comments",
+    "larowlan (not verified)",
+    "Wed, 2011-12-21 13:43",
+    "Permalink",
+    "We used this approach whilst",
+    "We used this approach whilst developing healthyreturns.com.au it was great for building new modules against drupal.org repos from inside a larger git repo eg commerce recurring,commerce ezypay and commerce post affiliate pro.",
+    "Log in to post comments",
+    "Matt Tucker (not verified)",
+    "Wed, 2011-12-21 14:24",
+    "Permalink",
+    "Great post",
+    "Thanks for posting this Randy. I've been using submodules extensively for the last few months and have to say, I really do like the workflow. It definitely takes some getting used to, but once you figure things out, it's pretty smooth.",
+    "A handy shortcut for your above, git clone [uri]; git submodule init --update; is simply git clone [uri] --recursive... works really well :)",
+    "My only gripe with submodules is the speed of checking things out. Having to go to drupal.org for every single one of your contrib modules definitely slows down deployments.. My particular project can take upwards of 7-8 minutes just to checkout the code.",
+    "You mentioned \"For a developer, the ability to make and apply patches is marvelous.\" I actually disagree with this completely. For me, applying patches is one of the hardest things to do with submodules. Unless you commit your patched version to a different remote, you've got to remove the submodule and add it as a regular directory... otherwise, you'll be committing a reference to a SHA that doesnt exist on d.o.",
+    "Thanks for pointing me at git_deploy.module. I wasnt really aware that drush dl had support for git submodules, so both of those tid bits were new to me!",
+    "As always, Great post Randy! :)",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-12-21 14:33",
+    "Permalink",
+    "Thanks for git clone --recursive",
+    "Excellent - looking forward to trying out git clone --recursive.",
+    "Note that I wasn't saying that maintaining a patched module is easy, just that patching it is easy :-) I pointed out in the tidbits that if you fork it you own it and you have to get a repo together. Not pretty. But really, what's the alternative? Drush make is the only thing that can do patch application predictably, and it's typically done without source control, and that just makes me crazy. So you end up putting anything you fork in your own repo, one way or another.",
+    "Log in to post comments",
+    "Matt Tucker (not verified)",
+    "Wed, 2011-12-21 16:35",
+    "Permalink",
+    "drush make",
+    "I'm beginning to think you and I feel very similarly about drush make.. glad I'm not the only one :)",
+    "Log in to post comments",
+    "jeffam (not verified)",
+    "Wed, 2011-12-21 19:25",
+    "Permalink",
+    "Possible Typo",
+    "In the 'Practical deployment with git submodules' section, I think that this:",
+    "# Check out drupal into a directory \"mysite\"",
+    "git checkout -b 7.x git://git.drupal.org/project/drupal.git mysite",
+    "Should be more like this:",
+    "# Clone drupal into a directory \"mysite\"",
+    "git clone -b 7.x git://git.drupal.org/project/drupal.git mysite",
+    "Thanks for this and all of your other articles!",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2011-12-22 10:25",
+    "Permalink",
+    "Thanks - fixed it",
+    "I very much appreciate your careful reading.",
+    "Log in to post comments",
+    "ao2 (not verified)",
+    "Thu, 2011-12-22 15:03",
+    "Permalink",
+    "An alternative to submodules is 'mr'",
+    "Lately I have been using 'mr' (http://kitenet.net/~joey/code/mr/) to manage multiple repositories as sub-projects (components) of a super-project, it looked cleaner and more lightweight as approach than git submodules for my use case; you get to track the structure with a single text file named .mrconfig from which you can recreate (bootstrap) the whole project; you just need to keep this file under version control, nothing more; à-la drush make, if you wish, but not specifically for drupal.",
+    "This lightweight approach could not be for everybody, I know, in my case I don't need to keep the history of instances of the super-project, I only track the structure.",
+    "Ah here is a list of alternatives to submodules:",
+    "http://stackoverflow.com/questions/6500524/git-subtree-or-gitslave-if-sw...",
+    "Regards,",
+    "Antonio",
+    "Log in to post comments",
+    "Helmo (not verified)",
+    "Fri, 2011-12-23 01:24",
+    "Permalink",
+    "Your symlink issue",
+    "Nice write up.",
+    "\"Out of the box, drush dl doesn't work with this configuration, although I still intend to figure out how to make it work.\"",
+    "That might very well be the same issue as described in http://drupal.org/node/1158510",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2011-12-23 07:13",
+    "Permalink",
+    "Thanks - following",
+    "Thanks - The reason I was saying it doesn't work is that drush assumes that the repo to add the submodule to is the Drupal root. However, I'm pretty sure this can be solved with drush dl --gitsubmoduleaddparams, I just haven't worked with it yet.",
+    "Log in to post comments",
+    "Lukas von Blarer (not verified)",
+    "Tue, 2012-05-29 03:22",
+    "Permalink",
+    "I am currently having this",
+    "I am currently having this problem. Have you figured it out? Isn't there a way to make Drush symlink aware? The same problem also exists when using drush rsync.",
+    "Log in to post comments",
+    "Capi Etheriel (not verified)",
+    "Tue, 2012-02-28 05:46",
+    "Permalink",
+    "Why merge?",
+    "Since you're working on a branch, why do you merge after fetching drupal updates? Can't you just rebase? After all, you're either keeping submodules or patches, and it makes a lot of sense to just rebase these changes if they still apply.",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2012-02-28 07:26",
+    "Permalink",
+    "Fast-forward merge and rebase end up being the same",
+    "With what I was doing here, I think rebase and merge should be equivalent.",
+    "I\"m a strong opponent of accidental merges as you may have seen here (merges that are unnecessary and have unintended consequences and content.",
+    "However, when you're in control of everything that's going on, and the results of a merge are a fast-forward, I've come to prefer a merge. But in this case, IMO, it's a matter of personal choice.",
+    "Log in to post comments",
+    "Capi Etheriel (not verified)",
+    "Wed, 2012-03-14 08:03",
+    "Permalink",
+    "Install profiles",
+    "I'm just wondering what are the best practices for using sumodules and profile installs together, since profiles usually download its projects and I never feel easy when I'm updating it (mught break rebuilds).",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2012-03-14 08:28",
+    "Permalink",
+    "In git, don't use drush make",
+    "I guess I never user drush make when maintaining an install profile in git. IMO it's best to separately download the required modules (as submodules) into sites/all/modules. Then the install profile becomes a git submodule in /profiles. But typically an install profile is irrelevant after the installation process.",
+    "Log in to post comments",
+    "EclipseGc (not verified)",
+    "Wed, 2012-04-04 10:22",
+    "Permalink",
+    "I know I'm a little late to",
+    "I know I'm a little late to this party, but that's a REALLY bad idea. You want a profile's module to be in /profiles/[profile]/modules/... because the placement of modules actually matters in relation to drupal's handling of which module gets used. Multisite installations make this blatantly obvious, and NOT utilizing this approach will give you headaches in the long term. Drush Make is fantastic for install profile development. If you're not using it for that you're probably doing it the hard way, or doing something that will ultimately bite you (or some poor dev who uses your install profile).",
+    "Git Submodules, in my limited experience, are fantastic for customer site development, and for Drupal core development. Install profiles have a different set of needs, and Drush Make satisfies that use case much better.",
+    "Eclipse",
+    "Log in to post comments",
+    "Matt Tucker (not verified)",
+    "Mon, 2012-03-26 15:22",
+    "Permalink",
+    "submodule init and update recursive",
+    "Since this is becoming the go-to resource for handling submodules (Thanks Randy!) I figured I'd post my most recent finding when dealing with git pull's and submodules.",
+    "Usually, git pull; git submodule init; git submodule update; is sufficient; however if you have nested submodules, this simply does not work. Only git submodule update can be passed the --recursive and this does not actually recursively initialize the nested submodules. Instead, you must do the init and the update with a single command: git submodule update --init --recursive... this correctly initializes nested submodules and updates them all at once.",
+    "It's simple once you figure it out, but damn it's a head banger until then!",
+    "Log in to post comments",
+    "penyaskito (not verified)",
+    "Sun, 2012-06-03 11:57",
+    "Permalink",
+    "Errata",
+    "On the \"Miscellanous Submodule Tidbits\" section, the first command says \"--package-handler=drupalorg_git\". It should be \"--package-handler=git_drupalorg\".",
+    "Thanks for posting this, Randy!",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2012-06-03 20:50",
+    "Permalink",
+    "Thanks, fixed",
+    "Thanks for the note. I fixed it.",
+    "Log in to post comments",
+    "Alexander N (not verified)",
+    "Wed, 2012-07-04 14:53",
+    "Permalink",
+    "Question: I've been following",
+    "Question: I've been following these instructions for months now and never had a problem until today when I tried to add the Entity module.",
+    "It kept going like this:",
+    "$ git submodule add --branch 7.x-1.x git://git.drupal.org/project/entity.git sites/all/modules/contrib/entity",
+    "Cloning into sites/all/modules/contrib/entity...",
+    "remote: Counting objects: 3233, done.",
+    "remote: Compressing objects: 100% (1691/1691), done.",
+    "remote: Total 3233 (delta 2200), reused 2287 (delta 1528)",
+    "Receiving objects: 100% (3233/3233), 652.64 KiB | 136 KiB/s, done.",
+    "Resolving deltas: 100% (2200/2200), done.",
+    "fatal: git checkout: branch 7.x-1.x already exists",
+    "Unable to checkout submodule 'sites/all/modules/contrib/entity'",
+    "Until I removed the --branch 7.x-1.x parameter from the command. Then it worked, but I'm not entirely sure what the problem was exactly.",
+    "Anybody know what was going on there? I mean, obviously, the error quite clearly tells me that the branch \"already exists\", but I'm not sure why this was a problem only with this particular submodule.",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2012-07-04 14:59",
+    "Permalink",
+    "Default branches on projects were enabled yesterday",
+    "Just yesterday, it became possible for project maintainers to set a default branch for the project, and Entity has 7.x-1.x. I imagine this is related to your problem.",
+    "However, in a quick test, I wasn't able to recreate your issue. Is it possible you have an older git?",
+    "The workaround is just to do two commands, the \"git submodule\" followed by a \"git checkout\". But in this particular case, you wouldn't need to, because it would default (now) to 7.x-1.x.",
+    "Log in to post comments",
+    "Alexander N (not verified)",
+    "Wed, 2012-07-04 15:24",
+    "Permalink",
+    "$ git --versiongit version 1",
+    "$ git --version",
+    "git version 1.7.3",
+    "It could be the git version, but the new \"default branch option for maintainers\" feature you mention also sounds like a possible cause!",
+    "Thanks!",
+    "Log in to post comments",
+    "Felix (not verified)",
+    "Tue, 2012-07-10 06:26",
+    "Permalink",
+    "drush dl",
+    "Hi. I have a problem downloading modules with the command drush dl mymodule --package-handler=git_drupalorg --gitsubmodule this makes mymodule a submodule in a a created directory all/modules/mymodule and also repo in sites/all/modules/mymodules.",
+    "So for e.g. webform git status. yields",
+    "# Changes to be committed:",
+    "...",
+    "# modified: .gitmodules",
+    "# new file: all/modules/webform",
+    "...",
+    "# Untracked files:",
+    "# sites/all/modules/webform/",
+    "which i do not want of course. Someone with the same problem that can help me?",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2012-07-10 07:40",
+    "Permalink",
+    "Issue open",
+    "I imagine this is http://drupal.org/node/1372442, which dogged me for ages. Please try out the patch there and give your feedback. If you have this problem because your main repo is reached by a symlink, you can reorg not to use symlinks as a workaround as well.",
+    "Log in to post comments",
+    "Felix (not verified)",
+    "Fri, 2012-07-20 03:15",
+    "Permalink",
+    "Thanks it works!",
+    "Thanks it works!",
+    "Log in to post comments",
+    "Felix (not verified)",
+    "Fri, 2012-07-20 03:22",
+    "Permalink",
+    "Git branch",
+    "Hi!",
+    "How do you handle branches/tags in the submodules? Since when downloading with e.g.",
+    "git clone -b [branch] [repo] --recursive",
+    "The submodules will not be on any branch.",
+    "Is there any way to make the modules (which are git submodules) to be downloaded in the recommended branch or tag?",
+    "Some output:",
+    "e.g. for git_deploy i get this message",
+    "Entering 'sites/all/modules/git_deploy'",
+    "You are not currently on a branch, so I cannot use any",
+    "'branch..merge' in your configuration file.",
+    "Please specify which remote branch you want to use on the command",
+    "line and try again (e.g. 'git pull ').",
+    "See git-pull(1) for details.",
+    "Stopping at 'sites/all/modules/git_deploy'; script returned non-zero status.",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2012-07-20 07:47",
+    "Permalink",
+    "Check out the branch you want",
+    "I don't have your master repo to look at, but it's my bet that the submodules in it are checked out tags, not branches. If they were branches, you'd have what you want. If you need to check out a branch, just do the checkout in the module directory (git checkout 7.x-1.x, for example). Then you'll have to add and commit that. And when you do a git pull on the submodule, it will have to be committed.",
+    "Log in to post comments",
+    "Felix (not verified)",
+    "Fri, 2012-07-20 09:21",
+    "Permalink",
+    "diff example",
+    "Hi and thanks for the quick answer.",
+    "e.g. with the diff module, i have checked out tag 7.x-2.0 which i think is supported atm.",
+    "Then git gets in the (no branch) state.",
+    "Then i want to do git submodule foreach git pull to get new updates. Here it brakes since diff is not in a branch. I guess i have this problem because of lacking git skills but i would appreciate help anyway.",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2012-07-20 09:49",
+    "Permalink",
+    "Can't pull on a tag",
+    "The essential answer is that if you check out a tag, you're checking out one exact commit (in detached head state), and there's no way to do a pull. However, you can use drush upc to get a new version checked out. Or you can check out a branch, which isn't a very good solution for a production site.",
+    "Log in to post comments",
+    "Felix (not verified)",
+    "Fri, 2012-07-20 10:03",
+    "Permalink",
+    "Production",
+    "Ok. Which method would you recommend yourself to keep the production site up to date?",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2012-07-20 10:11",
+    "Permalink",
+    "Manual update",
+    "What I personally do is to temporarily turn on update module and see what the situation is. If an important security issue has happened for a module, or it has a feature I want in a newer release, I do these things in my development site:",
+    "Go into the submodule directory and git fetch then git checkout <tag_i_want>",
+    "Evaluate the changes and make sure the site's not broken.",
+    "Go to the main directory and git add sites/all",
+    "Commit the change to what's checked out.",
+    "Push the changes",
+    "On the production site,",
+    "git pull",
+    "git submodule update --init",
+    "drush updatedb",
+    "drush cc all",
+    "And of course make sure nothing's broken.",
+    "I would imagine other people have different permutations of this. And of course, I might do more than one module in this process (Repeat steps 1 and 2 a few times before adding and committing)",
+    "Log in to post comments",
+    "Aaron J. St. Pierre (not verified)",
+    "Thu, 2013-01-10 10:23",
+    "Permalink",
+    "--gitinfofile",
+    "Hi Randy,",
+    "Great post! This was super, super helpful! Thanks for that.",
+    "I'm wondering what your thoughts are on drushs' --gitinfofile option? I really don't want to enable git_deploy and have to allow php exec (right now I'm limiting it via suhosin). I was excited to find the --gitinfofile option, but because drush updates the .info file I can't easily change branches anymore and I'm not quite sure how to deal with that situation.",
+    "Do you have any suggestions?",
+    "Thanks again!",
+    "Aaron",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2013-01-10 10:41",
+    "Permalink",
+    "Changes/invalidates the repo",
+    "Unfortunately, the --gitinfofile option is intended for drush make deployment, where one won't be using git again, at least based on my experiments. I found that it created problems rather than solving them because changing the info file means that we're not in sync with the repo any more.",
+    "BTW, I've gotten discouraged with using submodules when I have to explain them to other people. People already have enough trouble with git... So adding to the complexity is a problem. It's still an awesome technique when you're working with a bunch of modules that probably need patches and such.",
+    "Log in to post comments",
+    "Seth (not verified)",
+    "Fri, 2013-10-11 14:23",
+    "Permalink",
+    "Setting Up the Strucuture",
+    "Hi Randy, Great article...had a couple of questions",
+    "When you setup the drupal folder in the 2nd method, what remote are you pulling Drupal from? Is it coming directly from drupal.org? Or do you simply download it, and place it in the directory manually so you don't overwrite the sites folder?",
+    "At what point do you setup the symbolic link. Once you pull Drupal into your own remote repository? Or after you've added it as a submodule in the sites repo?",
+    "Hope that makes sense. Thanks!",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2013-10-13 06:01",
+    "Permalink",
+    "I'm pretty rusty at the",
+    "I'm pretty rusty at the drupal-as-a-submodule technique, but git lets you use remotes any way you want. Iv'e seen this done both ways. I often put in a remote called \"drupal\" with the URL of the Drupal git repo, and another remote as \"rfay\" pointing to my (perhaps patched) version.",
+    "The symlink should probably be checked into your main repo. A symlink in Linux/MacOS is simply a special kind of pointer file which can be managed in git. This does not work with Windows. (Symlinks in general dont' work.)",
+    "Log in to post comments",
+    "sethmac (not verified)",
+    "Mon, 2013-10-14 06:18",
+    "Permalink",
+    "Why rusty?",
+    "Are you rusty because you've found a better approach or because you no longer user Drupal? :)",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2013-10-14 10:37",
+    "Permalink",
+    "The drupal-as-submodule",
+    "The drupal-as-submodule approach is certainly more robust, but it's not the one I used most often.",
+    "However, I've found that as much as I like git submodules for development, deployment, and being easily able to contribute back fixes to the community, I have failed at every turn to collaborate with others on this. They invariably get their repos hosed, or get confused about what's going on. So I've stopped using git submodules when collaborating with others. (I updated the top of the post to mention this.)",
+    "Log in to post comments",
+    "Dani (not verified)",
+    "Thu, 2015-10-22 06:00",
+    "Permalink",
+    "How works pattches inside team developers?",
+    "Hello!",
+    "Great post!",
+    "¿What happends when a bug is found and we need to apply inside a contrib module? Think about It is possible that this patch wont be applied never.",
+    "We are a lot of teammates in each project, and after I had applied a patch, how my mate knows that he has to apply the patch ? I think other guys points to the right way below, making a fork of the contrib module, but I think this way could be a disaster and a bad practise",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2015-10-22 07:12",
+    "Permalink",
+    "Use a \"patches\" folder",
+    "There are a couple ways to do this. I no longer use the forking approach described here (and don't use submodules because they were too confusing to fellow developers).",
+    "Mostly, people maintain a patches directory, either one for the whole deployed project, or one per contrib. It can contain patches and perhaps a readme. These get applied, and both the patches and the changed code gets checked into the whole project.",
+    "I also use 3 directories under sites/all/modules: 'contrib', for normal releases of contrib modules, 'custom', for custom modules, and 'patched' for patched versions of contrib which also have their \"patched\" directory added.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/git_deploy",
+      "text": "Git Deploy"
+    },
+    {
+      "internal": false,
+      "key": "http://progit.org",
+      "text": "Pro Git"
+    },
+    {
+      "internal": false,
+      "key": "http://progit.org/book/ch6-6.html",
+      "text": "great writeup on git submodules"
+    },
+    {
+      "internal": false,
+      "key": "https://projects.commerceguys.com/projects/general/wiki/GitForDrupal",
+      "text": "writeup demonstrating the second directory structure"
+    },
+    {
+      "internal": false,
+      "key": "http://rowlandsgroup.com",
+      "text": "larowlan (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2172",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2172",
+      "text": "We used this approach whilst"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2173",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2173",
+      "text": "Great post"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2174",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2174",
+      "text": "Thanks for git clone --recursive"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2175",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2175",
+      "text": "drush make"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/397127",
+      "text": "jeffam (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2176",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2176",
+      "text": "Possible Typo"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2177",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2177",
+      "text": "Thanks - fixed it"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://ao2.it",
+      "text": "ao2 (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2178",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2178",
+      "text": "An alternative to submodules is 'mr'"
+    },
+    {
+      "internal": false,
+      "key": "http://kitenet.net/~joey/code/mr",
+      "text": "http://kitenet.net/~joey/code/mr/"
+    },
+    {
+      "internal": false,
+      "key": "http://stackoverflow.com/questions/6500524/git-subtree-or-gitslave-if-switch-away-from-git-submodules",
+      "text": "http://stackoverflow.com/questions/6500524/git-subtree-or-gitslave-if-sw..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2180",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2180",
+      "text": "Your symlink issue"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1158510",
+      "text": "http://drupal.org/node/1158510"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2181",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2181",
+      "text": "Thanks - following"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.motorproductions.ch",
+      "text": "Lukas von Blarer (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2329",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2329",
+      "text": "I am currently having this"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://barraponto.blog.br",
+      "text": "Capi Etheriel (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2213",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2213",
+      "text": "Why merge?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2214",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2214",
+      "text": "Fast-forward merge and rebase end up being the same"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://barraponto.blog.br",
+      "text": "Capi Etheriel (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2234",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2234",
+      "text": "Install profiles"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2235",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2235",
+      "text": "In git, don't use drush make"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2272",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2272",
+      "text": "I know I'm a little late to"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.colorado.edu",
+      "text": "Matt Tucker (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2240",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2240",
+      "text": "submodule init and update recursive"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://penyaskito.com",
+      "text": "penyaskito (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2330",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2330",
+      "text": "Errata"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2331",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2331",
+      "text": "Thanks, fixed"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2344",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2344",
+      "text": "Question: I've been following"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2345",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2345",
+      "text": "Default branches on projects were enabled yesterday"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2346",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2346",
+      "text": "$ git --versiongit version 1"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://rocafuerte.se",
+      "text": "Felix (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2351",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2351",
+      "text": "drush dl"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2352",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2352",
+      "text": "Issue open"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1372442",
+      "text": "http://drupal.org/node/1372442"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://rocafuerte.se",
+      "text": "Felix (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2361",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2361",
+      "text": "Thanks it works!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://rocafuerte.se",
+      "text": "Felix (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2362",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2362",
+      "text": "Git branch"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2363",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2363",
+      "text": "Check out the branch you want"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://rocafuerte.se",
+      "text": "Felix (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2364",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2364",
+      "text": "diff example"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2365",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2365",
+      "text": "Can't pull on a tag"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://rocafuerte.se",
+      "text": "Felix (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2366",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2366",
+      "text": "Production"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2367",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2367",
+      "text": "Manual update"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3391",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3391",
+      "text": "--gitinfofile"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3392",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3392",
+      "text": "Changes/invalidates the repo"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3416",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3416",
+      "text": "Setting Up the Strucuture"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3418",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3418",
+      "text": "I'm pretty rusty at the"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3419",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3419",
+      "text": "Why rusty?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3420",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3420",
+      "text": "The drupal-as-submodule"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.cdfotos.com",
+      "text": "Dani (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3599",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3599",
+      "text": "How works pattches inside team developers?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3600",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3600",
+      "text": "Use a \"patches\" folder"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/115%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

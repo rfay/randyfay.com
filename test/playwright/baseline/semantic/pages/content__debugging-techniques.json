@@ -1,0 +1,96 @@
+{
+  "title": "Debugging Techniques | RandyFay.com",
+  "primaryHeading": "Debugging Techniques",
+  "contentFound": true,
+  "lines": [
+    "Now, for some nitty-gritty techniques.",
+    "Using Divide-And-Conquer",
+    "Example: Binary search (of modules) by disabling modules. (demonstration)",
+    "Example: Binary search (of history) by going back in time in the code tree (demonstration)",
+    "Example: Binary search (of code execution) by step-debugging over significant sections of the site and then zeroing in on the section where the problem occurs.",
+    "Getting more information: Instrumentation: Many times, you just don't have enough information to understand what a problem consists of, not to mention what's causing it. In this situation you need to instrument the system to coax it to tell you what you need to know.",
+    "Devel module.",
+    "Trace module",
+    "Add your own on-the-fly instrumentation so you get the information you need. To do this sanely you have to be working on a clone of the site you're debugging, and to do it well, it should be under source control, so you can quickly and safely revert your hacks. Most of these are especially valuable in places like hooks, where the code executes thousands of times with no problems, but then displays a disaster on execution 1001. Step-debugging with conditional breakpoints can be used well, but sometimes you just want to find out quickly. Some quick hacks:",
+    "Webchick's Quick and Dirty Debugging: Hack drupal_set_message() in bootstrap.inc to get a stack trace, so you can see where the problem comes from. For example, you just see a nasty error about a database issue, but no context: Show the stack trace and you'll suddenly understand.",
+    "Add:",
+    "if ($type == 'error') {",
+    "$message .= '<pre>'. print_r(debug_backtrace(), TRUE) .'</pre>';",
+    "}",
+    "to the top of drupal_set_message() and you'll get a backtrace along with the message. The same exact technique works with watchdog - add to the message in watchdog() in includes/bootstrap.inc.",
+    "Debugging hook_cron: Hook_cron can be quite mischievous, because it's not intended to provide user output. A misbehaving module can cause it to croak without warning, and weeks later you find that cron hasn't been running and you don't know why. In this case we can add instrumentation right into module_invoke_all() in includes/module.inc:",
+    "Add into the for loop just below $function =",
+    "if ($hook == 'cron') { watchdog('debugging', \"CRON: Calling $function\"); }",
+    "Every invocation of hook_cron then gets logged into watchdog(). The last one you see is the problem.",
+    "Debugging the infamous \" Cannot use object of type stdClass as array\" message:",
+    "Right before the moment of disaster, insert something like:",
+    "if (!is_array($x)) { print '<pre>' . print_r(debug_backtrace(), TRUE) . '</pre>'; }",
+    "Debugging Drupal batch operations: This can be the very best technique for figuring out what's going on with batch operations. In fact, the only two ways I know of to get visibility into batch operations are to use a step debugger (Eclipse works wonderfully) or to add watchdog() calls to your code. In order to avoid being overwhelmed by the quantity, try making your watchdog calls conditional on the type of event you're working on.",
+    "Repetitive testing and refinement where the database is altered: There are a number of situations (mostly upgrade-related) where the activity you're debugging is actually changing the database, so to binary search and zero in on the problem, you have to start over again and again. If this means settings up an entire upgrade environment over and over it can make you tear your hair out. So try this:",
+    "Get the test set up (prepare for an upgrade, for example). Get it set right to the point where if you pushed the button your error would be demonstrated.",
+    "Dump the database at this point.",
+    "Run the test. Use whatever technique you're using to zero in on the error.",
+    "Load the dumped database. Rinse and repeat.",
+    "Drupal",
+    "debugging",
+    "Book Navigation",
+    "‹ Debugging Tools: Preparation and Investment Ahead of Time",
+    "up",
+    "Debugging Links and Resources ›"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/devel",
+      "text": "Devel"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/trace",
+      "text": "Trace"
+    },
+    {
+      "internal": false,
+      "key": "http://www.lullabot.com/articles/quick_and_dirty_debugging",
+      "text": "Quick and Dirty Debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-tools-preparation-and-investment-ahead-time",
+      "text": "‹ Debugging Tools: Preparation and Investment Ahead of Time"
+    },
+    {
+      "internal": true,
+      "key": "debugging",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-links-and-resources",
+      "text": "Debugging Links and Resources ›"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Drupal Debugging",
+        "key": "debugging"
+      }
+    ]
+  }
+}

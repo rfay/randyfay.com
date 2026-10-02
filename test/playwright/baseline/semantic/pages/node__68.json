@@ -1,0 +1,95 @@
+{
+  "title": "Eclipse Debugging with Zend Debugging Extension for PHP 5.3: New location for downloads | RandyFay.com",
+  "primaryHeading": "Eclipse Debugging with Zend Debugging Extension for PHP 5.3: New location for downloads",
+  "contentFound": true,
+  "lines": [
+    "Thu, 2010-07-22 18:13 by rfay",
+    "Planet Drupal",
+    "New URL for Zend debugging plugin (now called Studio Web Debugger)",
+    "If you're a user of Eclipse with the Zend Debugging Extension and you've tried to use PHP 5.3, you may have noticed that the traditional download location doesn't have it.",
+    "The new location for downloading the Zend debugging extension is http://www.zend.com/products/studio/downloads. Get the \"Studio Web Debugger\" for your platform and architecture (requires registration). (Note that the old location for this was http://downloads.zend.com/pdt/server-debugger/, which is still referred to on many places on the web. This old location has libraries only up through PHP 5.2, but if that's all you need, will work fine.)",
+    "Basic debugging with Eclipse Galileo is covered in http://drupal.org/node/157609.",
+    "That was the main news. But to make sure it actually worked I did a quick runthrough of installing Eclipse Galileo on Ubuntu 10.04 Lucid Lynx from scratch. This is essentially the same as what's in http://drupal.org/node/157609, but with less detail.",
+    "Bonus: Quick install of Eclipse Galileo with debugger on Debian/Ubuntu",
+    "Install the Zend debugging extension obtained above by downloading the correct package for your system and architecture. Follow the instructions in the installation file to install on your architecture. More details are at http://drupal.org/node/157609. Verify that phpinfo shows the \"Zend Debugger\".",
+    "apt-get install eclipse",
+    "In Eclipse, go to Help->Install New Software",
+    "Type \"Galileo\" and choose the Galileo update site",
+    "Expand \"Web, XML, and Java EE development to get to \"PHP Development Tools (PDT)\" and install it.",
+    "Now, add the Drupal PHP extensions (at least *.module, *.theme, *.test) to the PHP content type in Window->Preferences->General->Content Types.",
+    "Now set up a project in an Eclipse workspace:",
+    "(For examples in the below: I let Eclipse create the default ~/workspace, then I installed Drupal in ~/workspace/d7git, and made a virtualhost http://d7git.l that points to it.)",
+    "When you run Eclipse, it asks where you want the workspace. Just let it have its way and put it in ~/workspace.",
+    "Put the project you want to debug in the workspace (I created a Drupal install in ~/workspace/d7git)",
+    "Create a new project with File->New Project->PHP Project and give it the name of the directory of your project in ~/workspace. (I created the project \"d7git\", which absorbed my existing code.)",
+    "Debug Button -> Debug Configurations, Create a new \"PHP Web Page\" configuration.",
+    "Give it a name (I called it d7git)",
+    "For Server Debugger, choose Zend",
+    "If you use virtualhosts like I do, you need to create a new PHP server at this point. Click new, and give it the URL. For example, I created a new PHP server called d7git and used the URL http://d7git.l and pressed \"Finish\".",
+    "For the file, choose index.php",
+    "Uncheck \"Auto Generate\" for the URL and change the URL to http:/// (I changed it to http://d7git.l)",
+    "Click \"Debug\" and if you have succeeded, it will stop on the first line of index.php.",
+    "Pointers to key pages on debugging with Eclipse",
+    "Setting up Eclipse (with Zend plugin) for debugging Drupal",
+    "Basic every-time setup for Eclipse with Drupal"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://www.zend.com/products/studio/downloads",
+      "text": "http://www.zend.com/products/studio/downloads"
+    },
+    {
+      "internal": false,
+      "key": "http://downloads.zend.com/pdt/server-debugger",
+      "text": "http://downloads.zend.com/pdt/server-debugger/"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/157609",
+      "text": "http://drupal.org/node/157609"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/157609",
+      "text": "http://drupal.org/node/157609"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/157609",
+      "text": "http://drupal.org/node/157609"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/157609",
+      "text": "Setting up Eclipse (with Zend plugin) for debugging Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/75242",
+      "text": "Basic every-time setup for Eclipse with Drupal"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

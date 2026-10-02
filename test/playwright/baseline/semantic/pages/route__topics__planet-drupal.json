@@ -1,0 +1,711 @@
+{
+  "title": "Planet Drupal | RandyFay.com",
+  "primaryHeading": "Planet Drupal",
+  "contentFound": true,
+  "lines": [
+    "Eclipse for PHP Editing and Debugging",
+    "Sat, 2009-02-21 19:05 by rfay",
+    "Eclipse",
+    "Planet Drupal",
+    "I used to use the Zend platform for PHP/Drupal debugging, but they ended my support and it seemed like it never worked quite right, so while we were in Argentina I took on the significant task of making Eclipse work as a debugging environment. I eventually succeeded, but now that I'm wedded to Eclipse I'm having to learn lots about it as a working environment. It's amazingly complex and frustrating, but also very powerful.",
+    "Today I've been watching a fine series on the basics of the workbench done by Mark Dexter. It is amazing how much they can stuff into a developer's IDE. Even though I'm well along the learning curve with Eclipse I still learned lots from this.",
+    "My New Development Computer: An Amazon EC2 Instance",
+    "Fri, 2009-02-27 05:34 by rfay",
+    "Amazon EC2",
+    "Development",
+    "Planet Drupal",
+    "Here in Florida, where we're spending a couple of months, the only computer I have access to is my little netbook, an MSI Wind U-100 . It's a fine little computer, but it doesn't really have enough CPU to run Firefox, the Apache web server, the Eclipse development environment, and do debugging all at the same time. I could read the newspaper while stepping through code with the debugger, because I had to wait at each step.",
+    "Enter Amazon's Electronic Cloud (EC2) product . They provide powerful virtual computers to rent \"in the cloud\". So I just start up a new computer when I get to work in the morning, and then use remote access tools to view and control it. I spend US$0.10/hour to rent the computer. That' all. When I was so frustrated with the debugging I considered buying a new computer just for this purpose, but we don't have much room where we are here, and we would have to move the computer, and of course would have to buy it in the first place. To buy a physical computer of the power I'm getting from Amazon would cost perhaps $600-$1000, and it takes quite a few hours at $0.10/hour to add up to that.",
+    "Normally, people use Amazon's EC2 for servers, machines that need little interaction with people. But since they have fantastic network access and can do anything a regular computer can, they can be used as a \"desktop\" machine as well, and that's what I've done here.",
+    "Here's how I set up the machine. I won't go into all the details of how you work with EC2 instances, because there is a learning curve there, but I'll give the broad outline.",
+    "II used Elasticfox , a Firefox add-on, to create an instance based on Eric Hammond's pre-built Ubuntu EC2 machines. I used the Ubuntu 8.10 Desktop version, which works just fine.",
+    "One of the real problems you have to work around with EC2 is that when you shut down an instance, it goes away, POOF. No more nothing. All your data and configuration is gone. But they have an important feature called Elastic Block Store, or EBS , which is basically a disk that you can attach anytime you want to any instance you create. So I created an EBS volume for use with my development machine and used Elasticfox to attach it.",
+    "I need Apache and Mysql services on the machine, and need their config, databases, etc. to not just go away every time I shut down the instance. So I installed and configured them based on this article (which is redhat-specific; slightly different for Ubuntu).",
+    "I put my home directory and the /opt directory on the EBS volume. I installed Eclipse in the /opt directory.",
+    "I rebundled the instance so that it would always boot up the same.",
+    "Now I have a new development machine any time I want. And if I want to, I can launch it with the more powerful CPU or memory configurations that Amazon offers, for higher rent, of course.",
+    "Eric Hammond's Ubuntu builds come with the excellent Nomachine.com Desktop Virtualization server built in, and I use their free NX client to access my machine in the cloud. It's just like being there.",
+    "I can now start up Eclipse in about 1/5 of the time it takes to start up on my machine, and as I said, I don't have to read the newspaper while stepping through code in the debugger.",
+    "Internationalization and Localization of Warmshowers.org",
+    "Thu, 2009-04-30 06:38 by rfay",
+    "Drupal",
+    "internationalization",
+    "Planet Drupal",
+    "Warmshowers.org is my biggest site, with more than 7500 members, and almost certainly the most useful. It's a reciprocal hospitality site for touring cyclists - people offer touring cyclists a place to stay and a shower. It's been in English for years, but that cuts out a significant part of the world's population, and it means that options for cyclists in Latin America and several other places in the world have been more limited than they ought to be.",
+    "But we just launched es.warmshowers.org, a Drupal 6 version with all the key parts internationalized and then localized into Spanish. We're very proud of this accomplishment!",
+    "It took a lot of work by a lot of people to do this. First, Chris Russo nearly singlehandedly upgraded the site to Drupal 6, a significant accomplishment because of the custom modules we have developed for the site. Then we began learning how to do all of the localization into Spanish, and learning how to get a group together to do the translation.",
+    "There are probably four parts to the translation of the site:",
+    "Translation of the important, static content (articles, FAQ, nodes)",
+    "Translation of the interface (menus, status and warning messages, dialog boxes, prompts, forms)",
+    "Translation of the rest of the interface that's left over (outgoing emails, non-code instructions to users, etc.)",
+    "Translation of transient user-generated content (forums, other postings)",
+    "The last of these we're going to try to do with a custom module that uses the <a href=\"http://code.google.com/apis/ajaxlanguage/\"Google AJAX Language API\", specifically using the Jquery Translate jquery plugin. We did everything that seems reasonable by hand translation with native speakers, but it does not seem possible to keep up with all of the user-generated content. We'd never get enough translators to do that.",
+    "Why didn't we use machine translation for the entire site? Because it still stinks, despite what anybody says. If you know two languages, and you use Google Translate or Babelfish or any of the other services to translate them, you'll understand what I mean. Often the result is useful, meaning that you can understand the intent. Sometimes it's hilarious. Many times it's stupid. And sometimes it's just plain misleading or incomprehensible. Not a very good thing to build a website on.",
+    "But our biggest issue in translation is not the technology, it's the people. It takes a strong team to translate and then maintain a website in another language. So we're trying to learn how to do that. It's baby steps we're taking, but we're taking them.",
+    "We sent out an email to our worldwide membership some time ago and 31 native Spanish speakers responded by saying they were interested in joining the project. I created a Google Group for discussion and maintenance of the translation, and invited them all. 21 signed up for the group. And 5-10 have been active in helping with the translation.",
+    "We started the training with an online conference using the yuuguu screensharing technology and Skype. But technical problems (internet connectivity mostly) made this not work so well. So I made three 5-minute screencasts showing how to do the translation. That seemed to work better than the group conference technique.",
+    "We then set the group loose on translation. One of the biggest issues at this point was knowing who might be working on what. At first we used an editable document within the Google Groups framework, but then I was able to create two Drupal views ( 1 and 2 which show the status of translation activity using native Drupal information. The cool thing here is that due to the sophistication of views, these will work unchanged in other languages. So we're building up the infrastructure needed to do French, and then Portuguese, etc.",
+    "Another challenge any volunteer organization faces is deciding who's in charge. We needed an editor to make final decisions about usage, and to try to give the translated material some semblance of consistency. One of our translators, David Peluso, has graciously agreed to do this for now. And we now need somebody to answer emails sent to the site administrator in Spanish, so another translator, Manu, has signed up for this task. We'll use a special \"Spanish\" category on the contact page so that emails sent in Spanish will go straight to him.",
+    "Now the questions are: Can we maintain the site in multiple languages? How many languages should we take on?",
+    "Compared to my past attempts at internationalization of websites, this one is much farther along. In the past I always underestimated the scope of the task. It's big. This time, with a great team, I think we have a working site. Also, I think that Drupal 6 is far better at this than previous incarnations. Every attempt I made in the past ended up with very confusing language switches for no reason, and lots and lots of broken links. I think this one is going to work.",
+    "Updated Simpletest Tutorial, with sample modules",
+    "Wed, 2009-07-29 23:19 by rfay",
+    "Drupal",
+    "Simpletest",
+    "Planet Drupal",
+    "I spent much of today updating the Simpletest Tutorial on Drupal.org. The tutorial has been revamped, with much more info, and there are downloadable sample modules for both Drupal 6 and Drupal 7.",
+    "Simpletest is making a big difference in the stability of Drupal, but we're going to have lots of work to do to get improved test coverage for the release of D7. Hopefully this will help in some small way.",
+    "Drupal Debugging",
+    "Debugging Drupal is not that much different from any kind of debugging or problem-solving, and the topics we'll cover are the same regardless of your level of Drupal or PHP expertise.",
+    "Here we'll cover three topics:",
+    "Strategy: How do we think about the problem? How do we gather basic information about the problem? How do we not get stuck debugging the wrong problem?",
+    "Tools: What tools can be bring to bear on our problem? What should we have prepared in advance?",
+    "Techniques: What specific techniques can we use?",
+    "Although you may be here for #3, the first two will probably have more of an impact on your success, so we're going to spend some good time on them first.",
+    "Drupal",
+    "debugging",
+    "Planet Drupal",
+    "Debugging Strategies",
+    "Debugging Tools: Preparation and Investment Ahead of Time",
+    "Debugging Techniques",
+    "Debugging Links and Resources",
+    "Book Navigation",
+    "Debugging Strategies ›",
+    "Drupalcon sessions accepted for Drupalcon SF 2010",
+    "Sat, 2010-02-27 05:52 by rfay",
+    "Drupal",
+    "drupalcon",
+    "Planet Drupal",
+    "I have 3 sessions accepted for Drupalcon San Francisco 2010, all with other collaborators:",
+    "AJAX and Javascript in Drupal7 (for developers)",
+    "Best practices in contrib development and support",
+    "Advanced Forms with Drupal 7 FAPI",
+    "Debugging with Git Bisect",
+    "Fri, 2010-04-02 18:58 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "git",
+    "As most of you know, the marvelous git version control system is the future of the Drupal repository. You've probably heard people rave about lots of very important features: It's distributed, FAST, branching and merging are easy.",
+    "But today I'm here to rave about a more obscure wonderful feature of git: the git bisect command. With this command you can find out where in the history a particular bug was introduced. I made a short screencast to explain it:",
+    "The basic idea: The fastest way to understand a problem is to divide it in half, then divide that in half, etc. In search technology this is called binary search. In military terms it's called \"divide and conquer\". It's great. It's git bisect. You choose a version of your code that's broken. Then you choose a historical revision that's not broken. Then git just checks out for you the halfway points for you to test until you get to the actual answer to your question: in what commit was the change introduced?",
+    "One key feature of git that this showcases is its incredible speed. You could do all this (manually) with any revision control system. But how long would it take to do each checkout? Way too long to make it practical in most cases.",
+    "Git is cool. This is just one more reason.",
+    "Drupalcon: Best Practices in Contrib Development",
+    "Fri, 2010-04-09 18:23 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Mark your calendar for Wednesday the 21st at 3pm: Greg Knaddison, Dave Reid, Derek Wright, Jennifer Hodgdon and I are doing a panel presentation on how to maintain and support a contrib module or theme. It will cover:",
+    "Community management: Enlisting help, finding maintainers and co-maintainers, handling abandoned projects, dealing with duplication, handling the issue queue.",
+    "Drupal project management: What's expected of a maintainer, code and release management.",
+    "Coding issues: Coding standards, documentation, namespacing, simpletest, internationalization.",
+    "Resources for maintainers.",
+    "If you're a maintainer or might become one, or want to start helping overburdened module maintainers by helping out with these responsibilities, come and hear about how to contribute to the community more effectively and efficiently.",
+    "Here's the link to the DCSF page. The session is Wednesday at 3pm in 304, which is \"Phase2 Technology\".",
+    "Materials and resources will be posted on the Contrib Development Best Practices Groups.drupal.org page.",
+    "Examples module now on api.drupal.org",
+    "Sun, 2010-04-11 09:15 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Thanks to excellent work by api module maintainer drumm, all of the examples in Examples module are now available on api.drupal.org.",
+    "If you're not familiar with Examples module, it's an attempt to provide easy-to-understand examples of key Drupal APIs, so that developers have a known source of a working example they can understand. Back in the day, there were a few examples in the Documentation branch of contrib in CVS, but they were poorly maintained and nobody knew how to improve them. All of those have been moved to Examples (for D6 and D7) and updated.",
+    "So with Examples now on api.drupal.org, you have more than one way to access the various examples:",
+    "Download the module and look at the code.",
+    "Install the module and experiment with the code.",
+    "Just look for the example code in api.drupal.org with a simple search. For example, go to api.drupal.org/api/7 and search for \"AJAX Examples\". Or just search for example.",
+    "Try out the D7 examples live on http://d7.drupalexamples.info",
+    "Currently on Drupal 7 we have these examples: AJAX, Batch, Block, DBTNG, E-mail, Field, , Form, Image, Javascript, Node, Page, Simpletest, Token, Trigger, Vertical Tabs, and XML-RPC.",
+    "Community contribution is encouraged. If you find errors, can suggest improvements, provide patches, provide new examples, please do it in the Examples issue queue. This is a big and important project and it will take the whole community to get it right. Thanks!",
+    "Drupal 7 FAPI's #states: A Great New UI Improvement For Forms",
+    "Mon, 2010-04-12 14:16 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "The little-known #states feature has gone into Drupal 7, and it rocks.",
+    "Before you read on, try this dynamic form live at d7.drupalexamples.info. It's developed without using a line of javascript, just plain Form API.",
+    "Essentially, you can provide dynamic behavior in a form based on changes to other elements in the form. An easy example: Often you only need to collect information if a particular element is selected. If they select type=student, you don't have to require them to fill in a further \"Employer\" field.",
+    "The new #states example in the Examples module's Form Example shows how a dynamic form can work. You can try it out live as well at d7.drupalexamples.info.",
+    "The idea of #states is that you add a #states property to a form element that is supposed to change when some other form element changes. So if a form element is supposed to be shown or hidden, the #states property will be added on that element, not on the element that caused the change.",
+    "The #states property is a structured array of action => condition arrays. The action is 'visible' or 'checked' or 'required' or several other options. The condition is an associative array of 'jquery_selector' => array(value_statement). But mostly you can do it by copying and pasting examples. Much of the time the jquery selector can be \":input[name=field_name]\" and the rest of the array can be cookbook from example code.",
+    "In the example, the 'tests_taken' field is only to be visible if the form-filler is a high school student:",
+    "$form['tests_taken'] = array(",
+    "'#type' => 'checkboxes',",
+    "'#options' => drupal_map_assoc(array(t('SAT'), t('ACT'))),",
+    "'#title' => t('What standardized tests did you take?'),",
+    "'#states' => array(",
+    "'visible' => array( // action to take.",
+    "':input[name=student_type]' => array('value' => t('High School')),",
+    "),",
+    "),",
+    ");",
+    "So we set the action to 'visible' when the condition (our select called student_type is set to 'High School') is true.",
+    "That's basically all there is to it.",
+    "So when would you use #states as opposed to AJAX forms or a sprinkling of jquery?",
+    "If your form actually changes under the hood based on user input, then you need to use AJAX forms. #states doesn't fundamentally change any of the elements, it just changes their presentation.",
+    "If you don't change the form, but need a transformation that simple conditional logic can't do, you'll have to roll some jQuery.",
+    "For more detailed comments and possibilities, read the #states example.",
+    "Pages",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "next ›",
+    "last »",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/eclipse-php-editing-and-debugging",
+      "text": "Eclipse for PHP Editing and Debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/eclipse",
+      "text": "Eclipse"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://eclipsetutorial.sourceforge.net/index.html",
+      "text": "fine series on the basics of the workbench"
+    },
+    {
+      "internal": true,
+      "key": "content/my-new-development-computer-amazon-ec2-instance",
+      "text": "My New Development Computer: An Amazon EC2 Instance"
+    },
+    {
+      "internal": true,
+      "key": "topics/amazon-ec2",
+      "text": "Amazon EC2"
+    },
+    {
+      "internal": true,
+      "key": "topics/development",
+      "text": "Development"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://global.msi.com.tw/index.php?func=proddesc&prod_no=1474&maincat_no=135",
+      "text": "MSI Wind U-100"
+    },
+    {
+      "internal": false,
+      "key": "http://aws.amazon.com/ec2",
+      "text": "Amazon's Electronic Cloud (EC2) product"
+    },
+    {
+      "internal": false,
+      "key": "http://ec2-downloads.s3.amazonaws.com/elasticfox-owners-manual.pdf",
+      "text": "Elasticfox"
+    },
+    {
+      "internal": false,
+      "key": "http://alestic.com",
+      "text": "Eric Hammond's pre-built Ubuntu EC2 machines"
+    },
+    {
+      "internal": false,
+      "key": "http://developer.amazonwebservices.com/connect/entry.jspa?externalID=1612&categoryID=101",
+      "text": "Ubuntu 8.10 Desktop"
+    },
+    {
+      "internal": false,
+      "key": "http://aws.amazon.com/ebs",
+      "text": "Elastic Block Store, or EBS"
+    },
+    {
+      "internal": false,
+      "key": "http://www.john-nousis.com/development/tutorial-running-a-phpmysql-server-on-ec2-with-ebs",
+      "text": "based on this article"
+    },
+    {
+      "internal": false,
+      "key": "http://www.nomachine.com/products.php",
+      "text": "Nomachine.com Desktop Virtualization"
+    },
+    {
+      "internal": true,
+      "key": "content/internationalization-and-localization-warmshowersorg",
+      "text": "Internationalization and Localization of Warmshowers.org"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/internationalization",
+      "text": "internationalization"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org",
+      "text": "Warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org",
+      "text": "es.warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/apis/ajaxlanguage",
+      "text": "http://code.google.com/apis/ajaxlanguage/"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/p/jquery-translate",
+      "text": "Jquery Translate"
+    },
+    {
+      "internal": false,
+      "key": "http://yuuguu.com",
+      "text": "yuuguu"
+    },
+    {
+      "internal": false,
+      "key": "http://www.skype.com",
+      "text": "Skype"
+    },
+    {
+      "internal": false,
+      "key": "http://www.screencast.com/users/randyfay/folders/Warmshowers.org%20translation",
+      "text": "5-minute screencasts"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org/translations/status",
+      "text": "1"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org/translations/details",
+      "text": "2"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org",
+      "text": "working site"
+    },
+    {
+      "internal": true,
+      "key": "content/updated-simpletest-tutorial-sample-modules",
+      "text": "Updated Simpletest Tutorial, with sample modules"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/simpletest",
+      "text": "Simpletest"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/395012",
+      "text": "Simpletest Tutorial"
+    },
+    {
+      "internal": true,
+      "key": "debugging",
+      "text": "Drupal Debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-strategies",
+      "text": "Debugging Strategies"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-tools-preparation-and-investment-ahead-time",
+      "text": "Debugging Tools: Preparation and Investment Ahead of Time"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-techniques",
+      "text": "Debugging Techniques"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-links-and-resources",
+      "text": "Debugging Links and Resources"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-strategies",
+      "text": "Debugging Strategies ›"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcon-sessions-accepted-drupalcon-sf-2010",
+      "text": "Drupalcon sessions accepted for Drupalcon SF 2010"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupalcon",
+      "text": "drupalcon"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "text": "AJAX and Javascript in Drupal7 (for developers)"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "text": "Best practices in contrib development and support"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/advanced-forms-drupal-7-fapi",
+      "text": "Advanced Forms with Drupal 7 FAPI"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-git-bisect",
+      "text": "Debugging with Git Bisect"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://git-scm.com",
+      "text": "the marvelous git"
+    },
+    {
+      "internal": false,
+      "key": "http://www.kernel.org/pub/software/scm/git/docs/git-bisect.html",
+      "text": "git bisect"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcon-best-practices-contrib-development",
+      "text": "Drupalcon: Best Practices in Contrib Development"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "text": "how to maintain and support a contrib module or theme"
+    },
+    {
+      "internal": true,
+      "key": "topics/>http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "text": "link to the DCSF page"
+    },
+    {
+      "internal": false,
+      "key": "http://groups.drupal.org/contrib-development-best-practices",
+      "text": "Contrib Development Best Practices"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-module-now-apidrupalorg",
+      "text": "Examples module now on api.drupal.org"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/3064",
+      "text": "drumm"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/search/7/examples",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Download the module"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api.7",
+      "text": "api.drupal.org/api/7"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/search/7/example",
+      "text": "example"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info",
+      "text": "http://d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/ajax_examples/7",
+      "text": "AJAX"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--batch_example--batch_example.module/7",
+      "text": "Batch"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--block_example--block_example.module/7",
+      "text": "Block"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--dbtng_example--dbtng_example.module/7",
+      "text": "DBTNG"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--email_example--email_example.module/7",
+      "text": "E-mail"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--field_example--field_example.module/7",
+      "text": "Field"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--form_example--form_example_tutorial.inc/7",
+      "text": "Form"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--image_example--image_example.module/7",
+      "text": "Image"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/search/7/js_example",
+      "text": "Javascript"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--node_example--node_example.module/7",
+      "text": "Node"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--page_example--page_example.module/7",
+      "text": "Page"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--simpletest_example--simpletest_example.module/7",
+      "text": "Simpletest"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--token_example--token_example.module/7",
+      "text": "Token"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--trigger_example--trigger_example.module/7",
+      "text": "Trigger"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--vertical_tabs_example--vertical_tabs_example.module/7",
+      "text": "Vertical Tabs"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--xmlrpc_example--xmlrpc_example.module/7",
+      "text": "XML-RPC"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/examples",
+      "text": "Examples issue queue"
+    },
+    {
+      "internal": true,
+      "key": "states",
+      "text": "Drupal 7 FAPI's #states: A Great New UI Improvement For Forms"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/form_example/states",
+      "text": "d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/form_example_states_form/7",
+      "text": "#states example"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/form_example/states",
+      "text": "d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/form_example_states_form/7",
+      "text": "#states example"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=1",
+      "text": "2"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=2",
+      "text": "3"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=3",
+      "text": "4"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=4",
+      "text": "5"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=5",
+      "text": "6"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=6",
+      "text": "7"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=1",
+      "text": "next ›"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=6",
+      "text": "last »"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,527 @@
+{
+  "title": "Resetting Drupal Passwords in Drupal 7 with Drush or Without | RandyFay.com",
+  "primaryHeading": "Resetting Drupal Passwords in Drupal 7 with Drush or Without",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2011-02-13 09:13 by rfay",
+    "Planet Drupal",
+    "Sometimes, whether in testing or other situations, you need to reset a password (often the admin password) for a Drupal site.",
+    "Edit: The shortest answer is that two wonderful options are built into drush!",
+    "Get an admin login link",
+    "drush uli",
+    "Set the password for any user",
+    "drush upwd admin --password=\"newpassword\"",
+    "(More info on drush uli below.)",
+    "Now for the long version",
+    "In Drupal 6, you could just reset the admin password with:",
+    "cd",
+    "drush sql-cli # or mysql -u -p",
+    "UPDATE users SET name='admin', pass=md5('drupal') WHERE uid=1;",
+    "and then log in with username 'admin' and password 'drupal'.",
+    "But no more. Drupal 7 has a unique hash for each site, which means you can't just use the md5() trick any more. However, there is a script in the scripts directory that will do this.",
+    "cd",
+    "php scripts/password-hash.sh 'drupal'",
+    "Now copy the resultant hash and paste it into the query:",
+    "drush sql-cli",
+    "update users set name='admin', pass='pasted_big_hash_from_above' where uid=1;",
+    "quit",
+    "Comments",
+    "Anon (not verified)",
+    "Sun, 2011-02-13 15:47",
+    "Permalink",
+    "Please update the",
+    "Please update the corresponding FAQ entry in the Troubleshooting FAQ.",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2011-02-13 15:51",
+    "Permalink",
+    "OK... A little more info would help!",
+    "OK - If you give me a link to what you'd like to update, I will. Or you can, of course.",
+    "-Randy",
+    "Log in to post comments",
+    "Damien Tournoud (not verified)",
+    "Mon, 2011-02-14 02:07",
+    "Permalink",
+    "I also like:",
+    "I also like:",
+    "drush php-eval 'echo user_pass_reset_url(user_load(1));'",
+    "That gives you a nice, discreet, password reset URL.",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2011-02-14 07:46",
+    "Permalink",
+    "This gets you in without changing the password.",
+    "That's really nice, because it allows you to access the account without changing the password, which is a completely different requirement, and very discreet",
+    "$ drush php-eval 'echo user_pass_reset_url(user_load(1));'",
+    "http://default/user/reset/1/1297692833/obQlmdw-l89V4pdenSbD5-OMIg0Vda8L4JgQ3VjaS",
+    "You do have to change the hostname in the URL it gives you, but it's great.",
+    "Log in to post comments",
+    "scor (not verified)",
+    "Mon, 2011-02-14 09:24",
+    "Permalink",
+    "That's also in Drush",
+    "Could not live without this feature which is part of Drush 4:",
+    "open `drush user-login'",
+    "will open your browser and log you in as uid 1 provided you've setup the URI (or copy/paste the path otherwise).",
+    "Log in to post comments",
+    "Scott Lahteine (not verified)",
+    "Thu, 2011-03-03 22:52",
+    "Permalink",
+    "Mac, and oh those backticks...",
+    "It should be mentioned, the 'open' command is a Mac OS X thing. It's not the same as the 'open' alias for 'openvt' in Linux, for example. On the Mac it opens a file or URL in its default handler. And that last single-quote should be a backtick, like this...",
+    "open `drush user-login`",
+    "Log in to post comments",
+    "BJ (not verified)",
+    "Wed, 2011-02-23 13:27",
+    "Permalink",
+    "Awesome thank you",
+    "Awesome post thank you. Worked perfectly.",
+    "My php hash file was named 'password-hash.sh' with a dash instead of an underscore though.",
+    "I wrote \"php scripts/password-hash.sh 'drupal'\"",
+    "instead of \"php scripts/password_hash.sh 'drupal'\"",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-02-23 14:43",
+    "Permalink",
+    "Fixed",
+    "You were right, of course. I updated the article.",
+    "Log in to post comments",
+    "Scott Lahteine (not verified)",
+    "Thu, 2011-03-03 15:53",
+    "Permalink",
+    "Minor tweak...",
+    "When I tried to run the Drush command as-shown with D7 it didn't take until I made a small change:",
+    "drush upwd admin --password=\"newpassword\"",
+    "Note the addition of the equals-sign with the password flag. Apparently that's the proper syntax now.",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2011-03-03 15:59",
+    "Permalink",
+    "Updated",
+    "You are right. I updated it. Thanks!",
+    "Log in to post comments",
+    "Smith (not verified)",
+    "Mon, 2011-05-30 17:30",
+    "Permalink",
+    "didn't work",
+    "I tried using this approach:",
+    "cd",
+    "php scripts/password-hash.sh 'password'",
+    "and placed the resulting hash into a query:",
+    "UPDATE users SET mail = a@a.a, pass='$S$CFURCPa.k6FAEbJPgejaW4nijv7rYgGc4dUJtChQtV4KLJTPTC/u' WHERE uid > 0;",
+    "and the passwords didn't seem to take. I couldn't login anyway. Am I missing something or is something usually forgotten?",
+    "Log in to post comments",
+    "d1b1 (not verified)",
+    "Tue, 2011-07-19 15:11",
+    "Permalink",
+    "Fix for the update in bash",
+    "You might need to escape the $ in the hashed password value. use \\$ and it should work. If you are using the drush_shell_exec() you must escape these values because bash will eval the string. And use the $ represent system variables.",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2011-07-19 17:24",
+    "Permalink",
+    "His example is a sql query though",
+    "His example is a sql query though... So there shouldn't be any bash escaping going on.",
+    "I now use drush uli for nearly every time I need to do something like this.",
+    "Log in to post comments",
+    "d1b1 (not verified)",
+    "Wed, 2011-07-20 07:30",
+    "Permalink",
+    "uli?",
+    "can you provide some more information on the 'drush uli'? I have been working on a module for Aegir that allows the aegir site to hold and update the admin password. Its a client request, that they have the ability to access and edit the admin users password at any time. Not great for security, but it helps with supporting 300+ locked down sites.",
+    "My code runs in the post verify site hook and the post install site hook. When we added the d7 platform we found very quickly that the drush upwd did not provide the feature we needed. My hook will request the hash for the desired password from the base install and update the target site using drush sql-query. We solved our related issue with the query by escaping the bash variable elements $ and /.",
+    "Thanks",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-07-20 07:40",
+    "Permalink",
+    "drush uli",
+    "The latest versions of drush have drush uli which just gives you a one-time login link for admin.",
+    "$ drush uli",
+    "http://default/user/reset/1/1311169130/gf-1uDYC51jONONNF-jq3_ciKfLqhE93SsS9YNAnaEY",
+    "Unfortunately it doesn't get the hostname right in most cases (probably there's no way to know it if base_url is not set) so you have to change \"default\" correct hostname.",
+    "So in the case above, I would paste the link into a browser and then change it to",
+    "http://example.com/user/reset/1/1311169130/gf-1uDYC51jONONNF-jq3_ciKfLqhE93SsS9YNAnaEY",
+    "There I have a one-time login link to user 1 on the site. Works flawlessly.",
+    "Log in to post comments",
+    "NtEditor (not verified)",
+    "Mon, 2011-10-31 02:46",
+    "Permalink",
+    "this is indeed a hell of a",
+    "this is indeed a hell of a blog post. Pure awesomeness. I wonder whether the xml rpc login can also be made anonymous through this method?",
+    "Log in to post comments",
+    "Kelly Bell (not verified)",
+    "Mon, 2013-10-28 14:55",
+    "Permalink",
+    "what about usernames with spaces and/or using the UID instead?",
+    "First of all, thank you very much for the post!",
+    "I have a couple follow-up questions:",
+    "1. What about users who have usernames with spaces in them?",
+    "2. Is there a regularized way to use the UID instead of the username to perform drush user functions?",
+    "Apologies in advance for the stupid questions, but I haven't been able to find a good answer to this yet (not even on drush.ws).",
+    "Thanks!",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2013-10-28 15:57",
+    "Permalink",
+    "Put quotes around the",
+    "Put quotes around the username",
+    "I don't believe that drush upwd or drush uli have a way to act on uids.",
+    "Log in to post comments",
+    "Michelle (not verified)",
+    "Wed, 2014-08-27 09:30",
+    "Permalink",
+    "Thanks!",
+    "3 years later this blog post is still useful. :) Just saved me a headache!",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/comment/1990#comment-1990",
+      "text": "below"
+    },
+    {
+      "internal": true,
+      "key": "comment/748",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/748",
+      "text": "Please update the"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/749",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/749",
+      "text": "OK... A little more info would help!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/753",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/753",
+      "text": "I also like:"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/754",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/754",
+      "text": "This gets you in without changing the password."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://openspring.net",
+      "text": "scor (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/755",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/755",
+      "text": "That's also in Drush"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/942642",
+      "text": "feature which is part of Drush 4"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.thinkyhead.com",
+      "text": "Scott Lahteine (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/795",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/795",
+      "text": "Mac, and oh those backticks..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/771",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/771",
+      "text": "Awesome thank you"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/772",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/772",
+      "text": "Fixed"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.thinkyhead.com",
+      "text": "Scott Lahteine (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/792",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/792",
+      "text": "Minor tweak..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/793",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/793",
+      "text": "Updated"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.smithmilner.com",
+      "text": "Smith (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1179",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1179",
+      "text": "didn't work"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1987",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1987",
+      "text": "Fix for the update in bash"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1988",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1988",
+      "text": "His example is a sql query though"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1989",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1989",
+      "text": "uli?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1990",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1990",
+      "text": "drush uli"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.squidoo.com/what-i-would-want-in-a-notepad-editor",
+      "text": "NtEditor (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2125",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2125",
+      "text": "this is indeed a hell of a"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://gothamcitydrupal.com",
+      "text": "Kelly Bell (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3424",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3424",
+      "text": "what about usernames with spaces and/or using the UID instead?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3427",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3427",
+      "text": "Put quotes around the"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3532",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3532",
+      "text": "Thanks!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/92%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

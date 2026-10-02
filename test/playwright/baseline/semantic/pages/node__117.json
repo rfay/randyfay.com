@@ -1,0 +1,83 @@
+{
+  "title": "Refreshing a Stale Patch with Git | RandyFay.com",
+  "primaryHeading": "Refreshing a Stale Patch with Git",
+  "contentFound": true,
+  "lines": [
+    "Mon, 2012-02-20 13:41 by rfay",
+    "Planet Drupal",
+    "git",
+    "Git is so smart about merging that it's often possible to referesh a stale patch in the queue using just git, without even looking at the contents of the patch. (I'm not saying you shouldn't look at any patch you post, just that git will often do all the refeesh work for you.)",
+    "Update to the latest version of the project you're working with.",
+    "Use git log to find the hash of a commit near or just before the time the patch was posted.",
+    "Create a branch from that commit: git checkout -b . (I often use the date for the branch name: git checkout -b aug10",
+    "Apply the patch. It should apply cleanly unless there was already something wrong with it when it was created.",
+    "Use git add and git statusto make sure that all your changes are staged, then commit the results.",
+    "Create a new branch for the updated patch. I'll use git checkout -b bundles_removed_1245332_04 origin/8.x, which branches off of 8.x just for this feature branch.",
+    "Merge the date-based branch: git merge",
+    "If all goes well, you have a clean merge, and you can create a patch. In this case, git diff origin/8.x >drupal.bundle_warning_1245332_04.patch",
+    "If you still have a merge conflict, you probably only have the really relevant part of the conflict (changes actually made in your patch which conflict with changes which have been committed since the issue was last active.) In that case, you can use git mergetool to reconcile the differences, but that's for another session.",
+    "For just updating a patch that was obsoleted by the D8 core files move patch in November, see xjm's excellent, focused article.",
+    "Here's the screencast:",
+    "Comments",
+    "Janez Urevc (not verified)",
+    "Thu, 2012-02-23 05:54",
+    "Permalink",
+    "Great post!",
+    "Thank you for that info. It is VERY usefull!",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://xjm.drupalgardens.com/blog/rerolling-drupal-8-core-patches",
+      "text": "xjm's excellent, focused article"
+    },
+    {
+      "internal": false,
+      "key": "http://janezurevc.name",
+      "text": "Janez Urevc (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2211",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2211",
+      "text": "Great post!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/117%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

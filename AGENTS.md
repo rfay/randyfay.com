@@ -7,11 +7,12 @@ production.
 
 ## What this environment is
 
-- Local URL: https://randyfay.ddev.site. In this Coder workspace the same site is also served
+- Local development site: https://randyfay.ddev.site. In this Coder workspace the same site is also served
   through `*.coder.ddev.com` URLs (see `ddev launch`). Both point at this local copy.
-- The database and files were pulled from production earlier and now live locally. Restore
-  the database from a pristine dump with `ddev import-db` (confirm the dump path before
-  relying on this; it has not been tested as a one-command restore yet).
+- The database and files were pulled from production earlier and now live locally. Restoring:
+  `ddev import-db` restores the database, `ddev import-files` restores files, and a human-run
+  `ddev pull randyfay.com` plus a `git reset` is a full and complete restore. You may run the
+  import commands against a local snapshot; do not run `ddev pull` yourself (see below).
 - Destructive changes to the **local database and local files** are fine: bulk `UPDATE`s,
   deleting content, rewriting bodies. Work directly. Prefer scripts over one-off edits.
 

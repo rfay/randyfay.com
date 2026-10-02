@@ -1,0 +1,67 @@
+{
+  "title": "Examples of AJAX forms in Drupal | RandyFay.com",
+  "primaryHeading": "Examples of AJAX forms in Drupal",
+  "contentFound": true,
+  "lines": [
+    "Book module (core) (Rebuilds the form so you can select an appropriate book and parent page)",
+    "Poll module (core) (Click a submit button and it adds another question)",
+    "Examples module (Drupal 7) provides a number of AJAX examples in the \"AJAX Example module\".",
+    "Quicktabs module (Configuration options change with the type of tab)",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ What are AJAX Forms in Drupal?",
+    "up",
+    "30 Seconds on the Drupal Form API ›"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/quicktabs",
+      "text": "Quicktabs module"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/what-are-ajax-forms-drupal",
+      "text": "‹ What are AJAX Forms in Drupal?"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/30-seconds-drupal-form-api",
+      "text": "30 Seconds on the Drupal Form API ›"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Drupal 7 AJAX Forms",
+        "key": "ajax"
+      }
+    ]
+  }
+}

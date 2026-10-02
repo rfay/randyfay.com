@@ -1,0 +1,48 @@
+{
+  "title": "What is AHAH in Drupal? | RandyFay.com",
+  "primaryHeading": "What is AHAH in Drupal?",
+  "contentFound": true,
+  "lines": [
+    "AHAH in Drupal is a feature provided by the Forms API.",
+    "You write the form using the Drupal Forms API.",
+    "You specify what button activates the AHAH behavior.",
+    "You specify what part of the form's HTML is to be replaced by the callback",
+    "You write a callback that generates the replacement HTML",
+    "Drupal manages everything so that when the button or control is used, the callback gets called and the replacement of HTML is done",
+    "Although javascript is involved (supplied by Drupal) you don't write any and you don't see any.",
+    "Book Navigation",
+    "‹ Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+    "up",
+    "Examples of AHAH in Drupal ›"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "‹ Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ahah-drupal",
+      "text": "Examples of AHAH in Drupal ›"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+        "key": "ahah"
+      }
+    ]
+  }
+}

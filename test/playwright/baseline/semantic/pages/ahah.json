@@ -1,0 +1,103 @@
+{
+  "title": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP) | RandyFay.com",
+  "primaryHeading": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+  "contentFound": true,
+  "lines": [
+    "[This material was developed for a presentation at DrupalCamp Colorado in the summer of 2009. It should serve well as a standalone resource, so I hope it will help out anybody learning or struggling with AHAH. Since that time, all of the examples here have been incorporated into the Examples module's AHAH Example, so it should serve as an easy way to experiment with these concepts. If you find any problems with this or want to suggest any improvements, send me an email or catch me on IRC (rfay).]",
+    "All of us know about \"Web 2.0\" and \"AJAX\", or \"Asynchronous Javascript and XML\". The basic idea behind AJAX is that a Javascript program running in the browser communicates (usually via HTTP and XML) with the webserver and gets information that it uses to do a task or update the page. Several Drupal modules use AJAX, and it's widely deployed on the web. It normally requires you to write and maintain some pretty good Javascript along with your PHP, and it's a powerful way to add interactive features to a website. Drupal's excellent contrib module Fivestar, for example, uses XML to allow you to vote without a page load.",
+    "Built into Drupal, though, is a no-visible-Javascript technique for doing a particular class of asynchronous (no-page-reload) partial page updates. It's called AHAH, or Asynchronous HTML and HTTP. It also uses Javascript under the hood, but you never see it. Everything the programmer does is in PHP.",
+    "Drupal",
+    "What is AHAH in Drupal?",
+    "Examples of AHAH in Drupal",
+    "Drupal Forms API (FAPI) Basics - the 2-minute version",
+    "AHAH Simplest Example: #ahah on the submit button, replace a region",
+    "AHAH Example: Textfields driven by checkboxes",
+    "AHAH Example: Select control and generated checkboxes",
+    "AHAH Notes and Issues",
+    "AHAH Resources",
+    "AHAH Changes for Drupal 7 (It's now called #AJAX)",
+    "Book Navigation",
+    "What is AHAH in Drupal? ›"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": true,
+      "key": "contact",
+      "text": "send me an email"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/fivestar",
+      "text": "Fivestar"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/what-ahah-drupal",
+      "text": "What is AHAH in Drupal?"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ahah-drupal",
+      "text": "Examples of AHAH in Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-forms-api-fapi-basics-2-minute-version",
+      "text": "Drupal Forms API (FAPI) Basics - the 2-minute version"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-simplest-example-ahah-submit-button-replace-region",
+      "text": "AHAH Simplest Example: #ahah on the submit button, replace a region"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-textfields-driven-checkboxes",
+      "text": "AHAH Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-select-control-and-generated-checkboxes",
+      "text": "AHAH Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-notes-and-issues",
+      "text": "AHAH Notes and Issues"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-resources",
+      "text": "AHAH Resources"
+    },
+    {
+      "internal": true,
+      "key": "ahah/drupal7",
+      "text": "AHAH Changes for Drupal 7 (It's now called #AJAX)"
+    },
+    {
+      "internal": true,
+      "key": "content/what-ahah-drupal",
+      "text": "What is AHAH in Drupal? ›"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

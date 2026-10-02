@@ -1,0 +1,134 @@
+{
+  "title": "git clone --reference Considered Harmful | RandyFay.com",
+  "primaryHeading": "git clone --reference Considered Harmful",
+  "contentFound": true,
+  "lines": [
+    "Wed, 2012-02-29 13:54 by rfay",
+    "git",
+    "Planet Drupal",
+    "Just over a year ago I wrote a blog post explaining how to use git clone --reference to speed up git clones. That technique then went on to become a drush option (if $options['cache'] = TRUE and you're using git for drush downloads)",
+    "Well, I repent. git clone --reference should not be used IMO unless you really really understand three things:",
+    "You really need to speed up clones and other fetches.",
+    "You know that the cache directory will never be destroyed (.drush/cache/git in the case of drush managing the caching)",
+    "You will never copy your working directory some place it cannot reach the cache directory (like scp'ing it to a remote machine)",
+    "Unless you actually know #2 and #3, you can be really hurt. I know, I've done it to myself several times now.",
+    "When you use git clone --reference, it doesn't actually copy git objects into your local repository; instead it references them in your \"cache\". So if somehow your cache directory is damaged (or deleted as I did again today) all your repositories are broken. I finally codified how to recover from this damage, so that will follow below.",
+    "First, here's what happens if you delete your cache directory:",
+    "$ git status",
+    "error: object directory /Users/rfay/.drush/cache/git/aes.git/objects does not exist; check .git/objects/info/alternates.",
+    "fatal: bad object HEAD",
+    "fatal: 'git status --porcelain' failed in submodule sites/all/modules/aes",
+    "Note that this is only the first error message. Every submodule will have this problem. What is happening is that .git/objects/info/alternates points to the cache directory.",
+    "I know of no way to recover from this (aside from re-cloning or otherwise rebuilding your working directory) unless you actually have access to the cache. In my case, I recovered the cache from backup (thank you Time Machine) and then learned how to remove the dependency on the cache. And of course, I'm going to turn git caching off in drush.",
+    "Detaching alternates (cached objects) from your git repositories",
+    "Get the cache directory back where it belongs, from backup or whatever.",
+    "For each repository",
+    "git repack -a",
+    "rm .git/objects/info/alternates",
+    "In a submodule situation, you can do this with an approach like this:",
+    "git repack -a",
+    "git submodule foreach git repack -a",
+    "find $(find . -name .git) -name alternates # Make sure this finds only the right files",
+    "find $(find . -name .git) -name alternates | xargs rm # Remove the alternates files",
+    "NOW when you have verified that all your repositories are free of the evil cache, you can remove the cache directory and turn off drush caching.",
+    "But please, if you're using drush and the package_handler git_drupalorg... turn $options['cache'] = FALSE.",
+    "Comments",
+    "Marc (not verified)",
+    "Mon, 2012-05-28 19:22",
+    "Permalink",
+    "Not harmful, just incomplete?",
+    "Am I missing something, or is the --reference trick you showed earlier not really harmful, just incomplete? i.e. adding the `git repack -a -d` step, and removal of .git/objects/info/alternates, seems sufficient to make the cloned repo self-contained after its quick download. Worked very well for me. Passed `git fsck --full --strict`",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2012-05-28 19:25",
+    "Permalink",
+    "I can buy that",
+    "I guess you're right. Adding the git repack would make it all work out.",
+    "Log in to post comments",
+    "Marc (not verified)",
+    "Mon, 2012-05-28 19:31",
+    "Permalink",
+    "Forgot to say...",
+    "Btw, thanks for the --reference trick, it's been quite helpful. (So much faster!)",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/93",
+      "text": "blog post explaining how to use git clone --reference"
+    },
+    {
+      "internal": true,
+      "key": "comment/2326",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2326",
+      "text": "Not harmful, just incomplete?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/119%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2327",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2327",
+      "text": "I can buy that"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/119%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2328",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2328",
+      "text": "Forgot to say..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/119%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

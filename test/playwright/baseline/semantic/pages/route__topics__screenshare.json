@@ -1,0 +1,52 @@
+{
+  "title": "screenshare | RandyFay.com",
+  "primaryHeading": "screenshare",
+  "contentFound": true,
+  "lines": [
+    "Screen Sharing",
+    "Thu, 2009-09-10 05:21 by rfay",
+    "Topics:",
+    "screenshare",
+    "Hi - use this to let me share my screen with you. Just put the PIN I'll give you and your name below.",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "share",
+      "text": "Screen Sharing"
+    },
+    {
+      "internal": true,
+      "key": "topics/screenshare",
+      "text": "screenshare"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

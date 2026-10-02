@@ -1,0 +1,4 @@
+site-migration-kit
+ref:    HEAD
+commit: d3c4b288ff9e9a79af0e2baa0ee526e36c0a71ab
+vendored by scripts/vendor-into.sh -- do not edit this directory; change the kit and vendor again.

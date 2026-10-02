@@ -1,0 +1,104 @@
+{
+  "title": "Links to recent presentations | RandyFay.com",
+  "primaryHeading": "Links to recent presentations",
+  "contentFound": true,
+  "lines": [
+    "Sat, 2025-11-08 00:31 by rfay",
+    "Best Practices",
+    "I always lose track of presentations I've done, so here's a list at least of some recent ones.",
+    "DDEV From the beginning at TYPO3Camp RheinRuhr, 2025-11-07",
+    "Upsun MCP Experimentation at Drupalcon Vienna, 2025",
+    "New DDEV Features at Drupalcon Vienna, 2025",
+    "Contributor Training: Contributing to ddev.com",
+    "DDEV on Linux in 10 Minutes",
+    "ddev-upsun Add-on for DDEV See Blog post",
+    "Contributor Training: Using Claude Code for DDEV PR",
+    "DDEV From Scratch on Windows WSL2",
+    "DDEV Windows Installer: Get DDEV Running on Windows WSL2 in 10 Minutes",
+    "Divide and Conquer: A Systematic Approach to Troubleshooting, see slides"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/best-practices",
+      "text": "Best Practices"
+    },
+    {
+      "internal": false,
+      "key": "https://rfay.github.io/ddev-from-beginning",
+      "text": "DDEV From the beginning"
+    },
+    {
+      "internal": false,
+      "key": "https://rfay.github.io/presentation-upsun-mcp",
+      "text": "Upsun MCP Experimentation"
+    },
+    {
+      "internal": false,
+      "key": "https://rfay.github.io/presentation-new-ddev-features",
+      "text": "New DDEV Features"
+    },
+    {
+      "internal": false,
+      "key": "https://ddev.com/blog/contributing-to-ddev-com",
+      "text": "Contributor Training: Contributing to ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "https://ddev.com/blog/ddev-on-linux-in-10-minutes",
+      "text": "DDEV on Linux in 10 Minutes"
+    },
+    {
+      "internal": false,
+      "key": "https://rfay.github.io/presentation-ddev-upsun",
+      "text": "ddev-upsun Add-on for DDEV"
+    },
+    {
+      "internal": false,
+      "key": "https://ddev.com/blog/ddev-upsun-platformsh-addon",
+      "text": "Blog post"
+    },
+    {
+      "internal": false,
+      "key": "https://ddev.com/blog/claude-code-ai-pr-for-ddev-contributor-training",
+      "text": "Contributor Training: Using Claude Code for DDEV PR"
+    },
+    {
+      "internal": false,
+      "key": "https://ddev.com/blog/watch-ddev-local-from-scratch-with-windows-wsl2",
+      "text": "DDEV From Scratch on Windows WSL2"
+    },
+    {
+      "internal": false,
+      "key": "https://ddev.com/blog/watch-new-windows-installer",
+      "text": "DDEV Windows Installer: Get DDEV Running on Windows WSL2 in 10 Minutes"
+    },
+    {
+      "internal": false,
+      "key": "https://www.youtube.com/watch?v=3-Wj2lJLVt0",
+      "text": "Divide and Conquer: A Systematic Approach to Troubleshooting"
+    },
+    {
+      "internal": false,
+      "key": "https://docs.google.com/presentation/d/1JBSXLP59E8DSzkvxqPPKuceQ_fSMXoW_tySs_jXe8Pg/edit?usp=sharing",
+      "text": "slides"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "title": "AHAH Example: Textfields driven by checkboxes | RandyFay.com",
+  "primaryHeading": "AHAH Example: Textfields driven by checkboxes",
+  "contentFound": true,
+  "lines": [
+    "Note that this is currently maintained in the Examples project so the code here may not be the latest.",
+    "In this example, we just use checkboxes to determine whether textboxes are displayed.",
+    "One of the fundamental ideas of having a form change based on selections within the form is that the form is reconfiguring itself based on $form_state. So here, the generation of the form is driven by $form_state['values']. If the checkbox for last name is checked, then we generate a textfield for last name.",
+    "Update 2009-08-23: I note that checkboxes and radios do not actually work correctly in Internet Explorer.",
+    "(Experiment with this one at http://d6.drupalexamples.info/examples/ahah_example/autotextfields.)",
+    "/**",
+    "* @file",
+    "* Show/hide textfields based on checkbox clicks",
+    "*/",
+    "function ahah_demo_autotextfields(&$form_state) {",
+    "$form['ask_first_name'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => t('Ask me my first name'),",
+    "'#default_value' => $form_state['values']['ask_first_name'],",
+    "'#ahah' => array(",
+    "'path' => 'ahah_demo/autotextfields/callback',",
+    "'wrapper' => 'textfields',",
+    "'effect' => 'fade',",
+    ")",
+    ");",
+    "$form['ask_last_name'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => t('Ask me my last name'),",
+    "'#default_value' => $form_state['values']['ask_last_name'],",
+    "'#ahah' => array(",
+    "'path' => 'ahah_demo/autotextfields/callback',",
+    "'wrapper' => 'textfields',",
+    "'effect' => 'fade',",
+    "),",
+    ");",
+    "$form['textfields'] = array(",
+    "'#title' => t(\"Generated text fields for first and last name\"),",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#type' => 'fieldset',",
+    "'#description' => t('This is where we put automatically generated textfields'),",
+    ");",
+    "if ($form_state['values']['ask_first_name']) {",
+    "$form['textfields']['first_name'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('First Name'),",
+    ");",
+    "}",
+    "if ($form_state['values']['ask_last_name']) {",
+    "$form['textfields']['last_name'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('Last Name'),",
+    ");",
+    "}",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "function ahah_demo_autotextfields_callback() {",
+    "$form_state = array('storage' => NULL, 'submitted' => FALSE);",
+    "$form_build_id = $_POST['form_build_id'];",
+    "$form = form_get_cache($form_build_id, $form_state);",
+    "$args = $form['#parameters'];",
+    "$form_id = array_shift($args);",
+    "$form_state['post'] = $form['#post'] = $_POST;",
+    "$form['#programmed'] = $form['#redirect'] = FALSE;",
+    "drupal_process_form($form_id, $form, $form_state);",
+    "$form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);",
+    "$textfields = $form['textfields'];",
+    "$output = drupal_render($textfields);",
+    "// Final rendering callback.",
+    "print drupal_json(array('status' => TRUE, 'data' => $output));",
+    "exit();",
+    "}",
+    "?>",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ AHAH Simplest Example: #ahah on the submit button, replace a region",
+    "up",
+    "AHAH Example: Select control and generated checkboxes ›",
+    "Comments",
+    "Visitor (not verified)",
+    "Sun, 2010-02-07 11:39",
+    "Permalink",
+    "This was an extremely helpful",
+    "This was an extremely helpful example -- thanks for putting it together. I wish this page came up higher in google when I first started researching the problem: I came across a lot of confusing and misleading examples before finding this one.",
+    "The key lesson that helped me solve my issue was that you can't add new elements in the callback function. You can only use the callback to make modifications to existing elements.",
+    "To add entirely new elements, you must define them in the original form function, inside of 'if ($form_state['values']) {}' blocks. If you add them in the callback they will get rendered, but the forms system won't recognize the input when the form is submitted.",
+    "Log in to post comments",
+    "Visitor (not verified)",
+    "Wed, 2010-07-21 11:40",
+    "Permalink",
+    "Great examples",
+    "Thanks so much for your clear examples, and especially the dependent dropdown one just added in the example module at drupal.org. That what triggered my 'ahah' moment (get it?) where I finally understood what the previous commenter also finally understood about how form elements are actually added. I had seen many examples where the callback returned the information necessary for the form builder to change the form, but they all seemed so trivial that I couldn't see how it applied to making seemingly more complicated changes, like updating select options or adding a completely new form element. This seems to be a common point of confusion, and there are few places where it is explicitly addressed. (Though I did just modify the drupal.org documentation to fix that.)",
+    "Log in to post comments",
+    "vallou (not verified)",
+    "Mon, 2011-04-18 03:29",
+    "Permalink",
+    "This is very helpful. A big",
+    "This is very helpful. A big thanks to share those examples with us.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://d6.drupalexamples.info/examples/ahah_example/autotextfields",
+      "text": "http://d6.drupalexamples.info/examples/ahah_example/autotextfields"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-simplest-example-ahah-submit-button-replace-region",
+      "text": "‹ AHAH Simplest Example: #ahah on the submit button, replace a region"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-select-control-and-generated-checkboxes",
+      "text": "AHAH Example: Select control and generated checkboxes ›"
+    },
+    {
+      "internal": true,
+      "key": "comment/67",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/67",
+      "text": "This was an extremely helpful"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/31%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/110",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/110",
+      "text": "Great examples"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/31%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/942",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/942",
+      "text": "This is very helpful. A big"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/31%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+        "key": "ahah"
+      }
+    ]
+  }
+}

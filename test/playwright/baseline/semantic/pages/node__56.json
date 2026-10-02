@@ -1,0 +1,137 @@
+{
+  "title": "Drupalcon: Best Practices in Contrib Development | RandyFay.com",
+  "primaryHeading": "Drupalcon: Best Practices in Contrib Development",
+  "contentFound": true,
+  "lines": [
+    "Fri, 2010-04-09 18:23 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Mark your calendar for Wednesday the 21st at 3pm: Greg Knaddison, Dave Reid, Derek Wright, Jennifer Hodgdon and I are doing a panel presentation on how to maintain and support a contrib module or theme. It will cover:",
+    "Community management: Enlisting help, finding maintainers and co-maintainers, handling abandoned projects, dealing with duplication, handling the issue queue.",
+    "Drupal project management: What's expected of a maintainer, code and release management.",
+    "Coding issues: Coding standards, documentation, namespacing, simpletest, internationalization.",
+    "Resources for maintainers.",
+    "If you're a maintainer or might become one, or want to start helping overburdened module maintainers by helping out with these responsibilities, come and hear about how to contribute to the community more effectively and efficiently.",
+    "Here's the link to the DCSF page. The session is Wednesday at 3pm in 304, which is \"Phase2 Technology\".",
+    "Materials and resources will be posted on the Contrib Development Best Practices Groups.drupal.org page.",
+    "Comments",
+    "duellj (not verified)",
+    "Fri, 2010-04-09 20:01",
+    "Permalink",
+    "Looking forward to this",
+    "Looking forward to this panel! It looks like you got the date wrong, though. It should be the 21st.",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2010-04-09 20:06",
+    "Permalink",
+    "Whoops! Thanks",
+    "I edited it. Thanks.",
+    "Log in to post comments",
+    "sun (not verified)",
+    "Fri, 2010-04-09 21:59",
+    "Permalink",
+    "Best practices for (co-)maintaining projects",
+    "Some very important \"rules\" are already collected here:",
+    "http://drupal.org/node/363367",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "text": "how to maintain and support a contrib module or theme"
+    },
+    {
+      "internal": true,
+      "key": "node/>http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "text": "link to the DCSF page"
+    },
+    {
+      "internal": false,
+      "key": "http://groups.drupal.org/contrib-development-best-practices",
+      "text": "Contrib Development Best Practices"
+    },
+    {
+      "internal": true,
+      "key": "comment/72",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/72",
+      "text": "Looking forward to this"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/56%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/73",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/73",
+      "text": "Whoops! Thanks"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/56%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.unleashedmind.com",
+      "text": "sun (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/74",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/74",
+      "text": "Best practices for (co-)maintaining projects"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/363367",
+      "text": "http://drupal.org/node/363367"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/56%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

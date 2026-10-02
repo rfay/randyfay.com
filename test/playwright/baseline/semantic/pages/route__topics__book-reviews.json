@@ -1,0 +1,120 @@
+{
+  "title": "Book Reviews | RandyFay.com",
+  "primaryHeading": "Book Reviews",
+  "contentFound": true,
+  "lines": [
+    "Review of Drupal 7: Visual QuickStart Guide",
+    "Tue, 2011-02-22 10:09 by rfay",
+    "Planet Drupal",
+    "Book Reviews",
+    "(Disclaimer: The book for review was provided gratis by the publisher.)",
+    "Tom Geller's new book Drupal 7: Visual Quickstart Guide is a concise, dense sitebuilder/administrator's guide to Drupal 7. It provides a pretty decent task-oriented overview of D7 sitebuilding and administration. It's a manageable size for almost anybody, about 210 pages of primary content.",
+    "Overall summary: The book does well what it sets out to do, which is provide a user-interface task-oriented introduction to Drupal 7 for sitebuilders and administrators (in a reasonable size package). That approach has innate drawbacks, but so does every other approach, right?",
+    "Some Praise",
+    "The book is connected well to the community, and provides real-world techniques, not just \"search drupal.org\". He mentions great sources of information like drupalmodules.com, and suggests how to use d.o effectively, and mentions key \"everybody knows about them\" contrib modules that a new sitebuilder should know about.",
+    "Great coverage of community issues. The appendix on getting and giving help is wonderful and thoughtful and so necessary in a book like this. It would be easy to leave it out when you're trying for an easy-to-manage book, but it was retained. Thanks. And the \"Drupal Terms and Culture\" glossary is great, although I'm sure it could be expanded.",
+    "Its extensive scope reminded me of some things I'd never used, and some alternate ways to do things.",
+    "I learned how to do web-based module upgrades, which I'd never tried before... and it worked!",
+    "Some Gripes",
+    "There is a fair bit of oversimplification (as there almost has to be in a book this size). It tries to handle installation of Drupal on Windows, Mac, and Linux in simple step-by-step instructions... and of course that usually requires far more background than could possibly be provided in a book of this scope. Another example of oversimplification is installing a module directly from the UI. It works. But Tom chose wysiwyg as an example, which requires advanced stuff after installation. And it doesn't mention that. But still, it's amazing that you can do a web-based module/theme install in D7!",
+    "There is occasional inaccuracy, but nothing huge that I noticed. (It's wrong about the default user creation settings being wide open, but they were changed a long time ago to \"Visitors, but administrator approval is required\". But I know about that because it was my patch. Overall, this seemed balanced, knowledgeable, and correct.",
+    "Most pages are half screenshots and half step-by-step walkthroughs of administration tasks. They take on almost everything in the D7 interface. The screenshots are painfully small in some cases, as if the book had been planned for a larger format.",
+    "Being a user-interface walkthough, it probably doesn't give the background or context for some of the concepts being presented. But really, that's by design. This is one way to learn it.",
+    "Some sections, like \"Creating a New Theme\" and \"Changing Theme Graphics and Typography with CSS\" seem hopelessly tiny for the subjects they tackle in a few paragraphs. However, they do give enough clues to an HTML/CSS-savvy person where they might start, and refer to more advanced material.",
+    "Overall, a difficult job well done.",
+    "Review of Packt's Drupal 7 First Look",
+    "Wed, 2011-02-23 19:03 by rfay",
+    "Planet Drupal",
+    "Book Reviews",
+    "(Disclaimer: The book for review was provided gratis by the publisher.)",
+    "Drupal 7 First Look, by Mark Noble (Packt) should probably be named \"What Drupal 6 Developers Need to Know about Drupal 7\". It would kind of make sense then. If you need a book-length (252-page) introduction to what's changed in D7, this is a lot better than reading the horrendous D7 Module Upgrade Guide. However, I can't recommend it for any purpose other than that. It's not one of the leading books. It's not authoritative or particularly accurate, not well edited, and doesn't have clear scope.",
+    "Here's what I liked: The chapter on the Drupal 7 PDO Database Interface (DBTNG) is really quite good. I don't have enough depth in PDO myself to check it for accuracy, but it seemed to have a very solid tutorial approach, with a lot of detail. Quite nicely done.",
+    "Unfortunately, most of the book is just the Module Developer's Guide, the Theme Developer's Guide and the Drupal 7 Release Notes rehashed in a manner that doesn't add enough value. There are huge swaths of code printouts from templates, lists of changed functions, and the like that don't offer enough value.",
+    "I don't want to beat a dead horse. It's a tremendously difficult thing to write a book like this, and everybody who tries deserves our respect, especially when they take on something as hard and fast moving as D7 was at the end. If you want to go through a careful (though not particularly reliable) rundown of the changes between D6 and D7, buy it. If you want a pretty nice chapter on DBTNG, buy it. Otherwise, spend your money on Packt's absolutely excellent Drupal 7 Module Development and read the online resources.",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/review-drupal-7-visual-quickstart-guide",
+      "text": "Review of Drupal 7: Visual QuickStart Guide"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/book-reviews",
+      "text": "Book Reviews"
+    },
+    {
+      "internal": true,
+      "key": "content/review-packts-drupal-7-first-look",
+      "text": "Review of Packt's Drupal 7 First Look"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/book-reviews",
+      "text": "Book Reviews"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/update/modules/6/7",
+      "text": "D7 Module Upgrade Guide"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/update/modules/6/7",
+      "text": "Module Developer's Guide"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/update/themes/6/7",
+      "text": "Theme Developer's Guide"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/drupal-7-released",
+      "text": "the Drupal 7 Release Notes"
+    },
+    {
+      "internal": false,
+      "key": "https://www.packtpub.com/drupal-7-module-development/book",
+      "text": "Drupal 7 Module Development"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

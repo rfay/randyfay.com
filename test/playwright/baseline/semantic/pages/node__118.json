@@ -1,0 +1,92 @@
+{
+  "title": "What is Governance? | RandyFay.com",
+  "primaryHeading": "What is Governance?",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2012-02-26 20:22 by rfay",
+    "Planet Drupal",
+    "Governance",
+    "This is the first of a set of blog posts on governance written for the Future of Drupal Governance core conversation at Drupalcon Denver - hope to see you there. The series continues with How Do Open Source Communities Organize Themselves?, Drupal Governance and The Future of Drupal Governance. (presentation video), (Governance project)",
+    "What is \"governance?\" Governance just a fancy word encompassing all the things we do to organize ourselves, make plans and decisions together, get things done, and resolve conflicts. It can be very loose (as is most of our governance in the Drupal community) or very structured. The key, of course, is whether it accomplishes what we want it to accomplish in the contexts we need it.",
+    "Why do organizations (and countries, and families) need good governance?",
+    "Consistency: Governance can provide consistency of organizational behavior, so that when you take an action, you have a reasonable expectation what the result will be. In the context of a national government, a criminal must expect to be punished, and a hard-worker must expect to be rewarded. In the context of a family, a child must know that what is rewarded one day will be treated the same the next day. And in the context of an open source community, it means knowing that if you invest yourself in solving a problem that you have a reasonable expectation of a return on your investment.",
+    "Accomplishing shared objectives: When different people work together, they organize themselves somehow to accomplish shared objectives. The more effectively they do this, the better their outcomes. This again is good governance.",
+    "Conflict Resolution: Without some kind of governance, it can be pretty hard to authoritatively resolve conflicts. Of course, the governance can be in the form of shared values held by a community, but what happens when one or more of the community members in conflict haven't actually absorbed those shared values, or when those values don't actually address the conflict in question? In that case, we have to have some way to take some kind of step outside the conflict to an agreed-upon technique or authority, or it won't get solved.",
+    "The following posts in this series will be on governance in other open-source communities, the current Drupal community governance model, and why and how might we want to change Drupal's governance structure. But you don't have to wait! Feel free to start the conversation in the comments here.",
+    "For more on governance definitions see the in-depth Wikipedia article, but for more down-to-earth studies of open-source communities, read Jono Bacon's The Art of Community (free download at the bottom of that page). Chapter 8 is about governance, and chapter 9 is about conflict resolution. Please do not refer to the US (\"insert your country here\") political process for inspiration."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/governance",
+      "text": "Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Future of Drupal Governance core conversation at Drupalcon Denver"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/120",
+      "text": "How Do Open Source Communities Organize Themselves?"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/content/drupals-governance",
+      "text": "Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
+      "text": "The Future of Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "presentation video"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/governance",
+      "text": "Governance project"
+    },
+    {
+      "internal": false,
+      "key": "http://en.wikipedia.org/wiki/Governance",
+      "text": "the in-depth Wikipedia article"
+    },
+    {
+      "internal": false,
+      "key": "http://www.artofcommunityonline.org/get",
+      "text": "The Art of Community"
+    },
+    {
+      "internal": false,
+      "key": "http://www.artofcommunityonline.org/downloads/jonobacon-theartofcommunity-1ed.pdf",
+      "text": "download"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

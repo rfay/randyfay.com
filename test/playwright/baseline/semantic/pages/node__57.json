@@ -1,0 +1,168 @@
+{
+  "title": "Examples module now on api.drupal.org | RandyFay.com",
+  "primaryHeading": "Examples module now on api.drupal.org",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2010-04-11 09:15 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Thanks to excellent work by api module maintainer drumm, all of the examples in Examples module are now available on api.drupal.org.",
+    "If you're not familiar with Examples module, it's an attempt to provide easy-to-understand examples of key Drupal APIs, so that developers have a known source of a working example they can understand. Back in the day, there were a few examples in the Documentation branch of contrib in CVS, but they were poorly maintained and nobody knew how to improve them. All of those have been moved to Examples (for D6 and D7) and updated.",
+    "So with Examples now on api.drupal.org, you have more than one way to access the various examples:",
+    "Download the module and look at the code.",
+    "Install the module and experiment with the code.",
+    "Just look for the example code in api.drupal.org with a simple search. For example, go to api.drupal.org/api/7 and search for \"AJAX Examples\". Or just search for example.",
+    "Try out the D7 examples live on http://d7.drupalexamples.info",
+    "Currently on Drupal 7 we have these examples: AJAX, Batch, Block, DBTNG, E-mail, Field, , Form, Image, Javascript, Node, Page, Simpletest, Token, Trigger, Vertical Tabs, and XML-RPC.",
+    "Community contribution is encouraged. If you find errors, can suggest improvements, provide patches, provide new examples, please do it in the Examples issue queue. This is a big and important project and it will take the whole community to get it right. Thanks!"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/3064",
+      "text": "drumm"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/search/7/examples",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Download the module"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api.7",
+      "text": "api.drupal.org/api/7"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/search/7/example",
+      "text": "example"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info",
+      "text": "http://d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/ajax_examples/7",
+      "text": "AJAX"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--batch_example--batch_example.module/7",
+      "text": "Batch"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--block_example--block_example.module/7",
+      "text": "Block"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--dbtng_example--dbtng_example.module/7",
+      "text": "DBTNG"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--email_example--email_example.module/7",
+      "text": "E-mail"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--field_example--field_example.module/7",
+      "text": "Field"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--form_example--form_example_tutorial.inc/7",
+      "text": "Form"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--image_example--image_example.module/7",
+      "text": "Image"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/search/7/js_example",
+      "text": "Javascript"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--node_example--node_example.module/7",
+      "text": "Node"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--page_example--page_example.module/7",
+      "text": "Page"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--simpletest_example--simpletest_example.module/7",
+      "text": "Simpletest"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--token_example--token_example.module/7",
+      "text": "Token"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--trigger_example--trigger_example.module/7",
+      "text": "Trigger"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--vertical_tabs_example--vertical_tabs_example.module/7",
+      "text": "Vertical Tabs"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--xmlrpc_example--xmlrpc_example.module/7",
+      "text": "XML-RPC"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/examples",
+      "text": "Examples issue queue"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

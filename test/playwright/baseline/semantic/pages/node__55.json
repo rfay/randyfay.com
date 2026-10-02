@@ -1,0 +1,60 @@
+{
+  "title": "Debugging with Git Bisect | RandyFay.com",
+  "primaryHeading": "Debugging with Git Bisect",
+  "contentFound": true,
+  "lines": [
+    "Fri, 2010-04-02 18:58 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "git",
+    "As most of you know, the marvelous git version control system is the future of the Drupal repository. You've probably heard people rave about lots of very important features: It's distributed, FAST, branching and merging are easy.",
+    "But today I'm here to rave about a more obscure wonderful feature of git: the git bisect command. With this command you can find out where in the history a particular bug was introduced. I made a short screencast to explain it:",
+    "The basic idea: The fastest way to understand a problem is to divide it in half, then divide that in half, etc. In search technology this is called binary search. In military terms it's called \"divide and conquer\". It's great. It's git bisect. You choose a version of your code that's broken. Then you choose a historical revision that's not broken. Then git just checks out for you the halfway points for you to test until you get to the actual answer to your question: in what commit was the change introduced?",
+    "One key feature of git that this showcases is its incredible speed. You could do all this (manually) with any revision control system. But how long would it take to do each checkout? Way too long to make it practical in most cases.",
+    "Git is cool. This is just one more reason."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://git-scm.com",
+      "text": "the marvelous git"
+    },
+    {
+      "internal": false,
+      "key": "http://www.kernel.org/pub/software/scm/git/docs/git-bisect.html",
+      "text": "git bisect"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

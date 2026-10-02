@@ -1,0 +1,81 @@
+{
+  "title": "drupalcon | RandyFay.com",
+  "primaryHeading": "drupalcon",
+  "contentFound": true,
+  "lines": [
+    "Drupalcon sessions accepted for Drupalcon SF 2010",
+    "Sat, 2010-02-27 05:52 by rfay",
+    "Drupal",
+    "drupalcon",
+    "Planet Drupal",
+    "I have 3 sessions accepted for Drupalcon San Francisco 2010, all with other collaborators:",
+    "AJAX and Javascript in Drupal7 (for developers)",
+    "Best practices in contrib development and support",
+    "Advanced Forms with Drupal 7 FAPI",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/drupalcon-sessions-accepted-drupalcon-sf-2010",
+      "text": "Drupalcon sessions accepted for Drupalcon SF 2010"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupalcon",
+      "text": "drupalcon"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "text": "AJAX and Javascript in Drupal7 (for developers)"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "text": "Best practices in contrib development and support"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/advanced-forms-drupal-7-fapi",
+      "text": "Advanced Forms with Drupal 7 FAPI"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

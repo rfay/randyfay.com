@@ -1,0 +1,120 @@
+{
+  "title": "The Future of Drupal Governance: Resources and Next Steps | RandyFay.com",
+  "primaryHeading": "The Future of Drupal Governance: Resources and Next Steps",
+  "contentFound": true,
+  "lines": [
+    "Tue, 2012-04-10 10:08 by rfay",
+    "Planet Drupal",
+    "Governance",
+    "Thanks to all of you for your enthusiastic and thoughtful participation in the Future of Drupal Governance core conversation at Drupalcon Denver. This post will provide resources for the conversation and attempt to summarize the ideas raised and actions taken at the core conversation, as well as to provide a path forward for us.",
+    "Resources",
+    "The new \"Drupal Project Governance\" project and issue queue are open and ready for business. They're the appropriate place to discuss policy and governance issues for the Drupal community.",
+    "Video of the core conversation is at the Drupalcon Denver site",
+    "Presentation slides at at http://lb.cm/governance",
+    "The blog posts in this series are at http://randyfay.com/topics/governance",
+    "Review",
+    "The first part of the presentation restated the ideas that have been discussed in this blog series: what governance is, how Drupal and other open source communities do their governance, what the issues/problems with Drupal's governance are, and potential paths forward with Drupal's governance.",
+    "The key initiative discussed in the presentation was \"How do we add more structure and effectiveness to Drupal's governance?\" In other words, can we develop techniques and processes to deal with policy and decision-making at the micro and macro levels? For instance, can we:",
+    "Make sure that blocked issues (that are important) get unblocked?",
+    "Provide a way to do decision-making and conflict resolution at the technical and community levels (Ubuntu has committees for these two areas; even KDE has one for community issues.)",
+    "Make sure that important projects and changes get tackled even if there isn't full community consensus?",
+    "Make sure that effective policies are developed openly and presented explicitly rather than by being quietly implemented by fiat?",
+    "Provide a way for our community to adapt its governance going forward. How do we implement new policies or change our governance?",
+    "Guard and enhance our open community culture while doing these things?",
+    "There have already been some suggestions and conversation on these various issues in the Governance project issue queue.",
+    "Dries has stated clearly that he considers this a project worth working on, and would like to see us develop a process to deal with it. He would like to have us develop new processes and structure before Drupalcon Munich, which means we need to work on this carefully and probably have an in-person sprint to finalize a number of recommendations to the community by June.",
+    "Proposal",
+    "We're going to have to figure out a process and conversation to accomplish this. I propose a \"Governance and Policy Steering Working Group\". This would be a temporary working group, dissolved by Drupalcon Munich, charged with proposing improvements to the Drupal Community's governance and policy management. In my opinion, this should be composed mostly of trusted leaders within the Drupal community, but should also include a lesser-known contributor or two, and might include someone from outside the community. It would be best to have Dries active in this group, but at the very least we need his buy-in and oversight.",
+    "Proposed initial areas of endeavor:",
+    "As a pilot project, develop new techniques for improving the productivity of the core issue queue. (Possible techniques: resolve blocked issues, delegate authority to resolve, grant early approval to specific issues.)",
+    "Define authority structure for initiatives.",
+    "Define a method for creating, publishing, and maintaining policies in the Drupal Community.",
+    "Define a structure and process for technical and community conflict resolution.",
+    "Define a structure and process for changing and improving Drupal Community governance.",
+    "Sprint after Community Leadership Summit",
+    "The general idea would be for this group to be active in exploring these areas of endeavor through online activities from now through or July. In the summer, an on-location sprint would finalize proposals, most likely July 16-17 in Portland Oregon, just after the Community Leadership Summit and during OSCON.",
+    "Proposed mechanism for choosing members",
+    "This is such an important process, because we must have community buy-in, and we could lose it if this were to look like an insider coup against the community.",
+    "My suggestion:",
+    "Dries directly picks two members (and participates himself).",
+    "Community suggestions (including self-nominations) are considered in the Governance issue queue; webchick and rfay could choose three based on community input (and perhaps participate themselves).",
+    "Working style",
+    "Obviously, in keeping with Drupal traditions, this group should work openly. However, it's just not going to please everybody, and of course it's crucial that it be able to make some choices, even if they end up not pleasing everybody. It would be a tragedy for an initiative aimed at resolving decision-making capabilities to be killed by a bikeshed.",
+    "How to proceed",
+    "I opened Form a governance working group in the Governance project issue queue. Please follow up with specific suggestions there. If you have non-working-group reactions to this article, you can leave them as comments here, but please if you want to suggest members or heatedly discuss the very idea of this, proposal, do it over in the issue queue."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/governance",
+      "text": "Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Future of Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/governance",
+      "text": "project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/governance",
+      "text": "issue queue"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "the Drupalcon Denver site"
+    },
+    {
+      "internal": false,
+      "key": "http://lb.cm/governance",
+      "text": "http://lb.cm/governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/topics/governance",
+      "text": "http://randyfay.com/topics/governance"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/governance",
+      "text": "Governance project issue queue"
+    },
+    {
+      "internal": false,
+      "key": "http://www.communityleadershipsummit.com",
+      "text": "Community Leadership Summit"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1526026",
+      "text": "Form a governance working group"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

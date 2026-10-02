@@ -1,0 +1,166 @@
+{
+  "title": "Best Practices | RandyFay.com",
+  "primaryHeading": "Best Practices",
+  "contentFound": true,
+  "lines": [
+    "If you edit PHP code, please work with E_NOTICE turned on!!!",
+    "Tue, 2010-09-14 02:09 by rfay",
+    "Planet Drupal",
+    "Best Practices",
+    "It's a Drupal and PHP best practice to develop with E_NOTICE turned on. Please do.",
+    "I installed a new contrib project from Drupal.org yesterday and found a whole bunch of warnings emitted to the screen. It turned out that the developer of the project had not (apparently) been working with E_NOTICE properly enabled in their development environment and so had never seen these. Two of them were actually obvious logic failures. You want to know when PHP is complaining about your code! (Make sure you have error/warning reporting to screen turned on during development too!)",
+    "So here's the deal: PHP has a flag called E_NOTICE. In release version of Drupal it's ignored (in includes/common.inc, drupal_error_handler()). In dev versions of Drupal and in Pressflow it's enabled. Anybody who ever edits PHP code during development should have this turned on. So you can",
+    "Use a development version of Drupal",
+    "Use Pressflow",
+    "Or apply this patch to your Drupal stable install (works on D6)",
+    "Why does this matter to you? Because if you make a single mistake, like using a misspelled variable, you won't know about it! You might do something like:",
+    "$x = $varable;",
+    "by accident, just a simple typo. If you have E_NOTICE enabled, you'll get a complaint and can fix it right away. If you don't, you've introduced a hard-to-find bug.",
+    "What about contrib modules/themes that have warnings? Well, we need to get them fixed. Please, fix them up. We wouldn't have this problem if all if everybody did what's promoted here. But it's easy enough: Fix the problem and file a patch. That's what I did last night.",
+    "Please everybody: Run your dev environment with E_NOTICE, and fix problems when you find them. Let's make contrib and our site run clean.",
+    "Links to recent presentations",
+    "Sat, 2025-11-08 00:31 by rfay",
+    "Best Practices",
+    "I always lose track of presentations I've done, so here's a list at least of some recent ones.",
+    "DDEV From the beginning at TYPO3Camp RheinRuhr, 2025-11-07",
+    "Upsun MCP Experimentation at Drupalcon Vienna, 2025",
+    "New DDEV Features at Drupalcon Vienna, 2025",
+    "Contributor Training: Contributing to ddev.com",
+    "DDEV on Linux in 10 Minutes",
+    "ddev-upsun Add-on for DDEV See Blog post",
+    "Contributor Training: Using Claude Code for DDEV PR",
+    "DDEV From Scratch on Windows WSL2",
+    "DDEV Windows Installer: Get DDEV Running on Windows WSL2 in 10 Minutes",
+    "Divide and Conquer: A Systematic Approach to Troubleshooting, see slides",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/if-you-edit-php-code-please-work-enotice-turned",
+      "text": "If you edit PHP code, please work with E_NOTICE turned on!!!"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/best-practices",
+      "text": "Best Practices"
+    },
+    {
+      "internal": false,
+      "key": "http://php.net/manual/en/errorfunc.configuration.php",
+      "text": "E_NOTICE"
+    },
+    {
+      "internal": false,
+      "key": "http://pressflow.org",
+      "text": "Pressflow"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/sites/default/files/e_notice.patch",
+      "text": "this patch"
+    },
+    {
+      "internal": true,
+      "key": "content/links-recent-presentations",
+      "text": "Links to recent presentations"
+    },
+    {
+      "internal": true,
+      "key": "topics/best-practices",
+      "text": "Best Practices"
+    },
+    {
+      "internal": false,
+      "key": "https://rfay.github.io/ddev-from-beginning",
+      "text": "DDEV From the beginning"
+    },
+    {
+      "internal": false,
+      "key": "https://rfay.github.io/presentation-upsun-mcp",
+      "text": "Upsun MCP Experimentation"
+    },
+    {
+      "internal": false,
+      "key": "https://rfay.github.io/presentation-new-ddev-features",
+      "text": "New DDEV Features"
+    },
+    {
+      "internal": false,
+      "key": "https://ddev.com/blog/contributing-to-ddev-com",
+      "text": "Contributor Training: Contributing to ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "https://ddev.com/blog/ddev-on-linux-in-10-minutes",
+      "text": "DDEV on Linux in 10 Minutes"
+    },
+    {
+      "internal": false,
+      "key": "https://rfay.github.io/presentation-ddev-upsun",
+      "text": "ddev-upsun Add-on for DDEV"
+    },
+    {
+      "internal": false,
+      "key": "https://ddev.com/blog/ddev-upsun-platformsh-addon",
+      "text": "Blog post"
+    },
+    {
+      "internal": false,
+      "key": "https://ddev.com/blog/claude-code-ai-pr-for-ddev-contributor-training",
+      "text": "Contributor Training: Using Claude Code for DDEV PR"
+    },
+    {
+      "internal": false,
+      "key": "https://ddev.com/blog/watch-ddev-local-from-scratch-with-windows-wsl2",
+      "text": "DDEV From Scratch on Windows WSL2"
+    },
+    {
+      "internal": false,
+      "key": "https://ddev.com/blog/watch-new-windows-installer",
+      "text": "DDEV Windows Installer: Get DDEV Running on Windows WSL2 in 10 Minutes"
+    },
+    {
+      "internal": false,
+      "key": "https://www.youtube.com/watch?v=3-Wj2lJLVt0",
+      "text": "Divide and Conquer: A Systematic Approach to Troubleshooting"
+    },
+    {
+      "internal": false,
+      "key": "https://docs.google.com/presentation/d/1JBSXLP59E8DSzkvxqPPKuceQ_fSMXoW_tySs_jXe8Pg/edit?usp=sharing",
+      "text": "slides"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

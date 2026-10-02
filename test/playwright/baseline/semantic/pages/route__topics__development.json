@@ -1,0 +1,144 @@
+{
+  "title": "Development | RandyFay.com",
+  "primaryHeading": "Development",
+  "contentFound": true,
+  "lines": [
+    "My New Development Computer: An Amazon EC2 Instance",
+    "Fri, 2009-02-27 05:34 by rfay",
+    "Amazon EC2",
+    "Development",
+    "Planet Drupal",
+    "Here in Florida, where we're spending a couple of months, the only computer I have access to is my little netbook, an MSI Wind U-100 . It's a fine little computer, but it doesn't really have enough CPU to run Firefox, the Apache web server, the Eclipse development environment, and do debugging all at the same time. I could read the newspaper while stepping through code with the debugger, because I had to wait at each step.",
+    "Enter Amazon's Electronic Cloud (EC2) product . They provide powerful virtual computers to rent \"in the cloud\". So I just start up a new computer when I get to work in the morning, and then use remote access tools to view and control it. I spend US$0.10/hour to rent the computer. That' all. When I was so frustrated with the debugging I considered buying a new computer just for this purpose, but we don't have much room where we are here, and we would have to move the computer, and of course would have to buy it in the first place. To buy a physical computer of the power I'm getting from Amazon would cost perhaps $600-$1000, and it takes quite a few hours at $0.10/hour to add up to that.",
+    "Normally, people use Amazon's EC2 for servers, machines that need little interaction with people. But since they have fantastic network access and can do anything a regular computer can, they can be used as a \"desktop\" machine as well, and that's what I've done here.",
+    "Here's how I set up the machine. I won't go into all the details of how you work with EC2 instances, because there is a learning curve there, but I'll give the broad outline.",
+    "II used Elasticfox , a Firefox add-on, to create an instance based on Eric Hammond's pre-built Ubuntu EC2 machines. I used the Ubuntu 8.10 Desktop version, which works just fine.",
+    "One of the real problems you have to work around with EC2 is that when you shut down an instance, it goes away, POOF. No more nothing. All your data and configuration is gone. But they have an important feature called Elastic Block Store, or EBS , which is basically a disk that you can attach anytime you want to any instance you create. So I created an EBS volume for use with my development machine and used Elasticfox to attach it.",
+    "I need Apache and Mysql services on the machine, and need their config, databases, etc. to not just go away every time I shut down the instance. So I installed and configured them based on this article (which is redhat-specific; slightly different for Ubuntu).",
+    "I put my home directory and the /opt directory on the EBS volume. I installed Eclipse in the /opt directory.",
+    "I rebundled the instance so that it would always boot up the same.",
+    "Now I have a new development machine any time I want. And if I want to, I can launch it with the more powerful CPU or memory configurations that Amazon offers, for higher rent, of course.",
+    "Eric Hammond's Ubuntu builds come with the excellent Nomachine.com Desktop Virtualization server built in, and I use their free NX client to access my machine in the cloud. It's just like being there.",
+    "I can now start up Eclipse in about 1/5 of the time it takes to start up on my machine, and as I said, I don't have to read the newspaper while stepping through code in the debugger.",
+    "I helped with a fun facebook game",
+    "Sat, 2009-06-13 07:52 by rfay",
+    "Development",
+    "facebook",
+    "I just got word from client Marie Thacker that one of the projects I helped out with is now live - it's a facebook game app. I helped do the live scoring stuff. Try it here.",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/my-new-development-computer-amazon-ec2-instance",
+      "text": "My New Development Computer: An Amazon EC2 Instance"
+    },
+    {
+      "internal": true,
+      "key": "topics/amazon-ec2",
+      "text": "Amazon EC2"
+    },
+    {
+      "internal": true,
+      "key": "topics/development",
+      "text": "Development"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://global.msi.com.tw/index.php?func=proddesc&prod_no=1474&maincat_no=135",
+      "text": "MSI Wind U-100"
+    },
+    {
+      "internal": false,
+      "key": "http://aws.amazon.com/ec2",
+      "text": "Amazon's Electronic Cloud (EC2) product"
+    },
+    {
+      "internal": false,
+      "key": "http://ec2-downloads.s3.amazonaws.com/elasticfox-owners-manual.pdf",
+      "text": "Elasticfox"
+    },
+    {
+      "internal": false,
+      "key": "http://alestic.com",
+      "text": "Eric Hammond's pre-built Ubuntu EC2 machines"
+    },
+    {
+      "internal": false,
+      "key": "http://developer.amazonwebservices.com/connect/entry.jspa?externalID=1612&categoryID=101",
+      "text": "Ubuntu 8.10 Desktop"
+    },
+    {
+      "internal": false,
+      "key": "http://aws.amazon.com/ebs",
+      "text": "Elastic Block Store, or EBS"
+    },
+    {
+      "internal": false,
+      "key": "http://www.john-nousis.com/development/tutorial-running-a-phpmysql-server-on-ec2-with-ebs",
+      "text": "based on this article"
+    },
+    {
+      "internal": false,
+      "key": "http://www.nomachine.com/products.php",
+      "text": "Nomachine.com Desktop Virtualization"
+    },
+    {
+      "internal": true,
+      "key": "content/i-helped-fun-facebook-game",
+      "text": "I helped with a fun facebook game"
+    },
+    {
+      "internal": true,
+      "key": "topics/development",
+      "text": "Development"
+    },
+    {
+      "internal": true,
+      "key": "topics/facebook",
+      "text": "facebook"
+    },
+    {
+      "internal": false,
+      "key": "http://mariethacker.com",
+      "text": "Marie Thacker"
+    },
+    {
+      "internal": false,
+      "key": "http://fb.popcap.com/online-games/zuma",
+      "text": "here"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

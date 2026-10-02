@@ -1,0 +1,1000 @@
+{
+  "title": "rfay's blog | RandyFay.com",
+  "primaryHeading": "rfay's blog",
+  "contentFound": true,
+  "lines": [
+    "Links to recent presentations",
+    "Sat, 2025-11-08 00:31 by rfay",
+    "Topics:",
+    "Best Practices",
+    "I always lose track of presentations I've done, so here's a list at least of some recent ones.",
+    "Remote Command-Line debugging with PHPStorm for PHP/Drupal (including drush)",
+    "Thu, 2013-12-26 15:05 by rfay",
+    "Topics:",
+    "debugging",
+    "Planet Drupal",
+    "Introduction",
+    "XDebug with PHPStorm can do step-debugging on remote sessions started from the command line on a remote machine. You just have to set up a couple of environment variables, map the remote code to the local code that PHPStorm has at its disposal, and tunnel the xdebug connection to your workstation.",
+    "Note: If you just want to debug a PHP script (or drush command) on the local machine, that's much easier. Just enter PHPStorm's Run/Debug configuration and create a new \"PHP Script\" configuration.",
+    "Remote Drupal/PHP Debugging with Xdebug and PHPStorm",
+    "Tue, 2013-12-10 16:45 by rfay",
+    "Topics:",
+    "debugging",
+    "Planet Drupal",
+    "Step-debugging is one of the key skills for any developer, and it can be baffling. When you start trying to control a remote webserver with an IDE running on your local workstation though, it gets even more complicated with the network problems. This article will deal directly with Xdebug as the debugging engine on the PHP end and Jetbrains PHPStorm 7.x as the IDE on the workstation side, but these techniques will work for other IDEs like Eclipse or Komodo, and they'll work for the Zend debugging engine as well.",
+    "The Basics: How Remote Debugging Works",
+    "The first thing that you absolutely must understand is the sequence of events and how they're initiated. If you have xdebug configured in your PHP configuration (I'll show how later), then when PHP starts executing:",
+    "Tunneling HTTP to Debug or Develop an External Webservice Call",
+    "Thu, 2013-10-31 16:10 by rfay",
+    "Topics:",
+    "debugging",
+    "Planet Drupal",
+    "Summary: This post provides a way to develop/debug in a web environment where you don't have control of the calling party and your environment must be available on the global internet.",
+    "It can be difficult to debug/develop a handler for an incoming web service when you don't have control of the caller. For example, I was developing a handler for Mandrill's inbound webhooks, where Mandrill calls your site when an email comes in. So in this case",
+    "The receiving website must be accessible on the internet so that Mandrill can call it.",
+    "Mandrill alone is hitting the site. I could debug with an imitation POST, but then that wouldn't be the real thing would it?",
+    "There are a couple of ways to approach this:",
+    "Why I Donated To BackdropCMS",
+    "Mon, 2013-09-23 09:40 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "I've been a rabid supporter of Drupal; Of course anybody who knows me has watched my enthusiasm wear thin for various reasons, including simple burnout mostly, but also a number of frustrations with lack of progress in the community, especially with simple things like solving the support vacuum. However, I do not have an agenda against Drupal in any way, and as a professional programmer, I wouldn't be surprised if the core changes being introduced in Drupal 8 are a step in the right direction for future maintainability and sustainability. (Disclaimer: I have mostly ignored all of the changes and have only a rudimentary understanding of them. I wore myself out on Drupal 7 and swore off Drupal 8.)",
+    "The Future of Drupal Governance: Resources and Next Steps",
+    "Tue, 2012-04-10 10:08 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Governance",
+    "Thanks to all of you for your enthusiastic and thoughtful participation in the Future of Drupal Governance core conversation at Drupalcon Denver. This post will provide resources for the conversation and attempt to summarize the ideas raised and actions taken at the core conversation, as well as to provide a path forward for us.",
+    "Drupal's Governance",
+    "Mon, 2012-03-12 12:11 by rfay",
+    "Topics:",
+    "Governance",
+    "Planet Drupal",
+    "This is the third in a series on governance and Drupal in preparation for the Drupalcon Denver Core Conversation on The Future of Drupal Governance. The first article discussed What is Governance and the second How Do Open Source Communities Govern Themselves?. Read all, Governance project on drupal.org, Drupalcon presentation video.",
+    "Drupal's governance structure is so lightly defined that when I searched for Drupal governance the primary article I found was this one on drupalmyths.com denying that Drupal's governance is poorly defined. Certainly nothing showed up on drupal.org. Of course, these things can use words other than the formal word \"governance\", but there really isn't much written about this topic.",
+    "How Do Open Source Communities Govern Themselves?",
+    "Mon, 2012-03-05 20:41 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Governance",
+    "This is the second in a series on governance and Drupal in preparation for the Drupalcon Denver Core Conversation on The Future of Drupal Governance. The initial article started off with What is Governance; Read all, Governance project on drupal.org, Drupalcon presentation video.",
+    "git clone --reference Considered Harmful",
+    "Wed, 2012-02-29 13:54 by rfay",
+    "Topics:",
+    "git",
+    "Planet Drupal",
+    "Just over a year ago I wrote a blog post explaining how to use git clone --reference to speed up git clones. That technique then went on to become a drush option (if $options['cache'] = TRUE and you're using git for drush downloads)",
+    "Well, I repent. git clone --reference should not be used IMO unless you really really understand three things:",
+    "You really need to speed up clones and other fetches.",
+    "You know that the cache directory will never be destroyed (.drush/cache/git in the case of drush managing the caching)",
+    "You will never copy your working directory some place it cannot reach the cache directory (like scp'ing it to a remote machine)",
+    "Unless you actually know #2 and #3, you can be really hurt. I know, I've done it to myself several times now.",
+    "What is Governance?",
+    "Sun, 2012-02-26 20:22 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Governance",
+    "This is the first of a set of blog posts on governance written for the Future of Drupal Governance core conversation at Drupalcon Denver - hope to see you there. The series continues with How Do Open Source Communities Organize Themselves?, Drupal Governance and The Future of Drupal Governance. (presentation video), (Governance project)",
+    "What is \"governance?\" Governance just a fancy word encompassing all the things we do to organize ourselves, make plans and decisions together, get things done, and resolve conflicts. It can be very loose (as is most of our governance in the Drupal community) or very structured. The key, of course, is whether it accomplishes what we want it to accomplish in the contexts we need it.",
+    "Refreshing a Stale Patch with Git",
+    "Mon, 2012-02-20 13:41 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "git",
+    "Git is so smart about merging that it's often possible to referesh a stale patch in the queue using just git, without even looking at the contents of the patch. (I'm not saying you shouldn't look at any patch you post, just that git will often do all the refeesh work for you.)",
+    "Update to the latest version of the project you're working with.",
+    "Use git log to find the hash of a commit near or just before the time the patch was posted.",
+    "Create a branch from that commit: git checkout -b . (I often use the date for the branch name: git checkout -b aug10",
+    "Apply the patch. It should apply cleanly unless there was already something wrong with it when it was created.",
+    "Use git add and git statusto make sure that all your changes are staged, then commit the results.",
+    "Create a new branch for the updated patch. I'll use git checkout -b bundles_removed_1245332_04 origin/8.x, which branches off of 8.x just for this feature branch.",
+    "Merge the date-based branch: git merge",
+    "If all goes well, you have a clean merge, and you can create a patch. In this case, git diff origin/8.x >drupal.bundle_warning_1245332_04.patch",
+    "If you still have a merge conflict, you probably only have the really relevant part of the conflict (changes actually made in your patch which conflict with changes which have been committed since the issue was last active.) In that case, you can use git mergetool to reconcile the differences, but that's for another session.",
+    "For just updating a patch that was obsoleted by the D8 core files move patch in November, see xjm's excellent, focused article.",
+    "Here's the screencast:",
+    "Drupal Deployment with Git Submodules",
+    "Tue, 2011-12-20 18:09 by rfay",
+    "Topics:",
+    "git",
+    "Planet Drupal",
+    "[Update October 2013: Warning: While I found submodules extraordinarily easy to use, especially when contributing back changes, I failed at nearly every turn to successfully involve other people with them. They always had unnecessary technical problems. So I have reverted back to a single repo for the entire project.]",
+    "(There are screencasts illustrating these concepts at the bottom.)",
+    "I've been using git submodules for Drupal site deployment for quite awhile now, and I wanted to share my experience (for good and bad) with others who might be interested in using submodules (and to solicit comments from those who know how to do it better).",
+    "What are git submodules?",
+    "First \"git submodules\" have nothing to do with Drupal modules. They're a way of including one git repository inside another, in its entirety, and managing it from within the parent repository.",
+    "In a regular git repository, you have one .git directory in the root directory of the project that contains the entire history and all the revisions for that project. Every change in the project is tracked in that one .git repository.",
+    "Drush, File Permissions, and Web Servers - Lots of things can go wrong",
+    "Sat, 2011-11-19 11:07 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "drush",
+    "The marvelous drush makes an enormous number of things possible that would otherwise be tedious at best, and allows us to automate a shocking number of Drupal tasks.",
+    "But it has a dark side. Drush does tasks that would normally be done by the web server (cron, update.php, enabling modules), and that means that it can leave files laying around that the web server may not be able to access and control. It also does jobs that would normally be done by a site maintainer (drushpm-download, drushpm-updatecode) from the command line. These should create files that are not writeable by the web server.",
+    "Happy Notes! (About *not* burning out!)",
+    "Thu, 2011-10-13 10:56 by rfay",
+    "Topics:",
+    "Burnout",
+    "Planet Drupal",
+    "As you know, I've been writing and talking and thinking about burnout lately.",
+    "One of the key causes of burnout is the situation where we lack control over what we do.",
+    "Drupal Community Conflict Resolution (and Twitter)",
+    "Sat, 2011-09-17 11:32 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "We value our community like a family, and have put loads of energy into the Drupal world. But we have some problems, and it's probably time for some discussion about our community manners and approach to problem-solving. We have the excellent Drupal Code of Conduct (copied from Ubuntu's model) but it doesn't yet address a number of specifics (especially conflict resolution). So I'd like to throw some ideas into the wild.",
+    "First of all, Controversy is not a bad thing. It's not a problem when people disagree on issues, even if they permanently disagree. It is a bad thing, though, when people start campaigns (on Twitter or otherwise) without understanding the problem or trying to resolve it directly. Feelings can be hurt, the community can be divided, contributor energy can be sapped, and it's mostly not the most likely way to resolve the situation anyway. Why do that?",
+    "What can the Drupal Community do about Burnout?",
+    "Fri, 2011-08-19 00:40 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Burnout",
+    "This post is the last in a series in preparation for the Burnout core conversation at Drupalcon London 2011. The first post discussed what burnout is; the second is about what individuals can do about burnout; the third was about how the Drupal Community burns people out.",
+    "The key point of this series is that we need to do strategic thinking as a community about how to treasure and keep our wonderful contributors. That's the point of the core conversation. It will not be a support group for people to share their burnout stories, but a gathering to think strategically about how the community can prevent or heal burnout to protect and keep our members.",
+    "How Does the Drupal Community Burn People Out?",
+    "Mon, 2011-08-15 10:15 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Burnout",
+    "This post is one of a series in preparation for the Burnout core conversation at Drupalcon London. The first post discussed what burnout is; the second is about what individuals can do about burnout, and the final one will discuss what the Drupal community can do to prevent and deal with burnout. Also, please see Arianek's excellent post about burnout.",
+    "One of the striking things about the Drupal community is that so many of us have such loose or nonexistent boundaries between work and home, Drupal and work, hobbies and work. And, being techies, we're always connected. The result is that Drupal can dominate every aspect of our lives. Not so good.",
+    "What Can Individuals Do To Prevent Burnout?",
+    "Thu, 2011-08-11 10:55 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Burnout",
+    "This post is one of a series in preparation for the Burnout core conversation at Drupalcon London. The first post discussed what burnout is; this one talks about what individuals can do about burnout, and the final two will discuss what about burnout is distinctive to the Drupal community, and what the Drupal community can do to deal with burnout. Also, please see Arianek's excellent post about burnout",
+    "There are dozens, even hundreds of books addressing individuals and burnout. I was amazed how many of them are aimed squarely at church members, pastors, and other caring professionals. Interestingly enough, the Drupal community can be a bit like many churches: plenty of needy people, lots of ideas, an amazing amount of work that \"ought\" to be done, and most of it done by volunteers or vastly overloaded professionals. These books have pretty uniform advice to the individual for dealing with burnout, and of course it's what you already know:",
+    "What is Burnout?",
+    "Mon, 2011-08-08 09:24 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Burnout",
+    "This article is one of a series in preparation for the Burnout core conversation at Drupalcon London. This article will discuss what burnout is; future posts will cover how individuals can respond to burnout, what about burnout is unique to the Drupal community, and what the Drupal community can do to deal with burnout.",
+    "What is burnout? Many of us \"just know\" the answer to this, as we've we've struggled with it ourselves in our professional, personal, or community work. I found a couple of high quality discussions of burnout. The first is the book The Truth about Burnout: How Organizations Cause Personal Stress and What to Do About It1, written by the leading researcher in the field, Christina Maslach. The second was the seminal article Burned Out2 from Scientific American Mind magazine.",
+    "Managing Site-owner Comment Notifications Using Triggers and Actions",
+    "Wed, 2011-07-20 09:18 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Triggers and actions are a core feature of Drupal and have been for a really long time. But lots of people don't know that they can actually be useful for some very basic and important tasks. You might say this is a beginner topic, but since I've only mastered it for my own use in the last year or so, I figured it was worth writing about :-)",
+    "I use them mostly for notifications when comments have been posted to my blog, where comments are 100% moderated. (I use the wonderful Comment Notify to notify commenters when more comments are posted. If spam got posted they'd get email spam.)",
+    "So among the many things you can do simply with triggers and actions is configuring a notification to the site owner with details about the posted comment, and that's a great example of use of this simple feature. Here's how to do it.",
+    "First, create an action that does what you want.",
+    "In Drupal 7 it's easy to use tokens to customize the details of the outgoing email. At Administration -> Configuration -> System -> Actions (admin/config/system/actions) we can select \"Send e-mail...\" from the dropdown.",
+    "Fixing a Broken Drupal 7 Registry",
+    "Mon, 2011-06-20 18:43 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "In Drupal 7 we have a very nice \"registry\" that registers what PHP classes should be loaded from what files.",
+    "Unfortunately you can get the system into a state where it can't bootstrap to a high enough level to rebuild the registry (normally done by clearing the cache). What do you do then?",
+    "I had this situation today due to an annoying Rules/Entity issue, and dereine pointed out that it had recently been an issue in the Views queue.",
+    "Since the solution given in the Views queue didn't work for me, I created a package that you can use to get out of this trouble, Registry Rebuild.",
+    "When would you need Registry Rebuild?",
+    "You might get something like:",
+    "PHP Fatal error: Class 'EntityAPIControllerExportable' not found in ...sites/all/modules/rules/includes/rules.core.inc on line 11",
+    "If this happens when you're trying to run update.php, and happens when you're trying to clear your cache, well, you have some trouble. That's what Registry Rebuild is for.",
+    "Drupal.org is a cesspool of undifferentiated **** (oops... content, that is)",
+    "Sun, 2011-05-22 09:34 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Oops. I can't believe I said that.",
+    "Drupal has a long tradition of insisting that everybody's contribution is equal, that every piece of content is equal. We have to stop that.",
+    "It's nearly impossible to find the critical content on d.o and has been for a very long time. How do we fix this? Enlist the community.",
+    "Here are some broad brushstrokes:",
+    "Simpler Rebasing (avoiding unintentional merge commits)",
+    "Sat, 2011-05-21 20:21 by rfay",
+    "Topics:",
+    "git rebase",
+    "Planet Drupal",
+    "git",
+    "Executive summary: Set up to automatically use a git pull --rebase",
+    "Please just do this if you do nothing else:",
+    "git config --global pull.rebase true",
+    "About rebasing and pulling",
+    "Edit 2021-06-17: Updated the suggested command from the old git config --global branch.autosetuprebase always to the current (from a long time) git config --global pull.rebase true",
+    "I've written a couple of articles on rebasing and why to do it, but it does seem that the approaches can be too complex for some workflows. So I'd like to propose a simpler rebase approach and reiterate why rebasing is important in a number of situations.",
+    "Here's a simple way to avoid evil merge commits but not do the fancier topic branch approaches:",
+    "Go ahead and work on the branch you commit on (say 7.x-1.x)",
+    "Make sure that when you pull you do it with git pull --rebase",
+    "Push when you need to.",
+    "That's it.",
+    "Handling the new .gitignore file in D7 and D8",
+    "Tue, 2011-05-17 14:46 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "git",
+    "Drupal 7 and Drupal 8 recently added a default (and sensible) .gitignore file to the standard repository, and while this solves some problems, it has also caused some confusion. (issue)",
+    "Here's a link to the actual new .gitignore. Essentially, it excludes the sites/default/files and sites/default/settings.php files from git source control.",
+    "Changing a theme name (or adding a subtheme) without losing block and theme settings",
+    "Sun, 2011-05-08 19:27 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "This happens to me periodically, so I thought I'd write it down.",
+    "Situation: An existing site has had its theme hacked in place, or just has a stock theme deployed and I need a subtheme. But that means that I'm going to have to change the name of the theme, which can mean having to go back and do all the theme and block settings again. I really don't like manual work, so this time I tried to write down what has to be done to create a new theme with the old theme's settings and block settings.",
+    "I did this on a Drupal 6 site, but I believe the basics are the same for any Drupal version. Edit (26 May 2011): Drupal 7 block table changed its name and one field, so a recipe for it is at the bottom of the article.",
+    "Drupal Testbots are now running on the OSUOSL Supercell",
+    "Wed, 2011-04-27 11:26 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "You probably know that all Drupal core patches and commits get tested using the simpletest testing system, but you may not know how. Essentially, every time a patch is posted and placed in the \"Needs Review\" status on Drupal.org, and every time a commit is made, the information is sent off to qa.drupal.org, which then farms it out to testing working machines we call testbots.",
+    "Well, the testbots are quite compute-intensive, and although we tried for years we never really got enough decent, manageable machines from community contributions. Partly this is because the machines are really compute-intensive, and partly it's because they can be pretty tweaky and not everybody wants to learn how to manage them and deal with their occasional fits. Many community members had donated time on their machines, but in recent months we'd been using Amazon EC2 instances for the bulk of our testbots, and the bill to the Drupal Association was more than we'd like to pay, more than $500 many months.",
+    "Playing around with Git",
+    "Mon, 2011-03-28 11:21 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "git",
+    "git rebase",
+    "Even if you've just arrived into the Gitworld, you've already noticed that things are really fast and flexible. Some people claim that the most important thing about the distributed nature of Git is that you can work on an airplane, but I claim that's totally bogus. The coolest thing about the distributed nature of Git is that you can fool around all you want, and try a million things, and even mess up your repo as much as you want... and still recover. Here's how, with a screencast at the bottom.",
+    "With CVS or Subversion or any number of other VCS's, when you commit or branch, you have the potential of causing yourself and others pain forever. And there's no way around it. You just have to do your best and hope it comes out OK. But with Git, you can try anything and rehearse it in advance, in a total no-consequence environment. Here are some suggestions of where to start.",
+    "Drupal Patching, Committing, and Squashing with Git",
+    "Sat, 2011-03-05 20:31 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "git",
+    "git rebase",
+    "Back in the bad old days (like 2 weeks ago) there was exactly one way to create patches and exactly one way to apply them. Now we have so many formats and so many ways to work it can be mind boggling. As a community, we're going to have to come to a consensus on which of these many options we prefer. I'm going to take a quick look at the options and how to work among them when necessary.",
+    "Ways to create patches",
+    "My preference when making changes is always to commit my changes whether or not the commits will be exposed later. That lets me keep track of what I'm doing, and make commit comments about my work. So in each if these cases we'll start with a feature branch based on origin/7.x-1.x with:",
+    "Create a feature branch by branching from 7.x-1.x",
+    "git checkout -b my_feature_99999 origin/7.x-1.x",
+    "[edit A.txt]",
+    "git add .",
+    "git commit -m \"Added A.txt\"",
+    "[edit B.txt]",
+    "git add .",
+    "git commit -m \"Added B.txt\"",
+    "First, I may want to know what commits and changes I'm going to be including in this patch.",
+    "Pushing and Deleting Git Topic Branches (Screencast)",
+    "Sun, 2011-02-27 20:23 by rfay",
+    "Topics:",
+    "git",
+    "Planet Drupal",
+    "Creating topic branches (also called \"feature branches\") is easy in Git and",
+    "is one of the best things about Git. Sometimes we also want to get those pushed",
+    "from our local repo for various reasons:",
+    "To make sure it's safe on another server (for backup).",
+    "To let others review it.",
+    "To let others build upon it.",
+    "Here we'll just be dealing with #1 and #2, and not talking about how to collaborate",
+    "on a shared branch. We'll be assuming that only the original author will push to it,",
+    "and that nobody else will be doing work based on that branch.",
+    "Review of Packt's Drupal 7 First Look",
+    "Wed, 2011-02-23 19:03 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Book Reviews",
+    "(Disclaimer: The book for review was provided gratis by the publisher.)",
+    "Drupal 7 First Look, by Mark Noble (Packt) should probably be named \"What Drupal 6 Developers Need to Know about Drupal 7\". It would kind of make sense then. If you need a book-length (252-page) introduction to what's changed in D7, this is a lot better than reading the horrendous D7 Module Upgrade Guide. However, I can't recommend it for any purpose other than that. It's not one of the leading books. It's not authoritative or particularly accurate, not well edited, and doesn't have clear scope.",
+    "Here's what I liked: The chapter on the Drupal 7 PDO Database Interface (DBTNG) is really quite good. I don't have enough depth in PDO myself to check it for accuracy, but it seemed to have a very solid tutorial approach, with a lot of detail. Quite nicely done.",
+    "Pages",
+    "1",
+    "2",
+    "3",
+    "next ›",
+    "last »",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/links-recent-presentations",
+      "text": "Links to recent presentations"
+    },
+    {
+      "internal": true,
+      "key": "topics/best-practices",
+      "text": "Best Practices"
+    },
+    {
+      "internal": true,
+      "key": "content/remote-command-line-debugging-phpstorm-phpdrupal-including-drush",
+      "text": "Remote Command-Line debugging with PHPStorm for PHP/Drupal (including drush)"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/remote-drupalphp-debugging-xdebug-and-phpstorm",
+      "text": "Remote Drupal/PHP Debugging with Xdebug and PHPStorm"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://xdebug.org",
+      "text": "Xdebug"
+    },
+    {
+      "internal": false,
+      "key": "http://www.jetbrains.com/phpstorm",
+      "text": "Jetbrains PHPStorm 7.x"
+    },
+    {
+      "internal": true,
+      "key": "content/tunneling-http-debug-or-develop-external-webservice-call",
+      "text": "Tunneling HTTP to Debug or Develop an External Webservice Call"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://mandrill.com",
+      "text": "Mandrill"
+    },
+    {
+      "internal": false,
+      "key": "http://help.mandrill.com/entries/22092308-What-is-the-format-of-inbound-email-webhooks-",
+      "text": "inbound webhooks"
+    },
+    {
+      "internal": true,
+      "key": "content/why-i-donated-backdropcms",
+      "text": "Why I Donated To BackdropCMS"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/topics/burnout",
+      "text": "burnout"
+    },
+    {
+      "internal": true,
+      "key": "content/future-drupal-governance-resources-and-next-steps",
+      "text": "The Future of Drupal Governance: Resources and Next Steps"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/governance",
+      "text": "Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Future of Drupal Governance"
+    },
+    {
+      "internal": true,
+      "key": "content/drupals-governance",
+      "text": "Drupal's Governance"
+    },
+    {
+      "internal": true,
+      "key": "topics/governance",
+      "text": "Governance"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Drupalcon Denver Core Conversation on The Future of Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/118",
+      "text": "What is Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/120",
+      "text": "How Do Open Source Communities Govern Themselves?"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/topics/governance",
+      "text": "Read all"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/governance",
+      "text": "Governance project on drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Drupalcon presentation video"
+    },
+    {
+      "internal": false,
+      "key": "http://www.drupalmyths.com/node/226",
+      "text": "this one on drupalmyths.com"
+    },
+    {
+      "internal": true,
+      "key": "content/how-do-open-source-communities-govern-themselves",
+      "text": "How Do Open Source Communities Govern Themselves?"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/governance",
+      "text": "Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Drupalcon Denver Core Conversation on The Future of Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/118",
+      "text": "What is Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/topics/governance",
+      "text": "Read all"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/governance",
+      "text": "Governance project on drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Drupalcon presentation video"
+    },
+    {
+      "internal": true,
+      "key": "content/git-clone-reference-considered-harmful",
+      "text": "git clone --reference Considered Harmful"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/93",
+      "text": "blog post explaining how to use git clone --reference"
+    },
+    {
+      "internal": true,
+      "key": "content/what-governance",
+      "text": "What is Governance?"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/governance",
+      "text": "Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Future of Drupal Governance core conversation at Drupalcon Denver"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/120",
+      "text": "How Do Open Source Communities Organize Themselves?"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/content/drupals-governance",
+      "text": "Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
+      "text": "The Future of Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "presentation video"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/governance",
+      "text": "Governance project"
+    },
+    {
+      "internal": true,
+      "key": "content/refreshing-stale-patch-git",
+      "text": "Refreshing a Stale Patch with Git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://xjm.drupalgardens.com/blog/rerolling-drupal-8-core-patches",
+      "text": "xjm's excellent, focused article"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-deployment-git-submodules",
+      "text": "Drupal Deployment with Git Submodules"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/drush-file-permissions-web-servers-and-coming-armageddon",
+      "text": "Drush, File Permissions, and Web Servers - Lots of things can go wrong"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/drush",
+      "text": "drush"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/drush",
+      "text": "drush"
+    },
+    {
+      "internal": true,
+      "key": "content/happy-notes-about-not-burning-out",
+      "text": "Happy Notes! (About *not* burning out!)"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-community-conflict-resolution-and-twitter",
+      "text": "Drupal Community Conflict Resolution (and Twitter)"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/dcoc",
+      "text": "Drupal Code of Conduct"
+    },
+    {
+      "internal": false,
+      "key": "http://www.ubuntu.com/community/conduct",
+      "text": "Ubuntu's model"
+    },
+    {
+      "internal": true,
+      "key": "content/what-can-drupal-community-do-about-burnout",
+      "text": "What can the Drupal Community do about Burnout?"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": true,
+      "key": "node/107",
+      "text": "what burnout is"
+    },
+    {
+      "internal": true,
+      "key": "node/109",
+      "text": "about what individuals can do about burnout"
+    },
+    {
+      "internal": true,
+      "key": "node/110",
+      "text": "how the Drupal Community burns people out"
+    },
+    {
+      "internal": true,
+      "key": "content/how-does-drupal-community-burn-people-out",
+      "text": "How Does the Drupal Community Burn People Out?"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://london2011.drupal.org/coreconversation/1700-1730-burnout",
+      "text": "Burnout core conversation at Drupalcon London"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/107",
+      "text": "what burnout is"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/109",
+      "text": "about what individuals can do about burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://westendgirl.ca/preventing-and-dealing-burnout",
+      "text": "Arianek's excellent post about burnout"
+    },
+    {
+      "internal": true,
+      "key": "content/what-can-individuals-do-prevent-burnout",
+      "text": "What Can Individuals Do To Prevent Burnout?"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://london2011.drupal.org/coreconversation/1700-1730-burnout",
+      "text": "Burnout core conversation at Drupalcon London"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/107",
+      "text": "what burnout is"
+    },
+    {
+      "internal": false,
+      "key": "http://westendgirl.ca/preventing-and-dealing-burnout",
+      "text": "Arianek's excellent post about burnout"
+    },
+    {
+      "internal": true,
+      "key": "content/what-burnout",
+      "text": "What is Burnout?"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://london2011.drupal.org/coreconversation/1700-1730-burnout",
+      "text": "Burnout core conversation at Drupalcon London"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/109",
+      "text": "how individuals can respond to burnout"
+    },
+    {
+      "internal": true,
+      "key": "content/managing-site-owner-comment-notifications-using-triggers-and-actions",
+      "text": "Managing Site-owner Comment Notifications Using Triggers and Actions"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/comment_notify",
+      "text": "Comment Notify"
+    },
+    {
+      "internal": true,
+      "key": "content/fixing-broken-drupal-7-registry",
+      "text": "Fixing a Broken Drupal 7 Registry"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1190842",
+      "text": "an annoying Rules/Entity"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1170312#comment-4547662",
+      "text": "recently been an issue in the Views queue."
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/registry_rebuild",
+      "text": "Registry Rebuild"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalorg-cesspool-undifferentiated-oops-content",
+      "text": "Drupal.org is a cesspool of undifferentiated **** (oops... content, that is)"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/simpler-rebasing-avoiding-unintentional-merge-commits",
+      "text": "Simpler Rebasing (avoiding unintentional merge commits)"
+    },
+    {
+      "internal": true,
+      "key": "topics/git-rebase",
+      "text": "git rebase"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/taxonomy/term/26",
+      "text": "rebasing and why to do it"
+    },
+    {
+      "internal": true,
+      "key": "content/handling-new-gitignore-file-d7-and-d8",
+      "text": "Handling the new .gitignore file in D7 and D8"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/917492",
+      "text": "issue"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalcode.org/project/drupal.git/blob_plain/refs/heads/7.x:/.gitignore",
+      "text": "a link"
+    },
+    {
+      "internal": true,
+      "key": "content/changing-theme-name-or-adding-subtheme-without-losing-block-and-theme-settings",
+      "text": "Changing a theme name (or adding a subtheme) without losing block and theme settings"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-testbots-are-now-running-osuosl-supercell",
+      "text": "Drupal Testbots are now running on the OSUOSL Supercell"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/playing-around-git",
+      "text": "Playing around with Git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/git-rebase",
+      "text": "git rebase"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-patching-committing-and-squashing-git",
+      "text": "Drupal Patching, Committing, and Squashing with Git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/git-rebase",
+      "text": "git rebase"
+    },
+    {
+      "internal": true,
+      "key": "content/pushing-and-deleting-git-topic-branches-screencast",
+      "text": "Pushing and Deleting Git Topic Branches (Screencast)"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/review-packts-drupal-7-first-look",
+      "text": "Review of Packt's Drupal 7 First Look"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/book-reviews",
+      "text": "Book Reviews"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/update/modules/6/7",
+      "text": "D7 Module Upgrade Guide"
+    },
+    {
+      "internal": true,
+      "key": "blogs/rfay?page=1",
+      "text": "2"
+    },
+    {
+      "internal": true,
+      "key": "blogs/rfay?page=2",
+      "text": "3"
+    },
+    {
+      "internal": true,
+      "key": "blogs/rfay?page=1",
+      "text": "next ›"
+    },
+    {
+      "internal": true,
+      "key": "blogs/rfay?page=2",
+      "text": "last »"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      }
+    ]
+  }
+}

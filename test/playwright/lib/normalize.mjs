@@ -3,7 +3,7 @@
 // separate copies of this logic would show up as constant false-positive diffs.
 //
 // What gets stripped/masked here is grounded in what this site's actual markup contains
-// (checked via curl against the live site while building this), not guessed:
+// (checked via curl against the development site while building this), not guessed:
 //
 //   - The current baseURL appears throughout absolute URLs (canonical link, CSS/JS href/src,
 //     favicon, etc.). It must be neutralized so a baseline captured on randyfay.ddev.site can

@@ -1,0 +1,366 @@
+{
+  "title": "Drupal's Governance | RandyFay.com",
+  "primaryHeading": "Drupal's Governance",
+  "contentFound": true,
+  "lines": [
+    "Mon, 2012-03-12 12:11 by rfay",
+    "Governance",
+    "Planet Drupal",
+    "This is the third in a series on governance and Drupal in preparation for the Drupalcon Denver Core Conversation on The Future of Drupal Governance. The first article discussed What is Governance and the second How Do Open Source Communities Govern Themselves?. Read all, Governance project on drupal.org, Drupalcon presentation video.",
+    "Drupal's governance structure is so lightly defined that when I searched for Drupal governance the primary article I found was this one on drupalmyths.com denying that Drupal's governance is poorly defined. Certainly nothing showed up on drupal.org. Of course, these things can use words other than the formal word \"governance\", but there really isn't much written about this topic.",
+    "Here is my description of Drupal's governance. I am certainly interested in your reaction to it in the comments:",
+    "Dries as Benevolent Dictator has the right to lead core development and make final decisions about any number of issues, but mostly key core development decisions.",
+    "He is expected to separate his business interests from \"what the community needs\".",
+    "He is not expected to intervene in the vast majority of community issues.",
+    "Core, contrib, documentation, infrastructure disagreements are handled almost exclusively through a \"Do-ocracy\" and a \"consensus\" model. In other words, if you think something is important, you bring it up. If you're willing to work on it, you may have the power to make it happen. But you still have to step over the \"consensus\" barrier, which means that 1) you have to get somebody else to care about your issue in the first place and 2) you might have to use your persuasive skills to get people to agree about your method.",
+    "The Drupal Association handles money and Drupalcons. The DA does have formal and explicit governance structures, and takes these very seriously. However, except when it intervenes by choosing to fund a development or similar initiative in the community, it has little impact on the community's day-to-day governance, which is Do-ocracy and Consensus.",
+    "Great Things About Drupal's Current Governance",
+    "In a do-ocracy, you can get things done just because they need to be done. That gives a special pre-emptive power to nearly everyone.",
+    "It's worked for a long time, and we have a great community.",
+    "Problems with Drupal's Current Governance (and risks of not changing it)",
+    "We often lack a strategic focus in attacking problems (or features). Whatever someone wants to do and has the energy to do (and doesn't get vetoed in the \"consensus\" process) ends up being what gets done. These tasks unfortunately may not the most strategically important tasks for our community or the Drupal product.",
+    "Lack of predictability: Because there is not a clear decision-making structure, it's difficult to know whether a given initiative can be successful at any level, even if expert technical resources are applied in adequate quantity.",
+    "When consensus doesn't come easily, a number of negative outcomes may result:",
+    "Nothing gets done at all.",
+    "Feelings are hurt, potential contributors leave the field.",
+    "Getting something done takes vastly more energy than it should have.",
+    "The issue can take on the aspect of (in webchick's words) a smoking crater. Smoking craters of destruction are not good for our community. Any of us can list a pile of frustrating issues still mouldering under the smoke of bikeshedding.",
+    "We have no (almost) structure for properly resolving conflicts. Unlike many of our sister projects, we have absolutely no mechanism for mediating or escalating conflicts to a resolution point. The only thing we have is the big hammer of a Dries decision, which happens very rarely.",
+    "Prized contributors can waste time and energy on initiatives that never go anywhere or are vetoed by lack of consensus.",
+    "People we care about can walk away from the community** or from important areas of development just because there is too much heat there.",
+    "Risks Of Building More Governance Structures For Drupal",
+    "Increased formalization (one obvious path) might offend some community members for philosophical reasons.",
+    "Increased formalization might cause community members to become more passive (\"They\" are in charge of this, so I don't need to get involved.)",
+    "What we have has worked so far. Changing it might have unforeseen consequences.",
+    "I'm sure you can read between the lines: I think we should deliberately build more explicit governance structures into our community, and that we should do it without bikeshedding :-)",
+    "Again, I welcome your comments both here and at the Core Conversation Wednesday, 21 March, at 2:15pm in Denver.",
+    "Resources",
+    "This interesting article on do-ocracy in the Burning Man context looks awfully familiar. And the \"Dangers\" section looks pretty familiar too.",
+    "Other discovered articles about Drupal's do-ocracy: Meritocracy vs Do-Ocracy by Owen, Who Rules Drupal by Matt Farina.",
+    "Comments",
+    "Steve (not verified)",
+    "Mon, 2012-03-12 12:32",
+    "Permalink",
+    "Consensus fails",
+    "I think you've perfectly illustrated the failure of a (almost) totally consensus model. In any organization, you need to have a central leadership, because consensus is only going to get you so far. As you've mentioned, often times either nothing gets done, or the wrong things get done. It all depends on who has the strongest voice, most skill, or most time, and often times what gets done isn't what needs to get done. How many Drupal shops operate totally on a consensus model? Probably not many, because they wouldn't get anything done. I'd be willing to bet Acquia has defined leadership, because that's what's needed to get things done, regardless of the organization type.",
+    "Dries has done a better job with D8 in defining specific initiatives, but I still think a lot of the smoking craters could be avoided if stronger central leadership was put into place. Now, this won't necessarily get rid of the do-ocracy mentality, because people who want to get something done would still need to step up and suggest what needs to get done (as well as do it), but it would be up to the leadership to set direction and determine if what's being suggested will be beneficial to the direction Drupal needs to go. Like I said above, it is better with D8, but more needs to be done in this area.",
+    "Log in to post comments",
+    "catch (not verified)",
+    "Mon, 2012-03-12 22:14",
+    "Permalink",
+    "While I don't really like",
+    "While I don't really like strict consensus decision making (and at least Drupal core doesn't use that anyway), there is not a straight dichotomy between consensus and \"central leadership\".",
+    "Nor does central leadership determine that the right things get done, there's countless historical and contemporary examples where the opposite happens.",
+    "Log in to post comments",
+    "valthebald (not verified)",
+    "Mon, 2012-03-12 12:49",
+    "Permalink",
+    "Typo in date",
+    "Great article!",
+    "Small type - you probably meant Wednesday, March 25, not Wednesday, March 18",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2012-03-12 12:52",
+    "Permalink",
+    "Actually, it's the 21st;",
+    "Actually, it's the 21st; fixed, and thanks!",
+    "Log in to post comments",
+    "zzolo (not verified)",
+    "Mon, 2012-03-12 12:56",
+    "Permalink",
+    "\"Consensus\" (even with quotes) is not really what happens",
+    "\"Consensus\" is a really bad word we use to describe how decisions currently get done in Drupal, even with the quotes around it.",
+    "Consensus often implies a form of consent, which there is not.",
+    "Consensus often implies a somewhat formal process which there is not.",
+    "Most importantly, the way consensus is described here, assuming that we all have the same voice besides Dries, does not take into account the many implicit and explicit power structures in our community that affect our decision making \"process\".",
+    "What really happens is that decisions are made by the loudest, most resourceful, or the most popular person or small group of people, but definitely not any real form of consensus.",
+    "Overall, I think by using that word to describe how decisions get made in the Drupal community, even in a joking tone, is both very inaccurate and harmful to discussing the reality of the situation, especially the power dynamics that are prevalent in the community.",
+    "Log in to post comments",
+    "mbutcher (not verified)",
+    "Mon, 2012-03-12 13:43",
+    "Permalink",
+    "And I'd add #4",
+    "I suggest adding one to zzolo's list of 3.",
+    "4. \"Consensus\" also implies that there is a formal group that constitutes the voting (\"consensus making\") body.",
+    "That is, the natural response to \"we reached consensus\" is \"WHO reached consensus?\" It's not the same group of people each time. What is it that dictates who gets a voice in the outcome of a debate.",
+    "This is even more important when considering the following:",
+    "- Often times, those who express opinions are simply ignored. Sometimes this is because they are unknowns in the community. Sometimes it's for other reasons. Why are these voices not part of the consensus process? The ambiguity of who is in the consensus-making group is at issue here.",
+    "- With an undefined group of voters, issues can \"fly under the radar\", and decisions can be made without broad exposure or debate. How does this constitute consensus? The ambiguity of what it takes (how much it takes) to make consensus is at issue.",
+    "- Clearly some voices carry more weight in \"consensus making\" than others. If (for example -- just drawing from a pool of names) chx, webchick, and Crell all lean heavily in favor of an issue, it takes an awful lot of contrary voices to keep \"consensus\" from forming. The ambiguity of the relative status of consensus-makers is the issue.",
+    "I'm not suggesting that any of these observed behaviors is wrong. I'm suggesting that the notion of \"consensus\" is shaky as it stands.",
+    "Log in to post comments",
+    "catch (not verified)",
+    "Mon, 2012-03-12 22:12",
+    "Permalink",
+    "Yeah I'd agree with this",
+    "Yeah I'd agree with this entirely.",
+    "The only quorum required for a Drupal core issue to be committed is patch author + reviewer + committer (and even this is not 100% followed all the time - for example I sometimes do double duty and review patches, then mark them RTBC, then commit them a couple of days later, making a quorum of two instead of three). This is only 'consensus' in the very loose sense that it's roughly the same model as a group of friends deciding where to go to eat or similar.",
+    "When issues have conflicting viewpoints, there are a few things that happen:",
+    "- points of contention get deferred to follow-up issues and a subset gets committed.",
+    "- a decision gets made based on a 'qualified majority' of those on the issue. This is closely linked to mbutcher and zzolo's points about 'community status' - i.e. if one person previously unknown to the issue queue objects they're more likely to be ignored. There's plenty of arguments to be had about whether that's a bad thing or not (IMO the answer is 'it depends'), but accepting that it happens is the first step to making any judgements about it.",
+    "- on the other hand, subsystem maintainers, initiative owners and some high profile contributors can effectively wield a veto in some situations, but that's something which is conditional on many things - since there is no 'official' veto except those of the committers (and even they can overrule each other sometimes).",
+    "- if you have two equal-sized and/or equal status groups (not that it's possible to actually define this), then the issue can end up in deadlock.",
+    "- I'd also add there are some situations where issues get de-railed/trolled or similar outside of the decision making process (like someone trying to turn a core bug into personal support for their website), and we don't really have a way to deal with that either.",
+    "One thing that came up a bit in Randy's post but has not really been discussed in the comments is the nature of the review process.",
+    "In terms of getting patches in or not, the power is centred around the reviewer, not the patch author - since that's the person who can get the patch RTBC. Even though I have commit access to Drupal 8, if I want to get a change in, I still need to either review a patch that someone else has written, or write a patch and hope someone else reviews it. I'd hope there'd be uproar if I suddenly started committing my own patches with no-one else reviewing them (and there are sadly lots of them that need review).",
+    "There's a couple of reasons for this - first is the massive shortage of reviews compared to patches (even issues with hundreds of comments often don't have that many actual patch reviews on them), so those that do meaningful reviews of lots of patches will very quickly pick up 'community status'.",
+    "Second is that reviewing is the only quality control we have - whether it's via the test bot or humans, and since literally anyone can upload a patch, and only four people can commit them, the role of the intermediate layer of reviews and alternative patches is extremely import.",
+    "So it'd be interesting to explore these informal, convention based structures more, and I think it's necessary to understand how those work and try to document them before there is much value in proposing changes. There are obviously some places where this can end up dysfunctional (like the 300+ comment issues that get left unresolved), but these are considerably more real and central to Drupal's decision making processes than any of the formal roles.",
+    "Log in to post comments",
+    "effulgentsia (not verified)",
+    "Mon, 2012-03-12 17:42",
+    "Permalink",
+    "Review, public debate, and attempt to reconcile perspectives",
+    "Note that Wikipedia's article on consensus allows for the term to apply to multiple governance structures, including \"person in charge decides\". The article identifies consensus as aiming to be \"agreement seeking, collaborative, cooperative, egalitarian, inclusive, and participatory\". The question of governance becomes about evaluating to which extent we want each of these as our goals, and how to resolve conflict efficiently while staying true to them.",
+    "Yesterday I came across this interview with Red Hat's CEO, where he claims that even within the setting of his for-profit company (with high pressure for efficiency), they were able to create and support a culture where all employees are able to have a voice, and have their voice heard, even if they lack decision-making powers.",
+    "Another gem is this quote from an article on reasoning:",
+    "People mostly have a problem with the confirmation bias when they reason on their own, when no one is there to argue against their point of view. What has been observed is that often times, when people reason on their own, they're unable to arrive at a good solution, at a good belief, or to make a good decision because they will only confirm their initial intuition.",
+    "On the other hand, when people are able to discuss their ideas with other people who disagree with them, then the confirmation biases of the different participants will balance each other out, and the group will be able to focus on the best solution.",
+    "However Drupal's formal governance evolves, I sure hope we keep our culture of public and open review, public and open debate, and sincere attempt to understand and take into account the perspective of each person who participates in a discussion.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/governance",
+      "text": "Governance"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Drupalcon Denver Core Conversation on The Future of Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/118",
+      "text": "What is Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/120",
+      "text": "How Do Open Source Communities Govern Themselves?"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/topics/governance",
+      "text": "Read all"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/governance",
+      "text": "Governance project on drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Drupalcon presentation video"
+    },
+    {
+      "internal": false,
+      "key": "http://www.drupalmyths.com/node/226",
+      "text": "this one on drupalmyths.com"
+    },
+    {
+      "internal": false,
+      "key": "http://association.drupal.org",
+      "text": "Drupal Association"
+    },
+    {
+      "internal": false,
+      "key": "https://association.drupal.org/about/governance",
+      "text": "formal and explicit governance structures"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Core Conversation"
+    },
+    {
+      "internal": false,
+      "key": "http://www.communitywiki.org/DoOcracy",
+      "text": "interesting article on do-ocracy in the Burning Man context"
+    },
+    {
+      "internal": false,
+      "key": "http://asymptomatic.net/2009/03/21/2795/meritocracy-versus-do-ocracy",
+      "text": "Meritocracy vs Do-Ocracy"
+    },
+    {
+      "internal": false,
+      "key": "http://engineeredweb.com/blog/11/1/who-rules-drupal",
+      "text": "Who Rules Drupal"
+    },
+    {
+      "internal": true,
+      "key": "comment/2224",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2224",
+      "text": "Consensus fails"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/121%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2233",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2233",
+      "text": "While I don't really like"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/121%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.valthebald.net",
+      "text": "valthebald (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2225",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2225",
+      "text": "Typo in date"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/121%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2226",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2226",
+      "text": "Actually, it's the 21st;"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/121%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://zzolo.org",
+      "text": "zzolo (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2227",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2227",
+      "text": "\"Consensus\" (even with quotes) is not really what happens"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/121%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://technosophos.com",
+      "text": "mbutcher (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2228",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2228",
+      "text": "And I'd add #4"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/121%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2232",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2232",
+      "text": "Yeah I'd agree with this"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/121%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2231",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2231",
+      "text": "Review, public debate, and attempt to reconcile perspectives"
+    },
+    {
+      "internal": false,
+      "key": "http://en.wikipedia.org/wiki/Consensus_decision-making",
+      "text": "Wikipedia's article on consensus"
+    },
+    {
+      "internal": false,
+      "key": "http://www.nytimes.com/2012/03/11/business/jim-whitehurst-of-red-hat-on-merits-of-an-open-culture.html?_r=4&pagewanted=1",
+      "text": "interview with Red Hat's CEO"
+    },
+    {
+      "internal": false,
+      "key": "http://edge.org/conversation/the-argumentative-theory",
+      "text": "article on reasoning"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/121%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

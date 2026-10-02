@@ -1,0 +1,257 @@
+{
+  "title": "Reference (cache) repositories to speed up clones: git clone --reference | RandyFay.com",
+  "primaryHeading": "Reference (cache) repositories to speed up clones: git clone --reference",
+  "contentFound": true,
+  "lines": [
+    "Fri, 2011-02-18 12:08 by rfay",
+    "Planet Drupal",
+    "git",
+    "Update: Please read this update on my experience before using the technique in this article.",
+    "Update: See the drush implementation of this approach in the comment below.",
+    "DamZ taught me a great new piece of git trivia today. You can use a local repository as a kind of cache for a git clone.",
+    "Let's create a reference repository for Drupal (and it will be bare, because we don't need any files checked out)",
+    "git clone --mirror git://git.drupal.org/project/drupal.git ~/gitcaches/drupal.reference",
+    "That makes a complete clone of Drupal's full history in ~/gitcaches/drupal.reference",
+    "Now when I need to clone the Drupal project's entire history (as I might do often in testing) I can",
+    "git clone --reference ~/gitcaches/drupal.reference git://git.drupal.org/project/drupal.git",
+    "And the clone time is on the order of 2 seconds instead of several minutes. And yes, it picks up new changes that may have happened in the real remote repository.",
+    "To go beyond this (again from DamZ) we can have a reference repository that has many projects referenced within it.",
+    "mkdir -p ~/gitcaches/reference",
+    "cd ~/gitcaches/reference",
+    "git init --bare",
+    "for repo in drupal views cck examples panels # whatever you want here",
+    "do",
+    "git remote add $repo git://git.drupal.org/project/$repo.git",
+    "done",
+    "git fetch --all",
+    "Now I have just one big bare repo that I can use as a cache. I might update it from time to time with git fetch --all. But I don't have to. And I can use it like this:",
+    "cd /tmp",
+    "git clone --reference ~/gitcaches/reference git://git.drupal.org/project/drupal.git",
+    "git clone --reference ~/gitcaches/reference git://git.drupal.org/project/examples.git",
+    "We'll try to use this technique for the testbots, which do several clean checkouts per patch tested, as it should speed them up by at least a minute per test.",
+    "Edit: Here is the version that I used with the testbots, as it appears as a gist:",
+    "[gist:843423]",
+    "Comments",
+    "Damien Tournoud (not verified)",
+    "Mon, 2011-02-21 04:08",
+    "Permalink",
+    "Adding a new repository can be slow",
+    "Adding a new repository to the cache can be slow, because on the first fetch Git will try to determine if it has any revision in common with the remote repository, and the only way to do that is to send out the list of *all* the commits in the local repository.",
+    "The trick to workaround this is to clone to an empty repository first, and to fetch from there into the cache repository. Here is a simple bash script that automate this process. Execute with import.sh [remote name] [remote url] when inside the cache repository:",
+    "#!/bin/bash",
+    "set -ex",
+    "# Create a temporary directory.",
+    "TEMPDIR=`mktemp -d`",
+    "trap \"rm -Rf $TEMPDIR\" EXIT",
+    "# First clone the directory separately.",
+    "git clone $2 $TEMPDIR",
+    "# Then fetch from the temporary dir into our main repo.",
+    "git remote add $1 $TEMPDIR/",
+    "git fetch $1 --tags",
+    "# Then change the remote URL and fetch normally.",
+    "git remote set-url $1 $2",
+    "git fetch $1 --tags",
+    "Log in to post comments",
+    "Matt Farina (not verified)",
+    "Sat, 2011-02-26 15:34",
+    "Permalink",
+    "Based on the work of Randy",
+    "Based on the work of Randy and Damien I created a script to init, add, and update a Drupal Git Cache. The script is at http://drupal.org/sandbox/mfer/1074256.",
+    "Nice work gentlemen.",
+    "Log in to post comments",
+    "moshe weitzman (not verified)",
+    "Thu, 2011-03-03 22:32",
+    "Permalink",
+    "drush command coming soon",
+    "we are working on a drush command at http://drupal.org/node/1076302. just have to solve an incompatibility with git_deploy module.",
+    "Log in to post comments",
+    "pfrenssen (not verified)",
+    "Fri, 2011-05-06 06:51",
+    "Permalink",
+    "This is the full drush",
+    "This is the full drush command to use for those who are interested:",
+    "drush dl --package-handler=git_drupalorg --cache drupal",
+    "You can also add it as a default setting to your ~/.drush/drushrc.php file:",
+    "<?php",
+    "$command_specific['dl'] = array(",
+    "'package-handler' => 'git_drupalorg',",
+    "'cache' => TRUE,",
+    ");",
+    "?>",
+    "Log in to post comments",
+    "dvessel (not verified)",
+    "Fri, 2011-09-09 12:04",
+    "Permalink",
+    "On demand?",
+    "This post got me thinking so I put up a more generalized bash script that caches on demand and it's not specific to Drupal.",
+    "https://gist.github.com/8839519ec5b823e047bf",
+    "Replacing 'git' with 'git-cached' will get it working.",
+    "Log in to post comments",
+    "Seb35 (not verified)",
+    "Thu, 2014-12-11 09:25",
+    "Permalink",
+    "Generalisation: git cache",
+    "I searched this feature around the Web and I mainly found this post, so many thanks to you. I just wrote an (other) generalisation for any Git repository: something like 'git cache add repo-name https://example.org/git/repo-name.git'. For now I have not implemented the speed workaround by Damien Tournoud, but it will probably be in a future commit.",
+    "https://github.com/Seb35/git-cache",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/119",
+      "text": "this update on my experience"
+    },
+    {
+      "internal": false,
+      "key": "http://www.randyfay.com/comment/1028#comment-1028",
+      "text": "in the comment below"
+    },
+    {
+      "internal": true,
+      "key": "comment/768",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/768",
+      "text": "Adding a new repository can be slow"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/93%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/778",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/778",
+      "text": "Based on the work of Randy"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/sandbox/mfer/1074256",
+      "text": "http://drupal.org/sandbox/mfer/1074256"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/93%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/moshe",
+      "text": "moshe weitzman (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/794",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/794",
+      "text": "drush command coming soon"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1076302",
+      "text": "http://drupal.org/node/1076302"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/93%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1028",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1028",
+      "text": "This is the full drush"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/93%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2088",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2088",
+      "text": "On demand?"
+    },
+    {
+      "internal": false,
+      "key": "https://gist.github.com/8839519ec5b823e047bf",
+      "text": "https://gist.github.com/8839519ec5b823e047bf"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/93%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3554",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3554",
+      "text": "Generalisation: git cache"
+    },
+    {
+      "internal": false,
+      "key": "https://example.org/git/repo-name.git",
+      "text": "https://example.org/git/repo-name.git"
+    },
+    {
+      "internal": false,
+      "key": "https://github.com/Seb35/git-cache",
+      "text": "https://github.com/Seb35/git-cache"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/93%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

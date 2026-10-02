@@ -1,0 +1,128 @@
+{
+  "title": "drush | RandyFay.com",
+  "primaryHeading": "drush",
+  "contentFound": true,
+  "lines": [
+    "Drush, File Permissions, and Web Servers - Lots of things can go wrong",
+    "Sat, 2011-11-19 11:07 by rfay",
+    "Planet Drupal",
+    "drush",
+    "The marvelous drush makes an enormous number of things possible that would otherwise be tedious at best, and allows us to automate a shocking number of Drupal tasks.",
+    "But it has a dark side. Drush does tasks that would normally be done by the web server (cron, update.php, enabling modules), and that means that it can leave files laying around that the web server may not be able to access and control. It also does jobs that would normally be done by a site maintainer (drushpm-download, drushpm-updatecode) from the command line. These should create files that are not writeable by the web server.",
+    "The results of this dark side can cause enormous confusion to Drupal developers. If you do a drush cron as yourself and cron happens to write some files in sites/default/files, (for example, updating CSS or JS cache files), those files will never by default be deletable or possibly editable by the web server, meaning that Drupal will never be able to properly handle those files. The flip side is that if you do a command like \" drush cc all\" as yourself your drushcommand will not be able to delete or possibly edit files that were created (normally) by the web server.",
+    "I have debugged dozens of broken websites with subtle breakage (most of them my own) that were broken in this way.",
+    "In the future, I'd hope to see drush figure out how to categorize which of its jobs should be done as the web server user and which should be done as a non-web server user, and offer to do that for you (using sudo). But right now, here is some background and some workarounds to go with that background.",
+    "(Note: The problems described here are common to almost all Unix/Linux servers and the Mac, but usually do not affect Windows, CPanel, or Dreamhost shared hosting users. That's because traditional Unix servers run the web server as a separate user (\"www-data\" on Debian/Ubuntu, \"apache\" normally on RedHat/CentOS.)",
+    "Concepts",
+    "In Linux, every file and directory has an \"owner\" and a \"group\". Every user has a primary group. And every file has read, write, and execute permissions for owner, group, and all.",
+    "When a Linux user creates a file or directory, that file or directory by default gets the \"owner\" of the user that created it and the \"group\" of the primary group of the user that created it.",
+    "Only a user with permissions to write in a directory has permissions to delete or rename a file.",
+    "Workarounds",
+    "Add yourself and anybody who might use drush to the web server's group (www-data on Debian/Ubuntu). This will give you permissions, when using drush as a normal user, to update files created by the web server (but you still won't be able to delete files like CSS aggregation files created by the web server)",
+    "Please, please never do a \"sudo drush\" or run drush as root. This can leave scattered files laying around that neither you nor the web server can access. If you think you need to use sudo with drush something else is badly wrong. Unless, of course, you manage all your sites and files as root, which is another huge mistake from a system reliability and security perspective.",
+    "When issuing drush commands that do things the web server would normally do (cron, updatedb, enable, disable, cc, running simpletest tests) use sudo -u [web server_user] drush [whatever], which runs drush as the web server user. So, on Debian/Ubuntu: sudo -u www-data drush cc all",
+    "Make the files directory (and private files directory) and everything below them have the group of the web server and be writable by the web server user:",
+    "sudo chgrp -R www-data sites/default/files # Make all files have group www-data",
+    "sudo chmod -R ug+rw sites/default/files #Grant write permission to user and group recursively",
+    "sudo chmod g+s sites/default/files # Set the SGID bit so all files created inside the files directory will have group set for the files directory",
+    "Use this excellent technique to make sure the web server user's umask (default file permissions) are set to allow the group user to edit files.",
+    "Some examples of failures",
+    "OK, maybe you're not taking me seriously :-)",
+    "Install Backup and Migrate and install it for the first time using drush. drush en -y backup_migrate and then do a manual backup drush bb. By doing those two things you have created the backup_migrate directory... but with your own permissions. Backup Migrate can never write to that directory, and all accesses by the web server will fail. And generally we want backups to succeed. :-)",
+    "Use drush cc css+js to to clear all js and css aggregation files in sites/default/files/css, etc. If the files there are more than 30 days old (D7), you'll get these errors and the files won't be deleted, and sadly you'll see these messages forever, every time you clear the cache or do any action that clears the cache, until you go in and delete the files or solve the permissions problem. This is no great tragedy, but it just demonstrates what we're talking about:",
+    "unlink(/home/quickstart/websites/example.dev/sites/default/files/css/css_0HZDHWccQCzJ2oHZ0hVqMjDA4BAT77eUWYWDqQbAEM0.css):[warning]",
+    "Permission denied in drupal_unlink() (line 2139 of",
+    "/home/quickstart/websites/example.dev/includes/file.inc).",
+    "Install CSS Injector using drush (drush dl css_injector; drush en -y css_injector</code). Now when you go to try to create a CSS rule (which creates a file in the directory sites/default/files/css_injector, which the web server doesn't have write access to, you'll get",
+    "Error message",
+    "The directory /home/quickstart/websites/example.dev/sites/default/files/css_injector is not writable",
+    "These are just a few examples of unintended consequences of of using drush without understanding what happens with file permissions. There are many more.",
+    "If you use the workarounds described above, you can ameliorate all of these. If you don't, you can debug forever or be dogged by these problems forever.",
+    "Resources on drush:",
+    "drush.ws is the Drush documentation on a website.",
+    "This issue describes a partial approach to the permissions problem.",
+    "Armageddon",
+    "OK, I might have overstated the consequences. Not Armaggeddon, but really important to the stability of your website.",
+    "Please do leave your prescriptions for these issues in the comments!",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/drush-file-permissions-web-servers-and-coming-armageddon",
+      "text": "Drush, File Permissions, and Web Servers - Lots of things can go wrong"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/drush",
+      "text": "drush"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/drush",
+      "text": "drush"
+    },
+    {
+      "internal": false,
+      "key": "http://www.practicalweb.co.uk/blog/11/05/31/drupal-files-directory-permissions-continuous-integration",
+      "text": "excellent technique"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/backup_migrate",
+      "text": "Backup and Migrate"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/css_injector",
+      "text": "CSS Injector"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/drush",
+      "text": "drush"
+    },
+    {
+      "internal": false,
+      "key": "http://drush.ws",
+      "text": "drush.ws"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/990812",
+      "text": "This issue"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

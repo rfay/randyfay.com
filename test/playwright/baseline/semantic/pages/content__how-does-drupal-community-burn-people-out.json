@@ -1,0 +1,252 @@
+{
+  "title": "How Does the Drupal Community Burn People Out? | RandyFay.com",
+  "primaryHeading": "How Does the Drupal Community Burn People Out?",
+  "contentFound": true,
+  "lines": [
+    "Mon, 2011-08-15 10:15 by rfay",
+    "Planet Drupal",
+    "Burnout",
+    "This post is one of a series in preparation for the Burnout core conversation at Drupalcon London. The first post discussed what burnout is; the second is about what individuals can do about burnout, and the final one will discuss what the Drupal community can do to prevent and deal with burnout. Also, please see Arianek's excellent post about burnout.",
+    "One of the striking things about the Drupal community is that so many of us have such loose or nonexistent boundaries between work and home, Drupal and work, hobbies and work. And, being techies, we're always connected. The result is that Drupal can dominate every aspect of our lives. Not so good.",
+    "Let's revisit the six causes of burnout from The Truth about Burnout: How Organizations Cause Personal Stress and What to Do About It1. The author of that book, Christina Maslach, a leading researcher in the field, makes the bold claim that burnout is in many ways a result of organizational choices, not just individual ones.",
+    "We feel overloaded. Many, many of us are helpless suckers for love and approval, and the Drupal community has an infinite number of tasks that need to be done that we can do. There's an opportunity for approval and an existing need at every bend. It's infinite. We're not.",
+    "We lack control over what we do. Many aspects of Drupal (need I name core work?) involve an enormous lack of control over the final result, many times due to our community-collaboration culture. One can participate in an issue for years before it finally lands. A huge discussion (sometimes ending in deadlock) may be required before something can get done that an individual could just take on and do.",
+    "We are not rewarded for our work. While the Drupal community is quite good at acknowledging efforts, there are certainly many who do not feel adequately acknowledged (or compensated) for their superhuman efforts.",
+    "We experience a breakdown in community. Although we value the vibrance of our social community, it's not all roses. Many, many newcomers feel that it's hard to break in, and others feel slighted or off-put by the difficulty of actually getting involved. Note also the breakdowns we saw during the final days leading to Drupal 7's release. Some key contributors were making hopeless, sad statements demonstrating a kind of breakdown at a critical time.",
+    "We aren't treated fairly. Many of us have nearly given up after being lambasted by some more senior community member (who was probably burned out). Many of us have seen contributions languish despite the best efforts. The rather chaotic and often unwritten rules in the community can seem impossible to figure out. How do I get somebody to answer the issue I filed? How do I communicate with a project maintainer? What happens if they don't answer? How do I get somebody to acknowledge me on IRC? (Suggestion: We can make our hierarchy, organization, and rules more explicit.)",
+    "We have to deal with conflicting values. In the Drupal community, the tension between work responsibilities, economic realities, community contribution desires and commitments, and quality is always at play. This is quite a lot more complicated than ordinary work tensions.",
+    "In addition, there are many examples of explicit choices we've made that cause community burnout. They're mostly procedures that could never be accomplished even with an army of paid help:",
+    "Module contributors automatically become module maintainers. Their contribution innately adds to their future responsibilities.",
+    "There is no explicit \"way out\" of community responsibilities even though the DCOC says \"step down gracefully\"",
+    "We have created some tasks and processes which are innate tarpits. For example, our documentation team is hopelessly overworked, with no known path to sustainability, and the Full Project Application process has never been sustainable. (There are more than 200 full project applications in \"needs review\", the oldest untouched for 8 weeks. There are 15 applications in RTBC, one for 7 weeks.)",
+    "I'm sure you have other examples of choices we make in our procedures that overload community members - please add them in the comments.",
+    "The Truth about Burnout: How Organizations Cause Personal Stress and What to Do About It, by Christina Maslach and Michael P. Leiter, Jossey-Bass Publishers, 1997 ↩︎",
+    "Comments",
+    "Drave Robber (not verified)",
+    "Mon, 2011-08-15 11:48",
+    "Permalink",
+    "The root of all evil",
+    "I strongly suppose many of these symptoms can be traced back to that common mantra – \"collaboration over competition\". I believe it is, firstly, a false dichotomy and, secondly, leads to attempts at ignoring basic facts of life, which for obvious reasons cannot go on forever.",
+    "Log in to post comments",
+    "ksenzee (not verified)",
+    "Mon, 2011-08-15 15:48",
+    "Permalink",
+    "lacking control over what we do",
+    "#2 really resonates with me. Some days I envy closed-source developers whose job is done when their code works. The hardest part of my job comes after I get the code working.",
+    "Log in to post comments",
+    "Thomas Svenson (not verified)",
+    "Mon, 2011-08-15 17:23",
+    "Permalink",
+    "End of doocrazy",
+    "I've only been a member of the Drupal community for 3 years (next month), but even in that short time I have witnessed the enormous growth and increasing momentum it has.",
+    "The points you take up about rewards and acknowledge are very valid and needs to be brought to light more. Its not about that people want a pat on the back for every little thing they do, but there are a lot of people who work in the dark and seldom get any of the spotlight.",
+    "Most of these work with the infrastructure, documentation, webmaster shores and other stuff that aren't resulting in visible project commits. Commits are one of the very few visible metrics that are easy to point to about a users contribution to Drupal. Nothing wrong with that, it is after all a software project.",
+    "We are slowly seeing a change to the doocracy model the community have used, where user take on tasks and perform them as they see fit. I think this is a very needed change, Drupal simply have grown too big to rely on things only getting done when users feels like it. I am also quite convinced that there are many in our 650k strong community that are willing to take on more responsibility for various tasks.",
+    "But it is also important that these users are acknowledged and rewarded for this and get a little of the spotlight as well. A simple way of doing this is to better present who is doing what within the community, sort of an organization/team section with short presentations of each user and what they do. Each team and role should then also have links to where they discuss work needed as well as how to start helping.",
+    "Another way is to improve the user profiles, where badges can be displayed for roles a user have and so on.",
+    "The documentation team has done a great job so far and shown how needed this is, but as you say they have a mountain to climb and desperately needs more people. I was at one point very close to start helping out, but then things in my private life happened and those had to be prioritized.",
+    "There are a lot of work being done about changing, including the Prairie Initiative. Some things have started to trickle through, but there is still a lot to do. I also hope that the modernization of the Drupal Association also involves this.",
+    "Hopefully all this will mean that it will be easier for new users to enter the community as well as for more people to easier chip in with whatever they can help with.",
+    "Log in to post comments",
+    "Oscar (not verified)",
+    "Mon, 2011-08-15 17:47",
+    "Permalink",
+    "One suggestion I'd like to",
+    "One suggestion I'd like to put forward, although it moves away a bit from burnout through community plumbing is this. Provide on Drupal.org some experience based advice on good project managemt for all those new webdesigners that adopt this wonderfull but extremely vast platform. Basically, selling Drupal sites is different from selling (for instance) wordpress sites. For those (and perhaps freelance based) individuals I think it would be great to find some guidance on common pitfalls surrounding issues like delivery time, organization of update schedules and budgetting. When delving into the module section in particular, a sense of 'the world is mine!' as Scarface put it, might not be surprising. What is it you can't do with Drupal? But with all the versatility on offer an accute sense of reality should be maintained. Feature rich sites require development time, testing, upkeep and yes, there are always limitations underneath the surface. As I love this discussion, the fact that a topic like this gets addressed, I also think that it is a strong signal that stress levels are too high throughout the community and personally I definitely relate. It shouldn't be that way and as part of our shared responsibility in terms of quality of code, a part of our ambassadorship also includes the well being of our peers. Drupal holds so much",
+    "knowledge on the technical part and since most of us are professionals, why not share our experiences and advice on the day-to-day reality of the business side of Drupal. If burnout levels are that high, we must have plenty of advice to spread about preventing it. As the article rightfully states, Drupal blurs into hobby, work, passion. To me it's like a Ferrari amongst CMS's. After drupal, other platforms feel more like vw polo's. And even though I've been driving cars for a lot of years, if I want to buy a Ferrari tomorriow, a sensible dealer will probably recommend me some special lessons in taming such a beast if I need it to drive me safely to work each day.",
+    "Log in to post comments",
+    "catch (not verified)",
+    "Mon, 2011-08-15 19:32",
+    "Permalink",
+    "One thing I've been thinking",
+    "One thing I've been thinking about recently in relation to this series is how far the BDFL model is taken within Drupal. If we look at projects on Drupal.org the vast majority (including Drupal core) have at most a couple of active committers.",
+    "To an extent this spreads the work around since there is a patch oriented workflow, which compared to a lot of other projects encourages small contributions to various projects - hence the many hundreds of people who get at least one patch committed to core each release. But there's a clear other side to this where you have one or two people acting as a single bottleneck - and that pattern exists for very small contrib modules, docs team, specific core components etc. etc.",
+    "On top of this, the process for finding or becoming a module co-maintainer is very, very dim (even dimmer than the project application process). And the only solid process we have for people 'retiring' is completely abandoning projects (either explicitly or via webmasters declaring you disappeared and allowing someone else to take over).",
+    "Views is one project where there's been a conscious effort to move away from this - both appointing co-maintainers, and the development of the views bug squad. However adding that kind of structure is also a lot of up-front work - it's not a model that can just be replicated to different contrib modules. Not to mention that if you have the same people who were previously maintaining their own modules just spread further around as co-maintainers that doesn't help things much.",
+    "Log in to post comments",
+    "salvis (not verified)",
+    "Tue, 2011-08-16 00:30",
+    "Permalink",
+    "On recognition: Make Ohloh work again",
+    "ohloh.net used to keep track of our efforts in contrib at",
+    "http://www.ohloh.net/p/drupal-contributions/contributors",
+    "until we switched to Git.",
+    "This is not only nice to give yourself an occasional pat on the back when you need it, it has actually allowed me to prove to the tax office that I'm doing actual work in this side business, even if I produce only expenses and no income.",
+    "It would be very valuable if we could figure out how to make Ohloh work again. I'm willing to put some effort into this, but I lack the Git and Ohloh know-how at this point. Is anyone in London who can help with this?",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://london2011.drupal.org/coreconversation/1700-1730-burnout",
+      "text": "Burnout core conversation at Drupalcon London"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/107",
+      "text": "what burnout is"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/109",
+      "text": "about what individuals can do about burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://westendgirl.ca/preventing-and-dealing-burnout",
+      "text": "Arianek's excellent post about burnout"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/dcoc#stepping-down",
+      "text": "DCOC"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/projectapplications?order=last_comment_timestamp&sort=asc&status=8",
+      "text": "more than 200 full project applications in \"needs review\""
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/projectapplications?order=last_comment_timestamp&sort=asc&status=14",
+      "text": "15 applications in RTBC"
+    },
+    {
+      "internal": false,
+      "key": "http://www.amazon.com/Truth-About-Burnout-Organizations-Personal/dp/0787908746",
+      "text": "The Truth about Burnout: How Organizations Cause Personal Stress and What to Do About It"
+    },
+    {
+      "internal": false,
+      "key": "http://right-here-tavern.info",
+      "text": "Drave Robber (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2033",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2033",
+      "text": "The root of all evil"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/110%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2034",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2034",
+      "text": "lacking control over what we do"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/110%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.tsvenson.com",
+      "text": "Thomas Svenson (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2035",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2035",
+      "text": "End of doocrazy"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/110%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2036",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2036",
+      "text": "One suggestion I'd like to"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/110%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2037",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2037",
+      "text": "One thing I've been thinking"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/110%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2038",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2038",
+      "text": "On recognition: Make Ohloh work again"
+    },
+    {
+      "internal": false,
+      "key": "http://www.ohloh.net/p/drupal-contributions/contributors",
+      "text": "http://www.ohloh.net/p/drupal-contributions/contributors"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/110%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

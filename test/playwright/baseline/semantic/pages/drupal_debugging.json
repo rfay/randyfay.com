@@ -1,0 +1,73 @@
+{
+  "title": "Drupal Debugging | RandyFay.com",
+  "primaryHeading": "Drupal Debugging",
+  "contentFound": true,
+  "lines": [
+    "Debugging Drupal is not that much different from any kind of debugging or problem-solving, and the topics we'll cover are the same regardless of your level of Drupal or PHP expertise.",
+    "Here we'll cover three topics:",
+    "Strategy: How do we think about the problem? How do we gather basic information about the problem? How do we not get stuck debugging the wrong problem?",
+    "Tools: What tools can be bring to bear on our problem? What should we have prepared in advance?",
+    "Techniques: What specific techniques can we use?",
+    "Although you may be here for #3, the first two will probably have more of an impact on your success, so we're going to spend some good time on them first.",
+    "Drupal",
+    "debugging",
+    "Planet Drupal",
+    "Debugging Strategies",
+    "Debugging Tools: Preparation and Investment Ahead of Time",
+    "Debugging Techniques",
+    "Debugging Links and Resources",
+    "Book Navigation",
+    "Debugging Strategies ›"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-strategies",
+      "text": "Debugging Strategies"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-tools-preparation-and-investment-ahead-time",
+      "text": "Debugging Tools: Preparation and Investment Ahead of Time"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-techniques",
+      "text": "Debugging Techniques"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-links-and-resources",
+      "text": "Debugging Links and Resources"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-strategies",
+      "text": "Debugging Strategies ›"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

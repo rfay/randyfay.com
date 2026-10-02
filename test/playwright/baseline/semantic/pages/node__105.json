@@ -1,0 +1,133 @@
+{
+  "title": "Fixing a Broken Drupal 7 Registry | RandyFay.com",
+  "primaryHeading": "Fixing a Broken Drupal 7 Registry",
+  "contentFound": true,
+  "lines": [
+    "Mon, 2011-06-20 18:43 by rfay",
+    "Planet Drupal",
+    "In Drupal 7 we have a very nice \"registry\" that registers what PHP classes should be loaded from what files.",
+    "Unfortunately you can get the system into a state where it can't bootstrap to a high enough level to rebuild the registry (normally done by clearing the cache). What do you do then?",
+    "I had this situation today due to an annoying Rules/Entity issue, and dereine pointed out that it had recently been an issue in the Views queue.",
+    "Since the solution given in the Views queue didn't work for me, I created a package that you can use to get out of this trouble, Registry Rebuild.",
+    "When would you need Registry Rebuild?",
+    "You might get something like:",
+    "PHP Fatal error: Class 'EntityAPIControllerExportable' not found in ...sites/all/modules/rules/includes/rules.core.inc on line 11",
+    "If this happens when you're trying to run update.php, and happens when you're trying to clear your cache, well, you have some trouble. That's what Registry Rebuild is for.",
+    "When would you *not* need Registry Rebuild?",
+    "If you can access any page, or install a module, or run update.php, you almost certainly don't need Registry Rebuild.",
+    "Please see the project page for instructions how to use it.",
+    "Comments",
+    "Ashok Modi (not verified)",
+    "Tue, 2011-06-21 12:18",
+    "Permalink",
+    "Very useful",
+    "I ran into this issue this morning as I was trying to restructure my modules. Wish I'd seen this post before I started on my arduous process of getting things up and running properly again :)",
+    "Log in to post comments",
+    "Will Vincent (not verified)",
+    "Tue, 2011-06-21 16:30",
+    "Permalink",
+    "This sounds like a good",
+    "This sounds like a good candidate for being a drush plugin.",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2011-06-21 16:33",
+    "Permalink",
+    "Or drush core... Just have to figure out how to not bootstrap",
+    "I thought it would be best as a drush plugin, but didn't know how to prevent drush from going to BOOTSTRAP_FULL. If there's an easy way to do that then this is a no brainer.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1190842",
+      "text": "an annoying Rules/Entity"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1170312#comment-4547662",
+      "text": "recently been an issue in the Views queue."
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/registry_rebuild",
+      "text": "Registry Rebuild"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/registry_rebuild",
+      "text": "project page"
+    },
+    {
+      "internal": true,
+      "key": "comment/1555",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1555",
+      "text": "Very useful"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/105%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://willvincent.com",
+      "text": "Will Vincent (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1560",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1560",
+      "text": "This sounds like a good"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/105%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1561",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1561",
+      "text": "Or drush core... Just have to figure out how to not bootstrap"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/105%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

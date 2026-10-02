@@ -1,0 +1,55 @@
+{
+  "title": "My sessions proposed for Drupalcon Paris | RandyFay.com",
+  "primaryHeading": "My sessions proposed for Drupalcon Paris",
+  "contentFound": true,
+  "lines": [
+    "Fri, 2009-07-24 11:10 by rfay",
+    "Drupal",
+    "I proposed 3 sessions for Drupalcon Paris at the beginning of September, and just hope I can get one in. There's one on Debugging Drupal, one on Ctools/Panels Plugins, and one on Upgrade-proofing your site. Looks like they're all kind of low in the running, but they've all gotten some votes. Surprisingly the one that I thought would be the lowest ranked is the highest - the \"Upgrade-Proof Your Site: Best Practices to Avoid Major Version Upgrade Headaches\".",
+    "If you're going and you like any of these topics, thanks for your VOTE!"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalcon.org",
+      "text": "Drupalcon Paris"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "text": "Debugging Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/howto-creating-ctools-plugins-panels-and-related-modules",
+      "text": "Ctools/Panels Plugins"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/upgrade-proof-your-site-best-practices-avoid-major-version-upgrade-headaches",
+      "text": "Upgrade-proofing your site"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

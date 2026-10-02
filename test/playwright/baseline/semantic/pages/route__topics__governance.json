@@ -1,0 +1,539 @@
+{
+  "title": "Governance | RandyFay.com",
+  "primaryHeading": "Governance",
+  "contentFound": true,
+  "lines": [
+    "What is Governance?",
+    "Sun, 2012-02-26 20:22 by rfay",
+    "Planet Drupal",
+    "Governance",
+    "This is the first of a set of blog posts on governance written for the Future of Drupal Governance core conversation at Drupalcon Denver - hope to see you there. The series continues with How Do Open Source Communities Organize Themselves?, Drupal Governance and The Future of Drupal Governance. (presentation video), (Governance project)",
+    "What is \"governance?\" Governance just a fancy word encompassing all the things we do to organize ourselves, make plans and decisions together, get things done, and resolve conflicts. It can be very loose (as is most of our governance in the Drupal community) or very structured. The key, of course, is whether it accomplishes what we want it to accomplish in the contexts we need it.",
+    "Why do organizations (and countries, and families) need good governance?",
+    "Consistency: Governance can provide consistency of organizational behavior, so that when you take an action, you have a reasonable expectation what the result will be. In the context of a national government, a criminal must expect to be punished, and a hard-worker must expect to be rewarded. In the context of a family, a child must know that what is rewarded one day will be treated the same the next day. And in the context of an open source community, it means knowing that if you invest yourself in solving a problem that you have a reasonable expectation of a return on your investment.",
+    "Accomplishing shared objectives: When different people work together, they organize themselves somehow to accomplish shared objectives. The more effectively they do this, the better their outcomes. This again is good governance.",
+    "Conflict Resolution: Without some kind of governance, it can be pretty hard to authoritatively resolve conflicts. Of course, the governance can be in the form of shared values held by a community, but what happens when one or more of the community members in conflict haven't actually absorbed those shared values, or when those values don't actually address the conflict in question? In that case, we have to have some way to take some kind of step outside the conflict to an agreed-upon technique or authority, or it won't get solved.",
+    "The following posts in this series will be on governance in other open-source communities, the current Drupal community governance model, and why and how might we want to change Drupal's governance structure. But you don't have to wait! Feel free to start the conversation in the comments here.",
+    "For more on governance definitions see the in-depth Wikipedia article, but for more down-to-earth studies of open-source communities, read Jono Bacon's The Art of Community (free download at the bottom of that page). Chapter 8 is about governance, and chapter 9 is about conflict resolution. Please do not refer to the US (\"insert your country here\") political process for inspiration.",
+    "How Do Open Source Communities Govern Themselves?",
+    "Mon, 2012-03-05 20:41 by rfay",
+    "Planet Drupal",
+    "Governance",
+    "This is the second in a series on governance and Drupal in preparation for the Drupalcon Denver Core Conversation on The Future of Drupal Governance. The initial article started off with What is Governance; Read all, Governance project on drupal.org, Drupalcon presentation video.",
+    "The fact that world-wide open source communities can organize themselves to collaborate is one of the great treasures of the world's recent history. If you're pessimistic about the world's future and about governance in general, you should really take some time to look at all these great open source projects and their incredible success. Drupal is an example right there with the Linux kernel project, Wikipedia, Debian, Ubuntu, KDE, and dozens of others. I think they give us great reason for optimism. The fact that communities like the Drupal community can thrive is a huge reason for optimism about the future!",
+    "The various communities thrive with a whole variety of different governance mechanisms. Some, like Drupal and KDE, have nearly no formal governance process, and rely completely on community norms and culture. Others, like Debian, have an extremely formalized governance process. And there are lots and lots of variants.",
+    "Drupal is a huge community with a Benevolent Dictator for Life (Dries Buytaert) who is exceptionally gentle, community-oriented, and generally non-dictatorial. With the exception of issues where he is directly involved, almost all governance is by a loosely defined consensus model, where involved parties seek to find middle ground. Although very often successful, this can also lead to a committee mentality where disagreeing parties can prevent anything ever being done, or can result in design-by-committee. As do most other projects, Drupal has a parallel funding organization, the Drupal Association, which deals with money and events. It has its own governance, but in general does not have anything to do with core or contrib development, or with community governance. Drupal has the Drupal Code of Conduct, which spells out hoped-for community behavior, but the DCOC has no teeth in terms of resolving problems or making decisions.",
+    "Debian (the project that produces the operating system and packaging system Ubuntu Linux is built on) is the most striking for its careful organization. They have a Social Contract, a Constitution, and a completely specified technique for electing leaders. Wikipedia short version. Although the Debian community of contributors is probably small compared to Drupal. they're exceptionally clear about what they're doing. You can go to their site and figure out in a moment who has influence in what area. I don't have personal experience with the Debian community (although I very much appreciate and benefit from the project), but I chatted at length with anarcat, a distinguished member of both Debian and Drupal, and he is very positive about Debian's governance and its future.",
+    "The KDE project is at the far opposite end of the spectrum from Debian. (KDE is one popular graphical UI for the Linux family of operating systems.) KDE has almost no governance - they don't even have a designated leader. They have just two documents, on Project Management and concerning their Code of Conduct, which like Drupal's is derived directly from the Ubuntu Code of Conduct. The one body they have is a Community Working Group, which is essentially a conflict resolution group for when arguments get out of hand. And it has no formal power, just the magic of people trying to resolve conflicts. KDE does have a \"Money organization\", the analogue of the Drupal Association, which handles events and the like. It seems that nearly every open source group has a parallel organization to manage money and events. But KDE, despite being a successful and established community, has no Benevolent Dictator, no voting, no constitution; essentially, it has only its culture: \"If you are going to do the work, you get to decide how it will be done.\" KDE's entire governance structure fits into one short page.",
+    "Wikipedia, the world-famous encyclopedia of everything, has a Benevolent Dictator for Life (Jimmy Wales, the founder) but is perhaps most noted for its emphasis on conflict resolution. With articles on a zillion controversial topics and people, and with editing open to nearly anyone nearly any time, they have a highly refined view of what consensus is and spend an enormous amount of energy on it. Wikipedia/Wikimedia has something of a Constitution, And Wales, as the founder, has an impressive but limited array of powers.. However, the most striking thing to me about Wikipedia is its capability to resolve conflicts in its editorial process even when there are millions of articles to care for.",
+    "Ubuntu (probably the most visible Linux OS distribution) has both a Benevolent Dictator for Life (BDFL) in Mark Shuttleworth and a backing commercial entity in Canonical. However, it has a huge, structured, and thriving community of contributors. Although Shuttleworth has certain distinguishing powers, and although Canonical as its commercial backer has specific capabilities to influence the direction of the project, a huge community and an enormous amount of community organization underlies a very large project that is not just a fan club for Canonical. The Ubuntu Technical Board makes feature decisions and a Community Council is empowered with non-technical governance. Ubuntu's Code of Conduct has inspired many imitators, including KDE and Drupal, but unlike theirs it cites specific ways to resolve conflict, pointing into the significant governance structure.",
+    "Wordpress.org, a famous competitor to Drupal in the CMS space, may be quite similar to Drupal on the surface, but has a very different leadership and organization. It has a BDFL/founder, Matt Mullenweg, who is also the head of the most important Wordpress company, Automattic. It has an impressive worldwide corps of contributors, including committers who are not employed by Automattic. The most obvious differences between Wordpress and Drupal seem to be that Matt is very involved in decision making at a number of levels, and Wordpress has an explicit organization chart, explaining who has what authority and what commit privilege. (Contrary to popular belief, Automattic is not a fully controlling backer of Wordpress.org; Wordpress.org is an open-source project, with a vibrant community which includes lots of people outside Automattic.)",
+    "The Linux Kernel project is unique in that it has a BDFL and strong, centralized leadership. As I understand it, Linus Torvalds as the founder and BDFL sets the agenda and also appoints strong lieutenants, so most issues do not require his attention until they're ready for commit. Anybody can submit a patch to the mailing list, but getting it accepted is very much a matter of working with the chain of command.",
+    "It seems to me that the key external differentiators between these projects and their governance are:",
+    "* BDFL or strong, semi-permanent leader (Drupal, Ubuntu, Linux kernel, Wikipedia)",
+    "* Top-down leadership (Wordpress, LInux Kernel)",
+    "* Amount of governance structure (org chart, method for selecting leaders)",
+    "* Membership distinction for some contributors (Debian, Ubuntu, KDE)",
+    "* Backing commercial organization (Ubuntu, Wordpress.org)",
+    "* Participation style (open, like Drupal, or more limited, like Linux Kernel)",
+    "* Explicit governance (like Debian) or culture-only based governance (like KDE and Drupal, mostly)",
+    "The bottom line is there is certainly no one right model. The purpose of governance is to build and sustain the community so it can accomplish community objectives and attract and keep contributors. And governance is something that typically evolves over time.",
+    "I'm well aware that this simple (minded) comparison of open-source projects is incomplete and inaccurate and will gladly improve it based on your comments, so please help out that way in the comments.",
+    "Resources and Acknowledgments",
+    "Thanks to Lydia Pintscher (@Nightrose) of KDE who graciously took more than an hour of her time to explain the inner magic of KDE.",
+    "Thanks to anarcat, a distinguished member of both Debian and Drupal communities, who did the same explaining Debian on IRC. See also * Scientific study of Debian Governance",
+    "Jono Bacon's excellent The Art of Community explains at length in the chapter on governance how communities can and do organize, and goes into depth about how Ubuntu organizes itself. (free download at the bottom of that page).",
+    "Jane Wells' presentation on how decisions get made in the Wordpress project does away with many myths about Wordpress, but also makes clear that Wordpress has a more top-down leadership style than Drupal does.",
+    "David Eaves is well-known in the Drupal community and well-known for his thinking about governance, metrics, and community organization. Thanks to Dave for taking the time to chat about governance both good and bad.",
+    "Drupal's Governance",
+    "Mon, 2012-03-12 12:11 by rfay",
+    "Governance",
+    "Planet Drupal",
+    "This is the third in a series on governance and Drupal in preparation for the Drupalcon Denver Core Conversation on The Future of Drupal Governance. The first article discussed What is Governance and the second How Do Open Source Communities Govern Themselves?. Read all, Governance project on drupal.org, Drupalcon presentation video.",
+    "Drupal's governance structure is so lightly defined that when I searched for Drupal governance the primary article I found was this one on drupalmyths.com denying that Drupal's governance is poorly defined. Certainly nothing showed up on drupal.org. Of course, these things can use words other than the formal word \"governance\", but there really isn't much written about this topic.",
+    "Here is my description of Drupal's governance. I am certainly interested in your reaction to it in the comments:",
+    "Dries as Benevolent Dictator has the right to lead core development and make final decisions about any number of issues, but mostly key core development decisions.",
+    "He is expected to separate his business interests from \"what the community needs\".",
+    "He is not expected to intervene in the vast majority of community issues.",
+    "Core, contrib, documentation, infrastructure disagreements are handled almost exclusively through a \"Do-ocracy\" and a \"consensus\" model. In other words, if you think something is important, you bring it up. If you're willing to work on it, you may have the power to make it happen. But you still have to step over the \"consensus\" barrier, which means that 1) you have to get somebody else to care about your issue in the first place and 2) you might have to use your persuasive skills to get people to agree about your method.",
+    "The Drupal Association handles money and Drupalcons. The DA does have formal and explicit governance structures, and takes these very seriously. However, except when it intervenes by choosing to fund a development or similar initiative in the community, it has little impact on the community's day-to-day governance, which is Do-ocracy and Consensus.",
+    "Great Things About Drupal's Current Governance",
+    "In a do-ocracy, you can get things done just because they need to be done. That gives a special pre-emptive power to nearly everyone.",
+    "It's worked for a long time, and we have a great community.",
+    "Problems with Drupal's Current Governance (and risks of not changing it)",
+    "We often lack a strategic focus in attacking problems (or features). Whatever someone wants to do and has the energy to do (and doesn't get vetoed in the \"consensus\" process) ends up being what gets done. These tasks unfortunately may not the most strategically important tasks for our community or the Drupal product.",
+    "Lack of predictability: Because there is not a clear decision-making structure, it's difficult to know whether a given initiative can be successful at any level, even if expert technical resources are applied in adequate quantity.",
+    "When consensus doesn't come easily, a number of negative outcomes may result:",
+    "Nothing gets done at all.",
+    "Feelings are hurt, potential contributors leave the field.",
+    "Getting something done takes vastly more energy than it should have.",
+    "The issue can take on the aspect of (in webchick's words) a smoking crater. Smoking craters of destruction are not good for our community. Any of us can list a pile of frustrating issues still mouldering under the smoke of bikeshedding.",
+    "We have no (almost) structure for properly resolving conflicts. Unlike many of our sister projects, we have absolutely no mechanism for mediating or escalating conflicts to a resolution point. The only thing we have is the big hammer of a Dries decision, which happens very rarely.",
+    "Prized contributors can waste time and energy on initiatives that never go anywhere or are vetoed by lack of consensus.",
+    "People we care about can walk away from the community** or from important areas of development just because there is too much heat there.",
+    "Risks Of Building More Governance Structures For Drupal",
+    "Increased formalization (one obvious path) might offend some community members for philosophical reasons.",
+    "Increased formalization might cause community members to become more passive (\"They\" are in charge of this, so I don't need to get involved.)",
+    "What we have has worked so far. Changing it might have unforeseen consequences.",
+    "I'm sure you can read between the lines: I think we should deliberately build more explicit governance structures into our community, and that we should do it without bikeshedding :-)",
+    "Again, I welcome your comments both here and at the Core Conversation Wednesday, 21 March, at 2:15pm in Denver.",
+    "Resources",
+    "This interesting article on do-ocracy in the Burning Man context looks awfully familiar. And the \"Dangers\" section looks pretty familiar too.",
+    "Other discovered articles about Drupal's do-ocracy: Meritocracy vs Do-Ocracy by Owen, Who Rules Drupal by Matt Farina.",
+    "The Future of Drupal Governance: Resources and Next Steps",
+    "Tue, 2012-04-10 10:08 by rfay",
+    "Planet Drupal",
+    "Governance",
+    "Thanks to all of you for your enthusiastic and thoughtful participation in the Future of Drupal Governance core conversation at Drupalcon Denver. This post will provide resources for the conversation and attempt to summarize the ideas raised and actions taken at the core conversation, as well as to provide a path forward for us.",
+    "Resources",
+    "The new \"Drupal Project Governance\" project and issue queue are open and ready for business. They're the appropriate place to discuss policy and governance issues for the Drupal community.",
+    "Video of the core conversation is at the Drupalcon Denver site",
+    "Presentation slides at at http://lb.cm/governance",
+    "The blog posts in this series are at http://randyfay.com/topics/governance",
+    "Review",
+    "The first part of the presentation restated the ideas that have been discussed in this blog series: what governance is, how Drupal and other open source communities do their governance, what the issues/problems with Drupal's governance are, and potential paths forward with Drupal's governance.",
+    "The key initiative discussed in the presentation was \"How do we add more structure and effectiveness to Drupal's governance?\" In other words, can we develop techniques and processes to deal with policy and decision-making at the micro and macro levels? For instance, can we:",
+    "Make sure that blocked issues (that are important) get unblocked?",
+    "Provide a way to do decision-making and conflict resolution at the technical and community levels (Ubuntu has committees for these two areas; even KDE has one for community issues.)",
+    "Make sure that important projects and changes get tackled even if there isn't full community consensus?",
+    "Make sure that effective policies are developed openly and presented explicitly rather than by being quietly implemented by fiat?",
+    "Provide a way for our community to adapt its governance going forward. How do we implement new policies or change our governance?",
+    "Guard and enhance our open community culture while doing these things?",
+    "There have already been some suggestions and conversation on these various issues in the Governance project issue queue.",
+    "Dries has stated clearly that he considers this a project worth working on, and would like to see us develop a process to deal with it. He would like to have us develop new processes and structure before Drupalcon Munich, which means we need to work on this carefully and probably have an in-person sprint to finalize a number of recommendations to the community by June.",
+    "Proposal",
+    "We're going to have to figure out a process and conversation to accomplish this. I propose a \"Governance and Policy Steering Working Group\". This would be a temporary working group, dissolved by Drupalcon Munich, charged with proposing improvements to the Drupal Community's governance and policy management. In my opinion, this should be composed mostly of trusted leaders within the Drupal community, but should also include a lesser-known contributor or two, and might include someone from outside the community. It would be best to have Dries active in this group, but at the very least we need his buy-in and oversight.",
+    "Proposed initial areas of endeavor:",
+    "As a pilot project, develop new techniques for improving the productivity of the core issue queue. (Possible techniques: resolve blocked issues, delegate authority to resolve, grant early approval to specific issues.)",
+    "Define authority structure for initiatives.",
+    "Define a method for creating, publishing, and maintaining policies in the Drupal Community.",
+    "Define a structure and process for technical and community conflict resolution.",
+    "Define a structure and process for changing and improving Drupal Community governance.",
+    "Sprint after Community Leadership Summit",
+    "The general idea would be for this group to be active in exploring these areas of endeavor through online activities from now through or July. In the summer, an on-location sprint would finalize proposals, most likely July 16-17 in Portland Oregon, just after the Community Leadership Summit and during OSCON.",
+    "Proposed mechanism for choosing members",
+    "This is such an important process, because we must have community buy-in, and we could lose it if this were to look like an insider coup against the community.",
+    "My suggestion:",
+    "Dries directly picks two members (and participates himself).",
+    "Community suggestions (including self-nominations) are considered in the Governance issue queue; webchick and rfay could choose three based on community input (and perhaps participate themselves).",
+    "Working style",
+    "Obviously, in keeping with Drupal traditions, this group should work openly. However, it's just not going to please everybody, and of course it's crucial that it be able to make some choices, even if they end up not pleasing everybody. It would be a tragedy for an initiative aimed at resolving decision-making capabilities to be killed by a bikeshed.",
+    "How to proceed",
+    "I opened Form a governance working group in the Governance project issue queue. Please follow up with specific suggestions there. If you have non-working-group reactions to this article, you can leave them as comments here, but please if you want to suggest members or heatedly discuss the very idea of this, proposal, do it over in the issue queue.",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/what-governance",
+      "text": "What is Governance?"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/governance",
+      "text": "Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Future of Drupal Governance core conversation at Drupalcon Denver"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/120",
+      "text": "How Do Open Source Communities Organize Themselves?"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/content/drupals-governance",
+      "text": "Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
+      "text": "The Future of Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "presentation video"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/governance",
+      "text": "Governance project"
+    },
+    {
+      "internal": false,
+      "key": "http://en.wikipedia.org/wiki/Governance",
+      "text": "the in-depth Wikipedia article"
+    },
+    {
+      "internal": false,
+      "key": "http://www.artofcommunityonline.org/get",
+      "text": "The Art of Community"
+    },
+    {
+      "internal": false,
+      "key": "http://www.artofcommunityonline.org/downloads/jonobacon-theartofcommunity-1ed.pdf",
+      "text": "download"
+    },
+    {
+      "internal": true,
+      "key": "content/how-do-open-source-communities-govern-themselves",
+      "text": "How Do Open Source Communities Govern Themselves?"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/governance",
+      "text": "Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Drupalcon Denver Core Conversation on The Future of Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/118",
+      "text": "What is Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/topics/governance",
+      "text": "Read all"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/governance",
+      "text": "Governance project on drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Drupalcon presentation video"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/dcoc",
+      "text": "Drupal Code of Conduct"
+    },
+    {
+      "internal": false,
+      "key": "http://debian.org",
+      "text": "Debian"
+    },
+    {
+      "internal": false,
+      "key": "http://www.debian.org/social_contract",
+      "text": "Social Contract"
+    },
+    {
+      "internal": false,
+      "key": "http://www.debian.org/devel/constitution",
+      "text": "Constitution"
+    },
+    {
+      "internal": false,
+      "key": "https://en.wikipedia.org/wiki/Debian#Project_organization",
+      "text": "Wikipedia short version"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/1274",
+      "text": "anarcat"
+    },
+    {
+      "internal": false,
+      "key": "http://kde.org",
+      "text": "KDE project"
+    },
+    {
+      "internal": false,
+      "key": "http://kde.org/community/whatiskde/management.php",
+      "text": "Project Management"
+    },
+    {
+      "internal": false,
+      "key": "http://kde.org/code-of-conduct",
+      "text": "Code of Conduct"
+    },
+    {
+      "internal": false,
+      "key": "http://ev.kde.org",
+      "text": "\"Money organization\""
+    },
+    {
+      "internal": false,
+      "key": "http://www.kde.org/community/whatiskde/management.php",
+      "text": "one short page"
+    },
+    {
+      "internal": false,
+      "key": "http://wikipedia.org",
+      "text": "Wikipedia"
+    },
+    {
+      "internal": false,
+      "key": "http://en.wikipedia.org/wiki/Wikipedia:Consensus",
+      "text": "highly refined view of what consensus is"
+    },
+    {
+      "internal": false,
+      "key": "http://en.wikipedia.org/wiki/Wikipedia:Five_pillars",
+      "text": "Constitution"
+    },
+    {
+      "internal": false,
+      "key": "http://en.wikipedia.org/wiki/Wikipedia:Role_of_Jimmy_Wales",
+      "text": "impressive but limited array of powers."
+    },
+    {
+      "internal": false,
+      "key": "http://ubuntu.com",
+      "text": "Ubuntu"
+    },
+    {
+      "internal": false,
+      "key": "http://en.wikipedia.org/wiki/Mark_Shuttleworth",
+      "text": "Mark Shuttleworth"
+    },
+    {
+      "internal": false,
+      "key": "http://www.canonical.com",
+      "text": "Canonical"
+    },
+    {
+      "internal": false,
+      "key": "https://wiki.ubuntu.com/TechnicalBoard",
+      "text": "Ubuntu Technical Board"
+    },
+    {
+      "internal": false,
+      "key": "https://wiki.ubuntu.com/CommunityCouncil",
+      "text": "Community Council"
+    },
+    {
+      "internal": false,
+      "key": "http://www.ubuntu.com/project/about-ubuntu/conduct",
+      "text": "Code of Conduct"
+    },
+    {
+      "internal": false,
+      "key": "http://wordpress.org",
+      "text": "Wordpress.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/1274",
+      "text": "anarcat"
+    },
+    {
+      "internal": false,
+      "key": "http://www.techforce.com.br/news/linux_blog/scientific_study_about_debian_governance_and_organization",
+      "text": "Scientific study of Debian Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://www.artofcommunityonline.org/get",
+      "text": "The Art of Community"
+    },
+    {
+      "internal": false,
+      "key": "http://www.artofcommunityonline.org/downloads/jonobacon-theartofcommunity-1ed.pdf",
+      "text": "download"
+    },
+    {
+      "internal": false,
+      "key": "http://wordpress.tv/2010/09/18/jane-wells-how-wordpress-decisions-get-made",
+      "text": "presentation on how decisions get made in the Wordpress project"
+    },
+    {
+      "internal": false,
+      "key": "http://eaves.ca",
+      "text": "David Eaves"
+    },
+    {
+      "internal": true,
+      "key": "content/drupals-governance",
+      "text": "Drupal's Governance"
+    },
+    {
+      "internal": true,
+      "key": "topics/governance",
+      "text": "Governance"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Drupalcon Denver Core Conversation on The Future of Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/118",
+      "text": "What is Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/120",
+      "text": "How Do Open Source Communities Govern Themselves?"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/topics/governance",
+      "text": "Read all"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/governance",
+      "text": "Governance project on drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Drupalcon presentation video"
+    },
+    {
+      "internal": false,
+      "key": "http://www.drupalmyths.com/node/226",
+      "text": "this one on drupalmyths.com"
+    },
+    {
+      "internal": false,
+      "key": "http://association.drupal.org",
+      "text": "Drupal Association"
+    },
+    {
+      "internal": false,
+      "key": "https://association.drupal.org/about/governance",
+      "text": "formal and explicit governance structures"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Core Conversation"
+    },
+    {
+      "internal": false,
+      "key": "http://www.communitywiki.org/DoOcracy",
+      "text": "interesting article on do-ocracy in the Burning Man context"
+    },
+    {
+      "internal": false,
+      "key": "http://asymptomatic.net/2009/03/21/2795/meritocracy-versus-do-ocracy",
+      "text": "Meritocracy vs Do-Ocracy"
+    },
+    {
+      "internal": false,
+      "key": "http://engineeredweb.com/blog/11/1/who-rules-drupal",
+      "text": "Who Rules Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/future-drupal-governance-resources-and-next-steps",
+      "text": "The Future of Drupal Governance: Resources and Next Steps"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/governance",
+      "text": "Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "Future of Drupal Governance"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/governance",
+      "text": "project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/governance",
+      "text": "issue queue"
+    },
+    {
+      "internal": false,
+      "key": "http://denver2012.drupal.org/content/future-drupal-governance",
+      "text": "the Drupalcon Denver site"
+    },
+    {
+      "internal": false,
+      "key": "http://lb.cm/governance",
+      "text": "http://lb.cm/governance"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/topics/governance",
+      "text": "http://randyfay.com/topics/governance"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/governance",
+      "text": "Governance project issue queue"
+    },
+    {
+      "internal": false,
+      "key": "http://www.communityleadershipsummit.com",
+      "text": "Community Leadership Summit"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1526026",
+      "text": "Form a governance working group"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

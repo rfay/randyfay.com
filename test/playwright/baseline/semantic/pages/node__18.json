@@ -1,0 +1,37 @@
+{
+  "title": "Member of the Drupal Association | RandyFay.com",
+  "primaryHeading": "Member of the Drupal Association",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2009-03-29 21:15 by rfay",
+    "Topics:",
+    "Drupal"
+  ],
+  "images": [
+    {
+      "src": "http://drupal.org/files/images/DA-individual-120.png",
+      "name": "da-individual-120.png",
+      "alt": ""
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://association.drupal.org",
+      "text": ""
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

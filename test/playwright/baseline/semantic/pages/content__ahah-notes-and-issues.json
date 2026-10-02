@@ -1,0 +1,114 @@
+{
+  "title": "AHAH Notes and Issues | RandyFay.com",
+  "primaryHeading": "AHAH Notes and Issues",
+  "contentFound": true,
+  "lines": [
+    "Gotchas to watch out for",
+    "The callback must emit the JSON and nothing else. If it emits anything else, the JSON won't be parsed, and all will fail. How can it emit anything else, you ask? Well, if Devel module is turned on and it's timing pages and putting that at the bottom of the page, you're sunk. If Devel module is outputting errors to the screen, you're sunk. If you're debugging and you accidentally do a var_dump. nothing will work.",
+    "When you create a new callback, hit it with the web browser. If it's not working yet, hit admin/build/modules to rebuild the menu system's cache.",
+    "In a complicated form with textareas, you will probably want to set '#TREE' => TRUE for the form. If you have elements with the same name in different fieldsets, AHAH will be unable to get the correct #ahah information for the element you've clicked, unless it's the first one with this name. If you use #TREE, the browser will submit a full-qualified name for the changed element, which AHAH can use correctly.",
+    "Other Notes",
+    "You can replace any section of the form (or probably of the page). In my examples, I replaced only a particular region of the form (marked off by #prefix and #postfix in the form definition). You could replace the whole form, or something completely different on the page. Probably performance is best if you replace the smallest region possible.",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ AHAH Example: Select control and generated checkboxes",
+    "up",
+    "AHAH Resources ›",
+    "Comments",
+    "aslam (not verified)",
+    "Tue, 2011-08-23 02:23",
+    "Permalink",
+    "Ajax Question",
+    "What use by ajax in drupal prototype or jquery??",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2011-08-23 07:49",
+    "Permalink",
+    "This is about AJAX forms in Drupal",
+    "I don't understand your question, but this section is about AJAX forms in Drupal - where you don't come into contact with any javascript at all.",
+    "To learn about JS in D6: http://drupal.org/node/121997",
+    "D7: http://drupal.org/node/751744",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-select-control-and-generated-checkboxes",
+      "text": "‹ AHAH Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-resources",
+      "text": "AHAH Resources ›"
+    },
+    {
+      "internal": true,
+      "key": "comment/2049",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2049",
+      "text": "Ajax Question"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/34%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2050",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2050",
+      "text": "This is about AJAX forms in Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/121997",
+      "text": "http://drupal.org/node/121997"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/751744",
+      "text": "http://drupal.org/node/751744"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/34%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+        "key": "ahah"
+      }
+    ]
+  }
+}

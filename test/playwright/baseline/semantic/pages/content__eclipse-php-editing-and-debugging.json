@@ -1,0 +1,46 @@
+{
+  "title": "Eclipse for PHP Editing and Debugging | RandyFay.com",
+  "primaryHeading": "Eclipse for PHP Editing and Debugging",
+  "contentFound": true,
+  "lines": [
+    "Sat, 2009-02-21 19:05 by rfay",
+    "Eclipse",
+    "Planet Drupal",
+    "I used to use the Zend platform for PHP/Drupal debugging, but they ended my support and it seemed like it never worked quite right, so while we were in Argentina I took on the significant task of making Eclipse work as a debugging environment. I eventually succeeded, but now that I'm wedded to Eclipse I'm having to learn lots about it as a working environment. It's amazingly complex and frustrating, but also very powerful.",
+    "Today I've been watching a fine series on the basics of the workbench done by Mark Dexter. It is amazing how much they can stuff into a developer's IDE. Even though I'm well along the learning curve with Eclipse I still learned lots from this."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/eclipse",
+      "text": "Eclipse"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://eclipsetutorial.sourceforge.net/index.html",
+      "text": "fine series on the basics of the workbench"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

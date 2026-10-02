@@ -1,0 +1,44 @@
+{
+  "title": "Debugging Drupal session is a go for Paris Drupalcon | RandyFay.com",
+  "primaryHeading": "Debugging Drupal session is a go for Paris Drupalcon",
+  "contentFound": true,
+  "lines": [
+    "Wed, 2009-08-19 11:29 by rfay",
+    "Drupal",
+    "I just got an email that my Debugging Drupal session for Drupalcon Paris is a go! I had already been told that none of my sessions went, so it was quite a surprise. Should be a good session. And the CTools Plugin session, which didn't go, will be done as a BOF add-on to the big session by MerlinOfChaos on CTools in general."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "text": "Debugging Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/howto-creating-ctools-plugins-panels-and-related-modules",
+      "text": "CTools Plugin session"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

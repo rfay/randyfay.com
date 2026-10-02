@@ -1,0 +1,133 @@
+{
+  "title": "30 Seconds on the Drupal Form API | RandyFay.com",
+  "primaryHeading": "30 Seconds on the Drupal Form API",
+  "contentFound": true,
+  "lines": [
+    "It's pretty easy to forget all the details of the Drupal Forms API, so we'll stop for a minute for a very short review.",
+    "(This one is at ahah_demo/simple_form.)",
+    "You add a form to your page like this:",
+    "$output .= drupal_get_form('ahah_demo_simplest_form');",
+    "?>",
+    "Often that's done right from the hook_menu implementation.",
+    "The layout of a form is as below:",
+    "/**",
+    "* A Hello-world for Forms API (FAPI)",
+    "*/",
+    "function ajax_demo_simplest_form($form, &$form_state) {",
+    "$form['explanation'] = array(",
+    "'#type' => 'markup',",
+    "'#value' => '",
+    "' . t('This is a basic form with just a bit of information') . '",
+    "',",
+    ");",
+    "$form['experience'] = array(",
+    "'#type' => 'select',",
+    "'#title' => t('What is your experience level in Drupal?'),",
+    "'#options' => array(",
+    "'expert' => t('Expert'),",
+    "'journeyman' => t('Journeyman'),",
+    "'beginner' => t('Beginner')),",
+    ");",
+    "$form['more'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t(\"Say more about yourself\"),",
+    "'#description' => t('Surely one word can\\'t describe you.'),",
+    ");",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "function ajax_demo_simplest_form_submit($form, &$form_state) {",
+    "drupal_set_message(t('You have claimed to be %experience: %more',",
+    "array(",
+    "'%experience'=>$form_state['values']['experience'],",
+    "'%more' => $form_state['values']['more'],",
+    ")",
+    "));",
+    "}",
+    "?>",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ Examples of AJAX forms in Drupal",
+    "up",
+    "AJAX Simplest Example ›",
+    "Comments",
+    "Christopher Stevens (not verified)",
+    "Thu, 2011-11-17 08:37",
+    "Permalink",
+    "Just the info I needed!",
+    "Drupal 7 forms in plain English! This is just the quick start I needed. It clicked. Life is good now.",
+    "Thanks a ton!",
+    "Best regards,",
+    "Chris",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "ahah_demo/simple_form",
+      "text": "ahah_demo/simple_form"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ajax-forms-drupal",
+      "text": "‹ Examples of AJAX forms in Drupal"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-simplest-example",
+      "text": "AJAX Simplest Example ›"
+    },
+    {
+      "internal": false,
+      "key": "http://www.christopherstevens.cc",
+      "text": "Christopher Stevens (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2141",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2141",
+      "text": "Just the info I needed!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/51%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Drupal 7 AJAX Forms",
+        "key": "ajax"
+      }
+    ]
+  }
+}

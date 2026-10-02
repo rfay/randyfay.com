@@ -1,0 +1,277 @@
+{
+  "title": "Differences Between the Drupal Community and The Microsoft Kingdom | RandyFay.com",
+  "primaryHeading": "Differences Between the Drupal Community and The Microsoft Kingdom",
+  "contentFound": true,
+  "lines": [
+    "Wed, 2011-02-02 18:46 by rfay",
+    "Planet Drupal",
+    "Last week I had the wonderful opportunity to spend a few days learning Microsoft's Azure cloud technology (and catching up on lots of Windows Server technology too - it's been a while). Now, admittedly, this was unfamiliar territory for me as I've been away for a few years. You may laugh, but I had a serious case of culture shock as I experienced the difference in empowerment and support between the two environments.",
+    "In the Microsoft world,",
+    "if you have a problem there are ways to get support, but most of them require knowing a bunch of forum-type websites or paying money to somebody.",
+    "If you need free support, how do you find out where you would get it?",
+    "If you discover a bug, what do you do?",
+    "If you know how to solve a bug, how do you get the solution committed?",
+    "If you know how to improve a product, how could you have any confidence that you could influence it?",
+    "In the Drupal world,",
+    "If you have a problem there are lots of (uneven) support venues, including immediate support on IRC, if you can learn how that works socially and technically",
+    "If you need free support, you go to http://drupal.org/support and there are a number of credible support avenues. (However, it also says to go to the forums, which is crazy.)",
+    "If you discover a bug, you file an issue. For free.",
+    "If you know how to solve a bug, you file a patch. And you can lobby for it.",
+    "If you know how to improve something, you can start a discussion and invest in the solution, and maybe you'll succeed. Or maybe you'll be left desolate on a desert island. But you did get to play...",
+    "Essentially, the normal model in the Microsoft world is they give you stuff (sometimes for free) and you take it and that may be good.",
+    "The normal model in the Drupal world is that you participate in making stuff and helping it get better.",
+    "Our Drupal culture is enormously empowering. We have a gem here folks. Sure it is a gem with some warts (have you ever seen a warty gem?) but wow, it's a gem. Keep on making it the beautiful thing it is!",
+    "And I'm really praising Drupal here, not bashing Microsoft. They do lots of things better than we do, and of course the scale and goals of their enterprise are worlds apart. And, if you hadn't noticed, they've been extremely eager to participate and contribute to the Drupal community for the last year or more, and we appreciate that. So please don't take away from this that I was bashing Microsoft - that's not the intent. It's just the wonderful realization of delightful community we have.",
+    "Comments",
+    "Simon Hobbs (not verified)",
+    "Wed, 2011-02-02 19:24",
+    "Permalink",
+    "I was an Excel/Access/VBA",
+    "I was an Excel/Access/VBA developer before Drupal, in the early 2000's my preferred way was Google Groups. I can't even remember if there were any quality forums, I certainly didn't use any. You're right, the huge disconnect was feeding problems back to Microsoft - it was non-existent, workarounds existed for years for problems that Microsoft never fixed. So you can imagine my joy to discover open source, and find that you could eat your cake and have it too!",
+    "Log in to post comments",
+    "K (nowarninglabel) (not verified)",
+    "Wed, 2011-02-02 23:10",
+    "Permalink",
+    "Good",
+    "Wish I had seen this post this morning. There was some guy in #drupal complaining that somehow Drupal was screwing up his CentOS repositories (?!) and that this was causing Nagios to return false update notices. I tried explaining how to ascertain the issue, search the issue queue if he felt it was a Drupal problem, and if he couldn't find an issue; then write down steps to be able to reproduce the bug and file a new issue on d.o.",
+    "We need to continue to work on helping people use d.o. issue queues in the right way and to their best advantage, so that they can help themselves.",
+    "Log in to post comments",
+    "Christophe (not verified)",
+    "Wed, 2011-02-02 23:44",
+    "Permalink",
+    "It is not Black and White",
+    "I do live in both worlds. Beginning in 2005, I entered the drupal world and never left. The community is great and has all the advantages you mention in your post.",
+    "In another live, parallel to Druapl, I do develop Apps in the field of ERP Systems, VS.Net and SQL Server. And I must speak for the folks in the forums and the community around these systems.",
+    "I have never had to wait for more than 2 hours for an answer to a technical question on MSDN. There are very engaged people in there doing the same thing as the good folks in Drupal do: helping others. Sharing their knowledge and enthusiasm. And I have spent quite some time in these forums helping others. as well.",
+    "Geeks and Engineers are the same in both worlds. They love their systems and pride themselves in their know how. Open Source or not.",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2011-02-03 07:14",
+    "Permalink",
+    "Thanks for your post",
+    "Thanks for your post. You're right, of course. Much of my disorientation in the Microsoft world, like much culture shock, is lack of familiarity, lack of knowledge how to get information, and of course, lack of confidence in the ground I stand on. I look forward to getting more engaged and seeing the side you see.",
+    "While I've had MSDN a couple of times in my life (a great thing!), I've never used it for support, so I'll have to see how that works.",
+    "Thanks,",
+    "-Randy",
+    "Log in to post comments",
+    "andypost (not verified)",
+    "Thu, 2011-02-03 11:24",
+    "Permalink",
+    "MS way to «If you need free support»",
+    "Mostly all you can find at the great http://technet.microsoft.com",
+    "The community really friendly",
+    "Log in to post comments",
+    "sepeck (not verified)",
+    "Fri, 2011-02-04 17:04",
+    "Permalink",
+    "support",
+    "How would I report a bug? I would search on the phrase.... how to report a bug to microsoft leads to http://connect.microsoft.com/",
+    "technet.com <-- this is THE knowledge base. If you are a premier customer you can see on some cases (most are edge cases) additional notes but as someone who works for a company that has this access it's not much more and it's usually out dated or edge case.",
+    "http://support.microsoft.com/ <-- named appropriately",
+    "Microsoft is an operating system, software development and services company. They make software products, they make operating systems, they make tools to build your own for free and for cost. They sell various things sometimes in competition including support. They build and support communities that evolve around their technologies for free and by identified commnuity MVPs. Much like we hide 'groups.drupal.org' and where do we go for help on drupal.org they are large and sprawling.",
+    "Many of their product groups have built places and resources http://iis.net where you can even find articles on Drupal (http://www.iis.net/search.aspx?q=drupal)",
+    "You can participate in Microsoft and give back support. It depends on the team and product, but if you get into connect for a given product it can be a very familiar environment, but as with anything in life and a company with 60k employees, some things are more open then others.",
+    "In the enterprise software market I have on occasion spoken to people on the product teams to troubleshoot an issue or provide feedback on a product or service they have. Microsoft has many conferences each year similar to Drupalcon where they hold product announcements, partner services, training, classes, demo, etc.... You would not find this unfamiliar.",
+    "I suspect what you are finding unfamiliar is the community, it's evolution and it's size. It's huge and for people new to it, much like Drupal, it's can be overwhelming. It is however populated largely with goal oriented people who want to help you solve problems.",
+    "Microsoft is also a business and some people have a dispute with their business model but that's a religious discussion I am not planning on getting into :)",
+    "Steven Peck",
+    "http://www.blkmtn.org",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2011-02-04 17:07",
+    "Permalink",
+    "Thanks for the great summary!",
+    "Thanks so much, Steven! Tremendously helpful.",
+    "I'm sure you know that much of my rambling here is due to culture shock, and like most culture shock, it's the unfamiliarity, not right or wrong, that's the issue.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/support",
+      "text": "http://drupal.org/support"
+    },
+    {
+      "internal": true,
+      "key": "comment/702",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/702",
+      "text": "I was an Excel/Access/VBA"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/90%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.coderintherye.com",
+      "text": "K (nowarninglabel) (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/703",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/703",
+      "text": "Good"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/90%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.hookuser.ch",
+      "text": "Christophe (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/704",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/704",
+      "text": "It is not Black and White"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/90%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/705",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/705",
+      "text": "Thanks for your post"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/90%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://prodrupal.ru",
+      "text": "andypost (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/707",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/707",
+      "text": "MS way to «If you need free support»"
+    },
+    {
+      "internal": false,
+      "key": "http://technet.microsoft.com",
+      "text": "http://technet.microsoft.com"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/90%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.blkmtn.org",
+      "text": "sepeck (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/711",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/711",
+      "text": "support"
+    },
+    {
+      "internal": false,
+      "key": "http://www.bing.com/search?q=how+to+report+a+bug+to+microsoft&go=&form=QBLH&qs=n&sk=&sc=1-26",
+      "text": "how to report a bug to microsoft"
+    },
+    {
+      "internal": false,
+      "key": "http://connect.microsoft.com",
+      "text": "http://connect.microsoft.com/"
+    },
+    {
+      "internal": false,
+      "key": "http://support.microsoft.com",
+      "text": "http://support.microsoft.com/"
+    },
+    {
+      "internal": false,
+      "key": "http://iis.net",
+      "text": "http://iis.net"
+    },
+    {
+      "internal": false,
+      "key": "http://www.iis.net/search.aspx?q=drupal",
+      "text": "http://www.iis.net/search.aspx?q=drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://www.blkmtn.org",
+      "text": "http://www.blkmtn.org"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/90%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/712",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/712",
+      "text": "Thanks for the great summary!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/90%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

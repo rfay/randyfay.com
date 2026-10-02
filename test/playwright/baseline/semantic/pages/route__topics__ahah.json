@@ -1,0 +1,570 @@
+{
+  "title": "AHAH | RandyFay.com",
+  "primaryHeading": "AHAH",
+  "contentFound": true,
+  "lines": [
+    "AHAH Simplest Example: #ahah on the submit button, replace a region",
+    "Note that this is currently maintained in the Examples project so the code here may not be the latest.",
+    "The essence of AHAH is that you mark an element of a form as the one that activates AHAH behavior, and you tell it what section of the HTML is to be replaced when it's activated.",
+    "The form we're using here has a \"markup\" element, which is just plain HTML. It has a prefix and suffix that mention its CSS ID. The CSS ID will be used by the javascript running in the background to determine what's to be replaced.",
+    "The submit is marked as an element with AHAH behavior with the \"#ahah\" marker. It's given a Drupal path for the callback. You can actually point your web browser at this path and see what happens as a debugging procedure. Here you can hit the callback in your browser (http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah/callback).",
+    "When the submit button is pressed, instead of doing the traditional HTTP submit of the page, javascript provided by Drupal calls the callback, gets the resulting HTML (as a JSON object), and then replaces the section of the code (The div with ID \"box\") with the HTML replacement.",
+    "(This one is at http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah.)",
+    "Here's an example of the very simplest AHAH behavior.",
+    "/**",
+    "* @file",
+    "* A Hello-world AHAH. Just swaps out a markup section on submit",
+    "*/",
+    "function ahah_demo_simplest() {",
+    "$initial_markup = '",
+    "' . t('This is a blue box') . '",
+    "';",
+    "$form['box'] = array(",
+    "'#type' => 'markup',",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#value' => $initial_markup,",
+    ");",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#ahah' => array(",
+    "'path' => 'ahah_demo/simplest_ahah/callback',",
+    "'wrapper' => 'box',",
+    "),",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "function ahah_demo_simplest_callback() {",
+    "$colors = array('red','orange','blue','green','black');",
+    "$color = $colors[array_rand($colors)];",
+    "$output = '",
+    "This is ' . $color . ' box",
+    "';",
+    "print drupal_json(array('status' => TRUE, 'data' => $output));",
+    "exit();",
+    "}",
+    "?>",
+    "AHAH",
+    "Book Navigation",
+    "‹ Drupal Forms API (FAPI) Basics - the 2-minute version",
+    "up",
+    "AHAH Example: Textfields driven by checkboxes ›",
+    "Examples of AHAH in Drupal",
+    "Upload module (core) (Click a submit button and it adds another file)",
+    "Poll module (core) (Click a submit button and it adds another question)",
+    "Examples module (Drupal 6) provides a number of AHAH examples in the \"AHAH Example module\".",
+    "Quicktabs module (Configuration options change with the type of tab)",
+    "Amazon Store - Used in \"add to cart\" and selecting different product attributes.",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ What is AHAH in Drupal?",
+    "up",
+    "Drupal Forms API (FAPI) Basics - the 2-minute version ›",
+    "AHAH Changes for Drupal 7 (It's now called #AJAX)",
+    "Drupal 7 AHAH has changed its name to AJAX to use a more familiar term and to be slightly more trendy. A version of this presentation for D7 AJAX is at http://randyfay.com/ajax. D7 AJAX handling is massively simplified.",
+    "The AJAX Example for D7 is now in the Examples Module and will be maintained there. If you find AJAX features that you'd like to see in it that aren't there, file a request or submit a patch.",
+    "Drupal",
+    "AHAH",
+    "AJAX",
+    "Book Navigation",
+    "‹ AHAH Resources",
+    "up",
+    "AHAH Example: Textfields driven by checkboxes",
+    "Note that this is currently maintained in the Examples project so the code here may not be the latest.",
+    "In this example, we just use checkboxes to determine whether textboxes are displayed.",
+    "One of the fundamental ideas of having a form change based on selections within the form is that the form is reconfiguring itself based on $form_state. So here, the generation of the form is driven by $form_state['values']. If the checkbox for last name is checked, then we generate a textfield for last name.",
+    "Update 2009-08-23: I note that checkboxes and radios do not actually work correctly in Internet Explorer.",
+    "(Experiment with this one at http://d6.drupalexamples.info/examples/ahah_example/autotextfields.)",
+    "/**",
+    "* @file",
+    "* Show/hide textfields based on checkbox clicks",
+    "*/",
+    "function ahah_demo_autotextfields(&$form_state) {",
+    "$form['ask_first_name'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => t('Ask me my first name'),",
+    "'#default_value' => $form_state['values']['ask_first_name'],",
+    "'#ahah' => array(",
+    "'path' => 'ahah_demo/autotextfields/callback',",
+    "'wrapper' => 'textfields',",
+    "'effect' => 'fade',",
+    ")",
+    ");",
+    "$form['ask_last_name'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => t('Ask me my last name'),",
+    "'#default_value' => $form_state['values']['ask_last_name'],",
+    "'#ahah' => array(",
+    "'path' => 'ahah_demo/autotextfields/callback',",
+    "'wrapper' => 'textfields',",
+    "'effect' => 'fade',",
+    "),",
+    ");",
+    "$form['textfields'] = array(",
+    "'#title' => t(\"Generated text fields for first and last name\"),",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#type' => 'fieldset',",
+    "'#description' => t('This is where we put automatically generated textfields'),",
+    ");",
+    "if ($form_state['values']['ask_first_name']) {",
+    "$form['textfields']['first_name'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('First Name'),",
+    ");",
+    "}",
+    "if ($form_state['values']['ask_last_name']) {",
+    "$form['textfields']['last_name'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('Last Name'),",
+    ");",
+    "}",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "function ahah_demo_autotextfields_callback() {",
+    "$form_state = array('storage' => NULL, 'submitted' => FALSE);",
+    "$form_build_id = $_POST['form_build_id'];",
+    "$form = form_get_cache($form_build_id, $form_state);",
+    "$args = $form['#parameters'];",
+    "$form_id = array_shift($args);",
+    "$form_state['post'] = $form['#post'] = $_POST;",
+    "$form['#programmed'] = $form['#redirect'] = FALSE;",
+    "drupal_process_form($form_id, $form, $form_state);",
+    "$form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);",
+    "$textfields = $form['textfields'];",
+    "$output = drupal_render($textfields);",
+    "// Final rendering callback.",
+    "print drupal_json(array('status' => TRUE, 'data' => $output));",
+    "exit();",
+    "}",
+    "?>",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ AHAH Simplest Example: #ahah on the submit button, replace a region",
+    "up",
+    "AHAH Example: Select control and generated checkboxes ›",
+    "AHAH Resources",
+    "Download the Example module and experiment with the AHAH Examples.",
+    "The Drupal.org handbook page on Drupal 6 AHAH",
+    "Forms API Documentation, AHAH section",
+    "AHAH Helper module, which does some of the work for you on the callback",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ AHAH Notes and Issues",
+    "up",
+    "AHAH Changes for Drupal 7 (It's now called #AJAX) ›",
+    "AHAH Example: Select control and generated checkboxes",
+    "Note that this is currently maintained in the Examples project so the code here may not be the latest.",
+    "In this example we use a select control to determine how many checkboxes are generated.",
+    "(Experience this one at http://d6.drupalexamples.info/examples/ahah_example/autocheckboxes.)",
+    "/**",
+    "* @file",
+    "* A Self-configure a form based on a select control",
+    "* Add the number of checkboxes specified in the select",
+    "*/",
+    "function ahah_demo_autocheckboxes(&$form_state) {",
+    "$default = !empty($form_state['values']['howmany']) ? $form_state['values']['howmany'] : 1;",
+    "$form['howmany'] = array(",
+    "'#title' => t('How many checkboxes do you want?'),",
+    "'#type' => 'select',",
+    "'#options' => array(1=>1, 2=>2, 3=>3, 4=>4),",
+    "'#default_value' => $default,",
+    "'#ahah' => array(",
+    "'path' => 'ahah_demo/autocheckboxes/callback',",
+    "'wrapper' => 'checkboxes',",
+    "'effect' => 'fade',",
+    "),",
+    ");",
+    "$form['checkboxes'] = array(",
+    "'#title' => t(\"Generated Checkboxes\"),",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#type' => 'fieldset',",
+    "'#description' => t('This is where we get automatically generated checkboxes'),",
+    ");",
+    "$num_checkboxes = !empty($form_state['values']['howmany']) ? $form_state['values']['howmany'] : 1;",
+    "for ($i=1; $i<=$num_checkboxes; $i++) {",
+    "$form['checkboxes'][\"checkbox$i\"] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => \"Checkbox $i\",",
+    ");",
+    "}",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "/**",
+    "* Callback for autocheckboxes. Process the form with the number of checkboxes",
+    "* we want to provide",
+    "*/",
+    "function ahah_demo_autocheckboxes_callback() {",
+    "$form_state = array('storage' => NULL, 'submitted' => FALSE);",
+    "$form_build_id = $_POST['form_build_id'];",
+    "$form = form_get_cache($form_build_id, $form_state);",
+    "$args = $form['#parameters'];",
+    "$form_id = array_shift($args);",
+    "$form_state['post'] = $form['#post'] = $_POST;",
+    "$form['#programmed'] = $form['#redirect'] = FALSE;",
+    "// HACK: Select values changing never get recognized",
+    "unset ($form['howmany']['#value']);",
+    "drupal_process_form($form_id, $form, $form_state);",
+    "$form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);",
+    "$checkboxes = $form['checkboxes'];",
+    "$output = drupal_render($checkboxes);",
+    "// Final rendering callback.",
+    "print drupal_json(array('status' => TRUE, 'data' => $output));",
+    "exit();",
+    "}",
+    "?>",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ AHAH Example: Textfields driven by checkboxes",
+    "up",
+    "AHAH Notes and Issues ›",
+    "AHAH Notes and Issues",
+    "Gotchas to watch out for",
+    "The callback must emit the JSON and nothing else. If it emits anything else, the JSON won't be parsed, and all will fail. How can it emit anything else, you ask? Well, if Devel module is turned on and it's timing pages and putting that at the bottom of the page, you're sunk. If Devel module is outputting errors to the screen, you're sunk. If you're debugging and you accidentally do a var_dump. nothing will work.",
+    "When you create a new callback, hit it with the web browser. If it's not working yet, hit admin/build/modules to rebuild the menu system's cache.",
+    "In a complicated form with textareas, you will probably want to set '#TREE' => TRUE for the form. If you have elements with the same name in different fieldsets, AHAH will be unable to get the correct #ahah information for the element you've clicked, unless it's the first one with this name. If you use #TREE, the browser will submit a full-qualified name for the changed element, which AHAH can use correctly.",
+    "Other Notes",
+    "You can replace any section of the form (or probably of the page). In my examples, I replaced only a particular region of the form (marked off by #prefix and #postfix in the form definition). You could replace the whole form, or something completely different on the page. Probably performance is best if you replace the smallest region possible.",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ AHAH Example: Select control and generated checkboxes",
+    "up",
+    "AHAH Resources ›",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/ahah-simplest-example-ahah-submit-button-replace-region",
+      "text": "AHAH Simplest Example: #ahah on the submit button, replace a region"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah/callback",
+      "text": "http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah/callback"
+    },
+    {
+      "internal": false,
+      "key": "http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah",
+      "text": "http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-forms-api-fapi-basics-2-minute-version",
+      "text": "‹ Drupal Forms API (FAPI) Basics - the 2-minute version"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-textfields-driven-checkboxes",
+      "text": "AHAH Example: Textfields driven by checkboxes ›"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ahah-drupal",
+      "text": "Examples of AHAH in Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/quicktabs",
+      "text": "Quicktabs module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/amazon_store",
+      "text": "Amazon Store"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/what-ahah-drupal",
+      "text": "‹ What is AHAH in Drupal?"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-forms-api-fapi-basics-2-minute-version",
+      "text": "Drupal Forms API (FAPI) Basics - the 2-minute version ›"
+    },
+    {
+      "internal": true,
+      "key": "ahah/drupal7",
+      "text": "AHAH Changes for Drupal 7 (It's now called #AJAX)"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/ajax",
+      "text": "http://randyfay.com/ajax"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples Module"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-resources",
+      "text": "‹ AHAH Resources"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-textfields-driven-checkboxes",
+      "text": "AHAH Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://d6.drupalexamples.info/examples/ahah_example/autotextfields",
+      "text": "http://d6.drupalexamples.info/examples/ahah_example/autotextfields"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-simplest-example-ahah-submit-button-replace-region",
+      "text": "‹ AHAH Simplest Example: #ahah on the submit button, replace a region"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-select-control-and-generated-checkboxes",
+      "text": "AHAH Example: Select control and generated checkboxes ›"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-resources",
+      "text": "AHAH Resources"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Example module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/348475",
+      "text": "The Drupal.org handbook page on Drupal 6 AHAH"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/file/developer/topics/forms_api_reference.html/6#ahah",
+      "text": "Forms API Documentation, AHAH section"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/ahah_helper",
+      "text": "AHAH Helper"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-notes-and-issues",
+      "text": "‹ AHAH Notes and Issues"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "ahah/drupal7",
+      "text": "AHAH Changes for Drupal 7 (It's now called #AJAX) ›"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-select-control-and-generated-checkboxes",
+      "text": "AHAH Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://d6.drupalexamples.info/examples/ahah_example/autocheckboxes",
+      "text": "http://d6.drupalexamples.info/examples/ahah_example/autocheckboxes"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-textfields-driven-checkboxes",
+      "text": "‹ AHAH Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-notes-and-issues",
+      "text": "AHAH Notes and Issues ›"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-notes-and-issues",
+      "text": "AHAH Notes and Issues"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-select-control-and-generated-checkboxes",
+      "text": "‹ AHAH Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-resources",
+      "text": "AHAH Resources ›"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "title": "Review of Drupal 7: Visual QuickStart Guide | RandyFay.com",
+  "primaryHeading": "Review of Drupal 7: Visual QuickStart Guide",
+  "contentFound": true,
+  "lines": [
+    "Tue, 2011-02-22 10:09 by rfay",
+    "Planet Drupal",
+    "Book Reviews",
+    "(Disclaimer: The book for review was provided gratis by the publisher.)",
+    "Tom Geller's new book Drupal 7: Visual Quickstart Guide is a concise, dense sitebuilder/administrator's guide to Drupal 7. It provides a pretty decent task-oriented overview of D7 sitebuilding and administration. It's a manageable size for almost anybody, about 210 pages of primary content.",
+    "Overall summary: The book does well what it sets out to do, which is provide a user-interface task-oriented introduction to Drupal 7 for sitebuilders and administrators (in a reasonable size package). That approach has innate drawbacks, but so does every other approach, right?",
+    "Some Praise",
+    "The book is connected well to the community, and provides real-world techniques, not just \"search drupal.org\". He mentions great sources of information like drupalmodules.com, and suggests how to use d.o effectively, and mentions key \"everybody knows about them\" contrib modules that a new sitebuilder should know about.",
+    "Great coverage of community issues. The appendix on getting and giving help is wonderful and thoughtful and so necessary in a book like this. It would be easy to leave it out when you're trying for an easy-to-manage book, but it was retained. Thanks. And the \"Drupal Terms and Culture\" glossary is great, although I'm sure it could be expanded.",
+    "Its extensive scope reminded me of some things I'd never used, and some alternate ways to do things.",
+    "I learned how to do web-based module upgrades, which I'd never tried before... and it worked!",
+    "Some Gripes",
+    "There is a fair bit of oversimplification (as there almost has to be in a book this size). It tries to handle installation of Drupal on Windows, Mac, and Linux in simple step-by-step instructions... and of course that usually requires far more background than could possibly be provided in a book of this scope. Another example of oversimplification is installing a module directly from the UI. It works. But Tom chose wysiwyg as an example, which requires advanced stuff after installation. And it doesn't mention that. But still, it's amazing that you can do a web-based module/theme install in D7!",
+    "There is occasional inaccuracy, but nothing huge that I noticed. (It's wrong about the default user creation settings being wide open, but they were changed a long time ago to \"Visitors, but administrator approval is required\". But I know about that because it was my patch. Overall, this seemed balanced, knowledgeable, and correct.",
+    "Most pages are half screenshots and half step-by-step walkthroughs of administration tasks. They take on almost everything in the D7 interface. The screenshots are painfully small in some cases, as if the book had been planned for a larger format.",
+    "Being a user-interface walkthough, it probably doesn't give the background or context for some of the concepts being presented. But really, that's by design. This is one way to learn it.",
+    "Some sections, like \"Creating a New Theme\" and \"Changing Theme Graphics and Typography with CSS\" seem hopelessly tiny for the subjects they tackle in a few paragraphs. However, they do give enough clues to an HTML/CSS-savvy person where they might start, and refer to more advanced material.",
+    "Overall, a difficult job well done."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/book-reviews",
+      "text": "Book Reviews"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

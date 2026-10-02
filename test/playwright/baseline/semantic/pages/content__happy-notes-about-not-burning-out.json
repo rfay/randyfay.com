@@ -1,0 +1,218 @@
+{
+  "title": "Happy Notes! (About *not* burning out!) | RandyFay.com",
+  "primaryHeading": "Happy Notes! (About *not* burning out!)",
+  "contentFound": true,
+  "lines": [
+    "Thu, 2011-10-13 10:56 by rfay",
+    "Burnout",
+    "Planet Drupal",
+    "As you know, I've been writing and talking and thinking about burnout lately.",
+    "One of the key causes of burnout is the situation where we lack control over what we do.",
+    "For a long time, it seemed impossible to move Drupal.org (or our workflow or methodologies) forward. It just seemed like we were stuck with what we had. We lacked control over our website and our community processes.",
+    "Recently, though we've come light-years from the old ways. Incredible improvements to longstanding problem areas like the Follow! Instead of subscribe comments, Deployment of BUEditor on d.o, API Change Notices, Issue summaries, testing contrib projects with dependencies and Images for all on drupal.org demonstrate that we do have control of our work environment and our territory. What great news! In addition, progress in the docs team toward a more sustainable strategy (with curated and uncurated docs) is a huge step forward.",
+    "The improvement of Drupal processes and d.o features can and will go a long way toward improving the health of our community and avoiding burnout. Congratulations to all who have led this sea-change in how our community works.",
+    "And if you want to participate in making Drupal.org awesome, read webchick's post. Hurry!",
+    "Comments",
+    "ArianeK (not verified)",
+    "Thu, 2011-10-13 11:57",
+    "Permalink",
+    "I now know not to",
+    "I now know not to underestimate the effect of people suddenly caring about the things that I was feeling ineffective about. Shortly after DrupalCon London, suddenly people were working on making image embedding available to all... I nearly cried happy tears, as this was one of the tasks that most bogged down the Docs Issue queue. Requests for image embeds (or Docs Admin role to do image embeds) were endless, and something that frankly was a bit of a time waster since it was something that seemed so possible to solve. That this issue was finally picked back up and quickly fixed gave me SO MUCH HOPE.",
+    "So much hope, that I thought to myself, \"Hey, maybe we can actually do some of the other Docs infra/team improvements!\" Jennifer put out a call for docs infra help, and all these people showed up! I don't know where they came from, and that doesn't matter, all that matters is they showed up and wanted to help.",
+    "And with that, I started to get my Drupal-mojo back, and have been helping with the IA improvements for the docs pages (which has seen help from UX people in the community, as well as 170+ comments from docs team, core devs, etc.). My burnout fog has started to lift.",
+    "I'm not sure what exactly changed in the last few months, but having a couple dozen people start caring about what happens to our online docs (and the people who maintain them) has really made a huge difference for both the docs, and for my morale - I was on the verge of admitting defeat at the end of the summer, and now - well I can't say I'll ever be putting in as much time as I was last year, but at least I don't want to run screaming. ;)",
+    "Thank you again to everyone who's been working hard on the infra improvements, and making maintaining our collective knowledge easier.",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2011-10-13 12:15",
+    "Permalink",
+    "Not just infra issues either",
+    "IMO it's not just infra issues where we're making progress either. I think we've made some big process improvements. The new D8 gates specify what's to happen to get something in. The agreement about how many criticals can be outstanding... all these things make our territory clearer.",
+    "Log in to post comments",
+    "ArianeK (not verified)",
+    "Thu, 2011-10-13 12:16",
+    "Permalink",
+    "That is good to hear - I've",
+    "That is good to hear - I've dropped out of the loop a bit on the D8 stuff, but am sure I'll catch up a bit at the conference!",
+    "Log in to post comments",
+    "jthorson (not verified)",
+    "Fri, 2011-10-14 09:24",
+    "Permalink",
+    "Another example",
+    "Your right ... it's certainly not just infra.",
+    "Another example comes from the project applications queue. Three weeks ago, the 'Needs Review' list stood at over 350 project applications. Earlier this year, the number was closer to 450.",
+    "Currently? 68, and dropping fast. In just a few short weeks, the queue has been knocked down over 80%, to a point where it could conceivably be cleared with another week's effort ... thanks largely in part to klausi, who's amazing efforts (participating in 151 different reviews in the last week!! ) have re-energized and re-invigorated other reviewers to jump in and help build on that momentum.",
+    "Log in to post comments",
+    "jhodgdon (not verified)",
+    "Thu, 2011-10-13 15:26",
+    "Permalink",
+    "Mini-breaks...",
+    "One way to gain control over things: take a quick break! I was leaning towards burnout (on a small scale - tired of trying to be polite and helpful in the issue queues, when faced with the usual nonsense) last week, so I took a few days off from Drupal contributing this week, and came back refreshed (and with my new computer up and running, which I hadn't been making time to do when faced with the multitude of interruptions that are Project Drupal). :)",
+    "Log in to post comments",
+    "Bojhan (not verified)",
+    "Thu, 2011-10-13 16:12",
+    "Permalink",
+    "Isn't most of this simply not",
+    "Isn't most of this simply not a shift away from core, towards fixing d.o? I love the improvements, but most of it is a shift of resources? I do think many of these improvements are needed for people to start working on core again, when our tools become more efficient it has a profound effect on our ability to impact drupal core over the long term, so any investment we do in d.o should be greatly worth our while.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/burnout",
+      "text": "Burnout"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1306444",
+      "text": "Follow! Instead of subscribe comments"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/424400",
+      "text": "Deployment of BUEditor on d.o"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/648218",
+      "text": "API Change Notices"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1036132",
+      "text": "Issue summaries"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1241704",
+      "text": "testing contrib projects with dependencies"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/528682",
+      "text": "Images for all on drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1293124",
+      "text": "webchick's post"
+    },
+    {
+      "internal": true,
+      "key": "comment/2103",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2103",
+      "text": "I now know not to"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/113%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2104",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2104",
+      "text": "Not just infra issues either"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/113%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2105",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2105",
+      "text": "That is good to hear - I've"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/113%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2108",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2108",
+      "text": "Another example"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/113%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://poplarware.com",
+      "text": "jhodgdon (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2106",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2106",
+      "text": "Mini-breaks..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/113%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2107",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2107",
+      "text": "Isn't most of this simply not"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/113%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

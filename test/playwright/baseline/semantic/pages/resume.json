@@ -1,0 +1,25 @@
+{
+  "title": "Randy Fay Resume | RandyFay.com",
+  "primaryHeading": "Randy Fay Resume",
+  "contentFound": true,
+  "lines": [
+    "Fri, 2015-12-04 08:04 by rfay",
+    "Please see my resume as pdf, covering DevOps and System Administration, Android development and testing, PHP/Drupal development, etc."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "https://randyfay.com/sites/default/files/Randy%20Fay%20Resume%202016.pdf",
+      "text": "resume as pdf"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

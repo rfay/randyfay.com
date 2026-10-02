@@ -1,0 +1,135 @@
+{
+  "title": "Drupal Testbots are now running on the OSUOSL Supercell | RandyFay.com",
+  "primaryHeading": "Drupal Testbots are now running on the OSUOSL Supercell",
+  "contentFound": true,
+  "lines": [
+    "Wed, 2011-04-27 11:26 by rfay",
+    "Planet Drupal",
+    "You probably know that all Drupal core patches and commits get tested using the simpletest testing system, but you may not know how. Essentially, every time a patch is posted and placed in the \"Needs Review\" status on Drupal.org, and every time a commit is made, the information is sent off to qa.drupal.org, which then farms it out to testing working machines we call testbots.",
+    "Well, the testbots are quite compute-intensive, and although we tried for years we never really got enough decent, manageable machines from community contributions. Partly this is because the machines are really compute-intensive, and partly it's because they can be pretty tweaky and not everybody wants to learn how to manage them and deal with their occasional fits. Many community members had donated time on their machines, but in recent months we'd been using Amazon EC2 instances for the bulk of our testbots, and the bill to the Drupal Association was more than we'd like to pay, more than $500 many months.",
+    "Enter the OSUOSL Supercell. You may not know the OSUOSL (Oregon State University Open Source Lab) but they're the folks that handle all the hardware side of the Drupal.org infrastructure. As yet another of their great services to the open source communities they serve, the Supercell is a cluster of physical machines turned into a virtualization environment for projects like ours. So instead of either scrounging around for spare machines from the community or paying Amazon for super-high-powered EC2 instances, we now have 3 full-time testbots (plus one for testing PIFR code and deployment) running in the Supercell. (You can see their status and what they're working on any time at http://qa.drupal.org.) It's been reliable and it's so nice to have these very appropriate testing machines there.",
+    "As they roll out the Supercell, there will probably be other opportunities to use these, for both Drupal and other communities. They're behind a firewall, which requires proxying to get to them, so they're not appropriate for any service that needs to be directly internet-reachable. However, they're absolutely wonderful for services like the testbots (which call home for their tests), or for build machines, etc.",
+    "Thanks so much to Jeff Sheltren, Lance Albertson, and the rest of the crew at OSUOSL for making this possible. It's a huge win for the Drupal community.",
+    "Comments",
+    "Chris Bryant (not verified)",
+    "Fri, 2011-04-29 17:52",
+    "Permalink",
+    "Thanks to OSUOSL!",
+    "This is great to hear and a huge thank you goes out to the fine folks at OSUOSL! The service isn't even officially available yet so it's nice that Drupal is getting early access. Does that mean that there with this there are enough testbots now and more servers aren't needed? The stats page shows two are active and a capacity of 62. Why is the capacity so high?",
+    "Judging by the IDs it looks like the test bots have run over 1.8 million tests, an impressive feat! What a valuable service for the community,",
+    "Hopefully this will be able to also be used for automated performance testing in the near future. :-)",
+    "Thanks for all your work on this!",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2011-04-29 18:08",
+    "Permalink",
+    "\"Capacity\" is bogus",
+    "Capacity includes all the testbots ever launched :-) We normally have 3 running all the time now, which is plenty for this phase of development.",
+    "Log in to post comments",
+    "Jacob Redding (not verified)",
+    "Sun, 2011-05-01 22:53",
+    "Permalink",
+    "Huge Win for Drupal",
+    "This is a huge win for Drupal and was made possible by the hard work of the infrastructure team (woot!) and the great folks at OSUOSL. Thank you Randy and many, many other folks for all of the hard work on the SuperCell.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://supercell.osuosl.org",
+      "text": "OSUOSL Supercell"
+    },
+    {
+      "internal": false,
+      "key": "http://osuosl.org",
+      "text": "OSUOSL"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/project_issue_file_review",
+      "text": "PIFR"
+    },
+    {
+      "internal": false,
+      "key": "http://qa.drupal.org",
+      "text": "http://qa.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://graviteklabs.com",
+      "text": "Chris Bryant (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/964",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/964",
+      "text": "Thanks to OSUOSL!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/99%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/965",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/965",
+      "text": "\"Capacity\" is bogus"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/99%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://jredding.info",
+      "text": "Jacob Redding (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/967",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/967",
+      "text": "Huge Win for Drupal"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/99%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "title": "Pushing and Deleting Git Topic Branches (Screencast) | RandyFay.com",
+  "primaryHeading": "Pushing and Deleting Git Topic Branches (Screencast)",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2011-02-27 20:23 by rfay",
+    "git",
+    "Planet Drupal",
+    "Creating topic branches (also called \"feature branches\") is easy in Git and",
+    "is one of the best things about Git. Sometimes we also want to get those pushed",
+    "from our local repo for various reasons:",
+    "To make sure it's safe on another server (for backup).",
+    "To let others review it.",
+    "To let others build upon it.",
+    "Here we'll just be dealing with #1 and #2, and not talking about how to collaborate",
+    "on a shared branch. We'll be assuming that only the original author will push to it,",
+    "and that nobody else will be doing work based on that branch.",
+    "Creating a feature branch (using name/name_issue)",
+    "git checkout -b rfay/some_feature_39949494/05",
+    "OR",
+    "git checkout -b rfay/some_feature_39949494",
+    "Pushing it up (with origin xxx)",
+    "git push origin rfay/some_feature_39949494",
+    "Turning a regular branch into a tracking branch (if you like shorter commands)",
+    "git config --global push.default tracking # One time setup.",
+    "git branch --set-upstream foo upstream/foo",
+    "OR just create a new tracking branch and forget all that.",
+    "git branch -m [my_current_branch] junk",
+    "git checkout --track origin/[branch]",
+    "OR if you have commit access to the upstream branch",
+    "git push -u upstream foo",
+    "git push -u origin foo",
+    "When you need to, delete the branch",
+    "Locally",
+    "git branch -d [branch] # If it's been merged",
+    "git branch -D [branch] # unconditionally",
+    "Remote",
+    "git push origin :[branch] # pretty odd syntax",
+    "Comments",
+    "acouch (not verified)",
+    "Tue, 2011-03-01 13:25",
+    "Permalink",
+    "Randy,",
+    "Randy,",
+    "I love your recent burst of git discussion and documentation.",
+    "Keep up the great work!",
+    "-AC",
+    "Log in to post comments",
+    "Tim V (not verified)",
+    "Sat, 2011-03-19 11:01",
+    "Permalink",
+    "git brandy^H^Hch",
+    "git brandy^H^Hch",
+    "Laughed so hard.",
+    "Log in to post comments",
+    "rfay",
+    "Sat, 2011-03-19 14:27",
+    "Permalink",
+    "What fun. Had a dog named",
+    "What fun. Had a dog named Brandy for years. Not sure where that got in my fingers :-)",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "comment/786",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/786",
+      "text": "Randy,"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/96%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/838",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/838",
+      "text": "git brandy^H^Hch"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/96%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/839",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/839",
+      "text": "What fun. Had a dog named"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/96%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

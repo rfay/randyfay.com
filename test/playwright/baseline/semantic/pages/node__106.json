@@ -1,0 +1,150 @@
+{
+  "title": "Managing Site-owner Comment Notifications Using Triggers and Actions | RandyFay.com",
+  "primaryHeading": "Managing Site-owner Comment Notifications Using Triggers and Actions",
+  "contentFound": true,
+  "lines": [
+    "Wed, 2011-07-20 09:18 by rfay",
+    "Planet Drupal",
+    "Triggers and actions are a core feature of Drupal and have been for a really long time. But lots of people don't know that they can actually be useful for some very basic and important tasks. You might say this is a beginner topic, but since I've only mastered it for my own use in the last year or so, I figured it was worth writing about :-)",
+    "I use them mostly for notifications when comments have been posted to my blog, where comments are 100% moderated. (I use the wonderful Comment Notify to notify commenters when more comments are posted. If spam got posted they'd get email spam.)",
+    "So among the many things you can do simply with triggers and actions is configuring a notification to the site owner with details about the posted comment, and that's a great example of use of this simple feature. Here's how to do it.",
+    "First, create an action that does what you want.",
+    "In Drupal 7 it's easy to use tokens to customize the details of the outgoing email. At Administration -> Configuration -> System -> Actions (admin/config/system/actions) we can select \"Send e-mail...\" from the dropdown.",
+    "Change the label to something like \"Comment notification email\"",
+    "Set the recipient and subject (I use \"Comment [comment:title] by [comment:author]\" for the subject)",
+    "The body can be something like this (adjusted to your needs)",
+    "Author: [comment:author]",
+    "Comment title: [comment:title]",
+    "Node title: [comment:node:title]",
+    "Comment URL: [comment:url:absolute]",
+    "All Comment Approvals: [site:url]admin/content/comment/approval",
+    "Body:",
+    "[comment:body]",
+    "Now set assign the action to a trigger",
+    "Oddly, the triggers configuration is in a completely different place in the menu hierarchy, and always has been. You can find it at admin/structure/trigger. We'll select the \"Comment\" category of triggers, and under \"After saving a new comment\" select the \"Comment email\" action we just created and save.",
+    "That's all there is to it. This is Drupal 7; the tokens are different than in earlier versions of Drupal, but the ideas are the same. If you want more power and the ability to apply conditions to your behavior, check out the excellent Rules module.",
+    "Update: D6 Recipe",
+    "For Drupal 6 the idea is the same. You need to enable the trigger and the token_actions module (which comes with the contrib Token module).",
+    "Create an advanced action that is a \"tokenized e-mail\". The title can be something like \"Comment: [comment-node-title]\" and the mail can be your email.",
+    "Author: [comment-author-name]",
+    "Comment title: [comment-title]",
+    "Node title: [comment-node-title]",
+    "Comment Link: [node-url]#comment-[comment-cid]",
+    "All Comment Approvals: [site-url]admin/content/comment/approval",
+    "Body:",
+    "[comment-body]",
+    "Go to admin/build/trigger/comment and assign the action you've created to \"After saving a new comment\".",
+    "Comments",
+    "trampjuice (not verified)",
+    "Mon, 2011-09-05 16:29",
+    "Permalink",
+    "And also..",
+    "You can use triggers/rules to SMS you on a event by using a simple url sms link from a provider like justvoip.co.uk",
+    "Great articles Randy.",
+    "Log in to post comments",
+    "Cek Magdurlari (not verified)",
+    "Fri, 2011-10-21 12:28",
+    "Permalink",
+    "User",
+    "hi,i want triggers for every person who put comment for each post and every time that every person reply to that,sen email for every user.",
+    "for example:",
+    "i create a new post and a person put comments for it,after that send an email for me and his/her also every person put comment for that post,send email for all of us.",
+    "how does it work?",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2011-10-21 12:31",
+    "Permalink",
+    "comment_notify",
+    "I'd use Comment Notify for that use case. But you could probably pull it off using rules (although I'm not sure you could do it with just triggers and actions)",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/comment_notify",
+      "text": "Comment Notify"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/rules",
+      "text": "Rules module"
+    },
+    {
+      "internal": true,
+      "key": "comment/2084",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2084",
+      "text": "And also.."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/106%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.cekmagdurlari.com",
+      "text": "Cek Magdurlari (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2113",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2113",
+      "text": "User"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/106%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2114",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2114",
+      "text": "comment_notify"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/comment_notify",
+      "text": "Comment Notify"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/106%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

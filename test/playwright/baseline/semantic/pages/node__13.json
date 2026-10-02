@@ -1,0 +1,45 @@
+{
+  "title": "What in the world have I been up to? | RandyFay.com",
+  "primaryHeading": "What in the world have I been up to?",
+  "contentFound": true,
+  "lines": [
+    "Sat, 2009-02-21 10:35 by rfay",
+    "Drupal",
+    "You probably know that Nancy and I spent two years on our bicycles riding from the far north of Canada to Argentina in South America. You can read all about the adventure on hobobiker.com",
+    "Even before we got back, I restarted my Drupal development consulting (Drupal is a Content Management System and web development environment) and have been plenty busy in the intervening time. It's been my intent to list some of the projects and learning here, but to this point I haven't done it. Maybe now :-)"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "hobobiker.com"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org",
+      "text": "Drupal"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

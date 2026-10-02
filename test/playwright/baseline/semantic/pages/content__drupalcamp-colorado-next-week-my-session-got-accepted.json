@@ -1,0 +1,61 @@
+{
+  "title": "DrupalCamp Colorado next week - My session got accepted | RandyFay.com",
+  "primaryHeading": "DrupalCamp Colorado next week - My session got accepted",
+  "contentFound": true,
+  "lines": [
+    "Fri, 2009-06-19 15:01 by rfay",
+    "Drupal",
+    "My session on AHAH in Drupal got accepted for next week's Drupal Camp Colorado in Denver. So it's time to get it ready. (Update: see the materials here.",
+    "AHAH (Asynchronous HTML and HTTP) is a technology built into the Drupal Forms API which allows for updates of a form without doing a full page refresh, and it makes some things really nice. All of the \"add to cart\" and similar behaviors in the Amazon Store module (try it at alonovo.com/amazon_store) are done with AHAH, meaning that you can add to cart and not end up on another page, and not have a long wait.",
+    "Basically, pressing a button causes a simple call back to the web server for replacement elements for the form. Instead of submitting the whole page to the webserver and then reprocessing and redisplaying it, only the part that needs to be updated (like your message that an item was added to the cart) has to be done."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalcampcolorado.org/sessions/cooler-forms-ahah-asynchronous-html-and-http",
+      "text": "session on AHAH in Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalcampcolorado.org",
+      "text": "Drupal Camp Colorado"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "here"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/amazon_store",
+      "text": "Amazon Store"
+    },
+    {
+      "internal": false,
+      "key": "http://alonovo.com/amazon_store",
+      "text": "alonovo.com/amazon_store"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

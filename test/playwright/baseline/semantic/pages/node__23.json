@@ -1,0 +1,59 @@
+{
+  "title": "Where to find me | RandyFay.com",
+  "primaryHeading": "Where to find me",
+  "contentFound": true,
+  "lines": [
+    "Sat, 2009-06-13 15:42 by rfay",
+    "twitter",
+    "Find me on twitter: randyfay, Drupal.org and IRC: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip. Or email me the old fashioned way: http://randyfay.com/contact. Grab my ssh public key"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/twitter",
+      "text": "twitter"
+    },
+    {
+      "internal": false,
+      "key": "http://twitter.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    },
+    {
+      "internal": true,
+      "key": "contact",
+      "text": "http://randyfay.com/contact"
+    },
+    {
+      "internal": false,
+      "key": "http://www.randyfay.com/files/rfay.pub",
+      "text": "ssh public key"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

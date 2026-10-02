@@ -1,0 +1,53 @@
+{
+  "title": "Drupalcon: D7 Advanced Form API Session! | RandyFay.com",
+  "primaryHeading": "Drupalcon: D7 Advanced Form API Session!",
+  "contentFound": true,
+  "lines": [
+    "Tue, 2010-04-20 21:12 by rfay",
+    "Planet Drupal",
+    "Alex Bronstein, (effulgentsia) one of the maintainers of the Form API, will be doing an off-Broadway session on D7 Advanced Form API tomorrow (Wednesday) at 4:15pm in room 252. This is an exciting chance to catch up on all the great simplifications (and changes) in D7 FAPI.",
+    "Topics will be:",
+    "What's changed in D7 FAPI",
+    "The FAPI pipeline",
+    "Pipeline hooks and #properties",
+    "The essential $form_state keys (and the ones that are gone now)",
+    "AJAX Integration",
+    "And much, much more, of course",
+    "Check out the slides in advance",
+    "If you care about the Form API, BE THERE!"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/78040",
+      "text": "effulgentsia"
+    },
+    {
+      "internal": false,
+      "key": "http://docs.google.com/present/view?id=ddsd5sw7_325gmtkddfm",
+      "text": "slides in advance"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

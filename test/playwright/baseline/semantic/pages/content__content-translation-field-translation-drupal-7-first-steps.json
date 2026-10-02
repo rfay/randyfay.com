@@ -1,0 +1,864 @@
+{
+  "title": "Content Translation (field translation) in Drupal 7: First steps | RandyFay.com",
+  "primaryHeading": "Content Translation (field translation) in Drupal 7: First steps",
+  "contentFound": true,
+  "lines": [
+    "Tue, 2011-01-18 09:11 by rfay",
+    "Planet Drupal",
+    "Edit: Please follow Gábor Hojtsy's excellent series on translation in D7, if you're not already following it. It's more up-to-date and more authoritative. You'll probably be interested in Drupal 7 Multilingual: What's new in I18N.",
+    "Drupal has long been a leader in the ability to present a website in multiple languages. In Drupal 7 we continue that tradition: Field translation or \"content translation\" made it into Drupal 7, but it's not obvious from a plain Drupal 7 install how you would use it.",
+    "This article is fundamentally about content translation, not about interface translation, which is a completely different thing in Drupal (and always has been). Interface translation is about prompts, labels, menu entries and the like, all of which are handled by the core locale module and various contrib modules like i18n. I will explain how to import basic interface translation files, however.",
+    "Drupal 6 has a node translation system which basically allows you to make \"translation sets\" of nodes. You start with a node in a source language (and set the language on that node), and then you can create additional translations of that node to other languages. So for example, we might start with a node in English, then use the \"translate\" tab to add additional nodes in different languages that are tied to that original node. That node translation system is still supported in Drupal 7, but it doesn't support translation of CCK fields, and is quite awkward in reality because you're dealing with a number of separate nodes, instead of translations of a single node. Edit: See Gabor's comment below for more on this, and considerations regarding it.",
+    "Drupal 7 got field translation (yay!), also referred to as \"content translation\", which is an entirely different thing. In content translation you have a single node, but with different translations for each field on the node that should be translatable. And the body is a field. Unfortunately the title is not a field, and therefore is not translatable, but more on that later. To restate this: In Drupal 7 \"content translation\" there is just one node, and translatable fields on it are translated to provide the translations, but are still part of that single node. The gotcha in field translation (content translation) though is that in core it didn't get a user interface. As a result the contrib Entity Translation module improves content translation and provides a UI and works alongside the core content translation module, and it's fundamental to the approach described here.",
+    "Here is the process I went through to set up a basic multilingual site:",
+    "The core field translation facilities have no user interface, so you'll need the Entity Translation module. After installing and enabling it (which also enables translation and locale modules), you may need to run update.php.",
+    "You need to enable languages for your site.",
+    "Add languages at admin/config/regional/language",
+    "Download interface translation files from http://localize.drupal.org",
+    "Import interface translations into the configured languages at admin/config/regional/translate/import (under \"Translate Interface\"",
+    "Click \"Enabled\" on the languages you've configured",
+    "At \"Detection and Selection\" (admin/config/regional/language/configure), choose how you want languages to be chosen. My experience is that URL selection is the best approach, so you'll need to configure subdomains or some related approach. Note that when you use URLs you need to enter the full URL including \"http://\". There doesn't seem to be any error checking on this. Also remember to click \"enabled\" on the strategy that you choose.",
+    "On the same \"Detection and Selection\" page, in the lower section of the page under \"Content language detection\" select \"Interface\", so that the same language is chosen for content language detection as for interface language detection.",
+    "Enable translation of nodes and any other entities that should be translatable at admin/config/regional/entity_translation.",
+    "Enable \"Multilingual support: Enabled, with content translation\" on the content type edit form under \"Publishing options\". For example, for a content type named \"example\", this would be at admin/structure/types/manage/example/edit in the \"publishing options\" fieldset.",
+    "For each field that should be translatable, go to field settings and check \"users may translate this field\". For the body field of the \"example\" content type, this would be at admin/structure/types/manage/example/fields/body/field-settings.",
+    "Now you can create and translate fields.",
+    "Create a node and set its language to a specific language.",
+    "When you've saved it a \"Translate\" tab will appear allowing you to translate into other configured languages.",
+    "Click \"Add translation\" to add translations for the fields that have translation enabled.",
+    "Make sure to publish the translation. Publication is unfortunately hidden in the collapsed-by-default \"translation options\" fieldset",
+    "Some gotchas regarding field translation:",
+    "The Title module is required to make titles translatable. This currently only works for nodes, not entities. All the work is actually being done in #924968 so you have to apply the patch from that issue.",
+    "Entities other than nodes are not translatable out of the box. The entity must be specifically enabled to allow its fields to be translated. das-peter will elaborate on this later.",
+    "Since I'm a newbie at the D7 translation scene, I'm sure there are errors or omissions here, so please correct this and I'll update the article based on your corrections.",
+    "Edit: If you're interested in this article you'll want to follow Gabor's series beginning with http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-....",
+    "Comments",
+    "Gábor Hojtsy (not verified)",
+    "Wed, 2011-01-19 02:18",
+    "Permalink",
+    "set your expectations first",
+    "Everbody thinks they want field translation, and that is the new great thing, but make sure you set your expectations right. Some good things offered by node translation include support for separate node commenting (eg. your German and English comments will not be intermixed); support for per language revisions; publication workflows (eg. the German node can be in a pre-publication revision workflow while the English is already published, coordinated actions can publish multiple language versions when all reach a certain step in the workflow, etc); different permission handling (eg. certain people can only edit German translations not English originals), thanks to Drupal's excessive node access system, etc. Think about menus. Most sites do not plan to have 1-1 menu structures for all translated versions. Different nodes can participate in different menu structures (with different menu titles appropriate for their language).",
+    "There are certain goodies associated with in-node (AKA field) translation as well, like easier management of the translation set (delete all at once for example), simpler management of translations. No need for syncing of certain values to be shared among translations (in cases like language independent polls, where option titles are to be translated, but votes are to be aggregated regardless of language). However, once you need per-language data on votes, again, you are probably much better off with node level translation.",
+    "My understanding is that field translation just allows you to use a more lightweight method for certain cases where that is more applicable. I don't think that it is good idea that is a replacement for the core translation module, so by implementation it does not make it possible to use the two models at once, when some of your site needs the extensive feature set offered by node level translation but some pieces could use field level translation. I can see the usability reasons for choosing either up front in site building, but I think most sites would benefit from a mixed approach.",
+    "Log in to post comments",
+    "plach (not verified)",
+    "Sun, 2011-01-30 03:40",
+    "Permalink",
+    "A few remarks",
+    "First of all I fully agree with Gábor that you should carefully ponder your needs before choosing between the two translation models. That said I'd like to make a few remarks: since our original goal was including field-based translation in core, we tried hard to make it able to accomplish almost all tasks you can achieve with node translation in core.",
+    "More in detail:",
+    "Translation 2 offers an option on the content type settings page to filter out comments per language, so you will be able to choose if comments will be intermixed or only showed on the language they were originally posted.",
+    "Everytime a revision is created all field translation gets a new revision, so it's still possible to have per-language revisions, although they are not language-independent, i.e. all translations share the same revision id.",
+    "There is a basic support for publication workflows, since each entity translation has a 'published' status based on which the related field translations will be publicly visible or hidden.",
+    "Most sites do not plan to have 1-1 menu structures for all translated versions.",
+    "In my experience small multilingual sites, which are still a valuable part of Drupal's target, often needs a 1-1 menu replication which is really hard to achieve with node translation. In a non-replicated multilingual environment you probably don't even need a language switcher bringing on the page translation, since it often won't exist: I believe that also in this scenario two node translations belonging to completely different menu structures is a pretty rare use case.",
+    "However, once you need per-language data on votes, again, you are probably much better off with node level translation.",
+    "Translatable fields let you enter a different value for each language, so if you bothered to code a poll module based on the Field API you get both possible approaches for free ;)",
+    "Where at the moment field translation really does not stand the \"competition\" with node translation is permission handling: the node access system let you achieve a granularity in choosing who has access to what that cannot be matched by field translation. Anyway I think a translation-workflow targeted solution should not be that hard to implement in the future.",
+    "I don't think that it is good idea that is a replacement for the core translation module, so by implementation it does not make it possible to use the two models at once",
+    "I'm afraid this is simply wrong: Translation 2 includes node translation in its codebase (as a separate submodule) and allow to choose for each content type whether using field-based translation or node-based-translation. Maybe we will be able to come up with an even more tightly mixed solution in the future, if we will find out the are valid use cases for it, but the fundamental point is we are totally aware there are still scenarios in which node translation is the way to go and we won't drop support for it until we are totally sure we are able to cover them with field translation, if we'll ever get there.",
+    "I think most sites would benefit from a mixed approach.",
+    "Totally agreed :)",
+    "Log in to post comments",
+    "plach (not verified)",
+    "Tue, 2011-03-29 06:48",
+    "Permalink",
+    "Node translation",
+    "Update: Entity translation now works with the core translation module instead of replacing it.",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2011-03-29 07:06",
+    "Permalink",
+    "Updated the article to",
+    "Updated the article to reflect that.",
+    "Log in to post comments",
+    "sibiru (not verified)",
+    "Tue, 2013-10-08 01:59",
+    "Permalink",
+    "Multilingual product title on shopping cart",
+    "Hi, I've managed to create bilingual drupal commerce with entity_translation, i18n, i18nviews etc. But I have problem translating product title on shopping cart.",
+    "ofcourse with this article as reference",
+    "Maybe I miss something, Could you give me some help?",
+    "If you would check my case on this site: http://balilou.be/products",
+    "I ask here too",
+    "http://www.drupalcommerce.org/questions/10452/multilingual-product-title...",
+    "Log in to post comments",
+    "Lukus (not verified)",
+    "Thu, 2014-02-06 04:04",
+    "Permalink",
+    "Have you made the title",
+    "Have you made the title fieldable using https://drupal.org/project/title?",
+    "Log in to post comments",
+    "Karsten Frohwein (not verified)",
+    "Wed, 2011-01-19 04:51",
+    "Permalink",
+    "Is the field translation an API?",
+    "Hi Randy,",
+    "thank you for the blog post and gabor for the comment which is most important.",
+    "As I currently don't know the D7 APIs very well I ask myself if the field translation is a new way in core to translate user given strings?",
+    "Not being able to translate anything from the user is one of the biggest downsides to me in drupal. And i18n is not fixing this nicely. Multilingual variables or i18nstrings are currently the only solutions and they are not running well.",
+    "So is this the new way for D7?",
+    "Is this an open API?",
+    "Cheers,",
+    "Kars-T",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-01-19 04:53",
+    "Permalink",
+    "Field translation is for content only",
+    "Field translation is for content (the content of fields, including the body field). It is not for interface strings, which are still handled basically the same way as always. So basic string t() stuff is all the same.",
+    "Log in to post comments",
+    "danielb (not verified)",
+    "Sun, 2011-02-06 20:41",
+    "Permalink",
+    "t() is not suitable for",
+    "t() is not suitable for translating user-supplied strings. You have to use i18nstrings(), i18nstrings_update(), and 18nstrings_remove(), which I have found to be awkward (and too much work for me).",
+    "Log in to post comments",
+    "rantebi (not verified)",
+    "Sun, 2011-03-20 08:35",
+    "Permalink",
+    "How am I supposed to manage without translated titles?",
+    "Hi,",
+    "Thanks for the posts and comments.",
+    "I find translation 2 a very attractive solution.",
+    "However, Title module is not yet released (as far as I can tell), and not having a title to translate is quite an issue.",
+    "What do you suggest doing?",
+    "Oh, and besides, The 'Content translation' is obsolete, and is replaced by 'Entity translation'.",
+    "Thx",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2011-03-20 11:25",
+    "Permalink",
+    "Thanks for mentioning that",
+    "Thanks for mentioning that Entity Translation module has replaced Content Translation.",
+    "To use title module at this time, you'll need to check it out using git and apply the patch provided (or use the branch that has that patch's work on it)",
+    "I updated the article.",
+    "Log in to post comments",
+    "rantebi (not verified)",
+    "Tue, 2011-03-22 02:25",
+    "Permalink",
+    "Title module",
+    "Have you any experience with the title module in it's current stage?",
+    "Is it \"cooked\" or is it still \"raw\"?",
+    "I'm sorry but I'm afraid I'll waste my time...",
+    "Can you share?",
+    "Log in to post comments",
+    "rfay",
+    "Tue, 2011-03-22 07:10",
+    "Permalink",
+    "There's no release yet, so I",
+    "There's no release yet, so I would think the maintainers think it's \"raw\". However, there is active development, and you can help by testing it and reporting your experiences. I tried it a month or so ago and it did what I wanted it to do.",
+    "Log in to post comments",
+    "plach (not verified)",
+    "Thu, 2011-03-31 02:54",
+    "Permalink",
+    "Release",
+    "I'm hoping to have a dev release in a couple of days, however people wishing to test it can use the mostly equivalent package downloadable from the development branch.",
+    "Log in to post comments",
+    "Suzanne Kennedy (not verified)",
+    "Wed, 2011-03-30 14:05",
+    "Permalink",
+    "For those testing this out,",
+    "For those testing this out, you need to disable the core 'Content Translation' module for the 'Entity Translation' module to work propery. Because these modules have different names, you don't need to run update.php when you install Entity Translation.",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-03-30 14:13",
+    "Permalink",
+    "Hmm.. I thought Plach's note",
+    "Hmm.. I thought Plach's note said that entity translation works with content translation?",
+    "Log in to post comments",
+    "Suzanne Kennedy (not verified)",
+    "Wed, 2011-03-30 14:22",
+    "Permalink",
+    "My mistake, it's the i18n",
+    "My mistake, it's the i18n Multilingual Content module that is incompatible. I'm still getting used to all these new module names.",
+    "Log in to post comments",
+    "plach (not verified)",
+    "Thu, 2011-03-31 02:49",
+    "Permalink",
+    "Multilingual content",
+    "We have a RTBC issue to fix the icompatibility: http://drupal.org/node/1109198. It should be committed soon.",
+    "Log in to post comments",
+    "neil (not verified)",
+    "Mon, 2011-04-25 01:42",
+    "Permalink",
+    "Modules",
+    "Thanks everyone...",
+    "The compatibility issue (& best procedure), is getting confusing!",
+    "For a D7 install wanting to translate and display (from user selected language switcher e.g., casainpiazza.ch ), basic content from some/any level of field/node translation",
+    "Is there a standard checklist?",
+    "e.g.,",
+    "Translation Management",
+    "Translation Overview",
+    "i18n",
+    "Title",
+    "Entity Translation",
+    "Link...",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2011-04-25 07:25",
+    "Permalink",
+    "Follow Gabor's series",
+    "Please follow Gábor Hojtsy's excellent series on translation in D7, if you're not already. It's more up-to-date and more authoritative.",
+    "Log in to post comments",
+    "Fletch (not verified)",
+    "Fri, 2012-03-16 05:08",
+    "Permalink",
+    "But Why?",
+    "Fascinating piece of work being undertaken. What I don't quite understand is - what was the motivation? Do we really have such problems with node-based translation? I'm using node translation with Drupal 6 on various websites, including a large 10-language international church website and it's working great! I do admit that there are a few tricky cases to tackle, like sharing a video field between nodes - I would like all nodes to share the same video field, update it when I update one etc. But these cases are either tackled already by modules or smart people will solve them. Above all I find such cases to be in the minority. In the majority of cases node translation just makes sense. Gabor has pointed some of this reasoning out.",
+    "Has anyone put together a convincing argument as to why this effort needs to exist and why I should consider upgrading to this method instead of the node translation method when I upgrade to Drupal 7? At the moment I'm guessing that the driving reason is philosophical: a translation of a node is a \"separate view\" of the same thing, and should be treated as such, rather than a separate entity altogether, and this will make life easier. For me this makes some sense, but remains to be seen in practise. If someone has written such an argument, please link to it (maybe you will convince me :-)).",
+    "I'm just a little concerned that instead of supporting and improving the excellent node-based translation system already in place, this effort is creating a rival system which splits development effort and module support and creates more decisions to be made and confusion for developers. Now, I've only just found out about all this so I don't understand it in detail and accept that some of my claims may be wrong so please feel free to go ahead and show me \"a more excellent way\".",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2012-03-16 23:12",
+    "Permalink",
+    "Both this article and Gabor's",
+    "Both this article and Gabor's excellent series explain the pro's and con's. Node translation is fully supported and there's no plan for it to go away.",
+    "Log in to post comments",
+    "Fletch (not verified)",
+    "Sat, 2012-03-17 16:07",
+    "Permalink",
+    "I found the little pro and",
+    "I found the little pro and con section in Gabor's article which explains field translation, that article was indeed very interesting. I like his conclusion that the best thing would just be to share fields correctly.",
+    "Well let's see. It's certainly true that sometimes you just have to do something and see what happens. So I think this work should help in leading us toward the ideal way to handle translations.",
+    "Log in to post comments",
+    "Bart (not verified)",
+    "Fri, 2012-12-14 06:46",
+    "Permalink",
+    "Thanks!",
+    "Hi,",
+    "It's been a while and alot has changed since you've wrote this, but I find your explanations very useful. I'm trying to get this whole translation thing figured out and your work definitely helps.",
+    "One remark though: at point 3 you say: \"Enable translation of nodes and any other entities that should be translatable at [..]\" The URL shown there is not correct. It should be admin/config/regional/entity_translation",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2012-12-14 11:18",
+    "Permalink",
+    "Fixed, thanks.",
+    "Fixed, thanks.",
+    "Log in to post comments",
+    "Marko (not verified)",
+    "Tue, 2013-04-30 09:42",
+    "Permalink",
+    "Drupal the leader",
+    "If drupal is \"the leader\" in multilingual sites I wonder what is the situation with others then. (ironic).",
+    "I made many multi lingual sites with drupal 6 and 7 and I would say this is the weakest part of drupal. It works for some simpler things and sites that I would call amateur. Try to build professional site. Use modules like panels and views with taxonomy and you have huge issues if you also want to have sites, that have SEO optimized URLs, breadcrumbs, multilingual views/panels etc. You will need to use some other additional modules, make some clever solutions, duplicate views for each language, sometimes even make vocabulary for each language if you want it to work perfectly and you have all parts translated. With some solutions you cover 80% and then you have something missing and can't be translated so you have to find different ways to do it and it is just hard and buggy road.",
+    "Log in to post comments",
+    "Lindsay Rose (not verified)",
+    "Mon, 2014-12-08 09:40",
+    "Permalink",
+    "Great Article!",
+    "Even years later this article still does a wonderful job of giving someone new to Drupal Translations a good overview of the pro's con's between these two approaches!",
+    "Thank you!!",
+    "Log in to post comments",
+    "Chris Brown (not verified)",
+    "Fri, 2015-12-04 18:37",
+    "Permalink",
+    "ckeditor",
+    "Thanks for this guide. Could you maybe point me to where I could learn how to make ckeditor visible for translation of body fields when using field (entity) translation method?",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics",
+      "text": "Gábor Hojtsy's excellent series on translation in D7"
+    },
+    {
+      "internal": false,
+      "key": "http://www.evolvingweb.ca/story/drupal-7-multilingual-whats-new-i18n",
+      "text": "Drupal 7 Multilingual: What's new in I18N"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/i18n",
+      "text": "i18n"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/comment/672#comment-672",
+      "text": "Gabor's comment below for more on this, and considerations regarding it"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/entity_translation",
+      "text": "contrib Entity Translation"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/entity_translation",
+      "text": "Entity Translation"
+    },
+    {
+      "internal": false,
+      "key": "http://localize.drupal.org",
+      "text": "http://localize.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/title",
+      "text": "Title module"
+    },
+    {
+      "internal": false,
+      "key": "https://drupal.org/node/924968",
+      "text": "#924968"
+    },
+    {
+      "internal": false,
+      "key": "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics",
+      "text": "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-..."
+    },
+    {
+      "internal": false,
+      "key": "http://hojtsy.hu",
+      "text": "Gábor Hojtsy (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/672",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/672",
+      "text": "set your expectations first"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.psegno.it",
+      "text": "plach (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/684",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/684",
+      "text": "A few remarks"
+    },
+    {
+      "internal": false,
+      "key": "http://buytaert.net/drupal-2010-retrospective-and-2011-predictions",
+      "text": "a valuable part of Drupal's target"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/i18nmenu_node",
+      "text": "hard to achieve"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/539110#comment-2353086",
+      "text": "we are totally aware there are still scenarios in which node translation is the way to go"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/864",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/864",
+      "text": "Node translation"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/865",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/865",
+      "text": "Updated the article to"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://nuazul.net",
+      "text": "sibiru (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3414",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3414",
+      "text": "Multilingual product title on shopping cart"
+    },
+    {
+      "internal": false,
+      "key": "http://balilou.be/products",
+      "text": "http://balilou.be/products"
+    },
+    {
+      "internal": false,
+      "key": "http://www.drupalcommerce.org/questions/10452/multilingual-product-title-shopping-cart",
+      "text": "http://www.drupalcommerce.org/questions/10452/multilingual-product-title..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3470",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3470",
+      "text": "Have you made the title"
+    },
+    {
+      "internal": false,
+      "key": "https://drupal.org/project/title",
+      "text": "https://drupal.org/project/title"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.comm-press.de",
+      "text": "Karsten Frohwein (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/673",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/673",
+      "text": "Is the field translation an API?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/674",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/674",
+      "text": "Field translation is for content only"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/719",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/719",
+      "text": "t() is not suitable for"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/841",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/841",
+      "text": "How am I supposed to manage without translated titles?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/842",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/842",
+      "text": "Thanks for mentioning that"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/entity_translation",
+      "text": "Entity Translation module"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/847",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/847",
+      "text": "Title module"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/848",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/848",
+      "text": "There's no release yet, so I"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/881",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/881",
+      "text": "Release"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalcode.org/project/title.git/snapshot/refs/heads/initial_work-924968.tar.gz",
+      "text": "downloadable"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://evolvingweb.ca",
+      "text": "Suzanne Kennedy (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/877",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/877",
+      "text": "For those testing this out,"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/878",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/878",
+      "text": "Hmm.. I thought Plach's note"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/comment/864#comment-864",
+      "text": "Plach's note"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://evolvingweb.ca",
+      "text": "Suzanne Kennedy (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/879",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/879",
+      "text": "My mistake, it's the i18n"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/880",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/880",
+      "text": "Multilingual content"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1109198",
+      "text": "http://drupal.org/node/1109198"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/954",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/954",
+      "text": "Modules"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/955",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/955",
+      "text": "Follow Gabor's series"
+    },
+    {
+      "internal": false,
+      "key": "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics",
+      "text": "Gábor Hojtsy's excellent series on translation in D7"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.saltwebsites.com",
+      "text": "Fletch (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2236",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2236",
+      "text": "But Why?"
+    },
+    {
+      "internal": false,
+      "key": "http://www.cai.org",
+      "text": "a large 10-language international church website"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2237",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2237",
+      "text": "Both this article and Gabor's"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.saltwebsites.com",
+      "text": "Fletch (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2238",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2238",
+      "text": "I found the little pro and"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3127",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3127",
+      "text": "Thanks!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3128",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3128",
+      "text": "Fixed, thanks."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://drupaldump.com",
+      "text": "Marko (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3395",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3395",
+      "text": "Drupal the leader"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3553",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3553",
+      "text": "Great Article!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://liquidvisual.ca",
+      "text": "Chris Brown (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3607",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3607",
+      "text": "ckeditor"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/88%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

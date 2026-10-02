@@ -1,0 +1,169 @@
+{
+  "title": "Stashing data in the D7 User Object (or... no more magical fairy cruft saving) | RandyFay.com",
+  "primaryHeading": "Stashing data in the D7 User Object (or... no more magical fairy cruft saving)",
+  "contentFound": true,
+  "lines": [
+    "Mon, 2010-12-13 07:27 by rfay",
+    "Planet Drupal",
+    "A unique and surprising feature of the Drupal user object up through Drupal 6 was that you could throw any crap into it you wanted and then run user_save() and it would be there. So in Drupal 6:",
+    "user_save($account, array('some_random_stuff' => 'surprisingly random');",
+    "Well, that always seemed way too easy and it was. After a security problem was discovered with this in way early D7 alpha days, it was decided to make this far more explicit and deliberate. Now you have to have implement hook_user_presave() to actually move your data into the right place and prove that you really wanted to do it.",
+    "Best practice says that we're going to save settings into the user object keyed by the module name. So if my module is named 'mymodule' in Drupal 7:",
+    "...",
+    "$stuff = array('some_random_stuff' => 'surprisingly_random');",
+    "user_save($account, array('mymodule' => $stuff);",
+    "...",
+    "function mymodule_user_presave(&$edit, $account, $category) {",
+    "// Make sure that our form value 'mymodule_foo' is stored as 'mymodule_bar'.",
+    "if (isset($edit['mymodule']['some_random_stuff'])) {",
+    "$edit['data']['mymodule']['some_random_stuff'] = $edit['mymodule']['some_random_stuff'];",
+    "}",
+    "}",
+    "This is demonstrated, but not so well explained, in hook_user_presave(). The issue where this was done is #721436.",
+    "Note that the entire data column in the users table will probably be removed in Drupal 8, so the \"preferred\" storage technique of storing data in a module-owned table may be an appropriate and future-proof approach.",
+    "Comments",
+    "andypost (not verified)",
+    "Sun, 2010-12-12 02:29",
+    "Permalink",
+    "Why not use module's field storage?",
+    "mymodule could easily add own field for user object and use hook_user_presave() to prepopulate a value",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2010-12-12 08:57",
+    "Permalink",
+    "Thanks, Andy - The idea here",
+    "Thanks, Andy - The idea here was to explain how D6->D7 ports of this feature could be done most easily.",
+    "Would love to have you demonstrate here how you'd do it!",
+    "Log in to post comments",
+    "tcindie (not verified)",
+    "Wed, 2011-01-12 12:08",
+    "Permalink",
+    "Why?",
+    "I guess I don't understand what the use case would be that would warrant doing this in the first place.",
+    "Presumably it's to associate some data needed by a module with a specific user, but why then not just have a separate table in the DB for that module that stores the needed data associated with the UID?",
+    "I've done this for persistent recipe scaling on http://thelunchbox.org",
+    "Logged in users have the ability to scale any recipe on the site by either elementary servings or secondary servings. Their choice is then inserted into a table whose entire purpose for being is to handle these relationships.",
+    "So, when user with UID 5 scales the recipe with nid 1026, an entry is either inserted (or updated) in that table with their desired number of servings. Primary key for the table is a combination of UID & NID, and there is a field for each of the two serving types. Some JS only allows populating one of the two fields.",
+    "In this case, the table row for this user might have values like this:",
+    "UID = 5, NID = 1026, elementary = NULL, secondary = 300",
+    "Once saved, this recipe will always be shown to this user with their desired number of servings, as long as the user is logged in, until they either change the number, or submit an empty value (which will remove the entry from the table, and cause the recipe to display with default values).",
+    "This is of course what you're referring to in your last sentence about using a module owned table, but I guess I don't see a reason ever to do this in the other way by just attaching arbitrary data to the user object. It doesn't seem terribly useful to me.",
+    "Anyone have any good examples of when it might make more sense to attach some arbitrary data to the user object like this?",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-01-12 21:36",
+    "Permalink",
+    "This is an old Drupal feature, so this is about porting to D7",
+    "Since the ability to stash data in the user object has been around for a long time, this is really about porting existing functionality. It's not a recommended way of adding functionality, as mentioned.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/modules--user--user.api.php/function/hook_user_presave/7",
+      "text": "hook_user_presave()"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/721436",
+      "text": "#721436"
+    },
+    {
+      "internal": false,
+      "key": "http://prodrupal.ru",
+      "text": "andypost (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/647",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/647",
+      "text": "Why not use module's field storage?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/85%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/648",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/648",
+      "text": "Thanks, Andy - The idea here"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/85%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://willvincent.com",
+      "text": "tcindie (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/658",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/658",
+      "text": "Why?"
+    },
+    {
+      "internal": false,
+      "key": "http://thelunchbox.org",
+      "text": "http://thelunchbox.org"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/85%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/660",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/660",
+      "text": "This is an old Drupal feature, so this is about porting to D7"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/85%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

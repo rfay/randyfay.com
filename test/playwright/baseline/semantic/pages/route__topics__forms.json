@@ -1,0 +1,241 @@
+{
+  "title": "Forms | RandyFay.com",
+  "primaryHeading": "Forms",
+  "contentFound": true,
+  "lines": [
+    "Form API Changes for Drupal 7, Part 1: $form_state changes",
+    "Tue, 2010-06-15 18:33 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Forms",
+    "You may know that lots of delicious things have happened to Drupal's Form API in Drupal 7. (Only a geek can say \"delicious\" and \"Form API\" in the same sentence. Try it!) The finest minds in the business have been working on it, I can assure you. Give effulgentsia, fago, frando, and chx a big hug when you see them, because Form API is much improved. (Sorry to those of you I forgot to name, but THANKS!)",
+    "I'm going to do a series covering Form API changes, starting with this one. I won't attempt to cover the deep details, just the things that ordinary developers might use:",
+    "$form_state changes and form builder function signature changes",
+    "AJAX Forms changes",
+    "New properties (#attached and many friends)",
+    "Let me know if you have other topics to suggest.",
+    "OK, to business. This article is mostly parroted from the api.drupal.org topic: Form Generation. Thanks to Alex Bronstein (effulgentsia) for his reviews and contributions to that doc.",
+    "Don't forget that the form builder function signature changed!",
+    "In Drupal 6 the form builder function looked like this:",
+    "function my_module_funky_form(&$form_state) { ... }",
+    "but in Drupal 7 it's",
+    "function my_module_funky_form($form, &$form_state, ... ) { ... }",
+    "$form_state in Drupal 7",
+    "Mostly the members of the $form_state array are the same ones you know and love from Drupal 6:",
+    "$form_state['values']: An associative array of values that have been submitted to the form. The validation and submit functions use this array for nearly all their decisionmaking. (Note that #tree determines whether the values are a flat array or an array whose structure parallels the $form array.) This is nearly the same as it was in D6.",
+    "$form_state['rebuild']: If the submit handler sets $form_state['rebuild'] to TRUE, submission is not completed and instead the form is rebuilt using any information that the submit function has made available to the form builder function via $form_state. This is commonly used for wizard-style multi-step forms, add-more buttons, and the like. For further information see drupal_build_form(). This is the same as D6.",
+    "$form_state['redirect']: a URL that will be used to redirect the form on submission. See drupal_redirect_form() for complete information. This should always be used instead of drupal_goto() in a forms context. Note that $form['#redirect'] went away in Drupal 7 and no longer has any effect.",
+    "$form_state['storage']: $form_state['storage'] is no more! It used to be the place for application-specific values, but now it has no specific meaning. Now nearly all $form_state keys persist in a multi-step form, so the recommended approach is to use $form_state['your_module']['whatever']. ($form_state['storage'] still works for persistent storage, just like $form_state['timbuktu'] works.)",
+    "$form_state['triggering_element': (read-only) The form element that triggered submission. This is the same as the deprecated $form_state['clicked_button']. It is the element that caused submission, which may or may not be a button (in the case of AJAX forms.) This is often used to distinguish between various buttons in a submit handler, and is also used in AJAX handlers.",
+    "$form_state['cache']: The typical form workflow involves two page requests. During the first page request, a form is built and returned for the user to fill in. Then the user fills the form in and submits it, triggering a second page request in which the form must be built and processed. By default, $form and $form_state are built from scratch during each of these page requests. In some special use-cases, it is necessary or desired to persist the $form and $form_state variables from the initial page request to the one that processes the submission. A form builder function can set 'cache' to TRUE to do this. One example where this is needed is to handle AJAX submissions, so ajax_process_form() sets this for all forms that include an element with a #ajax property. (In AJAX, the handler has no way to build the form itself, so must rely on the cached version created on each page load, so it's a classic example of this use case.) Note that the persistence of $form and $form_state across successive submissions of a multi-step form happens automatically regardless of the value for 'cache'. You probably won't need to use $form_state['cache']. And note that $form['#cache'] is gone in D7 and now has no effect on anything.",
+    "$form_state['input']: The array of values as they were submitted by the user. These are raw and unvalidated, so should not be used without a thorough understanding of security implications. In almost all cases, code should use the data in the 'values' array exclusively. The most common use of this key is for multi-step forms that need to clear some of the user input when setting 'rebuild'.",
+    "Drupal 7 FAPI Resources:",
+    "api.drupal.org Form Generation section.",
+    "The Form Example in Examples for Developers project. (on api.drupal.org: http://api.drupal.org/api/drupal/developer--examples--form_example--form...",
+    "D7 Form API Reference",
+    "Next time: Part 2: AJAX forms changes.",
+    "Form API Changes for Drupal 7, Part 2: AJAX/AHAH Changes",
+    "Tue, 2010-09-07 03:41 by rfay",
+    "AJAX",
+    "Planet Drupal",
+    "Forms",
+    "Continuing from Form API Changes for Drupal 7, Part 1: $form_state changes.",
+    "One of the many pleasant improvements to the Drupal Form API is that AJAX Forms are now really easy. Really easy. We used to call them AHAH forms, and the concept was the same, but they were so complicated that few people attempted them. In D7 we even changed the name to distance ourselves from \"AHAH\" :-)",
+    "In Drupal 6 you had to make a menu entry in hook_menu() that pointed to an AJAX callback handler that was complete black magic. (See a sanitized example.) People did this part differently, and it was hard to figure out the right way. (If you're doing D6 AHAH, the gory details and resources are here.)",
+    "In Drupal 7 there is none of that. But we still have to start with the basics so that you'll understand what's going on:",
+    "The key idea here is that manipulating a form element will make something active happen (usually replacement of a piece of the form) without a full page refresh. For example, changing a select might change the options in the rest of the form, without a page refresh.",
+    "To use AJAX forms, you don't need to know or use or see any javascript. It's all handled for you by the Form API.",
+    "To AJAX-enable a form element (to make it do something active when it's manipulated) you just set the #ajax property on it",
+    "When the form element changes (or is clicked, or whatever) a form submission is done by the client in the background.",
+    "The server-side code rebuilds the form (in the formbuilder function) in a different way",
+    "The #ajax['callback'] function chooses what part of the form to replace on the page",
+    "Replacement HTML is returned to the client javascript code, which replaces a part of the page.",
+    "OK, so here's all you have to do to AJAXify a form:",
+    "In your form, set #ajax on an element, perhaps a select.",
+    "Your formbuilder function should have logic to rebuild differently when the select changes. (See the simple formbuilder in ajax_example_autocheckboxes.)",
+    "#ajax['callback'] will point to a (typically simple) function which often only selects and returns the changed piece of the form. (See the tremendously simple ajax_example_autocheckboxes_callback.)",
+    "That's basically it. Of course you can do lots and lots more than this, but the basic entry point for AJAX forms is mighty easy.",
+    "Submit handler is not called when a non-submit is called",
+    "One key change from Drupal 6 to be aware of is that when you activate a non-submit AJAX-enabled form element, the submit handlers are not called. In Drupal 6, submit handlers were called, and a bit of spaghetti code was typically done there.",
+    "Drupal 7 AJAX Forms Resources",
+    "Drupal.org handbook page on AJAX Forms",
+    "Examples for Developers AJAX Example has many AJAX Form examples, including more complex gracefully-degrading techniques. This is also quickly accessible on api.drupal.org",
+    "Explanation details for the some of the AJAX Examples",
+    "Key D7 AJAX Open Issues",
+    "There are still a few of important open issues for D7 AJAX that you may want to look at:",
+    "Fix drupal_add_js() and drupal_add_css() to work for AJAX requests too by adding lazy-load to AJAX framework (Absolutely critical - add your +1 to this, or help out)",
+    "#type 'link' is not ajaxifiable",
+    "Improve drupalPostAJAX() to be used more easily, leading to better AJAX test coverage",
+    "Next time: Drupal 7 multistep form changes.",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/form-api-changes-drupal-7-part-1-formstate-changes",
+      "text": "Form API Changes for Drupal 7, Part 1: $form_state changes"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/forms",
+      "text": "Forms"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/form_api/7",
+      "text": "Form Generation"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/form_api/7",
+      "text": "Form Generation"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--form_example--form_example_tutorial.inc/7",
+      "text": "http://api.drupal.org/api/drupal/developer--examples--form_example--form..."
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7",
+      "text": "Form API Reference"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/74",
+      "text": "Part 2: AJAX forms changes."
+    },
+    {
+      "internal": true,
+      "key": "content/form-api-changes-drupal-7-part-2-ajaxahah-changes",
+      "text": "Form API Changes for Drupal 7, Part 2: AJAX/AHAH Changes"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/forms",
+      "text": "Forms"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/66",
+      "text": "Form API Changes for Drupal 7, Part 1: $form_state changes"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ahah_example_callback_helper/6",
+      "text": "sanitized example"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/ahah",
+      "text": "here"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7#ajax",
+      "text": "#ajax"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7#ajax",
+      "text": "#ajax"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_autocheckboxes/7",
+      "text": "ajax_example_autocheckboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_autocheckboxes_callback/7",
+      "text": "ajax_example_autocheckboxes_callback"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/752056",
+      "text": "Drupal.org handbook page on AJAX Forms"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/ajax_examples/7",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/ajax",
+      "text": "Explanation details for the some of the AJAX Examples"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/561858",
+      "text": "Fix drupal_add_js() and drupal_add_css() to work for AJAX requests too by adding lazy-load to AJAX framework"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/647228",
+      "text": "#type 'link' is not ajaxifiable"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/789186",
+      "text": "Improve drupalPostAJAX() to be used more easily, leading to better AJAX test coverage"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

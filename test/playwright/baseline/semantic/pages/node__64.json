@@ -1,0 +1,163 @@
+{
+  "title": "New Queue and Menu Examples for Examples Project | RandyFay.com",
+  "primaryHeading": "New Queue and Menu Examples for Examples Project",
+  "contentFound": true,
+  "lines": [
+    "Fri, 2010-06-04 10:12 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "The Examples for Developers Project aims to provide high-quality, well-documented API examples for a broad range of Drupal core functionality. You can download the code from the project page, view it on api.drupal.org, or experience it (for several of them) at drupalexamples.info.",
+    "Recently, we've added two new example suites:",
+    "Drupal 7 Queue Example, (see the code on api.drupal.org or experience the UI on d7.drupalexamples.info). This Drupal 7 code should also be compatible with the D6 Drupal Queue module, which is a backport. Thanks, coltrane!",
+    "Drupal 6 and Drupal 7 Menu Example. These examples use nearly every feature of the Menu API, and provide easy-to-access examples of tabs, placeholders, and many of the other fairly obscure features of the Menu API. See the code on api.drupal.org or experience the examples at drupalexamples.info.",
+    "Examples for Developers is a community project. Contributions are encouraged (just use the issue queue). If you find a problem, please submit an issue. If you want to fix a problem you find, please submit a patch. It will never be perfect, but if we tend it as a community resource, it should get better all the time.",
+    "Comments",
+    "Nick Lewis (not verified)",
+    "Sat, 2010-06-05 23:46",
+    "Permalink",
+    "This is beautiful documentation!",
+    "This is beautiful documentation!",
+    "Log in to post comments",
+    "podarok (not verified)",
+    "Mon, 2011-05-02 14:21",
+    "Permalink",
+    "drupalexamples.info",
+    "first sentence - drupalexamples.info link broken...",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2011-05-02 14:31",
+    "Permalink",
+    "Thanks - fixed it.",
+    "Thanks - fixed it.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers Project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "the project page"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info",
+      "text": "drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--queue_example--queue_example.module/7",
+      "text": "code on api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/queue_example/insert_remove",
+      "text": "d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/drupal_queue",
+      "text": "D6 Drupal Queue module"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--menu_example--menu_example.module/6",
+      "text": "code on api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/menu_example",
+      "text": "drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://www.nicklewis.org",
+      "text": "Nick Lewis (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/90",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/90",
+      "text": "This is beautiful documentation!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/64%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://druler.com",
+      "text": "podarok (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/968",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/968",
+      "text": "drupalexamples.info"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/64%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/969",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/969",
+      "text": "Thanks - fixed it."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/64%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "title": "AHAH Changes for Drupal 7 (It's now called #AJAX) | RandyFay.com",
+  "primaryHeading": "AHAH Changes for Drupal 7 (It's now called #AJAX)",
+  "contentFound": true,
+  "lines": [
+    "Drupal 7 AHAH has changed its name to AJAX to use a more familiar term and to be slightly more trendy. A version of this presentation for D7 AJAX is at http://randyfay.com/ajax. D7 AJAX handling is massively simplified.",
+    "The AJAX Example for D7 is now in the Examples Module and will be maintained there. If you find AJAX features that you'd like to see in it that aren't there, file a request or submit a patch.",
+    "Drupal",
+    "AHAH",
+    "AJAX",
+    "Book Navigation",
+    "‹ AHAH Resources",
+    "up"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": false,
+      "key": "http://randyfay.com/ajax",
+      "text": "http://randyfay.com/ajax"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples Module"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-resources",
+      "text": "‹ AHAH Resources"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+        "key": "ahah"
+      }
+    ]
+  }
+}

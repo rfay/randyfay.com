@@ -9,8 +9,8 @@
 // Run one type:         ddev playwright test --grep @blog
 // Run one smoke sample: ddev playwright test --grep @smoke
 // Run a slice:          ddev playwright test tests/regression-content.spec.ts --shard=1/4
-// Point at a migration target instead of the live site:
-//   TEST_BASE_URL=https://migration-a.example.com ddev playwright test tests/regression-content.spec.ts
+// Point at a migration target instead of the development site (set the variable INSIDE the container; a host-side env var is not forwarded):
+//   ddev exec -d /var/www/html/test/playwright 'TEST_BASE_URL=https://migration-a.example.com npx playwright test tests/regression-content.spec.ts'
 
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';

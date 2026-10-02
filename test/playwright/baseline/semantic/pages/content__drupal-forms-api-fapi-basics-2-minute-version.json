@@ -1,0 +1,85 @@
+{
+  "title": "Drupal Forms API (FAPI) Basics - the 2-minute version | RandyFay.com",
+  "primaryHeading": "Drupal Forms API (FAPI) Basics - the 2-minute version",
+  "contentFound": true,
+  "lines": [
+    "It's pretty easy to forget all the details of the Drupal Forms API, so we'll stop for a minute for a very short review.",
+    "You add a form to your page like this:",
+    "$output .= drupal_get_form('ahah_demo_simplest_form');",
+    "?>",
+    "Often that's done right from the hook_menu implementation.",
+    "The layout of a form is as below:",
+    "/**",
+    "* A Hello-world for Forms API (FAPI)",
+    "*/",
+    "function ahah_demo_simplest_form() {",
+    "$form['explanation'] = array(",
+    "'#type' => 'markup',",
+    "'#value' => '",
+    "' . t('This is a basic form with just a bit of information') . '",
+    "',",
+    ");",
+    "$form['experience'] = array(",
+    "'#type' => 'select',",
+    "'#title' => t('What is your experience level in Drupal?'),",
+    "'#options' => array(",
+    "'expert' => t('Expert'),",
+    "'journeyman' => t('Journeyman'),",
+    "'beginner' => t('Beginner')),",
+    ");",
+    "$form['more'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t(\"Say more about yourself\"),",
+    "'#description' => t('Surely one word can\\'t describe you.'),",
+    ");",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "function ahah_demo_simplest_form_submit($form, &$form_state) {",
+    "drupal_set_message(t('You have claimed to be %experience: %more',",
+    "array(",
+    "'%experience'=>$form_state['values']['experience'],",
+    "'%more' => $form_state['values']['more'],",
+    ")",
+    "));",
+    "}",
+    "?>",
+    "Book Navigation",
+    "‹ Examples of AHAH in Drupal",
+    "up",
+    "AHAH Simplest Example: #ahah on the submit button, replace a region ›"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/examples-ahah-drupal",
+      "text": "‹ Examples of AHAH in Drupal"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-simplest-example-ahah-submit-button-replace-region",
+      "text": "AHAH Simplest Example: #ahah on the submit button, replace a region ›"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+        "key": "ahah"
+      }
+    ]
+  }
+}

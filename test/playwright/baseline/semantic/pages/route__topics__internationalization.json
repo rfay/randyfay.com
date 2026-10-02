@@ -1,0 +1,129 @@
+{
+  "title": "internationalization | RandyFay.com",
+  "primaryHeading": "internationalization",
+  "contentFound": true,
+  "lines": [
+    "Internationalization and Localization of Warmshowers.org",
+    "Thu, 2009-04-30 06:38 by rfay",
+    "Drupal",
+    "internationalization",
+    "Planet Drupal",
+    "Warmshowers.org is my biggest site, with more than 7500 members, and almost certainly the most useful. It's a reciprocal hospitality site for touring cyclists - people offer touring cyclists a place to stay and a shower. It's been in English for years, but that cuts out a significant part of the world's population, and it means that options for cyclists in Latin America and several other places in the world have been more limited than they ought to be.",
+    "But we just launched es.warmshowers.org, a Drupal 6 version with all the key parts internationalized and then localized into Spanish. We're very proud of this accomplishment!",
+    "It took a lot of work by a lot of people to do this. First, Chris Russo nearly singlehandedly upgraded the site to Drupal 6, a significant accomplishment because of the custom modules we have developed for the site. Then we began learning how to do all of the localization into Spanish, and learning how to get a group together to do the translation.",
+    "There are probably four parts to the translation of the site:",
+    "Translation of the important, static content (articles, FAQ, nodes)",
+    "Translation of the interface (menus, status and warning messages, dialog boxes, prompts, forms)",
+    "Translation of the rest of the interface that's left over (outgoing emails, non-code instructions to users, etc.)",
+    "Translation of transient user-generated content (forums, other postings)",
+    "The last of these we're going to try to do with a custom module that uses the <a href=\"http://code.google.com/apis/ajaxlanguage/\"Google AJAX Language API\", specifically using the Jquery Translate jquery plugin. We did everything that seems reasonable by hand translation with native speakers, but it does not seem possible to keep up with all of the user-generated content. We'd never get enough translators to do that.",
+    "Why didn't we use machine translation for the entire site? Because it still stinks, despite what anybody says. If you know two languages, and you use Google Translate or Babelfish or any of the other services to translate them, you'll understand what I mean. Often the result is useful, meaning that you can understand the intent. Sometimes it's hilarious. Many times it's stupid. And sometimes it's just plain misleading or incomprehensible. Not a very good thing to build a website on.",
+    "But our biggest issue in translation is not the technology, it's the people. It takes a strong team to translate and then maintain a website in another language. So we're trying to learn how to do that. It's baby steps we're taking, but we're taking them.",
+    "We sent out an email to our worldwide membership some time ago and 31 native Spanish speakers responded by saying they were interested in joining the project. I created a Google Group for discussion and maintenance of the translation, and invited them all. 21 signed up for the group. And 5-10 have been active in helping with the translation.",
+    "We started the training with an online conference using the yuuguu screensharing technology and Skype. But technical problems (internet connectivity mostly) made this not work so well. So I made three 5-minute screencasts showing how to do the translation. That seemed to work better than the group conference technique.",
+    "We then set the group loose on translation. One of the biggest issues at this point was knowing who might be working on what. At first we used an editable document within the Google Groups framework, but then I was able to create two Drupal views ( 1 and 2 which show the status of translation activity using native Drupal information. The cool thing here is that due to the sophistication of views, these will work unchanged in other languages. So we're building up the infrastructure needed to do French, and then Portuguese, etc.",
+    "Another challenge any volunteer organization faces is deciding who's in charge. We needed an editor to make final decisions about usage, and to try to give the translated material some semblance of consistency. One of our translators, David Peluso, has graciously agreed to do this for now. And we now need somebody to answer emails sent to the site administrator in Spanish, so another translator, Manu, has signed up for this task. We'll use a special \"Spanish\" category on the contact page so that emails sent in Spanish will go straight to him.",
+    "Now the questions are: Can we maintain the site in multiple languages? How many languages should we take on?",
+    "Compared to my past attempts at internationalization of websites, this one is much farther along. In the past I always underestimated the scope of the task. It's big. This time, with a great team, I think we have a working site. Also, I think that Drupal 6 is far better at this than previous incarnations. Every attempt I made in the past ended up with very confusing language switches for no reason, and lots and lots of broken links. I think this one is going to work.",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/internationalization-and-localization-warmshowersorg",
+      "text": "Internationalization and Localization of Warmshowers.org"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/internationalization",
+      "text": "internationalization"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org",
+      "text": "Warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org",
+      "text": "es.warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/apis/ajaxlanguage",
+      "text": "http://code.google.com/apis/ajaxlanguage/"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/p/jquery-translate",
+      "text": "Jquery Translate"
+    },
+    {
+      "internal": false,
+      "key": "http://yuuguu.com",
+      "text": "yuuguu"
+    },
+    {
+      "internal": false,
+      "key": "http://www.skype.com",
+      "text": "Skype"
+    },
+    {
+      "internal": false,
+      "key": "http://www.screencast.com/users/randyfay/folders/Warmshowers.org%20translation",
+      "text": "5-minute screencasts"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org/translations/status",
+      "text": "1"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org/translations/details",
+      "text": "2"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org",
+      "text": "working site"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

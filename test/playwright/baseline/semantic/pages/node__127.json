@@ -1,0 +1,315 @@
+{
+  "title": "Why I Donated To BackdropCMS | RandyFay.com",
+  "primaryHeading": "Why I Donated To BackdropCMS",
+  "contentFound": true,
+  "lines": [
+    "Mon, 2013-09-23 09:40 by rfay",
+    "Planet Drupal",
+    "I've been a rabid supporter of Drupal; Of course anybody who knows me has watched my enthusiasm wear thin for various reasons, including simple burnout mostly, but also a number of frustrations with lack of progress in the community, especially with simple things like solving the support vacuum. However, I do not have an agenda against Drupal in any way, and as a professional programmer, I wouldn't be surprised if the core changes being introduced in Drupal 8 are a step in the right direction for future maintainability and sustainability. (Disclaimer: I have mostly ignored all of the changes and have only a rudimentary understanding of them. I wore myself out on Drupal 7 and swore off Drupal 8.)",
+    "Technical debt: But in my personal life I've been using Drupal for almost a decade now. And like everybody else I was sucker enough to say \"I know how to do that\" when my friends, family or organizations I was a member of had a problem that required a website. Oops. So now I have probably a couple of dozen websites that I am the de facto maintainer for. Already I've been through major version updates for many of them. And for a simple brochure site it's sometimes not too difficult. But for a more complex site with lots of contrib modules, it can be daunting. And then for a site that has custom code it can be overwhelming. The site I've been supporting since 2005, Warmshowers.org, (still on D6) has nearly 40,000 members, serves a vital role, and has a budget of about $3000/year, mostly spent on hosting. So what am I going to do about that when D8 comes along? Even upgrading to D7 will take probably more than a couple hundred hours of work, lots of custom code. D8 is unfathomable.",
+    "The forkers of Backdrop have promised to slow down the rate of API change, and to be specifically attractive to small sites without a perpetual budget for rewrites. I need that very much, whether or not I invest in learning Drupal 8, which may be loads of fun. I really need a simpler upgrade path, and one that won't force me to redo everything every couple of years. If I help somebody with a website, I no longer want to have to say \"Oh and by the way, you need to budget at least $5000 for an upgrade every couple of years.\" I really never want to say that again. I need this. Or I have to get help breaking my addiction to helping people with web communication problems.",
+    "Oh, but the real reason I donated is that Backdropcms.org says on the top of the page \"Don't Panic\" in large, friendly letters.",
+    "Comments",
+    "pjcdawkins (not verified)",
+    "Mon, 2013-09-23 15:03",
+    "Permalink",
+    "\"You need to budget at least",
+    "\"You need to budget at least $5000 for an upgrade every couple of years\" - well, Drupal 6 is still going strong after more than 5 years, so perhaps that's a bit of an exaggeration.",
+    "I see how Backdrop's intention to slow down API change is attractive. But how exactly would they do that, yet also allow for new features and keeping up with the future of the web, despite having many fewer developers than Drupal? Given the new architecture, isn't backward compatibility set to improve with Drupal 8-9 anyway? And the D8 CMI should also make it easier to maintain multiple websites.",
+    "Log in to post comments",
+    "willvincent (not verified)",
+    "Mon, 2013-09-23 23:08",
+    "Permalink",
+    "And yet, all that \"easier\"",
+    "And yet, all that \"easier\" still comes with an initial upgrade and redeployment that will be a painful upgrade path for the multitude of sites Randy supports, as he pretty clearly laid out in his post.",
+    "Log in to post comments",
+    "jurgenhaas (not verified)",
+    "Tue, 2013-09-24 03:14",
+    "Permalink",
+    "Yes it is - for good reasons",
+    "The question to answer before hudging is where you (or Randy) wants to go over the years. If all the maintained websites need is to keep them up and running mostly as thy are, well fine - why bother. I guess not too many fall into that category, right?",
+    "Log in to post comments",
+    "Darrell Ulm (not verified)",
+    "Tue, 2013-09-24 12:00",
+    "Permalink",
+    "Drupal as software / Android comparisons",
+    "Well written as interest increases for Backdrop.",
+    "It is possible the fork would benefit both Drupal and Backdrop, since many are saying that the changes in Drupal 8 are meant to attract mainly top-notch developers, \"higher tier of developer,\" then by that stated goal, Drupal 8 will do well. Many are saying that the other Drupal developers will not be able to handle Drupal 8. By that logic, both parties should benefit and Drupal will be left with only superlative programmers and code, and Backdrop will be a place for everyone else who still loves Drupal, or at least most of the Drupal 7 API as well as the Drupal-y UI. Both projects should win based on what their stated future goals are. Drupal 8 ought to attract Symfony and OO devs and Backdrop may even attract Wordpress devs.",
+    "That said, with OO programming there are ways to do it right, and many more ways to not do it right - design is everything and I'm certain that both parties, coming from the rigorous coding background of Drupal, will utilize careful design, just different design. So everyone wins. There is a Google talk on \"How To Design A Good API and Why it Matters\" out there somewhere: \"Easy to Learn,\" \"Easy to use even without documentation,\" \"Hard to misuse,\" \"Easy to read and maintain code that uses it,\" \"Sufficiently powerful to satisfy requirements,\" \"Easy to evolve,\" \"Appropriate to audience.\"",
+    "For instance, Android apps can be made very backward compatible, and forward compatible virtually by default. Even though Android is not the same classification of software as Drupal, apps will need to move extremely quickly as devices and the mobile eco-sphere rapidly change. Did Google do it wrong? Should Android not be backward (or forward) compatible to take advantage of the future of apps/devices? Even now, we see Android moving to all kinds of devices. Alternatively, is the Android API design just better for compatibility forward and backward?",
+    "Concerning \"yet also allow for new features and keeping up with the future of the web\"",
+    "Questions: Wordpress may have some crufty code, but has it been keeping pace? Does Wordpress have a good UI for users? Are the most utilized Wordpress plug-ins polished? Can a Wordpress site be responsive or have plug-ins which connect to modern services or use a modern themes even though the code is crufty as well as mostly backward compatible, or are these impossible for Wordpress? (not a Wordpress expert)",
+    "And concerning: \"isn't backward compatibility set to improve with Drupal 8-9 anyway?\"",
+    "Perhaps, but how far away is Drupal 9, what are guarantees, and what will site owners choose in the coming years? They could move to Wordpress, but many Drupalists do love Drupal.",
+    "That said, I'm guessing both releases, Drupal 8 and Backdrop, will be well done based on all the smart and dedicated people working on them and one hopes that there can be sharing and collaboration between the groups now and in the far future.",
+    "Log in to post comments",
+    "Joep Hendrix (not verified)",
+    "Tue, 2013-09-24 15:28",
+    "Permalink",
+    "Why upgrade?",
+    "Why upgrade?",
+    "What if Backdrop will die in 2 years?",
+    "Just keep using D6 and start saving money untill you have enough to upgrade to D9.",
+    "At the end that will be the less expensive option?",
+    "Log in to post comments",
+    "Darrell Ulm (not verified)",
+    "Tue, 2013-09-24 16:00",
+    "Permalink",
+    "This comment does not seem",
+    "This comment does not seem directed at my previous comment, but I had not heard that there was going to be D6 LTS, https://groups.drupal.org/drupal-lts",
+    "Isn't D6 going unsupported, via Drupal.org, but not necessarily vendors, once D8 is officially released?",
+    "Log in to post comments",
+    "Antti Salminen (not verified)",
+    "Wed, 2013-09-25 13:56",
+    "Permalink",
+    "The problem with both D6LTS and Backdrop",
+    "The problem with both Backdrop and Drupal 6 LTS is that they only take care of Drupal core. If your site has any substantial amount of contrib modules, those would have to be maintained as well. If your site doesn't have those, a Drupal upgrade should be fairly trivial anyway.",
+    "The only real ways out of the upgrade cycle would be either to get all of contrib on board for also maintaining separate versions for Drupal 6 / backdrop or for Drupal core itself to adopt a different stance on this.",
+    "Log in to post comments",
+    "Kelly Bell (not verified)",
+    "Mon, 2013-11-04 12:35",
+    "Permalink",
+    "The cartoon says it all...",
+    "Who needs \"a thousand words\" when this \"picture\" (so ubiquitous as to be synonymous with Drupal, at this point) says it all (and believe me, I'm \"all in\" for Drupal. I'm just frustrated, as many are, by having to rebuild everyone's site every 2-3 years and re-learn my entire skillset as well, to stay up-to-date). This cartoon is MY LIFE.",
+    "(insert image here)",
+    "Hanging by my fingernails from the cliff,",
+    "Kelly",
+    "Log in to post comments",
+    "Kelly Bell (not verified)",
+    "Mon, 2013-11-04 19:48",
+    "Permalink",
+    "cartoon missing",
+    "I guess the cartoon image didn't make the \"mollom cut\"... here's the URL: http://migratetowp.com/wp-content/uploads/LearningCurveCMS.png",
+    "i always thought it was funny that this was from a WP site - I guess proving the point that just because a person uses Wordpress doesn't necessarily mean they're wrong. ;)",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/topics/burnout",
+      "text": "burnout"
+    },
+    {
+      "internal": false,
+      "key": "https://www.warmshowers.org",
+      "text": "Warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://backdropcms.org",
+      "text": "Backdropcms.org"
+    },
+    {
+      "internal": false,
+      "key": "http://en.wikipedia.org/wiki/The_Hitchhiker's_Guide_to_the_Galaxy_(fictional)#Physical_description",
+      "text": "\"Don't Panic\" in large, friendly letters"
+    },
+    {
+      "internal": true,
+      "key": "comment/3403",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3403",
+      "text": "\"You need to budget at least"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/127%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://willvincent.com",
+      "text": "willvincent (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3404",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3404",
+      "text": "And yet, all that \"easier\""
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/127%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.paragon-es.de",
+      "text": "jurgenhaas (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3405",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3405",
+      "text": "Yes it is - for good reasons"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/127%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://superpowerplanet.com",
+      "text": "Darrell Ulm (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3406",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3406",
+      "text": "Drupal as software / Android comparisons"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/127%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.compubase.nl",
+      "text": "Joep Hendrix (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3407",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3407",
+      "text": "Why upgrade?"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/127%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://superpowerplanet.com",
+      "text": "Darrell Ulm (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3408",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3408",
+      "text": "This comment does not seem"
+    },
+    {
+      "internal": false,
+      "key": "https://groups.drupal.org/drupal-lts",
+      "text": "https://groups.drupal.org/drupal-lts"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/127%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://facingworlds.com",
+      "text": "Antti Salminen (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3409",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3409",
+      "text": "The problem with both D6LTS and Backdrop"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/127%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://gothamcitydrupal.com",
+      "text": "Kelly Bell (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3430",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3430",
+      "text": "The cartoon says it all..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/127%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://gothamcitydrupal.com",
+      "text": "Kelly Bell (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/3431",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3431",
+      "text": "cartoon missing"
+    },
+    {
+      "internal": false,
+      "key": "http://migratetowp.com/wp-content/uploads/LearningCurveCMS.png",
+      "text": "http://migratetowp.com/wp-content/uploads/LearningCurveCMS.png"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/127%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

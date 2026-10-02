@@ -1,0 +1,756 @@
+{
+  "title": "Drupal | RandyFay.com",
+  "primaryHeading": "Drupal",
+  "contentFound": true,
+  "lines": [
+    "What in the world have I been up to?",
+    "Sat, 2009-02-21 10:35 by rfay",
+    "Drupal",
+    "You probably know that Nancy and I spent two years on our bicycles riding from the far north of Canada to Argentina in South America. You can read all about the adventure on hobobiker.com",
+    "Even before we got back, I restarted my Drupal development consulting (Drupal is a Content Management System and web development environment) and have been plenty busy in the intervening time. It's been my intent to list some of the projects and learning here, but to this point I haven't done it. Maybe now :-)",
+    "Drupal: Panels Plugin Example module",
+    "Sat, 2009-02-21 22:46 by rfay",
+    "Drupal",
+    "Panels",
+    "For the Amazon_store Drupal module I've been working on for Alonovo.com, I set up several of the pages to use Panels plugins. But there isn't a lot of documentation on how to do this, so I had to dive in and learn it from the examples available in the code. The result was a set of examples of how an drupal module can implement panes, the Panels Plugin Example which is now available on on Drupal.org. There are examples of content_type, argument, context, and relationship plugins. I'm hoping that others will review the code and improve it.",
+    "Member of the Drupal Association",
+    "Sun, 2009-03-29 21:15 by rfay",
+    "Topics:",
+    "Drupal",
+    "Portfolio and Resume",
+    "Thu, 2009-04-09 12:04 by rfay",
+    "Drupal",
+    "portfolio",
+    "I've been doing a lot of Drupal jobs and websites over the years, and sometimes update this portfolio.",
+    "A couple of my own websites:",
+    "hobobiker.com. A blog with theming and custom modules for mapping of routes.",
+    "warmshowers.org. A social networking site: Reciprocal hospitality for touring cyclists. Much custom drupal work, including Ajax-driven Google maps display and geolocation. And now it'sinternationalized and translated into Spanish, French, and Portuguese.",
+    "A sampling of drupal work, upgrades, modules development:",
+    "Many core patches contributed to and accepted into Drupal 7 and a couple for Drupal 6",
+    "Examples module: Key examples for Drupal developers",
+    "Amazon module Comaintainer with Jeff Eaton.",
+    "Amazon Store module.",
+    "Role Change Notify module",
+    "Translatable Regions module, which allows dynamic machine translation of specific sections of a page.",
+    "CTools Plugin Examples component of the CTools module.",
+    "Comaintainer of the Drupal core AJAX subsystem",
+    "Much work for Marie Thacker, including a Smackdown rewrite and many other modules for Sparkleshelf.com, custom modules, troubleshooting, etc. Feel free to contact her",
+    "Drupal.org",
+    "I'm a regular speaker at Drupalcons and Drupalcamps:",
+    "Dynamic forms using AJAX at Drupalcon SF 2010 and Drupalcamp Colorado 2010",
+    "Features for site management and deployment at Drupalcamp Colorado 2010",
+    "Debugging Drupal at DrupalCon Copenhagen 2010 and Paris 2009",
+    "Many, many contributions on drupal.org including projects, manual pages, patches, bug reports, troubleshooting, etc.",
+    "Member of the Drupal Association",
+    "Resume: And my resume is attached, detailing 30 years of work in the computer field, from Unix development to C# to perl to network administration and more.",
+    "Attachment",
+    "Size",
+    "Randy Fay Resume, updated 2015",
+    "0 bytes",
+    "Internationalization and Localization of Warmshowers.org",
+    "Thu, 2009-04-30 06:38 by rfay",
+    "Drupal",
+    "internationalization",
+    "Planet Drupal",
+    "Warmshowers.org is my biggest site, with more than 7500 members, and almost certainly the most useful. It's a reciprocal hospitality site for touring cyclists - people offer touring cyclists a place to stay and a shower. It's been in English for years, but that cuts out a significant part of the world's population, and it means that options for cyclists in Latin America and several other places in the world have been more limited than they ought to be.",
+    "But we just launched es.warmshowers.org, a Drupal 6 version with all the key parts internationalized and then localized into Spanish. We're very proud of this accomplishment!",
+    "It took a lot of work by a lot of people to do this. First, Chris Russo nearly singlehandedly upgraded the site to Drupal 6, a significant accomplishment because of the custom modules we have developed for the site. Then we began learning how to do all of the localization into Spanish, and learning how to get a group together to do the translation.",
+    "There are probably four parts to the translation of the site:",
+    "Translation of the important, static content (articles, FAQ, nodes)",
+    "Translation of the interface (menus, status and warning messages, dialog boxes, prompts, forms)",
+    "Translation of the rest of the interface that's left over (outgoing emails, non-code instructions to users, etc.)",
+    "Translation of transient user-generated content (forums, other postings)",
+    "The last of these we're going to try to do with a custom module that uses the <a href=\"http://code.google.com/apis/ajaxlanguage/\"Google AJAX Language API\", specifically using the Jquery Translate jquery plugin. We did everything that seems reasonable by hand translation with native speakers, but it does not seem possible to keep up with all of the user-generated content. We'd never get enough translators to do that.",
+    "Why didn't we use machine translation for the entire site? Because it still stinks, despite what anybody says. If you know two languages, and you use Google Translate or Babelfish or any of the other services to translate them, you'll understand what I mean. Often the result is useful, meaning that you can understand the intent. Sometimes it's hilarious. Many times it's stupid. And sometimes it's just plain misleading or incomprehensible. Not a very good thing to build a website on.",
+    "But our biggest issue in translation is not the technology, it's the people. It takes a strong team to translate and then maintain a website in another language. So we're trying to learn how to do that. It's baby steps we're taking, but we're taking them.",
+    "We sent out an email to our worldwide membership some time ago and 31 native Spanish speakers responded by saying they were interested in joining the project. I created a Google Group for discussion and maintenance of the translation, and invited them all. 21 signed up for the group. And 5-10 have been active in helping with the translation.",
+    "We started the training with an online conference using the yuuguu screensharing technology and Skype. But technical problems (internet connectivity mostly) made this not work so well. So I made three 5-minute screencasts showing how to do the translation. That seemed to work better than the group conference technique.",
+    "We then set the group loose on translation. One of the biggest issues at this point was knowing who might be working on what. At first we used an editable document within the Google Groups framework, but then I was able to create two Drupal views ( 1 and 2 which show the status of translation activity using native Drupal information. The cool thing here is that due to the sophistication of views, these will work unchanged in other languages. So we're building up the infrastructure needed to do French, and then Portuguese, etc.",
+    "Another challenge any volunteer organization faces is deciding who's in charge. We needed an editor to make final decisions about usage, and to try to give the translated material some semblance of consistency. One of our translators, David Peluso, has graciously agreed to do this for now. And we now need somebody to answer emails sent to the site administrator in Spanish, so another translator, Manu, has signed up for this task. We'll use a special \"Spanish\" category on the contact page so that emails sent in Spanish will go straight to him.",
+    "Now the questions are: Can we maintain the site in multiple languages? How many languages should we take on?",
+    "Compared to my past attempts at internationalization of websites, this one is much farther along. In the past I always underestimated the scope of the task. It's big. This time, with a great team, I think we have a working site. Also, I think that Drupal 6 is far better at this than previous incarnations. Every attempt I made in the past ended up with very confusing language switches for no reason, and lots and lots of broken links. I think this one is going to work.",
+    "DrupalCamp Colorado next week - My session got accepted",
+    "Fri, 2009-06-19 15:01 by rfay",
+    "Drupal",
+    "My session on AHAH in Drupal got accepted for next week's Drupal Camp Colorado in Denver. So it's time to get it ready. (Update: see the materials here.",
+    "AHAH (Asynchronous HTML and HTTP) is a technology built into the Drupal Forms API which allows for updates of a form without doing a full page refresh, and it makes some things really nice. All of the \"add to cart\" and similar behaviors in the Amazon Store module (try it at alonovo.com/amazon_store) are done with AHAH, meaning that you can add to cart and not end up on another page, and not have a long wait.",
+    "Basically, pressing a button causes a simple call back to the web server for replacement elements for the form. Instead of submitting the whole page to the webserver and then reprocessing and redisplaying it, only the part that needs to be updated (like your message that an item was added to the cart) has to be done.",
+    "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+    "[This material was developed for a presentation at DrupalCamp Colorado in the summer of 2009. It should serve well as a standalone resource, so I hope it will help out anybody learning or struggling with AHAH. Since that time, all of the examples here have been incorporated into the Examples module's AHAH Example, so it should serve as an easy way to experiment with these concepts. If you find any problems with this or want to suggest any improvements, send me an email or catch me on IRC (rfay).]",
+    "All of us know about \"Web 2.0\" and \"AJAX\", or \"Asynchronous Javascript and XML\". The basic idea behind AJAX is that a Javascript program running in the browser communicates (usually via HTTP and XML) with the webserver and gets information that it uses to do a task or update the page. Several Drupal modules use AJAX, and it's widely deployed on the web. It normally requires you to write and maintain some pretty good Javascript along with your PHP, and it's a powerful way to add interactive features to a website. Drupal's excellent contrib module Fivestar, for example, uses XML to allow you to vote without a page load.",
+    "Built into Drupal, though, is a no-visible-Javascript technique for doing a particular class of asynchronous (no-page-reload) partial page updates. It's called AHAH, or Asynchronous HTML and HTTP. It also uses Javascript under the hood, but you never see it. Everything the programmer does is in PHP.",
+    "Drupal",
+    "What is AHAH in Drupal?",
+    "Examples of AHAH in Drupal",
+    "Drupal Forms API (FAPI) Basics - the 2-minute version",
+    "AHAH Simplest Example: #ahah on the submit button, replace a region",
+    "AHAH Example: Textfields driven by checkboxes",
+    "AHAH Example: Select control and generated checkboxes",
+    "AHAH Notes and Issues",
+    "AHAH Resources",
+    "AHAH Changes for Drupal 7 (It's now called #AJAX)",
+    "Book Navigation",
+    "What is AHAH in Drupal? ›",
+    "Examples of AHAH in Drupal",
+    "Upload module (core) (Click a submit button and it adds another file)",
+    "Poll module (core) (Click a submit button and it adds another question)",
+    "Examples module (Drupal 6) provides a number of AHAH examples in the \"AHAH Example module\".",
+    "Quicktabs module (Configuration options change with the type of tab)",
+    "Amazon Store - Used in \"add to cart\" and selecting different product attributes.",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ What is AHAH in Drupal?",
+    "up",
+    "Drupal Forms API (FAPI) Basics - the 2-minute version ›",
+    "AHAH Changes for Drupal 7 (It's now called #AJAX)",
+    "Drupal 7 AHAH has changed its name to AJAX to use a more familiar term and to be slightly more trendy. A version of this presentation for D7 AJAX is at http://randyfay.com/ajax. D7 AJAX handling is massively simplified.",
+    "The AJAX Example for D7 is now in the Examples Module and will be maintained there. If you find AJAX features that you'd like to see in it that aren't there, file a request or submit a patch.",
+    "Drupal",
+    "AHAH",
+    "AJAX",
+    "Book Navigation",
+    "‹ AHAH Resources",
+    "up",
+    "AHAH Example: Textfields driven by checkboxes",
+    "Note that this is currently maintained in the Examples project so the code here may not be the latest.",
+    "In this example, we just use checkboxes to determine whether textboxes are displayed.",
+    "One of the fundamental ideas of having a form change based on selections within the form is that the form is reconfiguring itself based on $form_state. So here, the generation of the form is driven by $form_state['values']. If the checkbox for last name is checked, then we generate a textfield for last name.",
+    "Update 2009-08-23: I note that checkboxes and radios do not actually work correctly in Internet Explorer.",
+    "(Experiment with this one at http://d6.drupalexamples.info/examples/ahah_example/autotextfields.)",
+    "/**",
+    "* @file",
+    "* Show/hide textfields based on checkbox clicks",
+    "*/",
+    "function ahah_demo_autotextfields(&$form_state) {",
+    "$form['ask_first_name'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => t('Ask me my first name'),",
+    "'#default_value' => $form_state['values']['ask_first_name'],",
+    "'#ahah' => array(",
+    "'path' => 'ahah_demo/autotextfields/callback',",
+    "'wrapper' => 'textfields',",
+    "'effect' => 'fade',",
+    ")",
+    ");",
+    "$form['ask_last_name'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => t('Ask me my last name'),",
+    "'#default_value' => $form_state['values']['ask_last_name'],",
+    "'#ahah' => array(",
+    "'path' => 'ahah_demo/autotextfields/callback',",
+    "'wrapper' => 'textfields',",
+    "'effect' => 'fade',",
+    "),",
+    ");",
+    "$form['textfields'] = array(",
+    "'#title' => t(\"Generated text fields for first and last name\"),",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#type' => 'fieldset',",
+    "'#description' => t('This is where we put automatically generated textfields'),",
+    ");",
+    "if ($form_state['values']['ask_first_name']) {",
+    "$form['textfields']['first_name'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('First Name'),",
+    ");",
+    "}",
+    "if ($form_state['values']['ask_last_name']) {",
+    "$form['textfields']['last_name'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('Last Name'),",
+    ");",
+    "}",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "function ahah_demo_autotextfields_callback() {",
+    "$form_state = array('storage' => NULL, 'submitted' => FALSE);",
+    "$form_build_id = $_POST['form_build_id'];",
+    "$form = form_get_cache($form_build_id, $form_state);",
+    "$args = $form['#parameters'];",
+    "$form_id = array_shift($args);",
+    "$form_state['post'] = $form['#post'] = $_POST;",
+    "$form['#programmed'] = $form['#redirect'] = FALSE;",
+    "drupal_process_form($form_id, $form, $form_state);",
+    "$form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);",
+    "$textfields = $form['textfields'];",
+    "$output = drupal_render($textfields);",
+    "// Final rendering callback.",
+    "print drupal_json(array('status' => TRUE, 'data' => $output));",
+    "exit();",
+    "}",
+    "?>",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ AHAH Simplest Example: #ahah on the submit button, replace a region",
+    "up",
+    "AHAH Example: Select control and generated checkboxes ›",
+    "Pages",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "next ›",
+    "last »",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [
+    {
+      "src": "http://drupal.org/files/images/DA-individual-120.png",
+      "name": "da-individual-120.png",
+      "alt": ""
+    },
+    {
+      "src": "/core/modules/file/icons/application-pdf.png",
+      "name": "application-pdf.png",
+      "alt": "PDF icon"
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/what-world-have-i-been",
+      "text": "What in the world have I been up to?"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "hobobiker.com"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-panels-plugin-example-module",
+      "text": "Drupal: Panels Plugin Example module"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/panels",
+      "text": "Panels"
+    },
+    {
+      "internal": false,
+      "key": "http://alonovo.com",
+      "text": "Alonovo.com"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/panels_plugin_example",
+      "text": "Panels Plugin Example"
+    },
+    {
+      "internal": true,
+      "key": "content/member-drupal-association",
+      "text": "Member of the Drupal Association"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://association.drupal.org",
+      "text": ""
+    },
+    {
+      "internal": true,
+      "key": "portfolio",
+      "text": "Portfolio and Resume"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/portfolio",
+      "text": "portfolio"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "hobobiker.com"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org",
+      "text": "warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/amazon",
+      "text": "Amazon module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/amazon_store",
+      "text": "Amazon Store"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/role_change_notify",
+      "text": "Role Change Notify"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/translatableregions",
+      "text": "Translatable Regions"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/ctools",
+      "text": "CTools"
+    },
+    {
+      "internal": false,
+      "key": "http://mariethacker.com/contact-me",
+      "text": "Marie Thacker"
+    },
+    {
+      "internal": false,
+      "key": "http://sparkleshelf.com/versus/voteresult/smackdown_image",
+      "text": "Smackdown rewrite"
+    },
+    {
+      "internal": false,
+      "key": "http://sparkleshelf.com",
+      "text": "Sparkleshelf.com"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "text": "Drupalcon SF 2010"
+    },
+    {
+      "internal": false,
+      "key": "http://colorado2010.camps.drupal.org/drupalcampcolorado.org/sessions/dynamic-forms-drupal-7-ajax-and-states.html",
+      "text": "Drupalcamp Colorado 2010"
+    },
+    {
+      "internal": false,
+      "key": "http://colorado2010.camps.drupal.org/drupalcampcolorado.org/sessions/site-configuration-management-and-staging-using-features-module.html",
+      "text": "Drupalcamp Colorado 2010"
+    },
+    {
+      "internal": false,
+      "key": "http://cph2010.drupal.org/sessions/debugging-drupal-hands-techniques",
+      "text": "Copenhagen 2010"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "text": "Paris 2009"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/search/apachesolr_search/rfay?filters=uid:30906",
+      "text": "Many, many contributions on drupal.org including projects, manual pages, patches, bug reports, troubleshooting, etc."
+    },
+    {
+      "internal": false,
+      "key": "http://association.drupal.org",
+      "text": "Drupal Association"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/sites/default/files/RandyFayResume2012.pdf",
+      "text": "resume is attached"
+    },
+    {
+      "internal": true,
+      "key": "sites/default/files/RandyFayResume2015.pdf",
+      "text": "Randy Fay Resume, updated 2015"
+    },
+    {
+      "internal": true,
+      "key": "content/internationalization-and-localization-warmshowersorg",
+      "text": "Internationalization and Localization of Warmshowers.org"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/internationalization",
+      "text": "internationalization"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org",
+      "text": "Warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org",
+      "text": "es.warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/apis/ajaxlanguage",
+      "text": "http://code.google.com/apis/ajaxlanguage/"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/p/jquery-translate",
+      "text": "Jquery Translate"
+    },
+    {
+      "internal": false,
+      "key": "http://yuuguu.com",
+      "text": "yuuguu"
+    },
+    {
+      "internal": false,
+      "key": "http://www.skype.com",
+      "text": "Skype"
+    },
+    {
+      "internal": false,
+      "key": "http://www.screencast.com/users/randyfay/folders/Warmshowers.org%20translation",
+      "text": "5-minute screencasts"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org/translations/status",
+      "text": "1"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org/translations/details",
+      "text": "2"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org",
+      "text": "working site"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcamp-colorado-next-week-my-session-got-accepted",
+      "text": "DrupalCamp Colorado next week - My session got accepted"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalcampcolorado.org/sessions/cooler-forms-ahah-asynchronous-html-and-http",
+      "text": "session on AHAH in Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalcampcolorado.org",
+      "text": "Drupal Camp Colorado"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "here"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/amazon_store",
+      "text": "Amazon Store"
+    },
+    {
+      "internal": false,
+      "key": "http://alonovo.com/amazon_store",
+      "text": "alonovo.com/amazon_store"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": true,
+      "key": "contact",
+      "text": "send me an email"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/fivestar",
+      "text": "Fivestar"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/what-ahah-drupal",
+      "text": "What is AHAH in Drupal?"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ahah-drupal",
+      "text": "Examples of AHAH in Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-forms-api-fapi-basics-2-minute-version",
+      "text": "Drupal Forms API (FAPI) Basics - the 2-minute version"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-simplest-example-ahah-submit-button-replace-region",
+      "text": "AHAH Simplest Example: #ahah on the submit button, replace a region"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-textfields-driven-checkboxes",
+      "text": "AHAH Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-select-control-and-generated-checkboxes",
+      "text": "AHAH Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-notes-and-issues",
+      "text": "AHAH Notes and Issues"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-resources",
+      "text": "AHAH Resources"
+    },
+    {
+      "internal": true,
+      "key": "ahah/drupal7",
+      "text": "AHAH Changes for Drupal 7 (It's now called #AJAX)"
+    },
+    {
+      "internal": true,
+      "key": "content/what-ahah-drupal",
+      "text": "What is AHAH in Drupal? ›"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ahah-drupal",
+      "text": "Examples of AHAH in Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/quicktabs",
+      "text": "Quicktabs module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/amazon_store",
+      "text": "Amazon Store"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/what-ahah-drupal",
+      "text": "‹ What is AHAH in Drupal?"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-forms-api-fapi-basics-2-minute-version",
+      "text": "Drupal Forms API (FAPI) Basics - the 2-minute version ›"
+    },
+    {
+      "internal": true,
+      "key": "ahah/drupal7",
+      "text": "AHAH Changes for Drupal 7 (It's now called #AJAX)"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/ajax",
+      "text": "http://randyfay.com/ajax"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples Module"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-resources",
+      "text": "‹ AHAH Resources"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-textfields-driven-checkboxes",
+      "text": "AHAH Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://d6.drupalexamples.info/examples/ahah_example/autotextfields",
+      "text": "http://d6.drupalexamples.info/examples/ahah_example/autotextfields"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-simplest-example-ahah-submit-button-replace-region",
+      "text": "‹ AHAH Simplest Example: #ahah on the submit button, replace a region"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-select-control-and-generated-checkboxes",
+      "text": "AHAH Example: Select control and generated checkboxes ›"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=1",
+      "text": "2"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=2",
+      "text": "3"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=3",
+      "text": "4"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=4",
+      "text": "5"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=1",
+      "text": "next ›"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=4",
+      "text": "last »"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,816 @@
+{
+  "title": "PHP 5.2 on Ubuntu 10.04 Lucid Lynx (Seems to work for 12.04 too) | RandyFay.com",
+  "primaryHeading": "PHP 5.2 on Ubuntu 10.04 Lucid Lynx (Seems to work for 12.04 too)",
+  "contentFound": true,
+  "lines": [
+    "Mon, 2010-05-31 20:08 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Edit 2012-11-12: If you're interested in the newer problem of running PHP 5.3 on Ubuntu 12.10 Quantal, try this recipe.",
+    "Edit 2012-09-21: Isn't it about time you moved to PHP 5.3? Even though these instructions seem to work even for Ubuntu 12.04, it's really time for people to move on to PHP 5.3. If you're a Drupal user on Drupal 6, Drupal core and nearly all contrib are now just fine with 5.3.",
+    "Edit 2011-11-23: Since Ubuntu 9.10 (Karmic) is now out of support, the repositories to use for it have changed to old-releases.ubuntu.com. I've changed the karmic.list files attached. Please be aware that although 10.04LTS is still supported for years still, 9.10 is out of the support window, meaning that security issues in these packages will not be fixed.",
+    "Update: Look here to solve same problem with Ubuntu 10.10.",
+    "Lots of us are starting to run Drupal on Ubuntu 10.04 Lucid Lynx, and of course, Lucid comes with PHP 5.3, for which Drupal 6 is not yet ready.",
+    "I've seen a couple of fine recipes, but here's mine, with the files you need attached.",
+    "Update: You'll probably want to look at Khalid's more extensive discussion of various ways to do this.",
+    "Essentially, all you have to do is tell the apt system where to find Karmic packages and then tell it that you want it to use Karmic's PHP packages.",
+    "So put the attached karmic.list in /etc/apt/sources.list.d and the attached \"php\" into /etc/apt/preferences.d.",
+    "Then:",
+    "sudo apt-get update",
+    "sudo apt-get remove php5 libapache2-mod-php5 php5-xsl php5-gd php-pear php5-mysql php5-curl php5-memcache",
+    "sudo apt-get install php5 libapache2-mod-php5 php5-xsl php5-gd php-pear php5-mysql php5-curl php5-memcache",
+    "If you had not already installed apache, php, and mysql, you can do that with the above files in place and get the right versions without removing anything:",
+    "sudo apt-get update",
+    "sudo apt-get install apache2 mysql-server php5 libapache2-mod-php5 php5-xsl php5-gd php-pear libapache2-mod-auth-mysql php5-mysql php5-curl php5-memcache",
+    "Note that your php.ini will have been replace, so you have to reset custom settings like memory_limit.",
+    "Attachment",
+    "Size",
+    "php - put into /etc/apt/preferences.d",
+    "0 bytes",
+    "karmic.list - put in /etc/apt/sources.list.d",
+    "0 bytes",
+    "Comments",
+    "Gábor Hojtsy (not verified)",
+    "Tue, 2010-06-01 03:27",
+    "Permalink",
+    "fixing the modules",
+    "Drupal 6 itself is known to be ready for PHP 5.3 except one known issue which is detailed at http://drupal.org/node/360605#comment-2866234. The contributed modules you run with might not be ready yet and ideally people would submit issues to the module maintainers just as with any other errors. That would fix the issues once and for all instead of everybody downgrading their hosting/development environments to lower PHP versions for the sake of workarounds.",
+    "Log in to post comments",
+    "Halil (not verified)",
+    "Tue, 2010-06-01 22:28",
+    "Permalink",
+    "The other side of the coin...",
+    "Yeah, its a shame that people needs to downgrade the PHP version for a workaround.",
+    "The submitting issue suggestion for modules to support PHP 5.3 is only the one side of the coin. On the other side, there are issues submitted for the modules but never been fixed for a couple of different reasons, like;",
+    "a) Module maintainer(s) prefer to spend their time and energy to port the module to D7 rather than supporting PHP 5.3 for their 6.x version module.",
+    "b) Module maintainer(s) can spare just a limited time to support their module and only available to support critical issues and they dont consider PHP 5.3 support as critical.",
+    "c) Module maintainer(s) are scared to break PHP 4.x support, which the module is initially announced to support that version, while they are making the module PHP 5.3 compatible.",
+    "Im not complaining or something, just stating what I have witnessed and/or sensed after spending some time on the issue queues about the subject.",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2010-06-02 07:04",
+    "Permalink",
+    "There are reasons other than Drupal as well",
+    "It's not just Drupal which could (or perhaps shouldn't, per Gabor's comment) push us back to 5.2. There are other things, like tool support. I use Eclipse with the Zend Debugger .so, and it's not available for 5.3 (yet?)",
+    "Log in to post comments",
+    "Kirk Hings (not verified)",
+    "Wed, 2010-06-02 16:22",
+    "Permalink",
+    "Thanks for the instructions,",
+    "Thanks for the instructions, unfortunately your http://randyfay.com/files/php_0. looks like it got mangled, should be http://randyfay.com/files/php",
+    "Perhaps drupal upload mangled it to add the _0.?",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2010-06-02 16:27",
+    "Permalink",
+    "Yes, please change to just \"php\"",
+    "Please change the filename to just \"php\" - although I think it would work no matter what you called it.",
+    "Log in to post comments",
+    "mcrittenden (not verified)",
+    "Wed, 2010-06-09 09:07",
+    "Permalink",
+    "mcrypt.so and gd.so errors",
+    "If, after doing this, you're getting errors like:",
+    "Unable to load dynamic library '/usr/lib/php5/20060613+lfs/mcrypt.so' ...",
+    "Then this comment has the answer.",
+    "Basically, you just need to delete /etc/php5/conf.d/mcrypt.ini and /etc/php5/conf.d/gd.ini",
+    "Log in to post comments",
+    "Visitor (not verified)",
+    "Wed, 2010-06-16 15:25",
+    "Permalink",
+    "Reinstall mcrypt",
+    "I was having \"php5-mcrypt\" issues when trying to install phpmyadmin after downgrading. Ultimately, I found this:",
+    "http://packages.ubuntu.com/karmic/i386/php5-mcrypt/download",
+    "From there you can manually download php5-mcrypt 5.2.10 and install it. After that, phpmyadmin installs properly.",
+    "Log in to post comments",
+    "Visitor (not verified)",
+    "Sat, 2010-09-25 12:02",
+    "Permalink",
+    "mcrypt and phpmyadmin version problems",
+    "I have also had to pin my PHP to 5.2 in order to maintain a local drupal development environment that doesn't crash because of reference/array mismatches in the use of some arguments. Once php5-mcrypt-5.2.10 is installed in the manner suggested by VISITOR, the latest version of phpmyadmin can readily be installed (using your standard package installer).",
+    "Log in to post comments",
+    "Visitor (not verified)",
+    "Wed, 2010-06-23 08:45",
+    "Permalink",
+    "Hello,",
+    "not sure if this will",
+    "Hello,",
+    "not sure if this will work for everybody as I'm a newbie in linux, but this helped me to install php5-mcrypt and after that phpmyadmin:",
+    "apt-get install libltdl7 libmcrypt4",
+    "Regards,",
+    "Chorch",
+    "Log in to post comments",
+    "iMadalin (not verified)",
+    "Wed, 2010-07-28 08:20",
+    "Permalink",
+    "php 5.2",
+    "i use zend server to have php 5.2 in ubuntu 10.04 and i get a lot faster in any changes i need in php configuration with it's nice web panel.",
+    "Log in to post comments",
+    "acy76 (not verified)",
+    "Fri, 2010-09-17 15:11",
+    "Permalink",
+    "mcrypt problems",
+    "I also had problems with the php5-mcrypt extension not being enabled (phpMyAdmin was complaining about it).",
+    "I simply appended the package to the 'php' file in /etc/apt/preferences.d like this:",
+    "Package: php5-mcrypt",
+    "Pin: release a=karmic",
+    "Pin-Priority: 991",
+    "Now, php5-mcrypt is also downgraded with the rest of the php packages and all seems to be well.",
+    "It was also useful to remove both php5-mcrypt and phpmyadmin using the --purge directive, e.g.:",
+    "sudo apt-get --purge remove phpmyadmin",
+    "After that, I updated the package information (apt-get update) and reinstalled phpmyadmin; php5-mcrypt gets installed automatically as a dependency.",
+    "I had previously tried the workarounds suggested in the comments above, so if this doesn't work for you, try those as well, maybe I modified something else that I am forgetting to write about here.",
+    "phpMyAdmin should now work correctly, although you may have to delete all cookies for a successful login.",
+    "Log in to post comments",
+    "iMadalin (not verified)",
+    "Fri, 2010-09-17 16:51",
+    "Permalink",
+    "mcrypt and phpadmin",
+    "you need mcrypt for many other stuff, phpmyadmin is just the worst nightmare when it comes to export databases. import goes well, but big databases (for drupal in my case) it isn't the right tool.",
+    "after having lot's of problems with it i've switched to mysql workbench that is the official application from mysql.com.",
+    "Log in to post comments",
+    "foxy (not verified)",
+    "Thu, 2010-09-23 06:45",
+    "Permalink",
+    "sudo apt-get install apache2",
+    "this command in my ubuntu 10.04 doesnot work.",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2010-09-23 07:07",
+    "Permalink",
+    "apt-get install works on ubuntu everywhere",
+    "Perhaps you don't have sudo installed?",
+    "As root, then:",
+    "apt-get install sudo",
+    "Other than that, do this stuff as root:",
+    "apt-get install apache2 ...",
+    "Log in to post comments",
+    "Brad Griffith (not verified)",
+    "Thu, 2010-11-18 06:05",
+    "Permalink",
+    "Don't forget php5-dev for PECL support",
+    "I also added these lines to /etc/apt/preferences.d/php so that I don't get errors when installing PECL libraries:",
+    "Package: php5-dev",
+    "Pin: release a=karmic",
+    "Pin-Priority: 991",
+    "Log in to post comments",
+    "Josh Hamilton (not verified)",
+    "Sat, 2011-03-05 14:22",
+    "Permalink",
+    "Finishing touches",
+    "If you also want to install apc, uploadprogress, and phpmyadmin, you should append the following to Randy's php file.",
+    "Package: php5-mcrypt",
+    "Pin: release a=karmic",
+    "Pin-Priority: 991",
+    "Package: php5-dev",
+    "Pin: release a=karmic",
+    "Pin-Priority: 991",
+    "Log in to post comments",
+    "gabrielu (not verified)",
+    "Thu, 2011-03-31 10:12",
+    "Permalink",
+    "Package php5 has no installation candidate",
+    "I just installed a fresh ubuntu1004-server_64 put the sources files and php preferences, and now I get:",
+    "# sudo apt-get install apache2 mysql-server php5 libapache2-mod-php5 php5-xsl php5-gd php-pear libapache2-mod-auth-mysql php5-mysql php5-curl php5-memcache",
+    "Reading package lists... Done",
+    "Building dependency tree",
+    "Reading state information... Done",
+    "apache2 is already the newest version.",
+    "Package php5 is not available, but is referred to by another package.",
+    "This may mean that the package is missing, has been obsoleted, or",
+    "is only available from another source",
+    "E: Package php5 has no installation candidate",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2011-03-31 11:14",
+    "Permalink",
+    "Is it possible you didn't apt",
+    "Is it possible you didn't apt-get update first?",
+    "Log in to post comments",
+    "zbbax (not verified)",
+    "Wed, 2011-11-23 01:54",
+    "Permalink",
+    "Since a while http://us",
+    "Since a while http://us.archive.ubuntu.com and http://security.ubuntu.com don't exist anymore",
+    "replace them with: http://old-releases.ubuntu.com",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2011-11-23 08:56",
+    "Permalink",
+    "Updated article",
+    "I updated this and the files. Would appreciate your review.",
+    "Log in to post comments",
+    "Neill (not verified)",
+    "Thu, 2011-12-15 04:56",
+    "Permalink",
+    "Get a cache error thrown",
+    "Hi.",
+    "Thanks for this great article.",
+    "I've carefully followed your instructions, but when I do an apt-get update it throws the error:",
+    "Reading package lists... Error!",
+    "E: Dynamic MMap ran out of room. Please increase the size of APT::Cache-Limit. Current value: 16777216. (man 5 apt.conf)",
+    "E: Error occurred while processing language-pack-kde-fur-base (NewVersion1)",
+    "E: Problem with MergeList /var/lib/apt/lists/old-releases.ubuntu.com_ubuntu_dists_karmic_main_binary-amd64_Packages",
+    "W: Unable to munmap",
+    "E: The package lists or status file could not be parsed or opened.",
+    "I tried upping the cache value, but it fails no matter how large I set it. Any ideas?",
+    "Thanks!",
+    "Log in to post comments",
+    "rfay",
+    "Thu, 2011-12-15 08:45",
+    "Permalink",
+    "apt-get problem",
+    "This is really an apt system problem, and doesn't have to do with the issues under discussion here. You'll need to figure out how to increase the size of APT::Caache-limit in apt.conf. I think I've done that before, but don't remember the story. I think you'll find some answers by googling; if not, post on http://superuser.com/ or http://askubuntu.com/ - Good luck!",
+    "Oh, and it's probably time for you to move to 5.3. There's little reason to stay on 5.2 now.",
+    "Log in to post comments",
+    "April (not verified)",
+    "Fri, 2012-08-03 10:46",
+    "Permalink",
+    "Ubuntu 12.4",
+    "Thank you for putting this tutorial together, it helped me out a lot. It worked for me on both Ubuntu 10.4 and 12.4.",
+    "Log in to post comments",
+    "Bob Dingman (not verified)",
+    "Fri, 2012-09-21 08:43",
+    "Permalink",
+    "Documentation suggestion",
+    "May I suggest you add the sudo apt-get update line to your second case (\"If you have not already installed apache . . .\") as below?",
+    "sudo apt-get update",
+    "sudo apt-get install apache2 mysql-server php5 libapache2-mod-php5 php5-xsl php5-gd php-pear libapache2-mod-auth-mysql php5-mysql php5-curl php5-memcache",
+    "You need to run apt-get update to put in effect the pinning.",
+    "Log in to post comments",
+    "rfay",
+    "Fri, 2012-09-21 09:16",
+    "Permalink",
+    "Thanks - I did it.",
+    "Thanks - I did it.",
+    "Log in to post comments",
+    "jhuebner (not verified)",
+    "Sat, 2012-11-10 08:02",
+    "Permalink",
+    "This just saved my day",
+    "I updated apache on an older system and the php module wouldn't load anymore. The systems karmic.list was outdated so the attached one saved my a**.",
+    "Thanks,",
+    "Have a nice day!",
+    "Log in to post comments"
+  ],
+  "images": [
+    {
+      "src": "/core/modules/file/icons/application-octet-stream.png",
+      "name": "application-octet-stream.png",
+      "alt": "Binary Data"
+    },
+    {
+      "src": "/core/modules/file/icons/application-octet-stream.png",
+      "name": "application-octet-stream.png",
+      "alt": "Binary Data"
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://ubuntuforums.org/showthread.php?t=2074178",
+      "text": "this recipe"
+    },
+    {
+      "internal": false,
+      "key": "http://thejibe.com/blog/10/10/php-5210-debs-ubuntu-1010-maverick",
+      "text": "Look here to solve same problem with Ubuntu 10.10"
+    },
+    {
+      "internal": false,
+      "key": "http://2bits.com/drupal-planet/various-ways-running-php-52-ubuntu-1004-lucid-lynx.html",
+      "text": "more extensive discussion of various ways to do this"
+    },
+    {
+      "internal": true,
+      "key": "sites/default/files/php_1.",
+      "text": "php - put into /etc/apt/preferences.d"
+    },
+    {
+      "internal": true,
+      "key": "sites/default/files/karmic_1.list",
+      "text": "karmic.list - put in /etc/apt/sources.list.d"
+    },
+    {
+      "internal": false,
+      "key": "http://hojtsy.hu",
+      "text": "Gábor Hojtsy (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/85",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/85",
+      "text": "fixing the modules"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/360605#comment-2866234",
+      "text": "http://drupal.org/node/360605#comment-2866234"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/86",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/86",
+      "text": "The other side of the coin..."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/87",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/87",
+      "text": "There are reasons other than Drupal as well"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://kirkhings.com",
+      "text": "Kirk Hings (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/88",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/88",
+      "text": "Thanks for the instructions,"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/files/php_0",
+      "text": "http://randyfay.com/files/php_0"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/files/php",
+      "text": "http://randyfay.com/files/php"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/89",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/89",
+      "text": "Yes, please change to just \"php\""
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://smirkstudio.com",
+      "text": "mcrittenden (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/92",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/92",
+      "text": "mcrypt.so and gd.so errors"
+    },
+    {
+      "internal": false,
+      "key": "https://bugs.launchpad.net/ubuntu/+source/php5/+bug/281979/comments/3",
+      "text": "this comment"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/96",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/96",
+      "text": "Reinstall mcrypt"
+    },
+    {
+      "internal": false,
+      "key": "http://packages.ubuntu.com/karmic/i386/php5-mcrypt/download",
+      "text": "http://packages.ubuntu.com/karmic/i386/php5-mcrypt/download"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/267",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/267",
+      "text": "mcrypt and phpmyadmin version problems"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.games4bored.net",
+      "text": "Visitor (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/103",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/103",
+      "text": "Hello, not sure if this will"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.awebdeveloperslife.com",
+      "text": "iMadalin (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/115",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/115",
+      "text": "php 5.2"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/222",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/222",
+      "text": "mcrypt problems"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.awebdeveloperslife.com",
+      "text": "iMadalin (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/223",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/223",
+      "text": "mcrypt and phpadmin"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.foxybeads.com",
+      "text": "foxy (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/261",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/261",
+      "text": "sudo apt-get install apache2"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/262",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/262",
+      "text": "apt-get install works on ubuntu everywhere"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.buckeyeinteractive.com",
+      "text": "Brad Griffith (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/526",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/526",
+      "text": "Don't forget php5-dev for PECL support"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://joshhamilton.org",
+      "text": "Josh Hamilton (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/798",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/798",
+      "text": "Finishing touches"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.ag-prime.com",
+      "text": "gabrielu (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/882",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/882",
+      "text": "Package php5 has no installation candidate"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/883",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/883",
+      "text": "Is it possible you didn't apt"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2156",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2156",
+      "text": "Since a while http://us"
+    },
+    {
+      "internal": false,
+      "key": "http://us.archive.ubuntu.com",
+      "text": "http://us.archive.ubuntu.com"
+    },
+    {
+      "internal": false,
+      "key": "http://security.ubuntu.com",
+      "text": "http://security.ubuntu.com"
+    },
+    {
+      "internal": false,
+      "key": "http://old-releases.ubuntu.com",
+      "text": "http://old-releases.ubuntu.com"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2157",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2157",
+      "text": "Updated article"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.prescientsoftware.co.uk",
+      "text": "Neill (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/2167",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2167",
+      "text": "Get a cache error thrown"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2168",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2168",
+      "text": "apt-get problem"
+    },
+    {
+      "internal": false,
+      "key": "http://superuser.com",
+      "text": "http://superuser.com/"
+    },
+    {
+      "internal": false,
+      "key": "http://askubuntu.com",
+      "text": "http://askubuntu.com/"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2372",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2372",
+      "text": "Ubuntu 12.4"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2498",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2498",
+      "text": "Documentation suggestion"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2499",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2499",
+      "text": "Thanks - I did it."
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/2784",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/2784",
+      "text": "This just saved my day"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/63%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

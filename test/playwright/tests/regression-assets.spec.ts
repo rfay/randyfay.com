@@ -2,7 +2,7 @@
 // SHA-256 + size. No browser needed — APIRequestContext only. See PLAYWRIGHT_TESTING.md.
 //
 // NOTE: as of the baseline currently checked in, this tier has nothing to actually verify
-// on this project — the live DDEV site's sites/default/files/ only contains
+// on this project — the development site's sites/default/files/ only contains
 // generated color/css/js, not the real uploaded content assets (those live in a separate
 // files.tgz referenced by .probo.yaml that hasn't been imported into this environment). The
 // export-baseline.mjs script logs a WARNING and skips any 404 rather than failing, so

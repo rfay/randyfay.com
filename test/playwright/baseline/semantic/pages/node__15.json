@@ -1,0 +1,50 @@
+{
+  "title": "Drupal: Panels Plugin Example module | RandyFay.com",
+  "primaryHeading": "Drupal: Panels Plugin Example module",
+  "contentFound": true,
+  "lines": [
+    "Sat, 2009-02-21 22:46 by rfay",
+    "Drupal",
+    "Panels",
+    "For the Amazon_store Drupal module I've been working on for Alonovo.com, I set up several of the pages to use Panels plugins. But there isn't a lot of documentation on how to do this, so I had to dive in and learn it from the examples available in the code. The result was a set of examples of how an drupal module can implement panes, the Panels Plugin Example which is now available on on Drupal.org. There are examples of content_type, argument, context, and relationship plugins. I'm hoping that others will review the code and improve it."
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/panels",
+      "text": "Panels"
+    },
+    {
+      "internal": false,
+      "key": "http://alonovo.com",
+      "text": "Alonovo.com"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/panels_plugin_example",
+      "text": "Panels Plugin Example"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}

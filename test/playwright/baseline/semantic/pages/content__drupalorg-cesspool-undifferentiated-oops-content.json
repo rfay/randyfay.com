@@ -1,0 +1,526 @@
+{
+  "title": "Drupal.org is a cesspool of undifferentiated **** (oops... content, that is) | RandyFay.com",
+  "primaryHeading": "Drupal.org is a cesspool of undifferentiated **** (oops... content, that is)",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2011-05-22 09:34 by rfay",
+    "Planet Drupal",
+    "Oops. I can't believe I said that.",
+    "Drupal has a long tradition of insisting that everybody's contribution is equal, that every piece of content is equal. We have to stop that.",
+    "It's nearly impossible to find the critical content on d.o and has been for a very long time. How do we fix this? Enlist the community.",
+    "Here are some broad brushstrokes:",
+    "Differentiate content.",
+    "Use flag module to mark content as useful, mark it as spam, mark comments as issue summaries, mark modules and themes as \"I use this\" and lots of other things.",
+    "Curate more content. Can't we have articles on drupal.org promoted to the planet?",
+    "Allow comments on modules and themes.",
+    "Differentiate users. There are plenty of ways to do this without ranking users against each other or giving numbers to users. A module maintainer badge? A 5-year member badge? Infrastructure team badge?",
+    "Find a leader (or pair of leaders) whose job is to promote the quality of the content of drupal.org. Right now, we tend to make decisions on things only based on infrastructure requirements, but we need to be thinking about content and usability far more than infra and performance. (I'm not saying that we shouldn't pay attention to performance, just that having a functional, usable site is far more important than the underlying infrastructure.)",
+    "OK, let's get started.",
+    "* Flagging individual comments as issue summaries",
+    "* Improving Flag module query efficiency",
+    "* Allow flagging content \"Was this useful\"",
+    "* Allow Planet promotion of d.o content",
+    "I should mention, Neil Drumm has made tremendous progress providing a documented path and tools to let ordinary mortals work on improvements to drupal.org. See So you want to make Drupal.org awesome?.",
+    "Crossposted from http://groups.drupal.org/node/150649, because I can get it on the planet from here, and can't from there!",
+    "Comments",
+    "Antoine Beaupre (not verified)",
+    "Sun, 2011-05-22 11:41",
+    "Permalink",
+    "Let's not forget:",
+    "Let's not forget:",
+    "* #34496 - Death to subscribe comments",
+    "Log in to post comments",
+    "Barrett (not verified)",
+    "Mon, 2011-05-23 06:23",
+    "Permalink",
+    "+1 to putting subscribe",
+    "+1 to putting subscribe comments to death",
+    "Log in to post comments",
+    "eigentor (not verified)",
+    "Mon, 2011-05-23 07:29",
+    "Permalink",
+    "+1",
+    "Subscribe",
+    "Log in to post comments",
+    "nicl (not verified)",
+    "Sun, 2011-05-22 12:05",
+    "Permalink",
+    "yes!",
+    "Just have to say that as a fellow drupaler, I agree with everything in this post.",
+    "Nothing more to add.",
+    "Log in to post comments",
+    "Andrew (not verified)",
+    "Sun, 2011-05-22 14:20",
+    "Permalink",
+    "Agreed!",
+    "Seriously, glad someone said it! Lots of work, but totally doable!",
+    "Log in to post comments",
+    "lisarex (not verified)",
+    "Sun, 2011-05-22 16:05",
+    "Permalink",
+    "Issues and comments and the thousands of other nodes",
+    "Randy, thanks for being so outspoken!",
+    "Issues and comments definitely need love and attention, as do the case studies/showcases, Job postings, marketplace, Events and other group content, About pages (and other other non-docs book nodes), Forums/support, community spotlight, home promotion process etc.",
+    "Here's a list of d.o. initiatives, and a Content Strategy is one of them. Somehow, we need to improve the content on drupal.org, so that information is current, relevant, and findable.",
+    "http://drupal.org/community-initiatives/drupalorg",
+    "As part of this, I kicked off a content audit on a sanitized copy of d.o. The content audit has found all sorts of delightful cruft hanging around on drupal.org... like a list of public access keys from a long-ago sprint (as a book node) and is slowly revealing all the duplication.",
+    "But it was experimental, and very difficult to make solid progress in a semi-closed system with volunteers. I will repeat this in the relevant issue queues. :)",
+    "Log in to post comments",
+    "Patrick Connolly (not verified)",
+    "Sun, 2011-05-22 17:20",
+    "Permalink",
+    "Working on d.o site",
+    "Holy shit. That link to Neil's documentation page is SO useful! Thanks Randy!",
+    "And oh yeah, I agree with everything in nicl's comment :)",
+    "Log in to post comments",
+    "mherchel (not verified)",
+    "Sun, 2011-05-22 19:30",
+    "Permalink",
+    "Are you familiar with the Prairie Initiative?",
+    "Agree 100%.",
+    "Most of this stuff is or needs to be addressed in the Prairie Initiative, who's goals are 1) Improve the collaboration tools on Drupal.org so that we can do more and better work together and make Drupal better, faster, and 2) Grow the pool of contributors by making Drupal.org a better and easier place to become a contributor - to make it less intimidating to people who want to get started contributing.",
+    "http://groups.drupal.org/prairie-initiative",
+    "Check out the following issues (these are listed on the front page of the Prairie Initiative GDO page)",
+    "Redesign d.o profile including reputation & expertise",
+    "Creating Topic Pages",
+    "Redesigning the Issue Page",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2011-05-22 20:32",
+    "Permalink",
+    "Yes - for most of us it's too overwhelming to follow",
+    "I have hopes for Prairie, but they're not short-term hopes. I think we have fundamental flaws in Drupal that can be addressed in the short term that will have huge long-term benefits.",
+    "Prairie is also focused mainly on the issue queue. Here I'm suggesting we deal with every bit of Drupal content, including comments, forums, project pages, on and on.",
+    "Log in to post comments",
+    "Mile23 (not verified)",
+    "Sun, 2011-05-22 19:31",
+    "Permalink",
+    "see also: Drupal.org content",
+    "see also: Drupal.org content audit approach",
+    "Log in to post comments",
+    "Matt Robison (not verified)",
+    "Sun, 2011-05-22 20:48",
+    "Permalink",
+    "User differentiation would be",
+    "User differentiation would be a big plus. Badges, points, whatever.",
+    "The fact is that some users are more equal than others. Everyone knows it. time to accept it.",
+    "Log in to post comments",
+    "Raf (not verified)",
+    "Mon, 2011-05-23 03:23",
+    "Permalink",
+    "The user differentiation",
+    "The user differentiation would be interesting. There're often people asking questions / answering them on the forums, who, when you look at their profile, have been around for 5 -6 -7 years, but either didn't take the time to fill in their contributions, or haven't done anything at all during that time.",
+    "At the moment, user ID's one of the biggest points of making one person's opinion count more than someone else's. That system works in general, but doesn't take the second type of people (the kind that registered 5-6-7 years ago and didn't really do anything during that time) into account, nor people who've worked with Drupal for 5-6-7 years and only registered a week ago to submit all their contributions",
+    "Contributing to d.o is incredibly intimidating and difficult to figure out. For example, when I got my CVS account, it took me half a day to figure out how to submit it -- and that wasn't on a Windows machine. Still gotta figure out how to do that on there. Now with the GIT switch (which sounds like a good thing), I can start all over on figuring out how to do that.",
+    "The same thing with an article I wrote, which would be useful for both the Batch API and the Query API (article on how to combine the two). I've asked the documentation team on how to add it more than half a year ago. They started trying to figure out whether it should be placed as a page on the Batch API, or as one on the Query API. In the end, since they couldn't figure it out, the article's still not added. People who need that info, need to happen to stumble on that forum post (which does happen every so often). Figuring out a way to put documentation that can be added to either one of several topics, would solve such problems.",
+    "Thirdly, there's alot of outdated contents (like the install profiles tutorial. That's for Drupal 5, but there's never been one for Drupal 6). I don't know if the content audit's already working on this or not, but mapping out documentation that's relevant for newer version, but isn't up-to-date, would mean we could have a \"most wanted\" page, so people wanting to help out with documentation, but don't know what to document, can easily see what's most necessary.",
+    "Ehhhh... and another ridiculously long comment...",
+    "Log in to post comments",
+    "Alan (not verified)",
+    "Mon, 2011-05-23 08:05",
+    "Permalink",
+    "Search functionality",
+    "I too agree 100 percent with the original post, and the comments.",
+    "Another aspect of Drupal.org that could be greatly improved, is the search functionality. I believe the site used to use the core Drupal Search module, whose results were practically useless. I believe the site now uses Solr, which is better in that it provides faceted search. But the results are still quite unsatisfying. I normally have to resort to Google -- not a good sign!",
+    "Log in to post comments",
+    "rfay",
+    "Mon, 2011-05-23 08:21",
+    "Permalink",
+    "No, it uses Apache Solr",
+    "Actually, it uses Apache Solr. I've found that filing a webmasters issue for poor search results can actually result in somebody tuning the results to improve it, so when you have a specific problem, I recommend that.",
+    "I would like to see somebody take the search question under their wing though, because although it's improved in recent years, the search is still fairly lame.",
+    "Log in to post comments",
+    "Cleaver Barnes (not verified)",
+    "Mon, 2011-05-23 13:20",
+    "Permalink",
+    "At the risk of",
+    "At the risk of overcomplicating things a bit, I'll add a few thoughts.",
+    "First there seem to be two main types of queries for information on d.o (and g.d.o):",
+    "1. A common topic, with lots of (sometimes conflicting) information. In this case, I need to filter out all the noise (out dated, ill-conceived, wrong version, etc.) from the signal.",
+    "2. The rare topic, with little, or incomplete information. Just finding *anything* is great in this case.",
+    "In one case I want need tools to filter out the noise, in the other I want to be as inclusive as possible.",
+    "Randy has some excellent ideas for tools that will help in most cases. To that I'd just like to add...",
+    "-- Vote up/down -- I know we use it to some extent, but I think it could be featured more prominently. The Stackexchange sites show how this can be an excellent tool.",
+    "Log in to post comments",
+    "Vacilando (not verified)",
+    "Thu, 2011-06-02 13:40",
+    "Permalink",
+    "Cannot agree more",
+    "Thank you for speaking out, Randy. I've been hoping and asking for a way to subscribe to issues (instead of writing \"subscribing\"!) ever since I signed up over 5 years ago, I would very much appreciate seeing ranked projects and users to give me an indication of quality, a more efficient project search (and de-duplication), and in general a far faster evolution of features at d.o.",
+    "Log in to post comments"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1036132",
+      "text": "Flagging individual comments as issue summaries"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1133956",
+      "text": "Improving Flag module query efficiency"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1165240",
+      "text": "Allow flagging content \"Was this useful\""
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1165246",
+      "text": "Allow Planet promotion of d.o content"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1006562",
+      "text": "So you want to make Drupal.org awesome?"
+    },
+    {
+      "internal": false,
+      "key": "http://groups.drupal.org/node/150649",
+      "text": "http://groups.drupal.org/node/150649"
+    },
+    {
+      "internal": false,
+      "key": "http://anarcat.koumbit.org",
+      "text": "Antoine Beaupre (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1111",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1111",
+      "text": "Let's not forget:"
+    },
+    {
+      "internal": false,
+      "key": "https://drupal.org/node/34496",
+      "text": "#34496 - Death to subscribe comments"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1132",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1132",
+      "text": "+1 to putting subscribe"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.undpaul.de",
+      "text": "eigentor (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1133",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1133",
+      "text": "+1"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://room271.net",
+      "text": "nicl (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1112",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1112",
+      "text": "yes!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://amariotti.com",
+      "text": "Andrew (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1114",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1114",
+      "text": "Agreed!"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://growingventuresolutions.com",
+      "text": "lisarex (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1115",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1115",
+      "text": "Issues and comments and the thousands of other nodes"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/community-initiatives/drupalorg",
+      "text": "http://drupal.org/community-initiatives/drupalorg"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.myplanetdigital.com/blog",
+      "text": "Patrick Connolly (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1116",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1116",
+      "text": "Working on d.o site"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1117",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1117",
+      "text": "Are you familiar with the Prairie Initiative?"
+    },
+    {
+      "internal": false,
+      "key": "http://groups.drupal.org/prairie-initiative",
+      "text": "http://groups.drupal.org/prairie-initiative"
+    },
+    {
+      "internal": false,
+      "key": "http://www.drupal.org/node/144594",
+      "text": "Redesign d.o profile including reputation & expertise"
+    },
+    {
+      "internal": false,
+      "key": "http://www.drupal.org/node/144584",
+      "text": "Creating Topic Pages"
+    },
+    {
+      "internal": false,
+      "key": "http://www.drupal.org/node/144574",
+      "text": "Redesigning the Issue Page"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1119",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1119",
+      "text": "Yes - for most of us it's too overwhelming to follow"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1118",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1118",
+      "text": "see also: Drupal.org content"
+    },
+    {
+      "internal": false,
+      "key": "http://groups.drupal.org/node/139814",
+      "text": "Drupal.org content audit approach"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://www.propdrop.com",
+      "text": "Matt Robison (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1120",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1120",
+      "text": "User differentiation would be"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1127",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1127",
+      "text": "The user differentiation"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1134",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1134",
+      "text": "Search functionality"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/1136",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1136",
+      "text": "No, it uses Apache Solr"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://cleaver.ca",
+      "text": "Cleaver Barnes (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1138",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1138",
+      "text": "At the risk of"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": false,
+      "key": "http://vacilando.org",
+      "text": "Vacilando (not verified)"
+    },
+    {
+      "internal": true,
+      "key": "comment/1215",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/1215",
+      "text": "Cannot agree more"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/104%23comment-form",
+      "text": "Log in"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  }
+}
