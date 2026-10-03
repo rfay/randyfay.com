@@ -480,5 +480,15 @@ Static-HTML path, following Karen Stevenson's Lullabot series on retiring Drupal
   (`https://randyfay-static.ddev.site`): 556 pass in about 43 seconds, and four deliberate breaks in the
   served files were each caught by the right tier. `LOCAL_SERVE=1` is only needed before the static project is
   set up. The static project is not a git repository; recreate it from the kit template and the crawl.
-- **Open:** finish removing ddev-playwright from `randyfay-prep`. Its add-on files and the committed
-  `dev-tools` hook are still there, and the hook reinstalls the add-on on the next start in that project.
+- **ddev-playwright removed from `randyfay-prep` (2026-10-03).** Done in this order, because a restart
+  runs the pre-start hook: `ddev add-on remove ddev-playwright`, delete the copied reinstall hook
+  (`.ddev/config.dev-tools.yaml`, `.ddev/commands/host/dev-tools`) and `.ddev/.env.web`, delete the copied
+  `test/` suite (prep only prepares; tests run from the original), then `ddev restart`. Verified: site 200, 126
+  nodes, `backdrop-bee` is the only add-on, PHP-FPM back to the default `pm.max_children = 8`, no Playwright
+  or VNC routes, the hook did not return, the original is unaffected, and `retire/run.sh` still gives 556
+  passing. The router logs a few "service does not exist" errors for about 30 seconds during any project
+  restart; they stop on their own. Prep's git working tree now shows those deletions; that clone is a
+  throwaway and is not committed anywhere.
+- **Lesson for making a prep copy:** it was made by copying the whole directory, which carried along the
+  original's committed hooks and its gitignored runtime files (stale `randyfay.*` certificates and config
+  in `.ddev/traefik/`, harmless but noisy). A fresh `git clone` plus a database import would not.
