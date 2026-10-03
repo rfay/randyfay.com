@@ -24,7 +24,17 @@ export default {
 
   // Non-node routes (home, listings, taxonomy pages) are discovered from links and menus.
   // Comment permalinks (/comment/<id>) are anchors into pages already captured: skip them.
-  discover: { exclude: ['^comment/', '^user/'] },
+  // Pagination (?page=N) is real content: older posts in a listing, and the second page of a long
+  // comment thread. Follow it. Any other query string (login redirects and the like) is dynamic.
+  discover: { exclude: ['^comment/', '^user/'], queryParams: ['page'] },
+
+  // The site's own public domain. Old content hardcodes http://randyfay.com/... in places; those
+  // references are preserved as written and recorded in the baseline for triage (DISCOVERIES.md).
+  ownDomains: ['randyfay.com'],
+
+  // Hosts a static copy must never refer to (the original's own host is always forbidden for a
+  // target on another host). The prepared copy the crawl is taken from goes here.
+  static: { forbiddenHosts: ['randyfay-prep.ddev.site'] },
 
   // The database is the truth about what exists: data/manifest.json is generated from
   // `ddev mysql` by scripts/generate-manifest.mjs (current-revision join, unpublished included).

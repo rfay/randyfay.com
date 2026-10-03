@@ -120,5 +120,22 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://blog.jetbrains.com/phpstorm/2013/07/drupal-development-using-phpstorm",
+      "http://ddev.com/contact",
+      "http://drupal.org/project/mandrill_incoming",
+      "http://facebook.com/randyfay",
+      "http://help.mandrill.com/entries/22092308-What-is-the-format-of-inbound-email-webhooks-",
+      "http://hobobiker.com",
+      "http://mandrill.com",
+      "http://randyfay.com/content/my-new-development-computer-amazon-ec2-instance",
+      "http://www.jetbrains.com/phpstorm",
+      "http://www.jetbrains.com/phpstorm/webhelp/debugging-php-applications.html",
+      "http://xdebug.org/docs-dbgp.php",
+      "https://drupal.org/node/1476800"
+    ],
+    "internalNonOk": []
   }
 }

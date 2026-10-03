@@ -250,5 +250,25 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://blog.boombatower.com",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/1240284",
+      "http://en.wikipedia.org/wiki/Adaptogens",
+      "http://en.wikipedia.org/wiki/Nootropic",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://london2011.drupal.org/coreconversation/1700-1730-burnout",
+      "http://pragprog.com/magazines/2011-08/how-virtuous-is-your-code",
+      "http://randyfay.com/node/107",
+      "http://rickmanelius.com",
+      "http://technosophos.com",
+      "http://westendgirl.ca/preventing-and-dealing-burnout",
+      "http://www.scientificamerican.com/article.cfm?id=burned-out",
+      "http://www.timelessdomain.com"
+    ],
+    "internalNonOk": []
   }
 }

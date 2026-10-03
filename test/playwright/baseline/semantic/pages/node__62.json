@@ -45,5 +45,16 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/project/examples",
+      "http://facebook.com/randyfay",
+      "http://groups.drupal.org/node/63518",
+      "http://hobobiker.com",
+      "http://sf2010.drupal.org/conference/post-conference-sprint"
+    ],
+    "internalNonOk": []
   }
 }

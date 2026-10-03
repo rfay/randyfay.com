@@ -46,5 +46,15 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://alonovo.com",
+      "http://ddev.com/contact",
+      "http://drupal.org/project/panels_plugin_example",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": []
   }
 }

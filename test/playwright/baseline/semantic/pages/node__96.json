@@ -133,5 +133,14 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://www.screencast-o-matic.com/embed?sc=cXnueyI9A&w=640&v=3"
+    ],
+    "internalNonOk": []
   }
 }

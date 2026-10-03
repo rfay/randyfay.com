@@ -72,5 +72,24 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://twitter.com/randyfay",
+      "http://www.randyfay.com/files/rfay.pub"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      },
+      {
+        "key": "contact",
+        "status": 403
+      }
+    ]
   }
 }

@@ -54,5 +54,17 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/project/context",
+      "http://drupal.org/project/fontyourface",
+      "http://drupal.org/project/omega",
+      "http://drupal.org/project/sweaver",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": []
   }
 }

@@ -79,5 +79,16 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://janezurevc.name",
+      "http://player.vimeo.com/video/37284355",
+      "http://xjm.drupalgardens.com/blog/rerolling-drupal-8-core-patches"
+    ],
+    "internalNonOk": []
   }
 }

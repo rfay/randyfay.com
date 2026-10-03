@@ -486,5 +486,28 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://code.google.com/p/mintty",
+      "http://corbacho.info",
+      "http://cygwin.com",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/1432756",
+      "http://drupal.org/node/505974",
+      "http://drupal.org/node/594744",
+      "http://drupal.org/patch",
+      "http://earthviaradio.wordpress.com",
+      "http://facebook.com/randyfay",
+      "http://greenknowe.org",
+      "http://hobobiker.com",
+      "http://mostrey.be",
+      "http://stonebergdesign.com",
+      "http://vacilando.org",
+      "http://www.andlinux.org",
+      "http://www.lullabot.com/videos/install-cygwin-windows-xp",
+      "http://www.nextide.ca"
+    ],
+    "internalNonOk": []
   }
 }

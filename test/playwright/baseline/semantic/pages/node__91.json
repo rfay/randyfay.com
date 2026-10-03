@@ -1540,5 +1540,44 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://advomatic.com",
+      "http://agaric.com",
+      "http://codebaboon.com",
+      "http://darwinweb.net/articles/the-case-for-git-rebase",
+      "http://ddev.com/contact",
+      "http://eduglu.com",
+      "http://facebook.com/randyfay",
+      "http://fourkitchens.com/blog/2009/04/20/alternatives-rebasing-bazaar",
+      "http://help.github.com/remotes",
+      "http://hobobiker.com",
+      "http://progit.org/2010/03/08/rerere.html",
+      "http://progit.org/book/ch5-3.html",
+      "http://randyfay.com/comment/1093",
+      "http://randyfay.com/node/103",
+      "http://randyfay.com/node/89",
+      "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_002.png",
+      "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_003.png",
+      "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_004.png",
+      "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_005.png",
+      "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_006.png",
+      "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_007.png",
+      "http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html",
+      "http://unethicalblogger.com/node/276",
+      "http://www.alexweber.com.br",
+      "http://www.cellprofiler.org",
+      "http://www.computerminds.co.uk",
+      "http://www.exsyshost.com",
+      "http://www.exsyshost.com/clients/knowledgebase/142/Using-Gitolite-to-securely-deploy-a-website-with-version-control-based-on-the-GitHub-Flow.html",
+      "http://www.garfieldtech.com",
+      "http://www.papayasoft.com",
+      "http://www.randyfay.com/content/simpler-rebasing-avoiding-unintentional-merge-commits",
+      "http://yannesposito.com",
+      "https://github.com/najamelan",
+      "https://help.github.com/articles/using-pull-requests"
+    ],
+    "internalNonOk": []
   }
 }

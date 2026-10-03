@@ -63,5 +63,20 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://fb.popcap.com/online-games/zuma",
+      "http://hobobiker.com",
+      "http://mariethacker.com"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

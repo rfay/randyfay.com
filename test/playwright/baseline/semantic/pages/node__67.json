@@ -234,5 +234,15 @@
         "key": "ajax"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api/function/ajax_example_autotextfields/7",
+      "http://d7.drupalexamples.info/examples/ajax_example/autotextfields",
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": []
   }
 }

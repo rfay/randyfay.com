@@ -418,5 +418,21 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/user/146719",
+      "http://exodusdev.com",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://paul.stadig.name/2010/12/thou-shalt-not-lie-git-rebase-ammend.html",
+      "http://randyfay.com/node/89",
+      "http://randyfay.com/node/91",
+      "http://randyfay.com/taxonomy/term/26",
+      "http://www.metaltoad.com/people/dylan-tack",
+      "https://news.ycombinator.com/item?id=11144061"
+    ],
+    "internalNonOk": []
   }
 }

@@ -1,0 +1,800 @@
+{
+  "title": "Drupal | RandyFay.com",
+  "primaryHeading": "Drupal",
+  "contentFound": true,
+  "lines": [
+    "AJAX Form Resources",
+    "Download the Examples project and experiment with it. There are many more examples there that show graceful degradation and more complex situations, like dependent dropdowns. View it live at http://drupalexamples.info/examples/ajax_example. See the code without downloading on api.drupal.org.",
+    "The Drupal.org handbook page on D7 AJAX forms",
+    "Form API Documentation, AJAX section",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ AJAX Example: Select control and generated checkboxes",
+    "up",
+    "Debugging with Git Bisect",
+    "Fri, 2010-04-02 18:58 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "git",
+    "As most of you know, the marvelous git version control system is the future of the Drupal repository. You've probably heard people rave about lots of very important features: It's distributed, FAST, branching and merging are easy.",
+    "But today I'm here to rave about a more obscure wonderful feature of git: the git bisect command. With this command you can find out where in the history a particular bug was introduced. I made a short screencast to explain it:",
+    "The basic idea: The fastest way to understand a problem is to divide it in half, then divide that in half, etc. In search technology this is called binary search. In military terms it's called \"divide and conquer\". It's great. It's git bisect. You choose a version of your code that's broken. Then you choose a historical revision that's not broken. Then git just checks out for you the halfway points for you to test until you get to the actual answer to your question: in what commit was the change introduced?",
+    "One key feature of git that this showcases is its incredible speed. You could do all this (manually) with any revision control system. But how long would it take to do each checkout? Way too long to make it practical in most cases.",
+    "Git is cool. This is just one more reason.",
+    "Drupalcon: Best Practices in Contrib Development",
+    "Fri, 2010-04-09 18:23 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Mark your calendar for Wednesday the 21st at 3pm: Greg Knaddison, Dave Reid, Derek Wright, Jennifer Hodgdon and I are doing a panel presentation on how to maintain and support a contrib module or theme. It will cover:",
+    "Community management: Enlisting help, finding maintainers and co-maintainers, handling abandoned projects, dealing with duplication, handling the issue queue.",
+    "Drupal project management: What's expected of a maintainer, code and release management.",
+    "Coding issues: Coding standards, documentation, namespacing, simpletest, internationalization.",
+    "Resources for maintainers.",
+    "If you're a maintainer or might become one, or want to start helping overburdened module maintainers by helping out with these responsibilities, come and hear about how to contribute to the community more effectively and efficiently.",
+    "Here's the link to the DCSF page. The session is Wednesday at 3pm in 304, which is \"Phase2 Technology\".",
+    "Materials and resources will be posted on the Contrib Development Best Practices Groups.drupal.org page.",
+    "Examples module now on api.drupal.org",
+    "Sun, 2010-04-11 09:15 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Thanks to excellent work by api module maintainer drumm, all of the examples in Examples module are now available on api.drupal.org.",
+    "If you're not familiar with Examples module, it's an attempt to provide easy-to-understand examples of key Drupal APIs, so that developers have a known source of a working example they can understand. Back in the day, there were a few examples in the Documentation branch of contrib in CVS, but they were poorly maintained and nobody knew how to improve them. All of those have been moved to Examples (for D6 and D7) and updated.",
+    "So with Examples now on api.drupal.org, you have more than one way to access the various examples:",
+    "Download the module and look at the code.",
+    "Install the module and experiment with the code.",
+    "Just look for the example code in api.drupal.org with a simple search. For example, go to api.drupal.org/api/7 and search for \"AJAX Examples\". Or just search for example.",
+    "Try out the D7 examples live on http://d7.drupalexamples.info",
+    "Currently on Drupal 7 we have these examples: AJAX, Batch, Block, DBTNG, E-mail, Field, , Form, Image, Javascript, Node, Page, Simpletest, Token, Trigger, Vertical Tabs, and XML-RPC.",
+    "Community contribution is encouraged. If you find errors, can suggest improvements, provide patches, provide new examples, please do it in the Examples issue queue. This is a big and important project and it will take the whole community to get it right. Thanks!",
+    "Drupal 7 FAPI's #states: A Great New UI Improvement For Forms",
+    "Mon, 2010-04-12 14:16 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "The little-known #states feature has gone into Drupal 7, and it rocks.",
+    "Before you read on, try this dynamic form live at d7.drupalexamples.info. It's developed without using a line of javascript, just plain Form API.",
+    "Essentially, you can provide dynamic behavior in a form based on changes to other elements in the form. An easy example: Often you only need to collect information if a particular element is selected. If they select type=student, you don't have to require them to fill in a further \"Employer\" field.",
+    "The new #states example in the Examples module's Form Example shows how a dynamic form can work. You can try it out live as well at d7.drupalexamples.info.",
+    "The idea of #states is that you add a #states property to a form element that is supposed to change when some other form element changes. So if a form element is supposed to be shown or hidden, the #states property will be added on that element, not on the element that caused the change.",
+    "The #states property is a structured array of action => condition arrays. The action is 'visible' or 'checked' or 'required' or several other options. The condition is an associative array of 'jquery_selector' => array(value_statement). But mostly you can do it by copying and pasting examples. Much of the time the jquery selector can be \":input[name=field_name]\" and the rest of the array can be cookbook from example code.",
+    "In the example, the 'tests_taken' field is only to be visible if the form-filler is a high school student:",
+    "$form['tests_taken'] = array(",
+    "'#type' => 'checkboxes',",
+    "'#options' => drupal_map_assoc(array(t('SAT'), t('ACT'))),",
+    "'#title' => t('What standardized tests did you take?'),",
+    "'#states' => array(",
+    "'visible' => array( // action to take.",
+    "':input[name=student_type]' => array('value' => t('High School')),",
+    "),",
+    "),",
+    ");",
+    "So we set the action to 'visible' when the condition (our select called student_type is set to 'High School') is true.",
+    "That's basically all there is to it.",
+    "So when would you use #states as opposed to AJAX forms or a sprinkling of jquery?",
+    "If your form actually changes under the hood based on user input, then you need to use AJAX forms. #states doesn't fundamentally change any of the elements, it just changes their presentation.",
+    "If you don't change the form, but need a transformation that simple conditional logic can't do, you'll have to roll some jQuery.",
+    "For more detailed comments and possibilities, read the #states example.",
+    "D8 Software Process Improvement Discussions at Core Dev Summit",
+    "Wed, 2010-04-14 08:27 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "We can substantially improve our core software development process with some simple steps in Drupal 8.",
+    "<",
+    "ol>",
+    "Improve our issue queue setup on drupal.org.",
+    "Our issue queue works the way it does because Drupal worked that way a long time ago. We can do better than that.",
+    "Each core issue should have an issue summary, and the issue summary should be correct and complete before commit.",
+    "An issue should have links to related and dependent issues.",
+    "There should be checkoffs for docs, usability, security, etc.",
+    "Of course we know how to do this with Drupal. Let's do it. Related issues: Improve the workflow for documentation of core API changes and Provide a mechanism for issue meta discussions",
+    "Full functional in-browser testing, including javascript and AJAX. I'll be presenting a brainstorm on this at the Core Dev Summit and there will be a BoF on this topic at 4pm on Monday in room 200. We have to solve our lack of test coverage in this area. AJAX and javascript get essentially no real test coverage, so it's like the old days... somebody has to report that something is broken. Even with things as important as install.php.",
+    "Every feature should have a full, working example in the tests module. We create \"mock modules\" to write tests against... but sometimes features actually go in that nobody knows how to use. A simple remedy: Before commit, there needs to be a comprehensive example in the related mock module in the tests. The comprehensive example can be used as fodder for tests, but it's also there for people to see how to use something. Enable the mock module, try it out. Recently the fantastic #states feature went in with no documentation and essentially no usage examples. And it wasn't testable because we don't have Javascript testing. But if we had the requirement of a comprehensive example, we'd have been fine (and several bugs would have been avoided.)",
+    "What are your suggestions for software process improvements in D8? Let's talk about this at the Core Dev Summit on Saturday!",
+    "DrupalCon: Drupal 7 AJAX and Javascript",
+    "Wed, 2010-04-14 13:24 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Rob Loach, Kat Bailey and I will be presenting Drupal 7 AJAX and Javascript Monday, 3-4pm, in room 307.",
+    "Here are the basics:",
+    "The new AJAX Framework",
+    "AJAX forms, with a complete how-to and sample, easy to understand code.",
+    "The fantastic new #states feature for dynamic forms.",
+    "D7 Javascript changes from D6.",
+    "Using Javascript Libraries.",
+    "We've made great strides in Drupal 7. Come and hear about it.",
+    "If you used AHAH in D6, you're probably afraid of AJAX forms. But if you never used #ahah, you'll walk out of the room feeling competent to try out #ajax. You can't believe how easy it is now.",
+    "PHP 5.2 on Ubuntu 10.04 Lucid Lynx (Seems to work for 12.04 too)",
+    "Mon, 2010-05-31 20:08 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Edit 2012-11-12: If you're interested in the newer problem of running PHP 5.3 on Ubuntu 12.10 Quantal, try this recipe.",
+    "Edit 2012-09-21: Isn't it about time you moved to PHP 5.3? Even though these instructions seem to work even for Ubuntu 12.04, it's really time for people to move on to PHP 5.3. If you're a Drupal user on Drupal 6, Drupal core and nearly all contrib are now just fine with 5.3.",
+    "Edit 2011-11-23: Since Ubuntu 9.10 (Karmic) is now out of support, the repositories to use for it have changed to old-releases.ubuntu.com. I've changed the karmic.list files attached. Please be aware that although 10.04LTS is still supported for years still, 9.10 is out of the support window, meaning that security issues in these packages will not be fixed.",
+    "Update: Look here to solve same problem with Ubuntu 10.10.",
+    "Lots of us are starting to run Drupal on Ubuntu 10.04 Lucid Lynx, and of course, Lucid comes with PHP 5.3, for which Drupal 6 is not yet ready.",
+    "I've seen a couple of fine recipes, but here's mine, with the files you need attached.",
+    "Update: You'll probably want to look at Khalid's more extensive discussion of various ways to do this.",
+    "Essentially, all you have to do is tell the apt system where to find Karmic packages and then tell it that you want it to use Karmic's PHP packages.",
+    "So put the attached karmic.list in /etc/apt/sources.list.d and the attached \"php\" into /etc/apt/preferences.d.",
+    "Then:",
+    "sudo apt-get update",
+    "sudo apt-get remove php5 libapache2-mod-php5 php5-xsl php5-gd php-pear php5-mysql php5-curl php5-memcache",
+    "sudo apt-get install php5 libapache2-mod-php5 php5-xsl php5-gd php-pear php5-mysql php5-curl php5-memcache",
+    "If you had not already installed apache, php, and mysql, you can do that with the above files in place and get the right versions without removing anything:",
+    "sudo apt-get update",
+    "sudo apt-get install apache2 mysql-server php5 libapache2-mod-php5 php5-xsl php5-gd php-pear libapache2-mod-auth-mysql php5-mysql php5-curl php5-memcache",
+    "Note that your php.ini will have been replace, so you have to reset custom settings like memory_limit.",
+    "Attachment",
+    "Size",
+    "php - put into /etc/apt/preferences.d",
+    "0 bytes",
+    "karmic.list - put in /etc/apt/sources.list.d",
+    "0 bytes",
+    "New Queue and Menu Examples for Examples Project",
+    "Fri, 2010-06-04 10:12 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "The Examples for Developers Project aims to provide high-quality, well-documented API examples for a broad range of Drupal core functionality. You can download the code from the project page, view it on api.drupal.org, or experience it (for several of them) at drupalexamples.info.",
+    "Recently, we've added two new example suites:",
+    "Drupal 7 Queue Example, (see the code on api.drupal.org or experience the UI on d7.drupalexamples.info). This Drupal 7 code should also be compatible with the D6 Drupal Queue module, which is a backport. Thanks, coltrane!",
+    "Drupal 6 and Drupal 7 Menu Example. These examples use nearly every feature of the Menu API, and provide easy-to-access examples of tabs, placeholders, and many of the other fairly obscure features of the Menu API. See the code on api.drupal.org or experience the examples at drupalexamples.info.",
+    "Examples for Developers is a community project. Contributions are encouraged (just use the issue queue). If you find a problem, please submit an issue. If you want to fix a problem you find, please submit a patch. It will never be perfect, but if we tend it as a community resource, it should get better all the time.",
+    "Translatable Regions Module: For user-contributed content in many languages",
+    "Thu, 2010-06-10 14:18 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Drupal is great at handling multilingual situations, but how do you make user-contributed content in multiple languages accessible to those who can't read them?",
+    "The Translatable Regions module tackles this by using the automated Google AJAX Language API via the jquery-translate plugin.",
+    "What do you have to do?",
+    "Install the module.",
+    "Decide what selectors you want to have translation buttons.",
+    "Configure the selectors at admin/settings/translatableregions.",
+    "Whenever those selectors appear on the page, a button is added offering to translate to many languages, the default being the browser language.",
+    "Here's an example of the use on user profiles on http://warmshowers.org.",
+    "To see live user-generated content translation, to go The Portuguese-language forums on Warmshowers.org.",
+    "Pages",
+    "« first",
+    "‹ previous",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "next ›",
+    "last »",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [
+    {
+      "src": "/core/modules/file/icons/application-octet-stream.png",
+      "name": "application-octet-stream.png",
+      "alt": "Binary Data"
+    },
+    {
+      "src": "/core/modules/file/icons/application-octet-stream.png",
+      "name": "application-octet-stream.png",
+      "alt": "Binary Data"
+    },
+    {
+      "src": "http://randyfay.com/files/translatable_regions_screenshot.png",
+      "name": "translatable_regions_screenshot.png",
+      "alt": ""
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/ajax-form-resources",
+      "text": "AJAX Form Resources"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalexamples.info/examples/ajax_example",
+      "text": "http://drupalexamples.info/examples/ajax_example"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--ajax_example--ajax_example.module/7",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/752056",
+      "text": "The Drupal.org handbook page on D7 AJAX forms"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/file/developer/topics/forms_api_reference.html/7#ajax",
+      "text": "Form API Documentation, AJAX section"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-select-control-and-generated-checkboxes",
+      "text": "‹ AJAX Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-git-bisect",
+      "text": "Debugging with Git Bisect"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://git-scm.com",
+      "text": "the marvelous git"
+    },
+    {
+      "internal": false,
+      "key": "http://www.kernel.org/pub/software/scm/git/docs/git-bisect.html",
+      "text": "git bisect"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcon-best-practices-contrib-development",
+      "text": "Drupalcon: Best Practices in Contrib Development"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "text": "how to maintain and support a contrib module or theme"
+    },
+    {
+      "internal": true,
+      "key": "topics/>http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "text": "link to the DCSF page"
+    },
+    {
+      "internal": false,
+      "key": "http://groups.drupal.org/contrib-development-best-practices",
+      "text": "Contrib Development Best Practices"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-module-now-apidrupalorg",
+      "text": "Examples module now on api.drupal.org"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/3064",
+      "text": "drumm"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/search/7/examples",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Download the module"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api.7",
+      "text": "api.drupal.org/api/7"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/search/7/example",
+      "text": "example"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info",
+      "text": "http://d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/ajax_examples/7",
+      "text": "AJAX"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--batch_example--batch_example.module/7",
+      "text": "Batch"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--block_example--block_example.module/7",
+      "text": "Block"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--dbtng_example--dbtng_example.module/7",
+      "text": "DBTNG"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--email_example--email_example.module/7",
+      "text": "E-mail"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--field_example--field_example.module/7",
+      "text": "Field"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--form_example--form_example_tutorial.inc/7",
+      "text": "Form"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--image_example--image_example.module/7",
+      "text": "Image"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/search/7/js_example",
+      "text": "Javascript"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--node_example--node_example.module/7",
+      "text": "Node"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--page_example--page_example.module/7",
+      "text": "Page"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--simpletest_example--simpletest_example.module/7",
+      "text": "Simpletest"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--token_example--token_example.module/7",
+      "text": "Token"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--trigger_example--trigger_example.module/7",
+      "text": "Trigger"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--vertical_tabs_example--vertical_tabs_example.module/7",
+      "text": "Vertical Tabs"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--xmlrpc_example--xmlrpc_example.module/7",
+      "text": "XML-RPC"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/issues/examples",
+      "text": "Examples issue queue"
+    },
+    {
+      "internal": true,
+      "key": "states",
+      "text": "Drupal 7 FAPI's #states: A Great New UI Improvement For Forms"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/form_example/states",
+      "text": "d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/form_example_states_form/7",
+      "text": "#states example"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/form_example/states",
+      "text": "d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/form_example_states_form/7",
+      "text": "#states example"
+    },
+    {
+      "internal": true,
+      "key": "content/d8-software-process-improvement-discussions-core-dev-summit",
+      "text": "D8 Software Process Improvement Discussions at Core Dev Summit"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/648218",
+      "text": "Improve the workflow for documentation of core API changes"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/569552",
+      "text": "Provide a mechanism for issue meta discussions"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcon-drupal-7-ajax-and-javascript",
+      "text": "DrupalCon: Drupal 7 AJAX and Javascript"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "text": "Drupal 7 AJAX and Javascript"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/58",
+      "text": "#states feature"
+    },
+    {
+      "internal": true,
+      "key": "content/php-52-ubuntu-1004-lucid-lynx-seems-work-1204-too",
+      "text": "PHP 5.2 on Ubuntu 10.04 Lucid Lynx (Seems to work for 12.04 too)"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://ubuntuforums.org/showthread.php?t=2074178",
+      "text": "this recipe"
+    },
+    {
+      "internal": false,
+      "key": "http://thejibe.com/blog/10/10/php-5210-debs-ubuntu-1010-maverick",
+      "text": "Look here to solve same problem with Ubuntu 10.10"
+    },
+    {
+      "internal": false,
+      "key": "http://2bits.com/drupal-planet/various-ways-running-php-52-ubuntu-1004-lucid-lynx.html",
+      "text": "more extensive discussion of various ways to do this"
+    },
+    {
+      "internal": true,
+      "key": "sites/default/files/php_1.",
+      "text": "php - put into /etc/apt/preferences.d"
+    },
+    {
+      "internal": true,
+      "key": "sites/default/files/karmic_1.list",
+      "text": "karmic.list - put in /etc/apt/sources.list.d"
+    },
+    {
+      "internal": true,
+      "key": "content/new-queue-and-menu-examples-examples-project",
+      "text": "New Queue and Menu Examples for Examples Project"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers Project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "the project page"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info",
+      "text": "drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--queue_example--queue_example.module/7",
+      "text": "code on api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/queue_example/insert_remove",
+      "text": "d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/drupal_queue",
+      "text": "D6 Drupal Queue module"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--menu_example--menu_example.module/6",
+      "text": "code on api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/menu_example",
+      "text": "drupalexamples.info"
+    },
+    {
+      "internal": true,
+      "key": "content/translatable-regions-module-user-contributed-content-many-languages",
+      "text": "Translatable Regions Module: For user-contributed content in many languages"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/translatableregions",
+      "text": "Translatable Regions"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/apis/ajaxlanguage",
+      "text": "Google AJAX Language API"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/p/jquery-translate",
+      "text": "jquery-translate plugin"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org",
+      "text": "http://warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://pt.warmshowers.org/content/benvind-ao-warmshowers",
+      "text": "The Portuguese-language forums on Warmshowers.org"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "« first"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=2",
+      "text": "‹ previous"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "1"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=1",
+      "text": "2"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=2",
+      "text": "3"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=4",
+      "text": "5"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=4",
+      "text": "next ›"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=4",
+      "text": "last »"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  },
+  "references": {
+    "external": [
+      "http://2bits.com/drupal-planet/various-ways-running-php-52-ubuntu-1004-lucid-lynx.html",
+      "http://api.drupal.org",
+      "http://api.drupal.org/api.7",
+      "http://api.drupal.org/api/drupal/developer--examples--ajax_example--ajax_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--batch_example--batch_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--block_example--block_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--dbtng_example--dbtng_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--email_example--email_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--field_example--field_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--form_example--form_example_tutorial.inc/7",
+      "http://api.drupal.org/api/drupal/developer--examples--image_example--image_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--menu_example--menu_example.module/6",
+      "http://api.drupal.org/api/drupal/developer--examples--node_example--node_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--page_example--page_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--queue_example--queue_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--simpletest_example--simpletest_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--token_example--token_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--trigger_example--trigger_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--vertical_tabs_example--vertical_tabs_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--xmlrpc_example--xmlrpc_example.module/7",
+      "http://api.drupal.org/api/file/developer/topics/forms_api_reference.html/7",
+      "http://api.drupal.org/api/function/form_example_states_form/7",
+      "http://api.drupal.org/api/group/ajax_examples/7",
+      "http://api.drupal.org/api/search/7/example",
+      "http://api.drupal.org/api/search/7/examples",
+      "http://api.drupal.org/api/search/7/js_example",
+      "http://code.google.com/apis/ajaxlanguage",
+      "http://code.google.com/p/jquery-translate",
+      "http://d7.drupalexamples.info",
+      "http://d7.drupalexamples.info/examples/form_example/states",
+      "http://d7.drupalexamples.info/menu_example",
+      "http://d7.drupalexamples.info/queue_example/insert_remove",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/569552",
+      "http://drupal.org/node/648218",
+      "http://drupal.org/node/752056",
+      "http://drupal.org/project/drupal_queue",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/issues/examples",
+      "http://drupal.org/project/translatableregions",
+      "http://drupal.org/user/3064",
+      "http://drupalexamples.info/examples/ajax_example",
+      "http://facebook.com/randyfay",
+      "http://git-scm.com",
+      "http://groups.drupal.org/contrib-development-best-practices",
+      "http://hobobiker.com",
+      "http://pt.warmshowers.org/content/benvind-ao-warmshowers",
+      "http://randyfay.com/files/translatable_regions_screenshot.png",
+      "http://randyfay.com/node/58",
+      "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "http://thejibe.com/blog/10/10/php-5210-debs-ubuntu-1010-maverick",
+      "http://ubuntuforums.org/showthread.php?t=2074178",
+      "http://warmshowers.org",
+      "http://www.kernel.org/pub/software/scm/git/docs/git-bisect.html",
+      "https://www.youtube.com/v/mbbIKXopkWI&hl=en_US&fs=1&rel=0"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      },
+      {
+        "key": "sites/default/files/karmic_1.list",
+        "status": 404
+      },
+      {
+        "key": "sites/default/files/php_1.",
+        "status": 404
+      },
+      {
+        "key": "topics/>http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+        "status": 404
+      }
+    ]
+  }
+}

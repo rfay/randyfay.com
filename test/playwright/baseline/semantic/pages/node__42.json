@@ -92,5 +92,16 @@
         "key": "debugging"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/project/devel",
+      "http://drupal.org/project/trace",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://www.lullabot.com/articles/quick_and_dirty_debugging"
+    ],
+    "internalNonOk": []
   }
 }

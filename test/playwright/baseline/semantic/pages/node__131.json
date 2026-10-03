@@ -309,5 +309,24 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://developer.sugarcrm.com/2012/11/21/command-line-xdebug-on-a-remote-server",
+      "http://digital.grinnell.edu",
+      "http://facebook.com/randyfay",
+      "http://flink.com.au",
+      "http://hobobiker.com",
+      "http://www.elijahlynn.net",
+      "http://www.jetbrains.com/phpstorm/marklets",
+      "http://www.ornl.gov",
+      "http://xdebug.org/docs/remote",
+      "http://zbw.eu/labs/user/19",
+      "https://drupal.org/node/2152077",
+      "https://github.com/drush-ops/drush/issues/1534",
+      "https://randyfay.com/node/130"
+    ],
+    "internalNonOk": []
   }
 }

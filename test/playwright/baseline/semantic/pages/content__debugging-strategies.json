@@ -95,5 +95,18 @@
         "key": "debugging"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/node/158043",
+      "http://drupal.org/project/backup_migrate",
+      "http://drupal.org/project/journal",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://warmshowers.org/changelog",
+      "http://wiki.apache.org/httpd/DistrosDefaultLayout"
+    ],
+    "internalNonOk": []
   }
 }

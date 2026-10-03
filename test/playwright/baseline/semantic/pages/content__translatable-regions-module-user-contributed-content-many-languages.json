@@ -75,5 +75,19 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://code.google.com/apis/ajaxlanguage",
+      "http://code.google.com/p/jquery-translate",
+      "http://ddev.com/contact",
+      "http://drupal.org/project/translatableregions",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://pt.warmshowers.org/content/benvind-ao-warmshowers",
+      "http://randyfay.com/files/translatable_regions_screenshot.png",
+      "http://warmshowers.org"
+    ],
+    "internalNonOk": []
   }
 }

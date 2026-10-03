@@ -71,5 +71,18 @@
         "key": "ajax"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api/drupal/developer--examples--ajax_example--ajax_example.module/7",
+      "http://api.drupal.org/api/file/developer/topics/forms_api_reference.html/7",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/752056",
+      "http://drupal.org/project/examples",
+      "http://drupalexamples.info/examples/ajax_example",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": []
   }
 }

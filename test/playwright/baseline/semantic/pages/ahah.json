@@ -99,5 +99,20 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/fivestar",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": [
+      {
+        "key": "contact",
+        "status": 403
+      }
+    ]
   }
 }

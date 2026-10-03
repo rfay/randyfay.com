@@ -55,6 +55,7 @@ Select a tier by test-title prefix with `--grep`.
 |---|---|---|---|
 | Semantic | `semantic:` | Every baseline page's title, content lines, images (and that they load), links, menus; every discovered route (home, listings, taxonomy); every baseline asset resolves. Nothing may be missing; extras are fine. Optional strictness in `migration.config.mjs` (`strict: { order, alt }`, both on here) also requires the same line order and unchanged image alt text. Deliberate differences live in `expected-differences.json`. | No |
 | Visible text | `visible:` | In a real browser, every baseline content line is visible to a visitor (catches text hidden by CSS and content scripts add or remove). Opt-in; compared case-insensitively because the browser applies CSS capitalization | Yes |
+| Static self-containment | `static:` | For a static copy: no page may refer to the original or prepared site, to an internal URL that does not resolve (unless the original had it dead too), or to an external URL the original did not itself have. See the kit's `docs/static-self-containment.md` | No |
 | Access | `access:` | Unpublished nodes still answer 403 to anonymous visitors (40 checks: 20 nodes, each alias) | No |
 | Assets | `asset:` | Every captured file still has the same size and SHA-256 (26 files) | No |
 | Visual | `visual:` | Screenshots of 6 curated pages (one per content type, plus nodes with layout overrides). Informational: a mismatch is attached to the report, not failed | Yes |
@@ -126,12 +127,14 @@ spec-file path.
 
 ```bash
 ddev exec -d /var/www/html/test/playwright \
-  'TEST_BASE_URL=https://migration-a.example.com npx playwright test --grep "semantic:|access:|asset:|visible:"'
+  'MIGRATION_TARGET=static TEST_BASE_URL=https://migration-a.example.com npx playwright test --grep "semantic:|access:|asset:|visible:|static:"'
 ```
 
 - **Set the variable inside the container.** `TEST_BASE_URL=... ddev playwright ...` on the host is not
   forwarded and silently tests the development site again.
-- **Use the four tiers above, not the whole suite.** `visual:` compares screenshots against the
+- **Use the target tiers above, not the whole suite,** and name the kind of target with `MIGRATION_TARGET`
+  (for example `static`), so decisions recorded for that target in `expected-differences.json` apply and no other
+  target's do. `visual:` compares screenshots against the
   original theme and is informational; run it separately when you want to look at a target.
 - **For a static export on disk,** let the kit serve it for the length of one run. It starts the server,
   sets `TEST_BASE_URL`, runs your command, stops the server and returns the command's exit code:
@@ -154,8 +157,8 @@ ddev exec -d /var/www/html/test/playwright \
   paragraph is caught only by the visible-text tier; two swapped paragraphs and a changed alt text are
   caught only by the strict options; a leaked-macro line appears only in the additions report; and a
   tampered baseline copy is flagged page by page by the drift check, which returns exit code 1.
-- The full suite is 562 tests, all passing in about 13 seconds (246 semantic, 244 visible, 40 access,
-  26 asset, 6 visual). The semantic export takes about 25 seconds; the semantic suite about 3.
+- The full suite is 866 tests (266 semantic, 264 visible, 264 static, 40 access, 26 asset, 6 visual). Against
+  the retired copy, the five target tiers pass 860 checks in about 15 seconds. The semantic export takes about 25 seconds; the semantic suite about 3.
 
 ## Where things are
 

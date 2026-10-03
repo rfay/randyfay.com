@@ -65,5 +65,19 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/node/395012",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

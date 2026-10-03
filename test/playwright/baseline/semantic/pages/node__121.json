@@ -362,5 +362,30 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://association.drupal.org",
+      "http://asymptomatic.net/2009/03/21/2795/meritocracy-versus-do-ocracy",
+      "http://ddev.com/contact",
+      "http://denver2012.drupal.org/content/future-drupal-governance",
+      "http://drupal.org/project/governance",
+      "http://edge.org/conversation/the-argumentative-theory",
+      "http://en.wikipedia.org/wiki/Consensus_decision-making",
+      "http://engineeredweb.com/blog/11/1/who-rules-drupal",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://randyfay.com/node/118",
+      "http://randyfay.com/node/120",
+      "http://randyfay.com/topics/governance",
+      "http://technosophos.com",
+      "http://www.communitywiki.org/DoOcracy",
+      "http://www.drupalmyths.com/node/226",
+      "http://www.nytimes.com/2012/03/11/business/jim-whitehurst-of-red-hat-on-merits-of-an-open-culture.html?_r=4&pagewanted=1",
+      "http://www.valthebald.net",
+      "http://zzolo.org",
+      "https://association.drupal.org/about/governance"
+    ],
+    "internalNonOk": []
   }
 }

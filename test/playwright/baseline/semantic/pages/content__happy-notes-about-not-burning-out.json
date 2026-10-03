@@ -214,5 +214,21 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/node/1036132",
+      "http://drupal.org/node/1241704",
+      "http://drupal.org/node/1293124",
+      "http://drupal.org/node/1306444",
+      "http://drupal.org/node/424400",
+      "http://drupal.org/node/528682",
+      "http://drupal.org/node/648218",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://poplarware.com"
+    ],
+    "internalNonOk": []
   }
 }

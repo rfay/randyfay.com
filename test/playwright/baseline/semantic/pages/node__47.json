@@ -60,5 +60,16 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://sf2010.drupal.org/conference/sessions/advanced-forms-drupal-7-fapi",
+      "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support"
+    ],
+    "internalNonOk": []
   }
 }

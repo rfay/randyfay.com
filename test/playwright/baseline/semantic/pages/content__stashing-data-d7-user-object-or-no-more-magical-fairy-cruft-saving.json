@@ -165,5 +165,18 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api/drupal/modules--user--user.api.php/function/hook_user_presave/7",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/721436",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://prodrupal.ru",
+      "http://thelunchbox.org",
+      "http://willvincent.com"
+    ],
+    "internalNonOk": []
   }
 }

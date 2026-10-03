@@ -198,5 +198,17 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/node/917492",
+      "http://drupalcode.org/project/drupal.git/blob_plain/refs/heads/7.x:/.gitignore",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://shomeya.com",
+      "http://www.unleashedmind.com"
+    ],
+    "internalNonOk": []
   }
 }

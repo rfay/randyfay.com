@@ -1,0 +1,890 @@
+{
+  "title": "Drupal | RandyFay.com",
+  "primaryHeading": "Drupal",
+  "contentFound": true,
+  "lines": [
+    "Debugging Techniques",
+    "Now, for some nitty-gritty techniques.",
+    "Using Divide-And-Conquer",
+    "Example: Binary search (of modules) by disabling modules. (demonstration)",
+    "Example: Binary search (of history) by going back in time in the code tree (demonstration)",
+    "Example: Binary search (of code execution) by step-debugging over significant sections of the site and then zeroing in on the section where the problem occurs.",
+    "Getting more information: Instrumentation: Many times, you just don't have enough information to understand what a problem consists of, not to mention what's causing it. In this situation you need to instrument the system to coax it to tell you what you need to know.",
+    "Devel module.",
+    "Trace module",
+    "Add your own on-the-fly instrumentation so you get the information you need. To do this sanely you have to be working on a clone of the site you're debugging, and to do it well, it should be under source control, so you can quickly and safely revert your hacks. Most of these are especially valuable in places like hooks, where the code executes thousands of times with no problems, but then displays a disaster on execution 1001. Step-debugging with conditional breakpoints can be used well, but sometimes you just want to find out quickly. Some quick hacks:",
+    "Webchick's Quick and Dirty Debugging: Hack drupal_set_message() in bootstrap.inc to get a stack trace, so you can see where the problem comes from. For example, you just see a nasty error about a database issue, but no context: Show the stack trace and you'll suddenly understand.",
+    "Add:",
+    "if ($type == 'error') {",
+    "$message .= '<pre>'. print_r(debug_backtrace(), TRUE) .'</pre>';",
+    "}",
+    "to the top of drupal_set_message() and you'll get a backtrace along with the message. The same exact technique works with watchdog - add to the message in watchdog() in includes/bootstrap.inc.",
+    "Debugging hook_cron: Hook_cron can be quite mischievous, because it's not intended to provide user output. A misbehaving module can cause it to croak without warning, and weeks later you find that cron hasn't been running and you don't know why. In this case we can add instrumentation right into module_invoke_all() in includes/module.inc:",
+    "Add into the for loop just below $function =",
+    "if ($hook == 'cron') { watchdog('debugging', \"CRON: Calling $function\"); }",
+    "Every invocation of hook_cron then gets logged into watchdog(). The last one you see is the problem.",
+    "Debugging the infamous \" Cannot use object of type stdClass as array\" message:",
+    "Right before the moment of disaster, insert something like:",
+    "if (!is_array($x)) { print '<pre>' . print_r(debug_backtrace(), TRUE) . '</pre>'; }",
+    "Debugging Drupal batch operations: This can be the very best technique for figuring out what's going on with batch operations. In fact, the only two ways I know of to get visibility into batch operations are to use a step debugger (Eclipse works wonderfully) or to add watchdog() calls to your code. In order to avoid being overwhelmed by the quantity, try making your watchdog calls conditional on the type of event you're working on.",
+    "Repetitive testing and refinement where the database is altered: There are a number of situations (mostly upgrade-related) where the activity you're debugging is actually changing the database, so to binary search and zero in on the problem, you have to start over again and again. If this means settings up an entire upgrade environment over and over it can make you tear your hair out. So try this:",
+    "Get the test set up (prepare for an upgrade, for example). Get it set right to the point where if you pushed the button your error would be demonstrated.",
+    "Dump the database at this point.",
+    "Run the test. Use whatever technique you're using to zero in on the error.",
+    "Load the dumped database. Rinse and repeat.",
+    "Drupal",
+    "debugging",
+    "Book Navigation",
+    "‹ Debugging Tools: Preparation and Investment Ahead of Time",
+    "up",
+    "Debugging Links and Resources ›",
+    "Debugging Links and Resources",
+    "Modules",
+    "devel module is all about instrumentation. It lets you see database queries and how long they're taking, tells you how long it took to render a page, and a thousand other indispensable things. Not recommended on a live site.",
+    "trace module will trace hooks and their execution. This is for people who understand what hooks are.",
+    "drush is not really a module. It allows you to rapidly and easily change the configuration of your system. Need to install devel? drush dl devel; drush enable devel. Sound pretty easy?",
+    "smtp is the way you test mail sending when you're not on the production site. Many people need it to do mail testing. Install it and point it at your gmail account and you can send mail all you want. Also check out reroute_email.",
+    "IDE Debuggers",
+    "Eclipse PDT.See Basic setup, Debugging setup and http://krimson.be/en/debugging-drupal-6-using-xdebug",
+    "Activestate Komodo IDE for debugging",
+    "Netbeans",
+    "Zend Studio",
+    "Links",
+    "Two outstanding articles on Debugging Drupal including much howto on Devel module and other great tips, and a complete tutorial on setting up a an environment for debugging and profiling Drupal on Ubuntu with Netbeans.",
+    "Fabulous.",
+    "Handbook: Setting up a development environment",
+    "2bits: Debugging resources and links",
+    "Configuring Eclipse",
+    "Easier Drupal Debugging with Trace",
+    "Debugging Drupal 6 with Xdebug and Eclipse",
+    "Drupalcon Paris (2009) video of this presentation",
+    "Drupal",
+    "debugging",
+    "Book Navigation",
+    "‹ Debugging Techniques",
+    "up",
+    "Debugging Drupal Presentation posted",
+    "Thu, 2009-09-03 07:30 by rfay",
+    "Drupal",
+    "My presentation for Paris Drupalcon is posted: randyfay.com/debugging_drupal.",
+    "Drupalcon sessions accepted for Drupalcon SF 2010",
+    "Sat, 2010-02-27 05:52 by rfay",
+    "Drupal",
+    "drupalcon",
+    "Planet Drupal",
+    "I have 3 sessions accepted for Drupalcon San Francisco 2010, all with other collaborators:",
+    "AJAX and Javascript in Drupal7 (for developers)",
+    "Best practices in contrib development and support",
+    "Advanced Forms with Drupal 7 FAPI",
+    "Drupal 7 AJAX Forms",
+    "[This material was developed for a presentation at Drupalcamp Colorado in June of 2010. If you find any problems with it or want to suggest any improvements, send me an email or catch me on IRC (rfay).]",
+    "All of us know about \"Web 2.0\" and \"AJAX\", or \"Asynchronous Javascript and XML\". The basic idea behind AJAX is that a Javascript program running in the browser communicates (usually via HTTP and XML) with the webserver and gets information that it uses to do a task or update the page. Several Drupal modules use AJAX, and it's widely deployed on the web. It normally requires you to write and maintain some pretty good Javascript along with your PHP, and it's a powerful way to add interactive features to a website. Drupal's excellent contrib module Fivestar, for example, uses XML to allow you to vote without a page load.",
+    "Built into Drupal, though, is a no-visible-Javascript technique for doing AJAX form updates. It uses Javascript under the hood, but you never see it. Everything the programmer does is in PHP. And in Drupal 7 it's pretty darned easy.",
+    "Continue reading the entire presentation.",
+    "Drupal",
+    "What are AJAX Forms in Drupal?",
+    "Examples of AJAX forms in Drupal",
+    "30 Seconds on the Drupal Form API",
+    "AJAX Simplest Example",
+    "AJAX Example: Textfields driven by checkboxes",
+    "AJAX Example: Select control and generated checkboxes",
+    "AJAX Form Resources",
+    "Book Navigation",
+    "What are AJAX Forms in Drupal? ›",
+    "What are AJAX Forms in Drupal?",
+    "AJAX forms in Drupal are provided by the Form API.",
+    "You write the form using the Drupal Form API.",
+    "You specify what element activates the AJAX behavior.",
+    "You specify what part of the form's HTML is to be replaced by the callback.",
+    "You write a callback that selects and returns the piece of the form which gets replaced.",
+    "Drupal manages everything so that when the button or control is used, the callback gets called and the replacement of HTML is done.",
+    "Although Javascript is involved (supplied by Drupal) you don't write any and you don't see any.",
+    "Drupal",
+    "Book Navigation",
+    "‹ Drupal 7 AJAX Forms",
+    "up",
+    "Examples of AJAX forms in Drupal ›",
+    "Examples of AJAX forms in Drupal",
+    "Book module (core) (Rebuilds the form so you can select an appropriate book and parent page)",
+    "Poll module (core) (Click a submit button and it adds another question)",
+    "Examples module (Drupal 7) provides a number of AJAX examples in the \"AJAX Example module\".",
+    "Quicktabs module (Configuration options change with the type of tab)",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ What are AJAX Forms in Drupal?",
+    "up",
+    "30 Seconds on the Drupal Form API ›",
+    "30 Seconds on the Drupal Form API",
+    "It's pretty easy to forget all the details of the Drupal Forms API, so we'll stop for a minute for a very short review.",
+    "(This one is at ahah_demo/simple_form.)",
+    "You add a form to your page like this:",
+    "$output .= drupal_get_form('ahah_demo_simplest_form');",
+    "?>",
+    "Often that's done right from the hook_menu implementation.",
+    "The layout of a form is as below:",
+    "/**",
+    "* A Hello-world for Forms API (FAPI)",
+    "*/",
+    "function ajax_demo_simplest_form($form, &$form_state) {",
+    "$form['explanation'] = array(",
+    "'#type' => 'markup',",
+    "'#value' => '",
+    "' . t('This is a basic form with just a bit of information') . '",
+    "',",
+    ");",
+    "$form['experience'] = array(",
+    "'#type' => 'select',",
+    "'#title' => t('What is your experience level in Drupal?'),",
+    "'#options' => array(",
+    "'expert' => t('Expert'),",
+    "'journeyman' => t('Journeyman'),",
+    "'beginner' => t('Beginner')),",
+    ");",
+    "$form['more'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t(\"Say more about yourself\"),",
+    "'#description' => t('Surely one word can\\'t describe you.'),",
+    ");",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "function ajax_demo_simplest_form_submit($form, &$form_state) {",
+    "drupal_set_message(t('You have claimed to be %experience: %more',",
+    "array(",
+    "'%experience'=>$form_state['values']['experience'],",
+    "'%more' => $form_state['values']['more'],",
+    ")",
+    "));",
+    "}",
+    "?>",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ Examples of AJAX forms in Drupal",
+    "up",
+    "AJAX Simplest Example ›",
+    "AJAX Simplest Example",
+    "The essence of AJAX forms is that you mark an element of a form as the one that activates AJAX behavior, and you tell it what section of the HTML is to be replaced when it's activated.",
+    "The form we're using here has a textfield with a description, which is just plain HTML. It has a prefix and suffix that mention its CSS ID. The CSS ID will be used by the javascript running in the background to determine what's to be replaced.",
+    "$form['changethis'] is marked as AJAX-enabled with the \"#ajax\" marker, which tells the Form API its callback function and the HTML ID (wrapper) to replace.",
+    "When $form['changethis'] is changed, javascript provided by Drupal makes a request to the server, which rebuilds the form and calls the callback, which selects a piece of the form. The resulting form piece is rendered and returned to the page, and is replaced by the javascript that made the original call.",
+    "(This one is live at http://d7.drupalexamples.info/examples/ajax_example/simplest and the code is on api.drupal.org at http://api.drupal.org/api/function/ajax_example_simplest/7)",
+    "Here's an example of the very simplest AJAX behavior from the Examples module.",
+    "/**",
+    "* Simple form whose ajax-enabled 'changethis' member causes a text change",
+    "* in the description of the 'replace_textfield' member.",
+    "*/",
+    "function ajax_example_simplest($form, &$form_state) {",
+    "$form = array();",
+    "$form['changethis'] = array(",
+    "'#title' => t(\"Choose something and explain why\"),",
+    "'#type' => 'select',",
+    "'#options' => array(",
+    "'one' => 'one',",
+    "'two' => 'two',",
+    "'three' => 'three',",
+    "),",
+    "'#ajax' => array(",
+    "'callback' => 'ajax_example_simplest_callback',",
+    "'wrapper' => 'replace_textfield_div',",
+    "),",
+    ");",
+    "// This entire form element will be replaced with an updated value.",
+    "// However, it has to have the prefix/suffix to work right, as the entire",
+    "// div is replaced.",
+    "// In this example, the description is dynamically updated during form",
+    "// rebuild.",
+    "$form['replace_textfield'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t(\"Why\"),",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    ");",
+    "if (!empty($form_state['values']['changethis'])) {",
+    "$form['replace_textfield']['#description'] = t(\"Say why you chose\") . \" '{$form_state['values']['changethis']}'\";",
+    "}",
+    "return $form;",
+    "}",
+    "/**",
+    "* Callback for ajax_example_simplest.",
+    "*",
+    "* The form item 'replace_textfield' has already been processed and changed",
+    "* when the form was submitted and rebuilt during the AJAX call, so now",
+    "* we just return the piece of the form that changed.",
+    "*/",
+    "function ajax_example_simplest_callback($form, $form_state) {",
+    "// The form has already been submitted and updated. We can return the replaced",
+    "// item as it is.",
+    "return $form['replace_textfield'];",
+    "}",
+    "?>",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ 30 Seconds on the Drupal Form API",
+    "up",
+    "AJAX Example: Textfields driven by checkboxes ›",
+    "AJAX Example: Select control and generated checkboxes",
+    "In this example we use a select control to determine how many checkboxes are generated.",
+    "(This one is live at http://d7.drupalexamples.info/examples/ajax_example/autocheckboxes and the code on api.drupal.org at http://api.drupal.org/api/function/ajax_example_autocheckboxes/7)",
+    "/**",
+    "* AJAX-enabled select element causes replacement of a set of checkboxes",
+    "* based on the selection.",
+    "*/",
+    "function ajax_example_autocheckboxes($form, &$form_state) {",
+    "$default = !empty($form_state['values']['howmany']) ? $form_state['values']['howmany'] : 1;",
+    "$form['howmany_select'] = array(",
+    "'#title' => t('How many checkboxes do you want?'),",
+    "'#type' => 'select',",
+    "'#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4),",
+    "'#default_value' => $default,",
+    "'#ajax' => array(",
+    "'callback' => 'ajax_example_autocheckboxes_callback',",
+    "'wrapper' => 'checkboxes-div',",
+    "'method' => 'replace',",
+    "'effect' => 'fade',",
+    "),",
+    ");",
+    "$form['checkboxes_fieldset'] = array(",
+    "'#title' => t(\"Generated Checkboxes\"),",
+    "// The prefix/suffix provide the div that we're replacing, named by",
+    "// #ajax['wrapper'] above.",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#type' => 'fieldset',",
+    "'#description' => t('This is where we get automatically generated checkboxes'),",
+    ");",
+    "$num_checkboxes = !empty($form_state['values']['howmany_select']) ? $form_state['values']['howmany_select'] : 1;",
+    "for ($i=1; $i<=$num_checkboxes; $i++) {",
+    "$form['checkboxes_fieldset'][\"checkbox$i\"] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => \"Checkbox $i\",",
+    ");",
+    "}",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Submit'),",
+    ");",
+    "return $form;",
+    "}",
+    "/**",
+    "* Callback element needs only select the portion of the form to be updated.",
+    "* Since #ajax['callback'] return can be HTML or a renderable array (or an",
+    "* array of commands), we can just return a piece of the form.",
+    "*/",
+    "function ajax_example_autocheckboxes_callback($form, $form_state) {",
+    "return $form['checkboxes_fieldset'];",
+    "}",
+    "?>",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ AJAX Example: Textfields driven by checkboxes",
+    "up",
+    "AJAX Form Resources ›",
+    "Pages",
+    "« first",
+    "‹ previous",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "next ›",
+    "last »",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/debugging-techniques",
+      "text": "Debugging Techniques"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/devel",
+      "text": "Devel"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/trace",
+      "text": "Trace"
+    },
+    {
+      "internal": false,
+      "key": "http://www.lullabot.com/articles/quick_and_dirty_debugging",
+      "text": "Quick and Dirty Debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-tools-preparation-and-investment-ahead-time",
+      "text": "‹ Debugging Tools: Preparation and Investment Ahead of Time"
+    },
+    {
+      "internal": true,
+      "key": "debugging",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-links-and-resources",
+      "text": "Debugging Links and Resources ›"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-links-and-resources",
+      "text": "Debugging Links and Resources"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/devel",
+      "text": "devel module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/trace",
+      "text": "trace module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/drush",
+      "text": "drush"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/smtp",
+      "text": "smtp"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/reroute_email",
+      "text": "reroute_email"
+    },
+    {
+      "internal": false,
+      "key": "http://www.eclipse.org/pdt",
+      "text": "Eclipse PDT"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/75242",
+      "text": "Basic setup"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/157609",
+      "text": "Debugging setup"
+    },
+    {
+      "internal": false,
+      "key": "http://krimson.be/en/debugging-drupal-6-using-xdebug",
+      "text": "http://krimson.be/en/debugging-drupal-6-using-xdebug"
+    },
+    {
+      "internal": false,
+      "key": "http://www.activestate.com/komodo",
+      "text": "Activestate Komodo"
+    },
+    {
+      "internal": false,
+      "key": "http://www.netbeans.org",
+      "text": "Netbeans"
+    },
+    {
+      "internal": false,
+      "key": "http://www.zend.com/en",
+      "text": "Zend Studio"
+    },
+    {
+      "internal": false,
+      "key": "http://ratatosk.backpackit.com/pub/1836982-debugging-drupal",
+      "text": "Debugging Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://ratatosk.backpackit.com/pub/1842524-drupal-on-ubuntu",
+      "text": "setting up a an environment for debugging and profiling Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/setting-up-development-environment",
+      "text": "Handbook: Setting up a development environment"
+    },
+    {
+      "internal": false,
+      "key": "http://2bits.com/articles/resources-and-links-on-debugging-tracing-and-profiling-drupal.html",
+      "text": "2bits: Debugging resources and links"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/75242",
+      "text": "Configuring Eclipse"
+    },
+    {
+      "internal": false,
+      "key": "http://ar.to/2006/12/easier-drupal-debugging-with-trace",
+      "text": "Easier Drupal Debugging with Trace"
+    },
+    {
+      "internal": false,
+      "key": "http://www.krimson.be/en/debugging-drupal-6-using-xdebug",
+      "text": "Debugging Drupal 6 with Xdebug and Eclipse"
+    },
+    {
+      "internal": false,
+      "key": "http://www.archive.org/details/DebuggingDrupal",
+      "text": "Drupalcon Paris (2009) video of this presentation"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-techniques",
+      "text": "‹ Debugging Techniques"
+    },
+    {
+      "internal": true,
+      "key": "debugging",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-drupal-presentation-posted",
+      "text": "Debugging Drupal Presentation posted"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "debugging_drupal",
+      "text": "randyfay.com/debugging_drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcon-sessions-accepted-drupalcon-sf-2010",
+      "text": "Drupalcon sessions accepted for Drupalcon SF 2010"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupalcon",
+      "text": "drupalcon"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "text": "AJAX and Javascript in Drupal7 (for developers)"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "text": "Best practices in contrib development and support"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/advanced-forms-drupal-7-fapi",
+      "text": "Advanced Forms with Drupal 7 FAPI"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "Drupal 7 AJAX Forms"
+    },
+    {
+      "internal": true,
+      "key": "contact",
+      "text": "send me an email"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/fivestar",
+      "text": "Fivestar"
+    },
+    {
+      "internal": true,
+      "key": "node/49",
+      "text": "Continue reading the entire presentation"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/what-are-ajax-forms-drupal",
+      "text": "What are AJAX Forms in Drupal?"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ajax-forms-drupal",
+      "text": "Examples of AJAX forms in Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/30-seconds-drupal-form-api",
+      "text": "30 Seconds on the Drupal Form API"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-simplest-example",
+      "text": "AJAX Simplest Example"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-textfields-driven-checkboxes",
+      "text": "AJAX Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-select-control-and-generated-checkboxes",
+      "text": "AJAX Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-form-resources",
+      "text": "AJAX Form Resources"
+    },
+    {
+      "internal": true,
+      "key": "content/what-are-ajax-forms-drupal",
+      "text": "What are AJAX Forms in Drupal? ›"
+    },
+    {
+      "internal": true,
+      "key": "content/what-are-ajax-forms-drupal",
+      "text": "What are AJAX Forms in Drupal?"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "‹ Drupal 7 AJAX Forms"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ajax-forms-drupal",
+      "text": "Examples of AJAX forms in Drupal ›"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ajax-forms-drupal",
+      "text": "Examples of AJAX forms in Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/quicktabs",
+      "text": "Quicktabs module"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/what-are-ajax-forms-drupal",
+      "text": "‹ What are AJAX Forms in Drupal?"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/30-seconds-drupal-form-api",
+      "text": "30 Seconds on the Drupal Form API ›"
+    },
+    {
+      "internal": true,
+      "key": "content/30-seconds-drupal-form-api",
+      "text": "30 Seconds on the Drupal Form API"
+    },
+    {
+      "internal": true,
+      "key": "ahah_demo/simple_form",
+      "text": "ahah_demo/simple_form"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-ajax-forms-drupal",
+      "text": "‹ Examples of AJAX forms in Drupal"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-simplest-example",
+      "text": "AJAX Simplest Example ›"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-simplest-example",
+      "text": "AJAX Simplest Example"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/ajax_example/simplest",
+      "text": "http://d7.drupalexamples.info/examples/ajax_example/simplest"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_simplest/7",
+      "text": "http://api.drupal.org/api/function/ajax_example_simplest/7"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/30-seconds-drupal-form-api",
+      "text": "‹ 30 Seconds on the Drupal Form API"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-textfields-driven-checkboxes",
+      "text": "AJAX Example: Textfields driven by checkboxes ›"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-select-control-and-generated-checkboxes",
+      "text": "AJAX Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/ajax_example/autocheckboxes",
+      "text": "http://d7.drupalexamples.info/examples/ajax_example/autocheckboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_autocheckboxes/7",
+      "text": "http://api.drupal.org/api/function/ajax_example_autocheckboxes/7"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-textfields-driven-checkboxes",
+      "text": "‹ AJAX Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-form-resources",
+      "text": "AJAX Form Resources ›"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "« first"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=1",
+      "text": "‹ previous"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "1"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=1",
+      "text": "2"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=3",
+      "text": "4"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=4",
+      "text": "5"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=3",
+      "text": "next ›"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=4",
+      "text": "last »"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  },
+  "references": {
+    "external": [
+      "http://2bits.com/articles/resources-and-links-on-debugging-tracing-and-profiling-drupal.html",
+      "http://api.drupal.org/api/function/ajax_example_autocheckboxes/7",
+      "http://api.drupal.org/api/function/ajax_example_simplest/7",
+      "http://ar.to/2006/12/easier-drupal-debugging-with-trace",
+      "http://d7.drupalexamples.info/examples/ajax_example/autocheckboxes",
+      "http://d7.drupalexamples.info/examples/ajax_example/simplest",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/157609",
+      "http://drupal.org/node/75242",
+      "http://drupal.org/project/devel",
+      "http://drupal.org/project/drush",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/fivestar",
+      "http://drupal.org/project/quicktabs",
+      "http://drupal.org/project/reroute_email",
+      "http://drupal.org/project/smtp",
+      "http://drupal.org/project/trace",
+      "http://drupal.org/setting-up-development-environment",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://krimson.be/en/debugging-drupal-6-using-xdebug",
+      "http://ratatosk.backpackit.com/pub/1836982-debugging-drupal",
+      "http://ratatosk.backpackit.com/pub/1842524-drupal-on-ubuntu",
+      "http://sf2010.drupal.org/conference/sessions/advanced-forms-drupal-7-fapi",
+      "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "http://www.activestate.com/komodo",
+      "http://www.archive.org/details/DebuggingDrupal",
+      "http://www.eclipse.org/pdt",
+      "http://www.krimson.be/en/debugging-drupal-6-using-xdebug",
+      "http://www.lullabot.com/articles/quick_and_dirty_debugging",
+      "http://www.netbeans.org",
+      "http://www.zend.com/en"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      },
+      {
+        "key": "ahah_demo/simple_form",
+        "status": 404
+      },
+      {
+        "key": "contact",
+        "status": 403
+      }
+    ]
+  }
+}

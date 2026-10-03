@@ -1,0 +1,786 @@
+{
+  "title": "RandyFay.com | Randy Fay's Blog",
+  "primaryHeading": "",
+  "contentFound": true,
+  "lines": [
+    "Drupal 7 FAPI's #states: A Great New UI Improvement For Forms",
+    "Mon, 2010-04-12 14:16 by rfay",
+    "Topics:",
+    "Drupal",
+    "Planet Drupal",
+    "The little-known #states feature has gone into Drupal 7, and it rocks.",
+    "Before you read on, try this dynamic form live at d7.drupalexamples.info. It's developed without using a line of javascript, just plain Form API.",
+    "Essentially, you can provide dynamic behavior in a form based on changes to other elements in the form. An easy example: Often you only need to collect information if a particular element is selected. If they select type=student, you don't have to require them to fill in a further \"Employer\" field.",
+    "The new #states example in the Examples module's Form Example shows how a dynamic form can work. You can try it out live as well at d7.drupalexamples.info.",
+    "Examples module now on api.drupal.org",
+    "Sun, 2010-04-11 09:15 by rfay",
+    "Topics:",
+    "Drupal",
+    "Planet Drupal",
+    "Thanks to excellent work by api module maintainer drumm, all of the examples in Examples module are now available on api.drupal.org.",
+    "If you're not familiar with Examples module, it's an attempt to provide easy-to-understand examples of key Drupal APIs, so that developers have a known source of a working example they can understand. Back in the day, there were a few examples in the Documentation branch of contrib in CVS, but they were poorly maintained and nobody knew how to improve them. All of those have been moved to Examples (for D6 and D7) and updated.",
+    "So with Examples now on api.drupal.org, you have more than one way to access the various examples:",
+    "Drupalcon: Best Practices in Contrib Development",
+    "Fri, 2010-04-09 18:23 by rfay",
+    "Topics:",
+    "Drupal",
+    "Planet Drupal",
+    "Mark your calendar for Wednesday the 21st at 3pm: Greg Knaddison, Dave Reid, Derek Wright, Jennifer Hodgdon and I are doing a panel presentation on how to maintain and support a contrib module or theme. It will cover:",
+    "Community management: Enlisting help, finding maintainers and co-maintainers, handling abandoned projects, dealing with duplication, handling the issue queue.",
+    "Drupal project management: What's expected of a maintainer, code and release management.",
+    "Coding issues: Coding standards, documentation, namespacing, simpletest, internationalization.",
+    "Resources for maintainers.",
+    "If you're a maintainer or might become one, or want to start helping overburdened module maintainers by helping out with these responsibilities, come and hear about how to contribute to the community more effectively and efficiently.",
+    "Debugging with Git Bisect",
+    "Fri, 2010-04-02 18:58 by rfay",
+    "Topics:",
+    "Drupal",
+    "Planet Drupal",
+    "git",
+    "As most of you know, the marvelous git version control system is the future of the Drupal repository. You've probably heard people rave about lots of very important features: It's distributed, FAST, branching and merging are easy.",
+    "But today I'm here to rave about a more obscure wonderful feature of git: the git bisect command. With this command you can find out where in the history a particular bug was introduced. I made a short screencast to explain it:",
+    "Drupal 7 AJAX Forms",
+    "[This material was developed for a presentation at Drupalcamp Colorado in June of 2010. If you find any problems with it or want to suggest any improvements, send me an email or catch me on IRC (rfay).]",
+    "Drupal",
+    "Drupalcon sessions accepted for Drupalcon SF 2010",
+    "Sat, 2010-02-27 05:52 by rfay",
+    "Topics:",
+    "Drupal",
+    "drupalcon",
+    "Planet Drupal",
+    "I have 3 sessions accepted for Drupalcon San Francisco 2010, all with other collaborators:",
+    "AJAX and Javascript in Drupal7 (for developers)",
+    "Best practices in contrib development and support",
+    "Advanced Forms with Drupal 7 FAPI",
+    "Debugging Drupal Presentation posted",
+    "Thu, 2009-09-03 07:30 by rfay",
+    "Topics:",
+    "Drupal",
+    "My presentation for Paris Drupalcon is posted: randyfay.com/debugging_drupal.",
+    "Debugging Drupal session is a go for Paris Drupalcon",
+    "Wed, 2009-08-19 11:29 by rfay",
+    "Topics:",
+    "Drupal",
+    "I just got an email that my Debugging Drupal session for Drupalcon Paris is a go! I had already been told that none of my sessions went, so it was quite a surprise. Should be a good session. And the CTools Plugin session, which didn't go, will be done as a BOF add-on to the big session by MerlinOfChaos on CTools in general.",
+    "Ctools Plugin Example done, Finally!",
+    "Sun, 2009-08-02 22:29 by rfay",
+    "Topics:",
+    "Drupal",
+    "Panels",
+    "Ctools",
+    "I finally got the Ctools Plugin Example module and documentation updated and submitted. Merlin of Chaos seems happy with the idea, so I'm hoping it can make it as a module distributed with Ctools, which is a fundamental part of Panels.",
+    "One of the nicest things about Panels (now provided by Ctools) is the ability to write relatively simple pieces that extend it. But it's been kind of hard to figure out the magic. Hopefully this module + documentation will help out.",
+    "Update 19 August: It's been committed, so it will be in the upcoming full release of CTools.",
+    "Updated Simpletest Tutorial, with sample modules",
+    "Wed, 2009-07-29 23:19 by rfay",
+    "Topics:",
+    "Drupal",
+    "Simpletest",
+    "Planet Drupal",
+    "I spent much of today updating the Simpletest Tutorial on Drupal.org. The tutorial has been revamped, with much more info, and there are downloadable sample modules for both Drupal 6 and Drupal 7.",
+    "Simpletest is making a big difference in the stability of Drupal, but we're going to have lots of work to do to get improved test coverage for the release of D7. Hopefully this will help in some small way.",
+    "My sessions proposed for Drupalcon Paris",
+    "Fri, 2009-07-24 11:10 by rfay",
+    "Topics:",
+    "Drupal",
+    "I proposed 3 sessions for Drupalcon Paris at the beginning of September, and just hope I can get one in. There's one on Debugging Drupal, one on Ctools/Panels Plugins, and one on Upgrade-proofing your site. Looks like they're all kind of low in the running, but they've all gotten some votes. Surprisingly the one that I thought would be the lowest ranked is the highest - the \"Upgrade-Proof Your Site: Best Practices to Avoid Major Version Upgrade Headaches\".",
+    "If you're going and you like any of these topics, thanks for your VOTE!",
+    "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)",
+    "[This material was developed for a presentation at DrupalCamp Colorado in the summer of 2009. It should serve well as a standalone resource, so I hope it will help out anybody learning or struggling with AHAH. Since that time, all of the examples here have been incorporated into the Examples module's AHAH Example, so it should serve as an easy way to experiment with these concepts. If you find any problems with this or want to suggest any improvements, send me an email or catch me on IRC (rfay).]",
+    "Drupal",
+    "DrupalCamp Colorado next week - My session got accepted",
+    "Fri, 2009-06-19 15:01 by rfay",
+    "Topics:",
+    "Drupal",
+    "My session on AHAH in Drupal got accepted for next week's Drupal Camp Colorado in Denver. So it's time to get it ready. (Update: see the materials here.",
+    "AHAH (Asynchronous HTML and HTTP) is a technology built into the Drupal Forms API which allows for updates of a form without doing a full page refresh, and it makes some things really nice. All of the \"add to cart\" and similar behaviors in the Amazon Store module (try it at alonovo.com/amazon_store) are done with AHAH, meaning that you can add to cart and not end up on another page, and not have a long wait.",
+    "Basically, pressing a button causes a simple call back to the web server for replacement elements for the form. Instead of submitting the whole page to the webserver and then reprocessing and redisplaying it, only the part that needs to be updated (like your message that an item was added to the cart) has to be done.",
+    "I helped with a fun facebook game",
+    "Sat, 2009-06-13 07:52 by rfay",
+    "Topics:",
+    "Development",
+    "facebook",
+    "I just got word from client Marie Thacker that one of the projects I helped out with is now live - it's a facebook game app. I helped do the live scoring stuff. Try it here.",
+    "Internationalization and Localization of Warmshowers.org",
+    "Thu, 2009-04-30 06:38 by rfay",
+    "Topics:",
+    "Drupal",
+    "internationalization",
+    "Planet Drupal",
+    "Warmshowers.org is my biggest site, with more than 7500 members, and almost certainly the most useful. It's a reciprocal hospitality site for touring cyclists - people offer touring cyclists a place to stay and a shower. It's been in English for years, but that cuts out a significant part of the world's population, and it means that options for cyclists in Latin America and several other places in the world have been more limited than they ought to be.",
+    "But we just launched es.warmshowers.org, a Drupal 6 version with all the key parts internationalized and then localized into Spanish. We're very proud of this accomplishment!",
+    "It took a lot of work by a lot of people to do this. First, Chris Russo nearly singlehandedly upgraded the site to Drupal 6, a significant accomplishment because of the custom modules we have developed for the site. Then we began learning how to do all of the localization into Spanish, and learning how to get a group together to do the translation.",
+    "There are probably four parts to the translation of the site:",
+    "Portfolio and Resume",
+    "Thu, 2009-04-09 12:04 by rfay",
+    "Topics:",
+    "Drupal",
+    "portfolio",
+    "I've been doing a lot of Drupal jobs and websites over the years, and sometimes update this portfolio.",
+    "A couple of my own websites:",
+    "hobobiker.com. A blog with theming and custom modules for mapping of routes.",
+    "warmshowers.org. A social networking site: Reciprocal hospitality for touring cyclists. Much custom drupal work, including Ajax-driven Google maps display and geolocation. And now it'sinternationalized and translated into Spanish, French, and Portuguese.",
+    "A sampling of drupal work, upgrades, modules development:",
+    "Member of the Drupal Association",
+    "Sun, 2009-03-29 21:15 by rfay",
+    "Topics:",
+    "Drupal",
+    "My New Development Computer: An Amazon EC2 Instance",
+    "Fri, 2009-02-27 05:34 by rfay",
+    "Topics:",
+    "Amazon EC2",
+    "Development",
+    "Planet Drupal",
+    "Here in Florida, where we're spending a couple of months, the only computer I have access to is my little netbook, an MSI Wind U-100 . It's a fine little computer, but it doesn't really have enough CPU to run Firefox, the Apache web server, the Eclipse development environment, and do debugging all at the same time. I could read the newspaper while stepping through code with the debugger, because I had to wait at each step.",
+    "Drupal: Panels Plugin Example module",
+    "Sat, 2009-02-21 22:46 by rfay",
+    "Topics:",
+    "Drupal",
+    "Panels",
+    "For the Amazon_store Drupal module I've been working on for Alonovo.com, I set up several of the pages to use Panels plugins. But there isn't a lot of documentation on how to do this, so I had to dive in and learn it from the examples available in the code. The result was a set of examples of how an drupal module can implement panes, the Panels Plugin Example which is now available on on Drupal.org. There are examples of content_type, argument, context, and relationship plugins. I'm hoping that others will review the code and improve it.",
+    "Eclipse for PHP Editing and Debugging",
+    "Sat, 2009-02-21 19:05 by rfay",
+    "Topics:",
+    "Eclipse",
+    "Planet Drupal",
+    "I used to use the Zend platform for PHP/Drupal debugging, but they ended my support and it seemed like it never worked quite right, so while we were in Argentina I took on the significant task of making Eclipse work as a debugging environment. I eventually succeeded, but now that I'm wedded to Eclipse I'm having to learn lots about it as a working environment. It's amazingly complex and frustrating, but also very powerful.",
+    "Today I've been watching a fine series on the basics of the workbench done by Mark Dexter. It is amazing how much they can stuff into a developer's IDE. Even though I'm well along the learning curve with Eclipse I still learned lots from this.",
+    "What in the world have I been up to?",
+    "Sat, 2009-02-21 10:35 by rfay",
+    "Topics:",
+    "Drupal",
+    "You probably know that Nancy and I spent two years on our bicycles riding from the far north of Canada to Argentina in South America. You can read all about the adventure on hobobiker.com",
+    "Even before we got back, I restarted my Drupal development consulting (Drupal is a Content Management System and web development environment) and have been plenty busy in the intervening time. It's been my intent to list some of the projects and learning here, but to this point I haven't done it. Maybe now :-)",
+    "Pages",
+    "« first",
+    "‹ previous",
+    "1",
+    "2",
+    "3",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [
+    {
+      "src": "http://drupal.org/files/images/DA-individual-120.png",
+      "name": "da-individual-120.png",
+      "alt": ""
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "states",
+      "text": "Drupal 7 FAPI's #states: A Great New UI Improvement For Forms"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/form_example/states",
+      "text": "d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/form_example_states_form/7",
+      "text": "#states example"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/form_example/states",
+      "text": "d7.drupalexamples.info"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-module-now-apidrupalorg",
+      "text": "Examples module now on api.drupal.org"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/3064",
+      "text": "drumm"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/search/7/examples",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcon-best-practices-contrib-development",
+      "text": "Drupalcon: Best Practices in Contrib Development"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "text": "how to maintain and support a contrib module or theme"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-git-bisect",
+      "text": "Debugging with Git Bisect"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://git-scm.com",
+      "text": "the marvelous git"
+    },
+    {
+      "internal": false,
+      "key": "http://www.kernel.org/pub/software/scm/git/docs/git-bisect.html",
+      "text": "git bisect"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "Drupal 7 AJAX Forms"
+    },
+    {
+      "internal": true,
+      "key": "contact",
+      "text": "send me an email"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcon-sessions-accepted-drupalcon-sf-2010",
+      "text": "Drupalcon sessions accepted for Drupalcon SF 2010"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupalcon",
+      "text": "drupalcon"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "text": "AJAX and Javascript in Drupal7 (for developers)"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "text": "Best practices in contrib development and support"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/advanced-forms-drupal-7-fapi",
+      "text": "Advanced Forms with Drupal 7 FAPI"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-drupal-presentation-posted",
+      "text": "Debugging Drupal Presentation posted"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "debugging_drupal",
+      "text": "randyfay.com/debugging_drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-drupal-session-go-paris-drupalcon",
+      "text": "Debugging Drupal session is a go for Paris Drupalcon"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "text": "Debugging Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/howto-creating-ctools-plugins-panels-and-related-modules",
+      "text": "CTools Plugin session"
+    },
+    {
+      "internal": true,
+      "key": "content/ctools-plugin-example-done-finally",
+      "text": "Ctools Plugin Example done, Finally!"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/panels",
+      "text": "Panels"
+    },
+    {
+      "internal": true,
+      "key": "topics/ctools",
+      "text": "Ctools"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/537776",
+      "text": "Ctools Plugin Example"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/ctools",
+      "text": "Ctools"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/panels",
+      "text": "Panels"
+    },
+    {
+      "internal": true,
+      "key": "content/updated-simpletest-tutorial-sample-modules",
+      "text": "Updated Simpletest Tutorial, with sample modules"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/simpletest",
+      "text": "Simpletest"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/395012",
+      "text": "Simpletest Tutorial"
+    },
+    {
+      "internal": true,
+      "key": "content/my-sessions-proposed-drupalcon-paris",
+      "text": "My sessions proposed for Drupalcon Paris"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalcon.org",
+      "text": "Drupalcon Paris"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "text": "Debugging Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/howto-creating-ctools-plugins-panels-and-related-modules",
+      "text": "Ctools/Panels Plugins"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/upgrade-proof-your-site-best-practices-avoid-major-version-upgrade-headaches",
+      "text": "Upgrade-proofing your site"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "Cooler forms with Drupal's AHAH (Asynchronous HTML and HTTP)"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples module"
+    },
+    {
+      "internal": true,
+      "key": "contact",
+      "text": "send me an email"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcamp-colorado-next-week-my-session-got-accepted",
+      "text": "DrupalCamp Colorado next week - My session got accepted"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalcampcolorado.org/sessions/cooler-forms-ahah-asynchronous-html-and-http",
+      "text": "session on AHAH in Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalcampcolorado.org",
+      "text": "Drupal Camp Colorado"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "here"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/amazon_store",
+      "text": "Amazon Store"
+    },
+    {
+      "internal": false,
+      "key": "http://alonovo.com/amazon_store",
+      "text": "alonovo.com/amazon_store"
+    },
+    {
+      "internal": true,
+      "key": "content/i-helped-fun-facebook-game",
+      "text": "I helped with a fun facebook game"
+    },
+    {
+      "internal": true,
+      "key": "topics/development",
+      "text": "Development"
+    },
+    {
+      "internal": true,
+      "key": "topics/facebook",
+      "text": "facebook"
+    },
+    {
+      "internal": false,
+      "key": "http://mariethacker.com",
+      "text": "Marie Thacker"
+    },
+    {
+      "internal": false,
+      "key": "http://fb.popcap.com/online-games/zuma",
+      "text": "here"
+    },
+    {
+      "internal": true,
+      "key": "content/internationalization-and-localization-warmshowersorg",
+      "text": "Internationalization and Localization of Warmshowers.org"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/internationalization",
+      "text": "internationalization"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org",
+      "text": "Warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://es.warmshowers.org",
+      "text": "es.warmshowers.org"
+    },
+    {
+      "internal": true,
+      "key": "portfolio",
+      "text": "Portfolio and Resume"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/portfolio",
+      "text": "portfolio"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "hobobiker.com"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org",
+      "text": "warmshowers.org"
+    },
+    {
+      "internal": true,
+      "key": "content/member-drupal-association",
+      "text": "Member of the Drupal Association"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://association.drupal.org",
+      "text": ""
+    },
+    {
+      "internal": true,
+      "key": "content/my-new-development-computer-amazon-ec2-instance",
+      "text": "My New Development Computer: An Amazon EC2 Instance"
+    },
+    {
+      "internal": true,
+      "key": "topics/amazon-ec2",
+      "text": "Amazon EC2"
+    },
+    {
+      "internal": true,
+      "key": "topics/development",
+      "text": "Development"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://global.msi.com.tw/index.php?func=proddesc&prod_no=1474&maincat_no=135",
+      "text": "MSI Wind U-100"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-panels-plugin-example-module",
+      "text": "Drupal: Panels Plugin Example module"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/panels",
+      "text": "Panels"
+    },
+    {
+      "internal": false,
+      "key": "http://alonovo.com",
+      "text": "Alonovo.com"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/panels_plugin_example",
+      "text": "Panels Plugin Example"
+    },
+    {
+      "internal": true,
+      "key": "content/eclipse-php-editing-and-debugging",
+      "text": "Eclipse for PHP Editing and Debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/eclipse",
+      "text": "Eclipse"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://eclipsetutorial.sourceforge.net/index.html",
+      "text": "fine series on the basics of the workbench"
+    },
+    {
+      "internal": true,
+      "key": "content/what-world-have-i-been",
+      "text": "What in the world have I been up to?"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "hobobiker.com"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "node",
+      "text": "« first"
+    },
+    {
+      "internal": true,
+      "key": "node?page=1",
+      "text": "‹ previous"
+    },
+    {
+      "internal": true,
+      "key": "node",
+      "text": "1"
+    },
+    {
+      "internal": true,
+      "key": "node?page=1",
+      "text": "2"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {},
+  "references": {
+    "external": [
+      "http://alonovo.com",
+      "http://alonovo.com/amazon_store",
+      "http://api.drupal.org/api/function/form_example_states_form/7",
+      "http://api.drupal.org/api/search/7/examples",
+      "http://association.drupal.org",
+      "http://d7.drupalexamples.info/examples/form_example/states",
+      "http://ddev.com/contact",
+      "http://drupal.org",
+      "http://drupal.org/files/images/DA-individual-120.png",
+      "http://drupal.org/node/395012",
+      "http://drupal.org/node/537776",
+      "http://drupal.org/project/amazon_store",
+      "http://drupal.org/project/ctools",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/panels",
+      "http://drupal.org/project/panels_plugin_example",
+      "http://drupal.org/user/3064",
+      "http://drupalcampcolorado.org",
+      "http://drupalcampcolorado.org/sessions/cooler-forms-ahah-asynchronous-html-and-http",
+      "http://drupalcon.org",
+      "http://eclipsetutorial.sourceforge.net/index.html",
+      "http://es.warmshowers.org",
+      "http://facebook.com/randyfay",
+      "http://fb.popcap.com/online-games/zuma",
+      "http://git-scm.com",
+      "http://global.msi.com.tw/index.php?func=proddesc&prod_no=1474&maincat_no=135",
+      "http://hobobiker.com",
+      "http://mariethacker.com",
+      "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "http://paris2009.drupalcon.org/session/howto-creating-ctools-plugins-panels-and-related-modules",
+      "http://paris2009.drupalcon.org/session/upgrade-proof-your-site-best-practices-avoid-major-version-upgrade-headaches",
+      "http://sf2010.drupal.org/conference/sessions/advanced-forms-drupal-7-fapi",
+      "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "http://warmshowers.org",
+      "http://www.kernel.org/pub/software/scm/git/docs/git-bisect.html",
+      "https://www.youtube.com/v/mbbIKXopkWI&hl=en_US&fs=1&rel=0"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      },
+      {
+        "key": "contact",
+        "status": 403
+      }
+    ]
+  }
+}

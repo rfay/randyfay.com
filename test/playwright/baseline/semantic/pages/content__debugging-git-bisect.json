@@ -56,5 +56,16 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://git-scm.com",
+      "http://hobobiker.com",
+      "http://www.kernel.org/pub/software/scm/git/docs/git-bisect.html",
+      "https://www.youtube.com/v/mbbIKXopkWI&hl=en_US&fs=1&rel=0"
+    ],
+    "internalNonOk": []
   }
 }

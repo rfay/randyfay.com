@@ -714,5 +714,44 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api/drupal/developer--examples--ajax_example--ajax_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7",
+      "http://api.drupal.org/api/file/developer/topics/forms_api_reference.html/7",
+      "http://api.drupal.org/api/function/ahah_example_callback_helper/6",
+      "http://api.drupal.org/api/function/ajax_example_autocheckboxes/7",
+      "http://api.drupal.org/api/function/ajax_example_autocheckboxes_callback/7",
+      "http://api.drupal.org/api/function/ajax_example_autotextfields/7",
+      "http://api.drupal.org/api/function/ajax_example_simplest/7",
+      "http://api.drupal.org/api/group/ajax_examples/7",
+      "http://d7.drupalexamples.info/examples/ajax_example/autocheckboxes",
+      "http://d7.drupalexamples.info/examples/ajax_example/autotextfields",
+      "http://d7.drupalexamples.info/examples/ajax_example/simplest",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/561858",
+      "http://drupal.org/node/647228",
+      "http://drupal.org/node/752056",
+      "http://drupal.org/node/789186",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/quicktabs",
+      "http://drupalexamples.info/examples/ajax_example",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://randyfay.com/ahah",
+      "http://randyfay.com/ajax",
+      "http://randyfay.com/node/66"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      },
+      {
+        "key": "ahah_demo/simple_form",
+        "status": 404
+      }
+    ]
   }
 }

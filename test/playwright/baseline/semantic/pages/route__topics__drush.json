@@ -124,5 +124,24 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/node/990812",
+      "http://drupal.org/project/backup_migrate",
+      "http://drupal.org/project/css_injector",
+      "http://drupal.org/project/drush",
+      "http://drush.ws",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://www.practicalweb.co.uk/blog/11/05/31/drupal-files-directory-permissions-continuous-integration"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

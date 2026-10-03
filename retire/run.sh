@@ -6,4 +6,5 @@ cd "$(dirname "$0")"
 ./10-restore-prep.sh
 ./20-prepare.sh
 ./30-crawl.sh
+./35-rewrite.sh
 ./40-verify.sh

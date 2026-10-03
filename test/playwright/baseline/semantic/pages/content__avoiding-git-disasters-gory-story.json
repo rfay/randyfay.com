@@ -1398,5 +1398,33 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://adamdicarlo.com",
+      "http://blog.jonathanoliver.com/my-new-best-friend-git-merge-no-ff",
+      "http://ddev.com/contact",
+      "http://drupal.org/user/132175",
+      "http://drupal.org/user/146719",
+      "http://duckrowing.com/2013/12/26/bzr-init-a-bazaar-tutorial",
+      "http://facebook.com/randyfay",
+      "http://git-scm.com",
+      "http://git-scm.drupal.org",
+      "http://hobobiker.com",
+      "http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow",
+      "http://jensimmons.com",
+      "http://royal.pingdom.com/2012/04/16/linux-kernel-development-numbers",
+      "http://shomeya.com",
+      "http://staafl.blogspot.com",
+      "http://stackoverflow.com/questions/20380013/git-merge-strategies-spaces-make-default-shows-no-conflict-and-bring-unexpected",
+      "http://think-like-a-git.net",
+      "http://twelvegrove.com",
+      "http://www.cregox.info",
+      "http://www.jpstacey.info",
+      "http://www.metaltoad.com/people/dylan-tack",
+      "http://www.yahoo.com",
+      "https://www.mail-archive.com/dri-devel@lists.sourceforge.net/msg39091.html"
+    ],
+    "internalNonOk": []
   }
 }

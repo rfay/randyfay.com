@@ -255,5 +255,18 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://openspring.net",
+      "http://twitter.com/pcambra",
+      "http://www.annertech.com",
+      "http://www.bywombats.com",
+      "http://www.linnovate.net"
+    ],
+    "internalNonOk": []
   }
 }

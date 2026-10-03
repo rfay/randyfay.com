@@ -110,5 +110,26 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://alestic.com",
+      "http://aws.amazon.com/ebs",
+      "http://aws.amazon.com/ec2",
+      "http://ddev.com/contact",
+      "http://developer.amazonwebservices.com/connect/entry.jspa?externalID=1612&categoryID=101",
+      "http://ec2-downloads.s3.amazonaws.com/elasticfox-owners-manual.pdf",
+      "http://facebook.com/randyfay",
+      "http://global.msi.com.tw/index.php?func=proddesc&prod_no=1474&maincat_no=135",
+      "http://hobobiker.com",
+      "http://www.john-nousis.com/development/tutorial-running-a-phpmysql-server-on-ec2-with-ebs",
+      "http://www.nomachine.com/products.php"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

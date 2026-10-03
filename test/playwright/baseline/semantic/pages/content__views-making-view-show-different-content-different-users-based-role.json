@@ -305,5 +305,26 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/node/792472",
+      "http://drupal.org/project/content_access",
+      "http://drupal.org/project/context",
+      "http://drupal.org/project/features",
+      "http://drupal.org/project/panels",
+      "http://drupal.org/user/36762",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://www.foggyperspective.com",
+      "https://docs.google.com/present/edit?id=0ATSj3ekASkFxZGRzZDVzdzdfMzM4YzI1NTI0ZHc&hl=en"
+    ],
+    "internalNonOk": [
+      {
+        "key": "sites/default/files/demo_role_content_feature-6.x-1.0.tar_.gz",
+        "status": 404
+      }
+    ]
   }
 }

@@ -298,5 +298,20 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://player.vimeo.com/video/21311829",
+      "http://progit.org/book",
+      "http://vimeo.com",
+      "http://vimeo.com/21311829",
+      "http://vimeo.com/user5912539",
+      "http://www.drupaldork.com",
+      "http://www.veleba.net"
+    ],
+    "internalNonOk": []
   }
 }

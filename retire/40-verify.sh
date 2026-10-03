@@ -6,7 +6,7 @@
 #   LOCAL_SERVE=1 ./40-verify.sh   no static project needed: copy the crawl into the original's
 #                                  container and serve it there for the length of the run
 source "$(dirname "$0")/lib.sh"
-GREP='semantic:|visible:|access:|asset:'
+GREP='semantic:|visible:|access:|asset:|static:'
 cd "$ORIGINAL"
 if [ "${LOCAL_SERVE:-0}" = 1 ]; then
   ddev exec 'rm -rf /tmp/site-static-prep && mkdir -p /tmp/site-static-prep'

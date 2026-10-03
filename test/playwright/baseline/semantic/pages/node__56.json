@@ -133,5 +133,22 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/node/363367",
+      "http://facebook.com/randyfay",
+      "http://groups.drupal.org/contrib-development-best-practices",
+      "http://hobobiker.com",
+      "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "http://www.unleashedmind.com"
+    ],
+    "internalNonOk": [
+      {
+        "key": "node/>http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+        "status": 404
+      }
+    ]
   }
 }

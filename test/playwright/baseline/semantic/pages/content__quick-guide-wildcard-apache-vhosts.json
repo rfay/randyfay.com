@@ -555,5 +555,27 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://cph2010.drupal.org/sessions/debugging-drupal-hands-techniques",
+      "http://ddev.com/contact",
+      "http://drupal.geek.nz",
+      "http://drupal.org/node/118569",
+      "http://facebook.com/randyfay",
+      "http://github.com/bjeanes/ghost",
+      "http://henriksjokvist.net",
+      "http://hobobiker.com",
+      "http://kybest.hu",
+      "http://kybest.hu/blog/gyors-fejlesztesi-kornyezet",
+      "http://mavimo.org",
+      "http://mojahmedia.com/using-dnsmasq-and-virtual-host-wildcards-drupal-development.html",
+      "http://randyfay.com/sites/default/files/catchall",
+      "http://tiger-fish.com",
+      "http://www.blogthingee.com",
+      "http://www.texturecase.com",
+      "http://www.xxx.b"
+    ],
+    "internalNonOk": []
   }
 }

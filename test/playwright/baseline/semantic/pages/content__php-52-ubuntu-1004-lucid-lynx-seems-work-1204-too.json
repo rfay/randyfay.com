@@ -812,5 +812,45 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://2bits.com/drupal-planet/various-ways-running-php-52-ubuntu-1004-lucid-lynx.html",
+      "http://askubuntu.com",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/360605",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://hojtsy.hu",
+      "http://joshhamilton.org",
+      "http://kirkhings.com",
+      "http://old-releases.ubuntu.com",
+      "http://packages.ubuntu.com/karmic/i386/php5-mcrypt/download",
+      "http://randyfay.com/files/php",
+      "http://randyfay.com/files/php_0",
+      "http://security.ubuntu.com",
+      "http://smirkstudio.com",
+      "http://superuser.com",
+      "http://thejibe.com/blog/10/10/php-5210-debs-ubuntu-1010-maverick",
+      "http://ubuntuforums.org/showthread.php?t=2074178",
+      "http://us.archive.ubuntu.com",
+      "http://www.ag-prime.com",
+      "http://www.awebdeveloperslife.com",
+      "http://www.buckeyeinteractive.com",
+      "http://www.foxybeads.com",
+      "http://www.games4bored.net",
+      "http://www.prescientsoftware.co.uk",
+      "https://bugs.launchpad.net/ubuntu/+source/php5/+bug/281979/comments/3"
+    ],
+    "internalNonOk": [
+      {
+        "key": "sites/default/files/karmic_1.list",
+        "status": 404
+      },
+      {
+        "key": "sites/default/files/php_1.",
+        "status": 404
+      }
+    ]
   }
 }

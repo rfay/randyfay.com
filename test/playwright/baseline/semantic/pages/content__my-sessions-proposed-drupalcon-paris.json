@@ -51,5 +51,17 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupalcon.org",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "http://paris2009.drupalcon.org/session/howto-creating-ctools-plugins-panels-and-related-modules",
+      "http://paris2009.drupalcon.org/session/upgrade-proof-your-site-best-practices-avoid-major-version-upgrade-headaches"
+    ],
+    "internalNonOk": []
   }
 }

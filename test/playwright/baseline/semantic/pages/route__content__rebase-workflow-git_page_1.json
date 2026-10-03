@@ -1,0 +1,240 @@
+{
+  "title": "A Rebase Workflow for Git | RandyFay.com",
+  "primaryHeading": "A Rebase Workflow for Git",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2011-02-06 13:00 by rfay",
+    "Planet Drupal",
+    "git",
+    "git rebase",
+    "Update October, 2014: Lots of things have gotten easier over the years.",
+    "These days, the easy way to fix this set of things is with the Pull Request workflow, which is essentially the Integration Manager workflow discussed here (probably).",
+    "Use github or bitbucket or somebody that makes the PR workflow easy",
+    "Delegate a person as integration manager, who will pull or comment on the PR",
+    "Require contributors to rebase their own PR branch before pulling if there are conflicts.",
+    "Update: Just for clarification, I'm not opposed to merges. I'm only opposed to unintentional merges (especially with a git pull). This followup article describes a simple way to rebase most of the time without even thinking about it). Also, for local development I love the git merge --squash method described by joachim below.",
+    "In this post I'm going to try to get you to adopt a specific rebase-based workflow, and to avoid (mostly) the merge workflow.",
+    "What is the Merge Workflow?",
+    "The merge workflow consists of:",
+    "git commit -m \"something\"",
+    "git pull # this does a merge from origin and may add a merge commit",
+    "git push # Push back both my commit and the (possible) merge commit",
+    "Note that you normally are forced to do the pull unless you're the only committer and you committed the last commit.",
+    "Why Don't I Want the Merge Workflow?",
+    "As we saw in Avoiding Git Disasters, the multiple-committer merge workflow has very specific perils due to the fact that every committer for a time has responsibility for what the other committers have committed.",
+    "These are the problems with the merge workflow:",
+    "It has the potential for disaster, as that merge and merge commit have to be handled correctly by every committer. That said, most committers will have no trouble with it and will not mess it up. But if you have lots of committers, and they don't all understand Git, or they are using a GUI that hides the actual results from them, watch out.",
+    "Your history becomes a mess. It has all kinds of inexplicable merge commits (which you typically don't look inside to see what's there) and the history (gitk) becomes useless.",
+    "Debugging using git bisect is confused massively due to the merge commits.",
+    "When Is the Merge Workflow OK?",
+    "The merge workflow will do you no damage at all if you",
+    "Only have one committer (or a very small number of committers, and you trust them all)",
+    "and",
+    "You don't care much about reading your history.",
+    "OK, What is Rebasing?",
+    "First, definitions:",
+    "A branch is a separate line of work. You may have seen these before in other VCS's, but in Git they're so easy to use that they're addictive and life-altering. You can expose branches in the public repository (a public branch) or they may never get off of your machine (a topical branch).",
+    "A public branch is one that more than one person pulls from. In Drupal, 7.x-1.x for most modules and themes would be a public branch.",
+    "A topical branch (or feature branch) is a private branch that you alone are using, and will not exposed in the public repository.",
+    "A tracking branch is a local branch that knows where its remote is, and that can push to and pull from that remote. Assuming a remote named \"origin\" and a public branch named \"7.x-1.x\", we could create a tracking branch with git branch --track 7.x-1.x origin/7.x-1.x, or with newer versions of git, git checkout --track origin/7.x-1.x",
+    "The fundamental idea of rebasing is that you make sure that your commits go on top of the \"public\" branch, that you \"rebase\" them so that instead of being related to some commit way back when you started working on this feature, they get reworked a little so they go on top of what's there now.",
+    "Don't do your work on the public branch (Don't work on master or 6.x-1.x or whatever). Instead, work on a \"topical\" or \"feature\" branch, one that's devoted to what you want to do.",
+    "When you're ready to commit something, you rebase onto the public branch, plopping your work onto the very tip of the public branch, as if it were a single patch you were applying.",
+    "Here's the approach. We'll assume that we already have a tracking branch 7.x-1.x for the public 7.x-1.x branch.",
+    "git checkout 7.x-1.x # Check out the \"public\" branch",
+    "git pull # Get the latest version from remote",
+    "git checkout -b comment_broken_links_101026 # topical branch",
+    "... # do stuff here.. Make commits.. test...",
+    "git fetch origin # Update your repository's origin/ branches from remote repo",
+    "git rebase origin/7.x-1.x # Plop our commits on top of everybody else's",
+    "git checkout 7.x-1.x # Switch to the local tracking branch",
+    "git pull # This won't result in a merge commit",
+    "git rebase comment_broken_links_101026 # Pull those commits over to the \"public\" branch",
+    "git push # Push the public branch back up, with my stuff on the top",
+    "There are ways to simplify this, but I wanted to show it explicitly. The fundamental idea is that I as a developer am taking responsibility to make sure that my work goes right in on top of the everybody else's work. And that it \"fits\" there - that it doesn't require any magic or merge commits.",
+    "Using this technique, your work always goes on top of the public branch like a patch that is up-to-date with current HEAD. This is very much like the CVS patch workflow, and results in a clean history.",
+    "For extra credit, you can use git rebase -i and munge your commits into a single commit which has an excellent commit message, but I'm not going to go there today.",
+    "Merging and Merge Conflicts",
+    "Any time you do a rebase, you may have a merge conflict, in which Git doesn't know how to put your work on top of the work others have done. If you and others are working in different spaces and have your responsibilities well separated, this will happen rarely. But still, you have to know how to deal with it.",
+    "Every OS has good merge tools available which work beautifully with Git. Working from the command line you can use git mergetool when you have a conflict to resolve the conflict. We'll save that for another time.",
+    "Branch Cleanup",
+    "You can imagine that, using this workflow, you end up with all kinds of useless, abandoned topical branches. Yes you do. From time to time, clean them up with",
+    "git branch -d comment_broken_links_101026",
+    "or, if you haven't ever merged the topical branch (for example, if you just used it to prepare a patch)",
+    "git branch -D comment_broken_links_101026",
+    "Objections",
+    "If you read the help for git rebase it will tell you \"Be careful. You shouldn't rewrite history that will be exposed publicly because everybody will hate you.\". Note, though, that the way we're using rebase here, we only plop our commit(s) right on top, and then push. It does not change the public history. Of course there are other ways of using rebase that could change publicly-exposed history, and that is frowned upon.",
+    "Conclusion",
+    "This looks more complicated than the merge workflow. It is. It is not hard. It is valuable.",
+    "If you have improvements, suggestions, or alternate workflows to suggest, please post in the comments. If you find errors or things that can be stated more clearly or correctly, I'll fix the post.",
+    "I will follow up before long with a post on the \"integration manager\" workflow, which is essentially the github model. Everybody works in their own repositories, which are pseudo-private, and then when they have their work ready, they rebase it onto the public branch of the integration manager, push their work to the pseudo-private repo, and ask the integration manager to pull from it.",
+    "Resources",
+    "A Rebase-based Workflow",
+    "Pro Git book: Maintaining a Project",
+    "The Case for Git Rebase",
+    "A Git Workflow for Agile teams",
+    "Comments",
+    "rfay",
+    "Thu, 2014-11-13 08:07",
+    "Permalink",
+    "Syncing a fork... or just always starting a new branch",
+    "So github has a good article about syncing a fork, https://help.github.com/articles/syncing-a-fork/",
+    "I personally do this:",
+    "git fetch --all",
+    "git checkout -b new_feature_branch_name upstream/master --no-track",
+    "Then when the feature branch is ready to be turned into a PR",
+    "git push -u origin new_feature_branch_name",
+    "The approach has no fancy syncing; it just always starts with the active/approved work on the upstream. Of course rebasing the feature branch may be required to make a clean PR.",
+    "Log in to post comments",
+    "Pages",
+    "« first",
+    "‹ previous",
+    "1",
+    "2",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/git-rebase",
+      "text": "git rebase"
+    },
+    {
+      "internal": false,
+      "key": "https://help.github.com/articles/using-pull-requests",
+      "text": "Pull Request workflow"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/103",
+      "text": "This followup article"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/comment/1093#comment-1093",
+      "text": "described by joachim below"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/89",
+      "text": "Avoiding Git Disasters"
+    },
+    {
+      "internal": false,
+      "key": "http://unethicalblogger.com/node/276",
+      "text": "A Rebase-based Workflow"
+    },
+    {
+      "internal": false,
+      "key": "http://progit.org/book/ch5-3.html",
+      "text": "Pro Git book: Maintaining a Project"
+    },
+    {
+      "internal": false,
+      "key": "http://darwinweb.net/articles/the-case-for-git-rebase",
+      "text": "The Case for Git Rebase"
+    },
+    {
+      "internal": false,
+      "key": "http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html",
+      "text": "A Git Workflow for Agile teams"
+    },
+    {
+      "internal": true,
+      "key": "comment/3549",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3549",
+      "text": "Syncing a fork... or just always starting a new branch"
+    },
+    {
+      "internal": false,
+      "key": "https://help.github.com/articles/syncing-a-fork",
+      "text": "https://help.github.com/articles/syncing-a-fork/"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/91%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "content/rebase-workflow-git",
+      "text": "« first"
+    },
+    {
+      "internal": true,
+      "key": "content/rebase-workflow-git",
+      "text": "‹ previous"
+    },
+    {
+      "internal": true,
+      "key": "content/rebase-workflow-git",
+      "text": "1"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  },
+  "references": {
+    "external": [
+      "http://darwinweb.net/articles/the-case-for-git-rebase",
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://progit.org/book/ch5-3.html",
+      "http://randyfay.com/comment/1093",
+      "http://randyfay.com/node/103",
+      "http://randyfay.com/node/89",
+      "http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html",
+      "http://unethicalblogger.com/node/276",
+      "https://help.github.com/articles/syncing-a-fork",
+      "https://help.github.com/articles/using-pull-requests"
+    ],
+    "internalNonOk": []
+  }
+}

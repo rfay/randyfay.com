@@ -106,5 +106,23 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://alonovo.com",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/537776",
+      "http://drupal.org/project/ctools",
+      "http://drupal.org/project/panels",
+      "http://drupal.org/project/panels_plugin_example",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

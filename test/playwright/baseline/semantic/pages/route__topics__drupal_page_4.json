@@ -1,0 +1,285 @@
+{
+  "title": "Drupal | RandyFay.com",
+  "primaryHeading": "Drupal",
+  "contentFound": true,
+  "lines": [
+    "Form API Changes for Drupal 7, Part 1: $form_state changes",
+    "Tue, 2010-06-15 18:33 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Forms",
+    "You may know that lots of delicious things have happened to Drupal's Form API in Drupal 7. (Only a geek can say \"delicious\" and \"Form API\" in the same sentence. Try it!) The finest minds in the business have been working on it, I can assure you. Give effulgentsia, fago, frando, and chx a big hug when you see them, because Form API is much improved. (Sorry to those of you I forgot to name, but THANKS!)",
+    "I'm going to do a series covering Form API changes, starting with this one. I won't attempt to cover the deep details, just the things that ordinary developers might use:",
+    "$form_state changes and form builder function signature changes",
+    "AJAX Forms changes",
+    "New properties (#attached and many friends)",
+    "Let me know if you have other topics to suggest.",
+    "OK, to business. This article is mostly parroted from the api.drupal.org topic: Form Generation. Thanks to Alex Bronstein (effulgentsia) for his reviews and contributions to that doc.",
+    "Don't forget that the form builder function signature changed!",
+    "In Drupal 6 the form builder function looked like this:",
+    "function my_module_funky_form(&$form_state) { ... }",
+    "but in Drupal 7 it's",
+    "function my_module_funky_form($form, &$form_state, ... ) { ... }",
+    "$form_state in Drupal 7",
+    "Mostly the members of the $form_state array are the same ones you know and love from Drupal 6:",
+    "$form_state['values']: An associative array of values that have been submitted to the form. The validation and submit functions use this array for nearly all their decisionmaking. (Note that #tree determines whether the values are a flat array or an array whose structure parallels the $form array.) This is nearly the same as it was in D6.",
+    "$form_state['rebuild']: If the submit handler sets $form_state['rebuild'] to TRUE, submission is not completed and instead the form is rebuilt using any information that the submit function has made available to the form builder function via $form_state. This is commonly used for wizard-style multi-step forms, add-more buttons, and the like. For further information see drupal_build_form(). This is the same as D6.",
+    "$form_state['redirect']: a URL that will be used to redirect the form on submission. See drupal_redirect_form() for complete information. This should always be used instead of drupal_goto() in a forms context. Note that $form['#redirect'] went away in Drupal 7 and no longer has any effect.",
+    "$form_state['storage']: $form_state['storage'] is no more! It used to be the place for application-specific values, but now it has no specific meaning. Now nearly all $form_state keys persist in a multi-step form, so the recommended approach is to use $form_state['your_module']['whatever']. ($form_state['storage'] still works for persistent storage, just like $form_state['timbuktu'] works.)",
+    "$form_state['triggering_element': (read-only) The form element that triggered submission. This is the same as the deprecated $form_state['clicked_button']. It is the element that caused submission, which may or may not be a button (in the case of AJAX forms.) This is often used to distinguish between various buttons in a submit handler, and is also used in AJAX handlers.",
+    "$form_state['cache']: The typical form workflow involves two page requests. During the first page request, a form is built and returned for the user to fill in. Then the user fills the form in and submits it, triggering a second page request in which the form must be built and processed. By default, $form and $form_state are built from scratch during each of these page requests. In some special use-cases, it is necessary or desired to persist the $form and $form_state variables from the initial page request to the one that processes the submission. A form builder function can set 'cache' to TRUE to do this. One example where this is needed is to handle AJAX submissions, so ajax_process_form() sets this for all forms that include an element with a #ajax property. (In AJAX, the handler has no way to build the form itself, so must rely on the cached version created on each page load, so it's a classic example of this use case.) Note that the persistence of $form and $form_state across successive submissions of a multi-step form happens automatically regardless of the value for 'cache'. You probably won't need to use $form_state['cache']. And note that $form['#cache'] is gone in D7 and now has no effect on anything.",
+    "$form_state['input']: The array of values as they were submitted by the user. These are raw and unvalidated, so should not be used without a thorough understanding of security implications. In almost all cases, code should use the data in the 'values' array exclusively. The most common use of this key is for multi-step forms that need to clear some of the user input when setting 'rebuild'.",
+    "Drupal 7 FAPI Resources:",
+    "api.drupal.org Form Generation section.",
+    "The Form Example in Examples for Developers project. (on api.drupal.org: http://api.drupal.org/api/drupal/developer--examples--form_example--form...",
+    "D7 Form API Reference",
+    "Next time: Part 2: AJAX forms changes.",
+    "AJAX Example: Textfields driven by checkboxes",
+    "In this example, we just use checkboxes to determine whether textboxes are displayed.",
+    "One of the fundamental ideas of having a form change based on selections within the form is that the form is reconfiguring itself based on $form_state. So here, the generation of the form is driven by $form_state['values']. If the checkbox for last name is checked, then we generate a textfield for last name.",
+    "(Experiment with this one at http://d7.drupalexamples.info/examples/ajax_example/autotextfields or see the current code at http://api.drupal.org/api/function/ajax_example_autotextfields/7.)",
+    "/**",
+    "* Show/hide textfields based on AJAX-enabled checkbox clicks.",
+    "*/",
+    "function ajax_example_autotextfields($form, &$form_state) {",
+    "$form['ask_first_name'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => t('Ask me my first name'),",
+    "'#ajax' => array(",
+    "'callback' => 'ajax_example_autotextfields_callback',",
+    "'wrapper' => 'textfields',",
+    "'effect' => 'fade',",
+    ")",
+    ");",
+    "$form['ask_last_name'] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => t('Ask me my last name'),",
+    "'#ajax' => array(",
+    "'callback' => 'ajax_example_autotextfields_callback',",
+    "'wrapper' => 'textfields',",
+    "'effect' => 'fade',",
+    "),",
+    ");",
+    "$form['textfields'] = array(",
+    "'#title' => t(\"Generated text fields for first and last name\"),",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#type' => 'fieldset',",
+    "'#description' => t('This is where we put automatically generated textfields'),",
+    ");",
+    "if (!empty($form_state['values']['ask_first_name']) && $form_state['values']['ask_first_name']) {",
+    "$form['textfields']['first_name'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('First Name'),",
+    ");",
+    "}",
+    "if (!empty($form_state['values']['ask_last_name']) && $form_state['values']['ask_last_name']) {",
+    "$form['textfields']['last_name'] = array(",
+    "'#type' => 'textfield',",
+    "'#title' => t('Last Name'),",
+    ");",
+    "}",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "/**",
+    "* Selects the piece of the form we want to use as replacement text and returns",
+    "* it as a form (renderable array).",
+    "*",
+    "* @return renderable array (the textfields element)",
+    "*/",
+    "function ajax_example_autotextfields_callback($form, $form_state) {",
+    "return $form['textfields'];",
+    "}",
+    "?>",
+    "Drupal",
+    "AJAX",
+    "Book Navigation",
+    "‹ AJAX Simplest Example",
+    "up",
+    "AJAX Example: Select control and generated checkboxes ›",
+    "Pages",
+    "« first",
+    "‹ previous",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/form-api-changes-drupal-7-part-1-formstate-changes",
+      "text": "Form API Changes for Drupal 7, Part 1: $form_state changes"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/forms",
+      "text": "Forms"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/form_api/7",
+      "text": "Form Generation"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/form_api/7",
+      "text": "Form Generation"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--form_example--form_example_tutorial.inc/7",
+      "text": "http://api.drupal.org/api/drupal/developer--examples--form_example--form..."
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7",
+      "text": "Form API Reference"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/74",
+      "text": "Part 2: AJAX forms changes."
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-textfields-driven-checkboxes",
+      "text": "AJAX Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/examples/ajax_example/autotextfields",
+      "text": "http://d7.drupalexamples.info/examples/ajax_example/autotextfields"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_autotextfields/7",
+      "text": "http://api.drupal.org/api/function/ajax_example_autotextfields/7"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-simplest-example",
+      "text": "‹ AJAX Simplest Example"
+    },
+    {
+      "internal": true,
+      "key": "ajax",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ajax-example-select-control-and-generated-checkboxes",
+      "text": "AJAX Example: Select control and generated checkboxes ›"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "« first"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=3",
+      "text": "‹ previous"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "1"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=1",
+      "text": "2"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=2",
+      "text": "3"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=3",
+      "text": "4"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api/drupal/developer--examples--form_example--form_example_tutorial.inc/7",
+      "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7",
+      "http://api.drupal.org/api/function/ajax_example_autotextfields/7",
+      "http://api.drupal.org/api/group/form_api/7",
+      "http://d7.drupalexamples.info/examples/ajax_example/autotextfields",
+      "http://ddev.com/contact",
+      "http://drupal.org/project/examples",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://randyfay.com/node/74"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
+  }
+}

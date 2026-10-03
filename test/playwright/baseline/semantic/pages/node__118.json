@@ -88,5 +88,21 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://denver2012.drupal.org/content/future-drupal-governance",
+      "http://drupal.org/project/governance",
+      "http://en.wikipedia.org/wiki/Governance",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://randyfay.com/content/drupals-governance",
+      "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
+      "http://randyfay.com/node/120",
+      "http://www.artofcommunityonline.org/downloads/jonobacon-theartofcommunity-1ed.pdf",
+      "http://www.artofcommunityonline.org/get"
+    ],
+    "internalNonOk": []
   }
 }

@@ -1,0 +1,301 @@
+{
+  "title": "git | RandyFay.com",
+  "primaryHeading": "git",
+  "contentFound": true,
+  "lines": [
+    "Drupal Deployment with Git Submodules",
+    "Tue, 2011-12-20 18:09 by rfay",
+    "git",
+    "Planet Drupal",
+    "[Update October 2013: Warning: While I found submodules extraordinarily easy to use, especially when contributing back changes, I failed at nearly every turn to successfully involve other people with them. They always had unnecessary technical problems. So I have reverted back to a single repo for the entire project.]",
+    "(There are screencasts illustrating these concepts at the bottom.)",
+    "I've been using git submodules for Drupal site deployment for quite awhile now, and I wanted to share my experience (for good and bad) with others who might be interested in using submodules (and to solicit comments from those who know how to do it better).",
+    "What are git submodules?",
+    "First \"git submodules\" have nothing to do with Drupal modules. They're a way of including one git repository inside another, in its entirety, and managing it from within the parent repository.",
+    "In a regular git repository, you have one .git directory in the root directory of the project that contains the entire history and all the revisions for that project. Every change in the project is tracked in that one .git repository.",
+    "Using git submodules you have one or more sub-repositories of the main one. They look exactly like a regular git repository, but the parent repository knows just enough about them to manipulate them.",
+    "For example, if we're using the regular Drupal checkout as our main repository and checking out Drupal modules as submodules, we might do this:",
+    "git clone git://git.drupal.org/project/drupal.git --branch 7.x",
+    "git submodule add --branch 7.x-1.x git://git.drupal.org/project/examples.git sites/all/modules/examples",
+    "git submodule add --branch 7.x-3.x git://git.drupal.org/project/admin_menu.git sites/all/modules/admin_menu",
+    "This would check out Examples and Admin Menu into sites/all/modules in the Drupal tree, but as real first class git repositories (they have their own .git directories), but the parent repository (the Drupal repo in this case) knows what they are and what to do about them. I can now use all the git tools I can think of in the Examples or Admin Menu directories, including pulling (to follow a tracking branch), git bisect to debug, git checkout (to get a particular tag/version). I can also create a patch after solving a problem with the regular git tools and I can apply a patch with git apply in those directories, all without thinking twice. There are lots of reasons this appeals to me.",
+    "Practical deployment with git submodules",
+    "Once we have a repository that contains submodules, we can push it to a remote, as with any git repository. Note that we're not pushing the Drupal module submodules though (as in most cases we don't even have commit privileges on them).",
+    "When building a site based on Drupal I usually do this:",
+    "# Clone drupal into a directory \"mysite\"",
+    "git clone -b 7.x git://git.drupal.org/project/drupal.git mysite",
+    "cd mysite",
+    "# Create a new branch for our site deployment work",
+    "git checkout -b site",
+    "# Add a couple of submodules to it",
+    "git submodule add --branch 7.x-1.x git://git.drupal.org/project/examples.git sites/all/modules/examples",
+    "git submodule add --branch 7.x-3.x git://git.drupal.org/project/admin_menu.git sites/all/modules/admin_menu",
+    "git commit -m \"My site is ready to go\"",
+    "# Now change the remote named \"origin\" to \"drupal\"",
+    "git remote rename origin drupal",
+    "# and create a new remote that points to my repository",
+    "git remote add origin git@git.myrepo.example.com:mysite.git",
+    "git push origin site # Push the thing up there.",
+    "Now I have a local site that's all ready to go, and has been pushed to my private repository (or github, or whatever).",
+    "I can deploy this site on a server by just cloning it and then updating the submodules. The fact that you have to do two discreet steps is in fact unfortunate and it is easy to forget after cloning or pulling. But here's the process for deploying from the new private repository that we pushed to:",
+    "git clone --branch site git@git.myrepo.example.com:mysite.git",
+    "git submodule update --init",
+    "Not too hard. The git submodule update --init tells the main repository to go through all the submodules listed in its .gitmodules file and initialize each one (cloning it and checking out the correct revision).",
+    "Updating the main repository and submodules",
+    "When the time comes to update a deployment (or a dev environment; they're the same), we would use this technique.",
+    "To update the main repository based on what's already on the branch we're tracking (\"site\"):",
+    "git pull",
+    "git submodule update --init",
+    "To update the main repository to the latest Drupal version or to some specific version:",
+    "git fetch drupal # Get all the latest from drupal.org",
+    "git merge 7.x # Merge the latest Drupal from the drupal.org 7.x branch",
+    "git push origin site # push these new changes to our remote",
+    "To update submodules we just pull (or change branches, or check out a tag, or whatever) and then add the updated submodule to the main site repo. This example would update to the latest version of Examples, since it's set up to be tracking the origin/7.x-1.x branch:",
+    "cd sites/all/modules/examples",
+    "git pull",
+    "# to update the parent repository we have to get into its scope, so go up a directory",
+    "cd ..",
+    "git status",
+    "git add examples",
+    "git commit -m \"Updated examples\"",
+    "git push origin site",
+    "Two major directory structures",
+    "I know of two major ways to organize Drupal with submodules.",
+    "Using Drupal itself as the base repository, as I've done above. This is easy, intuitively obvious, and works beautifully with Drush.",
+    "Creating a main repository (which includes sites/all) and then adding Drupal as a submodule, and other projects also as submodules, This allows Drupal to exist as a separate repository rather than as a container for submodules, and also allows adding other assets, etc.",
+    "The structure in this case might be:",
+    "Master repo (containing directories named sites, assets, etc.)",
+    "Drupal as a submodule of the master repo and located in /drupal",
+    "Other projects as submodules of the master repo and located in the sites directory.",
+    "The great thing about this organization is that Drupal is a submodule just like everything else, and that non-Drupal assets can be added in other directories, etc.",
+    "The two drawbacks are:",
+    "The Drupal submodule's \"sites\" directory must be replace with a symbolic link that points to the master repo's sites directory (usually \"../sites\")",
+    "Out of the box, drush dl doesn't work with this configuration, although I still intend to figure out how to make it work.",
+    "Miscellanous Submodule Tidbits",
+    "drush has excellent integration with git submodules, which is one reason I love submodules and the basic \"use-Drupal-as-the-master-repo\" technique. drush dl mymodule --package-handler=git_drupalorg --gitsubmodule will happily download \"mymodule\" and set it up as a submodule. Just like that. If you want drush always to work this way put these lines in your ~/.drush/drushrc.php:",
+    "$options['package-handler'] = 'git_drupalorg';",
+    "$options['gitsubmodule'] = TRUE;",
+    "If you fork a Drupal project (if you have your own patches for it) you'll have to have your own forked repository for it, either as a sandbox on Drupal.org or in a private repository. The nice thing is that when the main module catches up to those patches, you can just change the remote on that submodule and do nothing else, and you'll be back in sync with the original project.",
+    "git submodule foreach can be delightful. For example, if all your submodules track a branch, you can do this to do a \"git pull\" on each submodule:",
+    "git submodule foreach git pull",
+    "Removing a submodule is rather awkward. If you can believe it, there is not yet a command to do this. You have to do three things:",
+    "Remove it from the .gitmodules",
+    "Remove it from .git/config",
+    "Remove it from the index: git rm --cached sites/all/modules/xxx",
+    "You'll probably want to use the excellent Git Deploy module, which figures out what version corresponds to the commit for each of your modules. The 2.x version seems to work much better than the previous 1.x versions.",
+    "This is probably obvious, but is worth saying: Everywhere you pull, you need to have network access to and permissions on all of the git repositories mentioned in the remotes of both your main repo and the submodules.",
+    "The Good, the Bad, and the Ugly",
+    "OK, yes there are tradeoffs in complexity and robustness with the git submodule deployment options",
+    "Good things",
+    "For a developer, the ability to make and apply patches is marvelous. If you just start working on a patch for a module, everything will work out and you can just use git to do what you need.",
+    "It's nicely integrated with drush dl and drush upc (pm-updatecode)",
+    "You can easily test with various versions of a project and do a git bisect with no trouble at all.",
+    "It's fantastic for rapidly changing environments (like D7 was for a very long time) as everything can be easily updated to any level.",
+    "It results in a completely source controlled environment, completely recreatable from original repositories, with full history, at any time.",
+    "Bad things",
+    "The required git submodule update --init is easy to forget when pulling, and it is annoying that it is required.",
+    "There isn't any explicit support for removing a submodule.",
+    "The fact that multiple repositories must be accessed to update a site adds complexity to the process, and some fragility.",
+    "Using git, the Drupal version number of modules is not in the info file, so git_deploy has to derive it. git describe --all can to tell you what version it's on, but that's a big awkward.",
+    "Submodule Resources",
+    "Pro Git has a great writeup on git submodules",
+    "If you have access to the CommerceGuys intranet, there's a writeup demonstrating the second directory structure (not using the drupal git repo as parent repo)",
+    "Screencasts",
+    "Basics of deploying with the \"Drupal as master repository\" repo organization technique:",
+    "Additional topics in part 2, including drush integration, different repository organizations, and pros and cons",
+    "Do you have comments from your own experience? Feel free to post them here. This is sometimes a controversial topic.",
+    "Refreshing a Stale Patch with Git",
+    "Mon, 2012-02-20 13:41 by rfay",
+    "Planet Drupal",
+    "git",
+    "Git is so smart about merging that it's often possible to referesh a stale patch in the queue using just git, without even looking at the contents of the patch. (I'm not saying you shouldn't look at any patch you post, just that git will often do all the refeesh work for you.)",
+    "Update to the latest version of the project you're working with.",
+    "Use git log to find the hash of a commit near or just before the time the patch was posted.",
+    "Create a branch from that commit: git checkout -b . (I often use the date for the branch name: git checkout -b aug10",
+    "Apply the patch. It should apply cleanly unless there was already something wrong with it when it was created.",
+    "Use git add and git statusto make sure that all your changes are staged, then commit the results.",
+    "Create a new branch for the updated patch. I'll use git checkout -b bundles_removed_1245332_04 origin/8.x, which branches off of 8.x just for this feature branch.",
+    "Merge the date-based branch: git merge",
+    "If all goes well, you have a clean merge, and you can create a patch. In this case, git diff origin/8.x >drupal.bundle_warning_1245332_04.patch",
+    "If you still have a merge conflict, you probably only have the really relevant part of the conflict (changes actually made in your patch which conflict with changes which have been committed since the issue was last active.) In that case, you can use git mergetool to reconcile the differences, but that's for another session.",
+    "For just updating a patch that was obsoleted by the D8 core files move patch in November, see xjm's excellent, focused article.",
+    "Here's the screencast:",
+    "git clone --reference Considered Harmful",
+    "Wed, 2012-02-29 13:54 by rfay",
+    "git",
+    "Planet Drupal",
+    "Just over a year ago I wrote a blog post explaining how to use git clone --reference to speed up git clones. That technique then went on to become a drush option (if $options['cache'] = TRUE and you're using git for drush downloads)",
+    "Well, I repent. git clone --reference should not be used IMO unless you really really understand three things:",
+    "You really need to speed up clones and other fetches.",
+    "You know that the cache directory will never be destroyed (.drush/cache/git in the case of drush managing the caching)",
+    "You will never copy your working directory some place it cannot reach the cache directory (like scp'ing it to a remote machine)",
+    "Unless you actually know #2 and #3, you can be really hurt. I know, I've done it to myself several times now.",
+    "When you use git clone --reference, it doesn't actually copy git objects into your local repository; instead it references them in your \"cache\". So if somehow your cache directory is damaged (or deleted as I did again today) all your repositories are broken. I finally codified how to recover from this damage, so that will follow below.",
+    "First, here's what happens if you delete your cache directory:",
+    "$ git status",
+    "error: object directory /Users/rfay/.drush/cache/git/aes.git/objects does not exist; check .git/objects/info/alternates.",
+    "fatal: bad object HEAD",
+    "fatal: 'git status --porcelain' failed in submodule sites/all/modules/aes",
+    "Note that this is only the first error message. Every submodule will have this problem. What is happening is that .git/objects/info/alternates points to the cache directory.",
+    "I know of no way to recover from this (aside from re-cloning or otherwise rebuilding your working directory) unless you actually have access to the cache. In my case, I recovered the cache from backup (thank you Time Machine) and then learned how to remove the dependency on the cache. And of course, I'm going to turn git caching off in drush.",
+    "Detaching alternates (cached objects) from your git repositories",
+    "Get the cache directory back where it belongs, from backup or whatever.",
+    "For each repository",
+    "git repack -a",
+    "rm .git/objects/info/alternates",
+    "In a submodule situation, you can do this with an approach like this:",
+    "git repack -a",
+    "git submodule foreach git repack -a",
+    "find $(find . -name .git) -name alternates # Make sure this finds only the right files",
+    "find $(find . -name .git) -name alternates | xargs rm # Remove the alternates files",
+    "NOW when you have verified that all your repositories are free of the evil cache, you can remove the cache directory and turn off drush caching.",
+    "But please, if you're using drush and the package_handler git_drupalorg... turn $options['cache'] = FALSE.",
+    "Pages",
+    "« first",
+    "‹ previous",
+    "1",
+    "2",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/drupal-deployment-git-submodules",
+      "text": "Drupal Deployment with Git Submodules"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/git_deploy",
+      "text": "Git Deploy"
+    },
+    {
+      "internal": false,
+      "key": "http://progit.org",
+      "text": "Pro Git"
+    },
+    {
+      "internal": false,
+      "key": "http://progit.org/book/ch6-6.html",
+      "text": "great writeup on git submodules"
+    },
+    {
+      "internal": false,
+      "key": "https://projects.commerceguys.com/projects/general/wiki/GitForDrupal",
+      "text": "writeup demonstrating the second directory structure"
+    },
+    {
+      "internal": true,
+      "key": "content/refreshing-stale-patch-git",
+      "text": "Refreshing a Stale Patch with Git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://xjm.drupalgardens.com/blog/rerolling-drupal-8-core-patches",
+      "text": "xjm's excellent, focused article"
+    },
+    {
+      "internal": true,
+      "key": "content/git-clone-reference-considered-harmful",
+      "text": "git clone --reference Considered Harmful"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/93",
+      "text": "blog post explaining how to use git clone --reference"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "« first"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "‹ previous"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "1"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/project/git_deploy",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://player.vimeo.com/video/33997865?title=0&byline=0&portrait=0",
+      "http://player.vimeo.com/video/34029489?title=0&byline=0&portrait=0",
+      "http://player.vimeo.com/video/37284355",
+      "http://progit.org",
+      "http://progit.org/book/ch6-6.html",
+      "http://randyfay.com/node/93",
+      "http://xjm.drupalgardens.com/blog/rerolling-drupal-8-core-patches",
+      "https://projects.commerceguys.com/projects/general/wiki/GitForDrupal"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
+  }
+}

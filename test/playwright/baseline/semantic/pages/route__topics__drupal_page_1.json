@@ -1,0 +1,665 @@
+{
+  "title": "Drupal | RandyFay.com",
+  "primaryHeading": "Drupal",
+  "contentFound": true,
+  "lines": [
+    "AHAH Resources",
+    "Download the Example module and experiment with the AHAH Examples.",
+    "The Drupal.org handbook page on Drupal 6 AHAH",
+    "Forms API Documentation, AHAH section",
+    "AHAH Helper module, which does some of the work for you on the callback",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ AHAH Notes and Issues",
+    "up",
+    "AHAH Changes for Drupal 7 (It's now called #AJAX) ›",
+    "AHAH Example: Select control and generated checkboxes",
+    "Note that this is currently maintained in the Examples project so the code here may not be the latest.",
+    "In this example we use a select control to determine how many checkboxes are generated.",
+    "(Experience this one at http://d6.drupalexamples.info/examples/ahah_example/autocheckboxes.)",
+    "/**",
+    "* @file",
+    "* A Self-configure a form based on a select control",
+    "* Add the number of checkboxes specified in the select",
+    "*/",
+    "function ahah_demo_autocheckboxes(&$form_state) {",
+    "$default = !empty($form_state['values']['howmany']) ? $form_state['values']['howmany'] : 1;",
+    "$form['howmany'] = array(",
+    "'#title' => t('How many checkboxes do you want?'),",
+    "'#type' => 'select',",
+    "'#options' => array(1=>1, 2=>2, 3=>3, 4=>4),",
+    "'#default_value' => $default,",
+    "'#ahah' => array(",
+    "'path' => 'ahah_demo/autocheckboxes/callback',",
+    "'wrapper' => 'checkboxes',",
+    "'effect' => 'fade',",
+    "),",
+    ");",
+    "$form['checkboxes'] = array(",
+    "'#title' => t(\"Generated Checkboxes\"),",
+    "'#prefix' => '",
+    "',",
+    "'#suffix' => '",
+    "',",
+    "'#type' => 'fieldset',",
+    "'#description' => t('This is where we get automatically generated checkboxes'),",
+    ");",
+    "$num_checkboxes = !empty($form_state['values']['howmany']) ? $form_state['values']['howmany'] : 1;",
+    "for ($i=1; $i<=$num_checkboxes; $i++) {",
+    "$form['checkboxes'][\"checkbox$i\"] = array(",
+    "'#type' => 'checkbox',",
+    "'#title' => \"Checkbox $i\",",
+    ");",
+    "}",
+    "$form['submit'] = array(",
+    "'#type' => 'submit',",
+    "'#value' => t('Click Me'),",
+    ");",
+    "return $form;",
+    "}",
+    "/**",
+    "* Callback for autocheckboxes. Process the form with the number of checkboxes",
+    "* we want to provide",
+    "*/",
+    "function ahah_demo_autocheckboxes_callback() {",
+    "$form_state = array('storage' => NULL, 'submitted' => FALSE);",
+    "$form_build_id = $_POST['form_build_id'];",
+    "$form = form_get_cache($form_build_id, $form_state);",
+    "$args = $form['#parameters'];",
+    "$form_id = array_shift($args);",
+    "$form_state['post'] = $form['#post'] = $_POST;",
+    "$form['#programmed'] = $form['#redirect'] = FALSE;",
+    "// HACK: Select values changing never get recognized",
+    "unset ($form['howmany']['#value']);",
+    "drupal_process_form($form_id, $form, $form_state);",
+    "$form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);",
+    "$checkboxes = $form['checkboxes'];",
+    "$output = drupal_render($checkboxes);",
+    "// Final rendering callback.",
+    "print drupal_json(array('status' => TRUE, 'data' => $output));",
+    "exit();",
+    "}",
+    "?>",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ AHAH Example: Textfields driven by checkboxes",
+    "up",
+    "AHAH Notes and Issues ›",
+    "AHAH Notes and Issues",
+    "Gotchas to watch out for",
+    "The callback must emit the JSON and nothing else. If it emits anything else, the JSON won't be parsed, and all will fail. How can it emit anything else, you ask? Well, if Devel module is turned on and it's timing pages and putting that at the bottom of the page, you're sunk. If Devel module is outputting errors to the screen, you're sunk. If you're debugging and you accidentally do a var_dump. nothing will work.",
+    "When you create a new callback, hit it with the web browser. If it's not working yet, hit admin/build/modules to rebuild the menu system's cache.",
+    "In a complicated form with textareas, you will probably want to set '#TREE' => TRUE for the form. If you have elements with the same name in different fieldsets, AHAH will be unable to get the correct #ahah information for the element you've clicked, unless it's the first one with this name. If you use #TREE, the browser will submit a full-qualified name for the changed element, which AHAH can use correctly.",
+    "Other Notes",
+    "You can replace any section of the form (or probably of the page). In my examples, I replaced only a particular region of the form (marked off by #prefix and #postfix in the form definition). You could replace the whole form, or something completely different on the page. Probably performance is best if you replace the smallest region possible.",
+    "Drupal",
+    "AHAH",
+    "Book Navigation",
+    "‹ AHAH Example: Select control and generated checkboxes",
+    "up",
+    "AHAH Resources ›",
+    "My sessions proposed for Drupalcon Paris",
+    "Fri, 2009-07-24 11:10 by rfay",
+    "Drupal",
+    "I proposed 3 sessions for Drupalcon Paris at the beginning of September, and just hope I can get one in. There's one on Debugging Drupal, one on Ctools/Panels Plugins, and one on Upgrade-proofing your site. Looks like they're all kind of low in the running, but they've all gotten some votes. Surprisingly the one that I thought would be the lowest ranked is the highest - the \"Upgrade-Proof Your Site: Best Practices to Avoid Major Version Upgrade Headaches\".",
+    "If you're going and you like any of these topics, thanks for your VOTE!",
+    "Updated Simpletest Tutorial, with sample modules",
+    "Wed, 2009-07-29 23:19 by rfay",
+    "Drupal",
+    "Simpletest",
+    "Planet Drupal",
+    "I spent much of today updating the Simpletest Tutorial on Drupal.org. The tutorial has been revamped, with much more info, and there are downloadable sample modules for both Drupal 6 and Drupal 7.",
+    "Simpletest is making a big difference in the stability of Drupal, but we're going to have lots of work to do to get improved test coverage for the release of D7. Hopefully this will help in some small way.",
+    "Ctools Plugin Example done, Finally!",
+    "Sun, 2009-08-02 22:29 by rfay",
+    "Drupal",
+    "Panels",
+    "Ctools",
+    "I finally got the Ctools Plugin Example module and documentation updated and submitted. Merlin of Chaos seems happy with the idea, so I'm hoping it can make it as a module distributed with Ctools, which is a fundamental part of Panels.",
+    "One of the nicest things about Panels (now provided by Ctools) is the ability to write relatively simple pieces that extend it. But it's been kind of hard to figure out the magic. Hopefully this module + documentation will help out.",
+    "Update 19 August: It's been committed, so it will be in the upcoming full release of CTools.",
+    "Debugging Drupal session is a go for Paris Drupalcon",
+    "Wed, 2009-08-19 11:29 by rfay",
+    "Drupal",
+    "I just got an email that my Debugging Drupal session for Drupalcon Paris is a go! I had already been told that none of my sessions went, so it was quite a surprise. Should be a good session. And the CTools Plugin session, which didn't go, will be done as a BOF add-on to the big session by MerlinOfChaos on CTools in general.",
+    "Drupal Debugging",
+    "Debugging Drupal is not that much different from any kind of debugging or problem-solving, and the topics we'll cover are the same regardless of your level of Drupal or PHP expertise.",
+    "Here we'll cover three topics:",
+    "Strategy: How do we think about the problem? How do we gather basic information about the problem? How do we not get stuck debugging the wrong problem?",
+    "Tools: What tools can be bring to bear on our problem? What should we have prepared in advance?",
+    "Techniques: What specific techniques can we use?",
+    "Although you may be here for #3, the first two will probably have more of an impact on your success, so we're going to spend some good time on them first.",
+    "Drupal",
+    "debugging",
+    "Planet Drupal",
+    "Debugging Strategies",
+    "Debugging Tools: Preparation and Investment Ahead of Time",
+    "Debugging Techniques",
+    "Debugging Links and Resources",
+    "Book Navigation",
+    "Debugging Strategies ›",
+    "Debugging Strategies",
+    "Turn on your brain first",
+    "Before beginning a debugging effort, turn on your brain. Ask yourself some questions:",
+    "Have you looked at the Drupal log yet? Going to admin->reports->dblog has solved many a problem... after I've spent an hour trying to figure it out.",
+    "Have you looked at the Apache log yet? If you're debugging a WSOD (White Screen of Death) and haven't looked at the Apache log yet, you're wasting your time. If you don't yet know where the apache log is on sites you maintain, find out now.",
+    "Has anything changed on the site lately?",
+    "Is your internet connection working?",
+    "Are other sites on the same server working correctly?",
+    "Does the dev or staging version of your site still work?",
+    "Divide and Conquer: Binary Search",
+    "Almost any piece of software or any debugging problem is too large to understand all at once. So you have to figure out ways to divide the problem. If you can divide the problem in half a couple of times you'll rapidly have a more understandable problem.",
+    "There are many ways to divide up a problem:",
+    "Divide it into different sections of code",
+    "Divide it into different modules or different combinations of modules",
+    "Divide it into different versions (if it appears to be a version-related issue)",
+    "Best practices that will make problem-solving easier",
+    "Many of the items in this tutorial may require you to learn a new technique or two. Commit to breaking out of the stalemate. Don't let skills that you haven't yet mastered keep you from really resolving a problem. Learn them, even if it means investing in them in the midst of a crisis. Never let a mysterious site remain mysterious. Commit the resources you need to shine the light on your Drupal installation. It's worth it - it will pay off in no time.",
+    "Keep a log of changes on the site. Note when a new module is installed, when a patch is applied, when an upgrade is done. You may want to consider using the journal module to help with this. But a simple log like this one can make problemsolving easier.",
+    "Keep your code under source control, and know how to use it.",
+    "Keep multiple backups of your database. Use the Backup and Migrate module for small sites, or another backup technique for larger sites.",
+    "Make sure you have an environment set up that is similar to your production environment where you can set up a clone of the production site at a moment's notice.",
+    "Use a notebook to record changes as you make them when you're working through a lot of experiments, like enabling and disabling modules. Otherwise you may not be able to remember where you came from or how to get back there.",
+    "Drupal",
+    "debugging",
+    "Book Navigation",
+    "‹ Drupal Debugging",
+    "up",
+    "Debugging Tools: Preparation and Investment Ahead of Time ›",
+    "Debugging Tools: Preparation and Investment Ahead of Time",
+    "If you invest in your infrastructure ahead of time, life will be so much easier. If you know how to load and dump the database quickly and how to get a file copy of a production database in moments, and you know how to revert to an earlier version of the code, life will be so much better. Learn how to do these things, whether you do \"code\" or not:",
+    "Have an environment where you can run a copy of any production website you're responsible for. This doesn't mean the exact same setup - it may not even need to be the same operating system. But you'll probably want to match PHP major versions and Mysql major versions. If you have PHP 5.2 and Mysql 5 on the production server, you'll probably need an environment that comes close to that. Yes, if your production site runs Linux, you'll probably want to be able to duplicate that. But many problems and issues can be demonstrated successfully on a Windows machine with Xampp or a Mac with Mamp. And most Drupal websites will run fine in many environments.",
+    "Learn how to clone your production website in moments. When a crisis time comes for your production website, you need to be able to make a copy of it to work with it. Trying to debug on a live site has enormous disadvantages: Your own conservatism about making changes is one of those, the risk that you'll break something worse is another, and just the fact that it's far away and harder to work with is a third. Working on a cloned website is non-negotiable, in my opinion, and will pay off at least 90% of the time.",
+    "Demonstration: Cloning a website in moments",
+    "Keep your site under source control and know how to use it. If your site is under source control, you can roll back any part of it in moments and you can experiment easily with different versions of the code.",
+    "Demonstration: Using source control to debug. (Delete a section. Delete modules. Revert to an earlier time. Move forward in time)",
+    "Learn Drush. You'll be happy you did.",
+    "Get Step-debugging going if you can work with PHP code. You really can't live without it.",
+    "Demonstration: Step debugging with Eclipse.",
+    "Drupal",
+    "debugging",
+    "Book Navigation",
+    "‹ Debugging Strategies",
+    "up",
+    "Debugging Techniques ›",
+    "Pages",
+    "« first",
+    "‹ previous",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "next ›",
+    "last »",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/ahah-resources",
+      "text": "AHAH Resources"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Example module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/348475",
+      "text": "The Drupal.org handbook page on Drupal 6 AHAH"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/file/developer/topics/forms_api_reference.html/6#ahah",
+      "text": "Forms API Documentation, AHAH section"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/ahah_helper",
+      "text": "AHAH Helper"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-notes-and-issues",
+      "text": "‹ AHAH Notes and Issues"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "ahah/drupal7",
+      "text": "AHAH Changes for Drupal 7 (It's now called #AJAX) ›"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-select-control-and-generated-checkboxes",
+      "text": "AHAH Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples project"
+    },
+    {
+      "internal": false,
+      "key": "http://d6.drupalexamples.info/examples/ahah_example/autocheckboxes",
+      "text": "http://d6.drupalexamples.info/examples/ahah_example/autocheckboxes"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-textfields-driven-checkboxes",
+      "text": "‹ AHAH Example: Textfields driven by checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-notes-and-issues",
+      "text": "AHAH Notes and Issues ›"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-notes-and-issues",
+      "text": "AHAH Notes and Issues"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/ahah",
+      "text": "AHAH"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-example-select-control-and-generated-checkboxes",
+      "text": "‹ AHAH Example: Select control and generated checkboxes"
+    },
+    {
+      "internal": true,
+      "key": "ahah",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/ahah-resources",
+      "text": "AHAH Resources ›"
+    },
+    {
+      "internal": true,
+      "key": "content/my-sessions-proposed-drupalcon-paris",
+      "text": "My sessions proposed for Drupalcon Paris"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupalcon.org",
+      "text": "Drupalcon Paris"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "text": "Debugging Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/howto-creating-ctools-plugins-panels-and-related-modules",
+      "text": "Ctools/Panels Plugins"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/upgrade-proof-your-site-best-practices-avoid-major-version-upgrade-headaches",
+      "text": "Upgrade-proofing your site"
+    },
+    {
+      "internal": true,
+      "key": "content/updated-simpletest-tutorial-sample-modules",
+      "text": "Updated Simpletest Tutorial, with sample modules"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/simpletest",
+      "text": "Simpletest"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/395012",
+      "text": "Simpletest Tutorial"
+    },
+    {
+      "internal": true,
+      "key": "content/ctools-plugin-example-done-finally",
+      "text": "Ctools Plugin Example done, Finally!"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/panels",
+      "text": "Panels"
+    },
+    {
+      "internal": true,
+      "key": "topics/ctools",
+      "text": "Ctools"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/537776",
+      "text": "Ctools Plugin Example"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/ctools",
+      "text": "Ctools"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/panels",
+      "text": "Panels"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-drupal-session-go-paris-drupalcon",
+      "text": "Debugging Drupal session is a go for Paris Drupalcon"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "text": "Debugging Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://paris2009.drupalcon.org/session/howto-creating-ctools-plugins-panels-and-related-modules",
+      "text": "CTools Plugin session"
+    },
+    {
+      "internal": true,
+      "key": "debugging",
+      "text": "Drupal Debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-strategies",
+      "text": "Debugging Strategies"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-tools-preparation-and-investment-ahead-time",
+      "text": "Debugging Tools: Preparation and Investment Ahead of Time"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-techniques",
+      "text": "Debugging Techniques"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-links-and-resources",
+      "text": "Debugging Links and Resources"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-strategies",
+      "text": "Debugging Strategies ›"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-strategies",
+      "text": "Debugging Strategies"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/158043",
+      "text": "WSOD (White Screen of Death)"
+    },
+    {
+      "internal": false,
+      "key": "http://wiki.apache.org/httpd/DistrosDefaultLayout",
+      "text": "find out now"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/journal",
+      "text": "journal"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org/changelog",
+      "text": "this one"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/backup_migrate",
+      "text": "Backup and Migrate"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "debugging",
+      "text": "‹ Drupal Debugging"
+    },
+    {
+      "internal": true,
+      "key": "debugging",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-tools-preparation-and-investment-ahead-time",
+      "text": "Debugging Tools: Preparation and Investment Ahead of Time ›"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-tools-preparation-and-investment-ahead-time",
+      "text": "Debugging Tools: Preparation and Investment Ahead of Time"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/drush",
+      "text": "Drush"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/debugging",
+      "text": "debugging"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-strategies",
+      "text": "‹ Debugging Strategies"
+    },
+    {
+      "internal": true,
+      "key": "debugging",
+      "text": "up"
+    },
+    {
+      "internal": true,
+      "key": "content/debugging-techniques",
+      "text": "Debugging Techniques ›"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "« first"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "‹ previous"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "1"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=2",
+      "text": "3"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=3",
+      "text": "4"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=4",
+      "text": "5"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=2",
+      "text": "next ›"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal?page=4",
+      "text": "last »"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api/file/developer/topics/forms_api_reference.html/6",
+      "http://d6.drupalexamples.info/examples/ahah_example/autocheckboxes",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/158043",
+      "http://drupal.org/node/348475",
+      "http://drupal.org/node/395012",
+      "http://drupal.org/node/537776",
+      "http://drupal.org/project/ahah_helper",
+      "http://drupal.org/project/backup_migrate",
+      "http://drupal.org/project/ctools",
+      "http://drupal.org/project/drush",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/journal",
+      "http://drupal.org/project/panels",
+      "http://drupalcon.org",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "http://paris2009.drupalcon.org/session/howto-creating-ctools-plugins-panels-and-related-modules",
+      "http://paris2009.drupalcon.org/session/upgrade-proof-your-site-best-practices-avoid-major-version-upgrade-headaches",
+      "http://warmshowers.org/changelog",
+      "http://wiki.apache.org/httpd/DistrosDefaultLayout"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
+  }
+}

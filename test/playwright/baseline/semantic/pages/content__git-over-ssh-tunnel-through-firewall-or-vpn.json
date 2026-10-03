@@ -143,5 +143,17 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://betaphitheta.wordpress.com",
+      "http://ddev.com/contact",
+      "http://drupal.org/user/926382",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://www.google.com/search?client=ubuntu&channel=fs&q=ssh+tunnel&ie=utf-8&oe=utf-8",
+      "http://www.revsys.com/writings/quicktips/ssh-tunnel.html"
+    ],
+    "internalNonOk": []
   }
 }

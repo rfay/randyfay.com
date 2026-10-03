@@ -192,5 +192,19 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/dcoc",
+      "http://drupal.org/moshe",
+      "http://drupal.org/user/36762",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://randyfay.com/taxonomy/term/27",
+      "http://room271.net",
+      "http://www.ubuntu.com/community/conduct"
+    ],
+    "internalNonOk": []
   }
 }

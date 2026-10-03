@@ -253,5 +253,21 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/moshe",
+      "http://drupal.org/node/1076302",
+      "http://drupal.org/sandbox/mfer/1074256",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://randyfay.com/node/119",
+      "http://www.randyfay.com/comment/1028",
+      "https://example.org/git/repo-name.git",
+      "https://gist.github.com/8839519ec5b823e047bf",
+      "https://github.com/Seb35/git-cache"
+    ],
+    "internalNonOk": []
   }
 }

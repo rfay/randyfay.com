@@ -802,5 +802,36 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://aegirproject.org",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/1169776",
+      "http://drupal.org/node/244924",
+      "http://drupal.org/node/990812",
+      "http://drupal.org/project/backup_migrate",
+      "http://drupal.org/project/css_injector",
+      "http://drupal.org/project/drush",
+      "http://drupal.org/project/media",
+      "http://drush.ws",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://ic4ever.com",
+      "http://ilmari.oranen.com",
+      "http://janezurvc.name",
+      "http://mediadoneright.com",
+      "http://rym.waglo.com",
+      "http://samirnassar.com",
+      "http://symfony.com/doc/current/book/installation.html",
+      "http://sysadminsjourney.com",
+      "http://tregeagle.com",
+      "http://www.attiks.com",
+      "http://www.paragon-es.de",
+      "http://www.practicalweb.co.uk",
+      "http://www.practicalweb.co.uk/blog/11/05/31/drupal-files-directory-permissions-continuous-integration",
+      "https://github.com/drush-ops/drush/issues"
+    ],
+    "internalNonOk": []
   }
 }

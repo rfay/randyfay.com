@@ -237,5 +237,34 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api/drupal/developer--examples--form_example--form_example_tutorial.inc/7",
+      "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7",
+      "http://api.drupal.org/api/function/ahah_example_callback_helper/6",
+      "http://api.drupal.org/api/function/ajax_example_autocheckboxes/7",
+      "http://api.drupal.org/api/function/ajax_example_autocheckboxes_callback/7",
+      "http://api.drupal.org/api/group/ajax_examples/7",
+      "http://api.drupal.org/api/group/form_api/7",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/561858",
+      "http://drupal.org/node/647228",
+      "http://drupal.org/node/752056",
+      "http://drupal.org/node/789186",
+      "http://drupal.org/project/examples",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://randyfay.com/ahah",
+      "http://randyfay.com/ajax",
+      "http://randyfay.com/node/66",
+      "http://randyfay.com/node/74"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

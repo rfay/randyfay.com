@@ -199,5 +199,15 @@
         "key": "ahah"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://d6.drupalexamples.info/examples/ahah_example/autotextfields",
+      "http://ddev.com/contact",
+      "http://drupal.org/project/examples",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": []
   }
 }

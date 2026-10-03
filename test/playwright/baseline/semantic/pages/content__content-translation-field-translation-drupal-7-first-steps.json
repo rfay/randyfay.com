@@ -860,5 +860,39 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://balilou.be/products",
+      "http://buytaert.net/drupal-2010-retrospective-and-2011-predictions",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/1109198",
+      "http://drupal.org/node/539110",
+      "http://drupal.org/project/entity_translation",
+      "http://drupal.org/project/i18n",
+      "http://drupal.org/project/i18nmenu_node",
+      "http://drupal.org/project/title",
+      "http://drupalcode.org/project/title.git/snapshot/refs/heads/initial_work-924968.tar.gz",
+      "http://drupaldump.com",
+      "http://evolvingweb.ca",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://hojtsy.hu",
+      "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics",
+      "http://liquidvisual.ca",
+      "http://localize.drupal.org",
+      "http://nuazul.net",
+      "http://randyfay.com/comment/672",
+      "http://randyfay.com/comment/864",
+      "http://www.cai.org",
+      "http://www.comm-press.de",
+      "http://www.drupalcommerce.org/questions/10452/multilingual-product-title-shopping-cart",
+      "http://www.evolvingweb.ca/story/drupal-7-multilingual-whats-new-i18n",
+      "http://www.psegno.it",
+      "http://www.saltwebsites.com",
+      "https://drupal.org/node/924968",
+      "https://drupal.org/project/title"
+    ],
+    "internalNonOk": []
   }
 }

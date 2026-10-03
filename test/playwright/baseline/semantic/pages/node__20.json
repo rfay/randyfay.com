@@ -108,5 +108,22 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://code.google.com/apis/ajaxlanguage",
+      "http://code.google.com/p/jquery-translate",
+      "http://ddev.com/contact",
+      "http://es.warmshowers.org",
+      "http://es.warmshowers.org/translations/details",
+      "http://es.warmshowers.org/translations/status",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://warmshowers.org",
+      "http://www.screencast.com/users/randyfay/folders/Warmshowers.org%20translation",
+      "http://www.skype.com",
+      "http://yuuguu.com"
+    ],
+    "internalNonOk": []
   }
 }

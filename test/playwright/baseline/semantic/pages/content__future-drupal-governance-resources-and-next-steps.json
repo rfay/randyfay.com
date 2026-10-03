@@ -116,5 +116,20 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://denver2012.drupal.org/content/future-drupal-governance",
+      "http://drupal.org/node/1526026",
+      "http://drupal.org/project/governance",
+      "http://drupal.org/project/issues/governance",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://lb.cm/governance",
+      "http://randyfay.com/topics/governance",
+      "http://www.communityleadershipsummit.com"
+    ],
+    "internalNonOk": []
   }
 }

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-02T21:51:54.322Z",
+  "generatedAt": "2026-10-03T15:28:11.415Z",
   "baseUrl": "https://randyfay.ddev.site",
   "counts": {
-    "pages": 244,
+    "pages": 264,
     "skipped": 0,
     "assets": 26,
     "missingAssets": 7,
@@ -11,14 +11,16 @@
       "page": 7,
       "book": 48,
       "story": 2,
-      "route": 29
+      "route": 49
     },
-    "lines": 18427,
-    "images": 45,
-    "links": 7214,
+    "lines": 22960,
+    "images": 62,
+    "links": 8987,
     "menuItems": 571,
-    "discoveredRoutes": 29,
-    "brokenOrRestrictedLinks": 7
+    "discoveredRoutes": 49,
+    "ownDomainLinks": 41,
+    "ownDomainImages": 7,
+    "brokenOrRestrictedLinks": 8
   },
   "pages": [
     {
@@ -1792,6 +1794,26 @@
       "file": "pages/route__blogs__rfay.json"
     },
     {
+      "path": "content/avoiding-git-disasters-gory-story?page=1",
+      "id": "route:content/avoiding-git-disasters-gory-story?page=1",
+      "type": "route",
+      "title": "Avoiding Git Disasters: A Gory Story",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__content__avoiding-git-disasters-gory-story_page_1.json"
+    },
+    {
+      "path": "content/rebase-workflow-git?page=1",
+      "id": "route:content/rebase-workflow-git?page=1",
+      "type": "route",
+      "title": "A Rebase Workflow for Git",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__content__rebase-workflow-git_page_1.json"
+    },
+    {
       "path": "topics/ahah",
       "id": "route:topics/ahah",
       "type": "route",
@@ -2050,6 +2072,186 @@
         "route"
       ],
       "file": "pages/route__topics__twitter.json"
+    },
+    {
+      "path": "node?page=1",
+      "id": "route:node?page=1",
+      "type": "route",
+      "title": "",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__node_page_1.json"
+    },
+    {
+      "path": "node?page=2",
+      "id": "route:node?page=2",
+      "type": "route",
+      "title": "",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__node_page_2.json"
+    },
+    {
+      "path": "blog?page=1",
+      "id": "route:blog?page=1",
+      "type": "route",
+      "title": "Blogs",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__blog_page_1.json"
+    },
+    {
+      "path": "blog?page=2",
+      "id": "route:blog?page=2",
+      "type": "route",
+      "title": "Blogs",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__blog_page_2.json"
+    },
+    {
+      "path": "blogs/rfay?page=1",
+      "id": "route:blogs/rfay?page=1",
+      "type": "route",
+      "title": "rfay's blog",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__blogs__rfay_page_1.json"
+    },
+    {
+      "path": "blogs/rfay?page=2",
+      "id": "route:blogs/rfay?page=2",
+      "type": "route",
+      "title": "rfay's blog",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__blogs__rfay_page_2.json"
+    },
+    {
+      "path": "topics/drupal?page=1",
+      "id": "route:topics/drupal?page=1",
+      "type": "route",
+      "title": "Drupal",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__topics__drupal_page_1.json"
+    },
+    {
+      "path": "topics/drupal?page=2",
+      "id": "route:topics/drupal?page=2",
+      "type": "route",
+      "title": "Drupal",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__topics__drupal_page_2.json"
+    },
+    {
+      "path": "topics/drupal?page=3",
+      "id": "route:topics/drupal?page=3",
+      "type": "route",
+      "title": "Drupal",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__topics__drupal_page_3.json"
+    },
+    {
+      "path": "topics/drupal?page=4",
+      "id": "route:topics/drupal?page=4",
+      "type": "route",
+      "title": "Drupal",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__topics__drupal_page_4.json"
+    },
+    {
+      "path": "topics/git?page=1",
+      "id": "route:topics/git?page=1",
+      "type": "route",
+      "title": "git",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__topics__git_page_1.json"
+    },
+    {
+      "path": "topics/planet-drupal?page=1",
+      "id": "route:topics/planet-drupal?page=1",
+      "type": "route",
+      "title": "Planet Drupal",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__topics__planet-drupal_page_1.json"
+    },
+    {
+      "path": "topics/planet-drupal?page=2",
+      "id": "route:topics/planet-drupal?page=2",
+      "type": "route",
+      "title": "Planet Drupal",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__topics__planet-drupal_page_2.json"
+    },
+    {
+      "path": "topics/planet-drupal?page=3",
+      "id": "route:topics/planet-drupal?page=3",
+      "type": "route",
+      "title": "Planet Drupal",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__topics__planet-drupal_page_3.json"
+    },
+    {
+      "path": "topics/planet-drupal?page=4",
+      "id": "route:topics/planet-drupal?page=4",
+      "type": "route",
+      "title": "Planet Drupal",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__topics__planet-drupal_page_4.json"
+    },
+    {
+      "path": "topics/planet-drupal?page=5",
+      "id": "route:topics/planet-drupal?page=5",
+      "type": "route",
+      "title": "Planet Drupal",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__topics__planet-drupal_page_5.json"
+    },
+    {
+      "path": "topics/planet-drupal?page=6",
+      "id": "route:topics/planet-drupal?page=6",
+      "type": "route",
+      "title": "Planet Drupal",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__topics__planet-drupal_page_6.json"
+    },
+    {
+      "path": "node",
+      "id": "route:node",
+      "type": "route",
+      "title": "",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__node.json"
     }
   ],
   "assets": [
@@ -2116,7 +2318,11 @@
     "ahah/drupal7",
     "ajax",
     "blog",
+    "blog?page=1",
+    "blog?page=2",
     "blogs/rfay",
+    "blogs/rfay?page=1",
+    "blogs/rfay?page=2",
     "changelog",
     "content/30-seconds-drupal-form-api",
     "content/accessing-osuosl-supercell-manage-drupalorg-testbots",
@@ -2130,6 +2336,7 @@
     "content/ajax-form-resources",
     "content/ajax-simplest-example",
     "content/avoiding-git-disasters-gory-story",
+    "content/avoiding-git-disasters-gory-story?page=1",
     "content/change-direction",
     "content/changing-theme-name-or-adding-subtheme-without-losing-block-and-theme-settings",
     "content/content-translation-field-translation-drupal-7-first-steps",
@@ -2198,6 +2405,7 @@
     "content/quick-guide-wildcard-apache-vhosts",
     "content/randyfaycom-live-ddev-docker-based-casual-hosting",
     "content/rebase-workflow-git",
+    "content/rebase-workflow-git?page=1",
     "content/reference-cache-repositories-speed-clones-git-clone-reference",
     "content/refreshing-stale-patch-git",
     "content/remote-command-line-debugging-phpstorm-phpdrupal-including-drush",
@@ -2237,6 +2445,7 @@
     "debugging",
     "debugging_drupal",
     "drupal_debugging",
+    "node",
     "node/10",
     "node/100",
     "node/102",
@@ -2363,6 +2572,8 @@
     "node/97",
     "node/98",
     "node/99",
+    "node?page=1",
+    "node?page=2",
     "portfolio",
     "resume",
     "screenshare",
@@ -2405,6 +2616,10 @@
     "topics/debugging",
     "topics/development",
     "topics/drupal",
+    "topics/drupal?page=1",
+    "topics/drupal?page=2",
+    "topics/drupal?page=3",
+    "topics/drupal?page=4",
     "topics/drupalcon",
     "topics/drush",
     "topics/eclipse",
@@ -2412,10 +2627,17 @@
     "topics/forms",
     "topics/git",
     "topics/git-rebase",
+    "topics/git?page=1",
     "topics/governance",
     "topics/internationalization",
     "topics/panels",
     "topics/planet-drupal",
+    "topics/planet-drupal?page=1",
+    "topics/planet-drupal?page=2",
+    "topics/planet-drupal?page=3",
+    "topics/planet-drupal?page=4",
+    "topics/planet-drupal?page=5",
+    "topics/planet-drupal?page=6",
     "topics/portfolio",
     "topics/screenshare",
     "topics/simpletest",
@@ -2484,6 +2706,520 @@
       "from": [
         "node/56"
       ]
+    },
+    {
+      "key": "topics/>http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
+      "status": 404,
+      "uses": 1,
+      "from": [
+        "topics/planet-drupal"
+      ]
     }
-  ]
+  ],
+  "ownDomainReferences": {
+    "domains": [
+      "randyfay.com"
+    ],
+    "links": [
+      {
+        "url": "http://randyfay.com/ahah",
+        "pages": [
+          "blog?page=1",
+          "blogs/rfay?page=1",
+          "content/form-api-changes-drupal-7-part-2-ajaxahah-changes",
+          "node/74",
+          "node?page=1",
+          "topics/ajax",
+          "topics/forms",
+          "topics/planet-drupal?page=2"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/ajax",
+        "pages": [
+          "ahah/drupal7",
+          "content/form-api-changes-drupal-7-part-2-ajaxahah-changes",
+          "node/30",
+          "node/74",
+          "topics/ahah",
+          "topics/ajax",
+          "topics/drupal",
+          "topics/forms",
+          "topics/planet-drupal?page=2"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/comment/1093#comment-1093",
+        "pages": [
+          "blog?page=1",
+          "blogs/rfay?page=1",
+          "content/rebase-workflow-git",
+          "content/rebase-workflow-git?page=1",
+          "node/91",
+          "node?page=1",
+          "topics/git",
+          "topics/git-rebase",
+          "topics/planet-drupal?page=3"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/comment/1990#comment-1990",
+        "pages": [
+          "blog?page=1",
+          "blogs/rfay?page=1",
+          "content/resetting-drupal-passwords-drupal-7-drush-or-without",
+          "node/92",
+          "node?page=1",
+          "topics/planet-drupal?page=3"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/comment/672#comment-672",
+        "pages": [
+          "content/content-translation-field-translation-drupal-7-first-steps",
+          "node/88",
+          "topics/planet-drupal?page=3"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/comment/864#comment-864",
+        "pages": [
+          "content/content-translation-field-translation-drupal-7-first-steps",
+          "node/88"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/content/cygwin-quickstart-drupal-users",
+        "pages": [
+          "content/remote-drupalphp-debugging-xdebug-and-phpstorm",
+          "node/130"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/content/drupals-governance",
+        "pages": [
+          "",
+          "blog",
+          "blogs/rfay",
+          "content/what-governance",
+          "node",
+          "node/118",
+          "topics/governance",
+          "topics/planet-drupal?page=5"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
+        "pages": [
+          "",
+          "blog",
+          "blogs/rfay",
+          "content/what-governance",
+          "node",
+          "node/118",
+          "topics/governance",
+          "topics/planet-drupal?page=5"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/content/my-new-development-computer-amazon-ec2-instance",
+        "pages": [
+          "content/tunneling-http-debug-or-develop-external-webservice-call",
+          "node/129",
+          "topics/debugging",
+          "topics/planet-drupal?page=6"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/files/e_notice.patch",
+        "pages": [
+          "content/if-you-edit-php-code-please-work-enotice-turned",
+          "node/76"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/files/php",
+        "pages": [
+          "content/php-52-ubuntu-1004-lucid-lynx-seems-work-1204-too",
+          "node/63"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/files/php_0",
+        "pages": [
+          "content/php-52-ubuntu-1004-lucid-lynx-seems-work-1204-too",
+          "node/63"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/103",
+        "pages": [
+          "blog?page=1",
+          "blogs/rfay?page=1",
+          "content/rebase-workflow-git",
+          "content/rebase-workflow-git?page=1",
+          "node/91",
+          "node?page=1",
+          "topics/git",
+          "topics/git-rebase",
+          "topics/planet-drupal?page=3"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/107",
+        "pages": [
+          "",
+          "blog",
+          "blogs/rfay",
+          "content/how-does-drupal-community-burn-people-out",
+          "content/what-can-individuals-do-prevent-burnout",
+          "node",
+          "node/109",
+          "node/110",
+          "topics/burnout",
+          "topics/planet-drupal?page=5"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/109",
+        "pages": [
+          "",
+          "blog",
+          "blogs/rfay",
+          "content/how-does-drupal-community-burn-people-out",
+          "content/what-burnout",
+          "node",
+          "node/107",
+          "node/110",
+          "topics/burnout",
+          "topics/planet-drupal?page=4",
+          "topics/planet-drupal?page=5"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/118",
+        "pages": [
+          "",
+          "blog",
+          "blogs/rfay",
+          "content/drupals-governance",
+          "content/how-do-open-source-communities-govern-themselves",
+          "node",
+          "node/120",
+          "node/121",
+          "topics/governance",
+          "topics/planet-drupal?page=6"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/119",
+        "pages": [
+          "blog?page=1",
+          "blogs/rfay?page=1",
+          "content/reference-cache-repositories-speed-clones-git-clone-reference",
+          "node/93",
+          "node?page=1",
+          "topics/git",
+          "topics/planet-drupal?page=3"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/120",
+        "pages": [
+          "",
+          "blog",
+          "blogs/rfay",
+          "content/drupals-governance",
+          "content/what-governance",
+          "node",
+          "node/118",
+          "node/121",
+          "topics/governance",
+          "topics/planet-drupal?page=5",
+          "topics/planet-drupal?page=6"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/130",
+        "pages": [
+          "content/remote-drupalphp-debugging-xdebug-and-phpstorm",
+          "node/130",
+          "topics/debugging",
+          "topics/planet-drupal?page=6"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/58",
+        "pages": [
+          "blog?page=1",
+          "blogs/rfay?page=1",
+          "content/drupalcon-drupal-7-ajax-and-javascript",
+          "node/60",
+          "node?page=1",
+          "topics/drupal?page=3",
+          "topics/planet-drupal?page=1"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/66",
+        "pages": [
+          "blog?page=1",
+          "blogs/rfay?page=1",
+          "content/form-api-changes-drupal-7-part-2-ajaxahah-changes",
+          "node/74",
+          "node?page=1",
+          "topics/ajax",
+          "topics/forms",
+          "topics/planet-drupal?page=2"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/74",
+        "pages": [
+          "content/form-api-changes-drupal-7-part-1-formstate-changes",
+          "node/66",
+          "topics/drupal?page=4",
+          "topics/forms",
+          "topics/planet-drupal?page=1"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/76#comment-192",
+        "pages": [
+          "content/if-you-edit-php-code-please-work-enotice-turned",
+          "node/76"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/89",
+        "pages": [
+          "content/rebase-workflow-git",
+          "content/rebase-workflow-git?page=1",
+          "content/simpler-rebasing-avoiding-unintentional-merge-commits",
+          "node/103",
+          "node/91",
+          "topics/git",
+          "topics/git-rebase",
+          "topics/planet-drupal?page=3",
+          "topics/planet-drupal?page=4"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/91",
+        "pages": [
+          "content/simpler-rebasing-avoiding-unintentional-merge-commits",
+          "node/103"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/93",
+        "pages": [
+          "",
+          "blog",
+          "blogs/rfay",
+          "content/git-clone-reference-considered-harmful",
+          "node",
+          "node/119",
+          "topics/git?page=1",
+          "topics/planet-drupal?page=5"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/99",
+        "pages": [
+          "blog?page=1",
+          "blogs/rfay?page=1",
+          "content/want-help-drupal-testing-infrastructure-provide-testbot",
+          "node/75",
+          "node?page=1",
+          "topics/planet-drupal?page=2"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/node/99for",
+        "pages": [
+          "content/want-help-drupal-testing-infrastructure-provide-testbot",
+          "node/75"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/sites/default/files/catchall",
+        "pages": [
+          "content/quick-guide-wildcard-apache-vhosts",
+          "node/71",
+          "topics/planet-drupal?page=2"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/sites/default/files/e_notice.patch",
+        "pages": [
+          "content/if-you-edit-php-code-please-work-enotice-turned",
+          "node/76",
+          "topics/best-practices",
+          "topics/planet-drupal?page=2"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/sites/default/files/RandyFayResume2012.pdf",
+        "pages": [
+          "node/19",
+          "portfolio",
+          "topics/drupal",
+          "topics/portfolio"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/taxonomy/term/26",
+        "pages": [
+          "",
+          "blog",
+          "blogs/rfay",
+          "content/simpler-rebasing-avoiding-unintentional-merge-commits",
+          "node",
+          "node/103",
+          "topics/git",
+          "topics/git-rebase",
+          "topics/planet-drupal?page=4"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/taxonomy/term/27",
+        "pages": [
+          "content/drupal-community-conflict-resolution-and-twitter",
+          "node/112",
+          "topics/planet-drupal?page=5"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/topics/burnout",
+        "pages": [
+          "",
+          "blog",
+          "blogs/rfay",
+          "content/why-i-donated-backdropcms",
+          "node",
+          "node/127",
+          "topics/planet-drupal?page=6"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/topics/governance",
+        "pages": [
+          "",
+          "blog",
+          "blogs/rfay",
+          "content/drupals-governance",
+          "content/future-drupal-governance-resources-and-next-steps",
+          "content/how-do-open-source-communities-govern-themselves",
+          "node",
+          "node/120",
+          "node/121",
+          "node/123",
+          "topics/governance",
+          "topics/planet-drupal?page=6"
+        ]
+      },
+      {
+        "url": "http://www.randyfay.com/comment/1028#comment-1028",
+        "pages": [
+          "blog?page=1",
+          "blogs/rfay?page=1",
+          "content/reference-cache-repositories-speed-clones-git-clone-reference",
+          "node/93",
+          "node?page=1",
+          "topics/git",
+          "topics/planet-drupal?page=3"
+        ]
+      },
+      {
+        "url": "http://www.randyfay.com/content/simpler-rebasing-avoiding-unintentional-merge-commits",
+        "pages": [
+          "content/rebase-workflow-git",
+          "node/91"
+        ]
+      },
+      {
+        "url": "http://www.randyfay.com/files/rfay.pub",
+        "pages": [
+          "blog?page=2",
+          "blogs/rfay?page=2",
+          "content/where-find-me",
+          "node/23",
+          "topics/twitter"
+        ]
+      },
+      {
+        "url": "https://randyfay.com/node/130",
+        "pages": [
+          "content/remote-command-line-debugging-phpstorm-phpdrupal-including-drush",
+          "node/131",
+          "topics/debugging",
+          "topics/planet-drupal?page=6"
+        ]
+      },
+      {
+        "url": "https://randyfay.com/sites/default/files/Randy%20Fay%20Resume%202016.pdf",
+        "pages": [
+          "node/133",
+          "resume"
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "http://randyfay.com/files/translatable_regions_screenshot.png",
+        "pages": [
+          "blog?page=1",
+          "blogs/rfay?page=1",
+          "content/translatable-regions-module-user-contributed-content-many-languages",
+          "node/65",
+          "node?page=1",
+          "topics/drupal?page=3",
+          "topics/planet-drupal?page=1"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_002.png",
+        "pages": [
+          "content/rebase-workflow-git",
+          "node/91"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_003.png",
+        "pages": [
+          "content/rebase-workflow-git",
+          "node/91"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_004.png",
+        "pages": [
+          "content/rebase-workflow-git",
+          "node/91"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_005.png",
+        "pages": [
+          "content/rebase-workflow-git",
+          "node/91"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_006.png",
+        "pages": [
+          "content/rebase-workflow-git",
+          "node/91"
+        ]
+      },
+      {
+        "url": "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_007.png",
+        "pages": [
+          "content/rebase-workflow-git",
+          "node/91"
+        ]
+      }
+    ]
+  }
 }

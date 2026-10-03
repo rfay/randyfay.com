@@ -1,0 +1,1039 @@
+{
+  "title": "rfay's blog | RandyFay.com",
+  "primaryHeading": "rfay's blog",
+  "contentFound": true,
+  "lines": [
+    "Review of Drupal 7: Visual QuickStart Guide",
+    "Tue, 2011-02-22 10:09 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Book Reviews",
+    "(Disclaimer: The book for review was provided gratis by the publisher.)",
+    "Tom Geller's new book Drupal 7: Visual Quickstart Guide is a concise, dense sitebuilder/administrator's guide to Drupal 7. It provides a pretty decent task-oriented overview of D7 sitebuilding and administration. It's a manageable size for almost anybody, about 210 pages of primary content.",
+    "Overall summary: The book does well what it sets out to do, which is provide a user-interface task-oriented introduction to Drupal 7 for sitebuilders and administrators (in a reasonable size package). That approach has innate drawbacks, but so does every other approach, right?",
+    "Reference (cache) repositories to speed up clones: git clone --reference",
+    "Fri, 2011-02-18 12:08 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "git",
+    "Update: Please read this update on my experience before using the technique in this article.",
+    "Update: See the drush implementation of this approach in the comment below.",
+    "DamZ taught me a great new piece of git trivia today. You can use a local repository as a kind of cache for a git clone.",
+    "Let's create a reference repository for Drupal (and it will be bare, because we don't need any files checked out)",
+    "git clone --mirror git://git.drupal.org/project/drupal.git ~/gitcaches/drupal.reference",
+    "That makes a complete clone of Drupal's full history in ~/gitcaches/drupal.reference",
+    "Now when I need to clone the Drupal project's entire history (as I might do often in testing) I can",
+    "git clone --reference ~/gitcaches/drupal.reference git://git.drupal.org/project/drupal.git",
+    "And the clone time is on the order of 2 seconds instead of several minutes. And yes, it picks up new changes that may have happened in the real remote repository.",
+    "Resetting Drupal Passwords in Drupal 7 with Drush or Without",
+    "Sun, 2011-02-13 09:13 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Sometimes, whether in testing or other situations, you need to reset a password (often the admin password) for a Drupal site.",
+    "Edit: The shortest answer is that two wonderful options are built into drush!",
+    "Get an admin login link",
+    "drush uli",
+    "Set the password for any user",
+    "drush upwd admin --password=\"newpassword\"",
+    "(More info on drush uli below.)",
+    "Now for the long version",
+    "In Drupal 6, you could just reset the admin password with:",
+    "cd",
+    "drush sql-cli # or mysql -u -p",
+    "UPDATE users SET name='admin', pass=md5('drupal') WHERE uid=1;",
+    "and then log in with username 'admin' and password 'drupal'.",
+    "But no more. Drupal 7 has a unique hash for each site, which means you can't just use the md5() trick any more. However, there is a script in the scripts directory that will do this.",
+    "cd",
+    "php scripts/password-hash.sh 'drupal'",
+    "A Rebase Workflow for Git",
+    "Sun, 2011-02-06 13:00 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "git",
+    "git rebase",
+    "Update October, 2014: Lots of things have gotten easier over the years.",
+    "These days, the easy way to fix this set of things is with the Pull Request workflow, which is essentially the Integration Manager workflow discussed here (probably).",
+    "Use github or bitbucket or somebody that makes the PR workflow easy",
+    "Delegate a person as integration manager, who will pull or comment on the PR",
+    "Require contributors to rebase their own PR branch before pulling if there are conflicts.",
+    "Update: Just for clarification, I'm not opposed to merges. I'm only opposed to unintentional merges (especially with a git pull). This followup article describes a simple way to rebase most of the time without even thinking about it). Also, for local development I love the git merge --squash method described by joachim below.",
+    "Differences Between the Drupal Community and The Microsoft Kingdom",
+    "Wed, 2011-02-02 18:46 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Last week I had the wonderful opportunity to spend a few days learning Microsoft's Azure cloud technology (and catching up on lots of Windows Server technology too - it's been a while). Now, admittedly, this was unfamiliar territory for me as I've been away for a few years. You may laugh, but I had a serious case of culture shock as I experienced the difference in empowerment and support between the two environments.",
+    "In the Microsoft world,",
+    "if you have a problem there are ways to get support, but most of them require knowing a bunch of forum-type websites or paying money to somebody.",
+    "If you need free support, how do you find out where you would get it?",
+    "If you discover a bug, what do you do?",
+    "If you know how to solve a bug, how do you get the solution committed?",
+    "If you know how to improve a product, how could you have any confidence that you could influence it?",
+    "In the Drupal world,",
+    "Avoiding Git Disasters: A Gory Story",
+    "Sun, 2011-01-30 12:10 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "git",
+    "Edit 2015-08-30: The bottom line years later: Use the (Github's) Pull Request methodology, with a responsible person doing the pulls. You'll never have any of these problems.",
+    "I learned the hard way recently that there are some unexpectedly horrible things that can happen to a project in the Git source control management system due to its distributed nature... that I never would have thought of.",
+    "Content Translation (field translation) in Drupal 7: First steps",
+    "Tue, 2011-01-18 09:11 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Edit: Please follow Gábor Hojtsy's excellent series on translation in D7, if you're not already following it. It's more up-to-date and more authoritative. You'll probably be interested in Drupal 7 Multilingual: What's new in I18N.",
+    "Drupal has long been a leader in the ability to present a website in multiple languages. In Drupal 7 we continue that tradition: Field translation or \"content translation\" made it into Drupal 7, but it's not obvious from a plain Drupal 7 install how you would use it.",
+    "This article is fundamentally about content translation, not about interface translation, which is a completely different thing in Drupal (and always has been). Interface translation is about prompts, labels, menu entries and the like, all of which are handled by the core locale module and various contrib modules like i18n. I will explain how to import basic interface translation files, however.",
+    "Review of Drupal 7 Module Development",
+    "Sat, 2011-01-15 11:48 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Drupal 7 Module Development (Matt Butcher et all, Packt Press, December, 2010) is a great step forward for Drupal 7. It packages up key D7 information about theming, the render system, entities, fields, the Form API, node access, and the File API all in one place. Summary: If you're doing D7 module development, either for the first time or switching moving from Drupal 6, you need this book.",
+    "Some parts of the book were more familiar to me, and as a result less impressive, so I'll focus on the parts that were most useful to me:",
+    "Starting work for Commerce Guys!",
+    "Fri, 2011-01-14 09:37 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "I'm thrilled to announce that I'm going to work for Commerce Guys starting tomorrow. Yes, a real job! I'm looking forward to working with some great people on some fun projects, and of course Commerce Guys is well known for promoting contributions to Drupal and the Drupal community.",
+    "My first act will be to participate in the Drupal Commerce code sprint in Paris next week, and wow, am I looking forward to that.",
+    "Woohoo!",
+    "Stashing data in the D7 User Object (or... no more magical fairy cruft saving)",
+    "Mon, 2010-12-13 07:27 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "A unique and surprising feature of the Drupal user object up through Drupal 6 was that you could throw any crap into it you wanted and then run user_save() and it would be there. So in Drupal 6:",
+    "user_save($account, array('some_random_stuff' => 'surprisingly random');",
+    "Well, that always seemed way too easy and it was. After a security problem was discovered with this in way early D7 alpha days, it was decided to make this far more explicit and deliberate. Now you have to have implement hook_user_presave() to actually move your data into the right place and prove that you really wanted to do it.",
+    "Best practice says that we're going to save settings into the user object keyed by the module name. So if my module is named 'mymodule' in Drupal 7:",
+    "...",
+    "$stuff = array('some_random_stuff' => 'surprisingly_random');",
+    "user_save($account, array('mymodule' => $stuff);",
+    "Git over an ssh tunnel (like through a firewall or VPN)",
+    "Mon, 2010-10-11 18:41 by rfay",
+    "Topics:",
+    "git",
+    "ssh",
+    "It's a treasured geek secret that ssh can tunnel TCP connections like ssh all over the internet. What does that mean? It means that you can access machines and ports from your local machine that you never thought you could, including git repositories that are behind firewalls or inside VPNs.",
+    "There are two steps to this. First, we have to set up an ssh tunnel. We have 3 machines we're interacting with here:",
+    "The local machine where we want to be able to do a git clone or git pull or whatever. I'll call it localhost.",
+    "The internet or VPN host that has access to your git repository. Let's call it proxy.example.com.",
+    "The host that has the git repository on it. We'll call it git.example.com, and we'll assume that access to git is via ssh on port 22, which is very common for git repos with commit access.",
+    "Step 1: Set up a tunnel (in one window). ssh -L3333:git.example.com:22 you@proxy.example.com",
+    "OK, launched on D7",
+    "Sun, 2010-10-10 22:11 by rfay",
+    "The beta is out so here's another site migrated to D7. It's a very simple site, but it did upgrade. I had a few problems, but mostly it went OK. I like the Corolla theme that this works with. I like Bartik too, but Corolla is it for now.",
+    "Drupal 7 Render Arrays (and the new Render Example)",
+    "Sun, 2010-10-03 22:25 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "If you're like me you've heard \"render arrays\" or \"renderable arrays\" over and over again in the Drupal 7 development cycle, but you might not have really understood what it was all about. Here are the results of my own exploration in developing the new Render Example for the Examples project.",
+    "Remember the Form API? Or the content section of a $node or a $user in Drupal 6? Basically now everything is kept in a form like that until the very last minute in D7.",
+    "What's this about \"rendering\"?",
+    "Rendering in the Drupal world means turning structured \"render\" arrays into HTML.",
+    "Coolest modules (and theme) of the week",
+    "Sat, 2010-09-18 04:13 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "I met some incredibly cool new modules (and a theme) this week that have really increased my range as a sitebuilder. You should check them out if you haven't already:",
+    "Sweaver: Incredibly, this lets you adjust your site's appearance easily and intuitively on the fly. Just diddle with the font! Change the background color of a region, or add a background graphic. Incredible.",
+    "Context: Quit procrastinating. Context is easy to use and easy to understand and will vastly increase your ability to configure the appearance and behavior of a page or section. Seriously. You don't have to wait. It just works. It's intuitive. Try it.",
+    "@Font-your-face: You can really have a billion free web fonts that actually work in all modern browsers on all platforms. No more weird graphics creation. So easy to use. Again, this doesn't take any time or effort.",
+    "Views: Making a view show different content to different users based on role",
+    "Fri, 2010-09-17 15:50 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "greggles showed me how to make a view show different content to different users by role the other day, so I thought I'd write it down.",
+    "The goal: Displaying different nodes to administrators than I show to just authenticated users and that different than what anon users see. (In this case, I'll show pages to administrators, stories to authenticated users who are not administrators, and articles to anonymous users.)",
+    "The strategy: Create three different displays in the view, each of which is limited to a particular role, and each of which has its own filter. The administrator display has a filter that chooses pages, auth user one that chooses stories, etc.",
+    "The devil's details: The displays must be ordered by most restrictive to anonymous. The displays are apparently attempted in the order they're shown on the views edit screen. So we need the most restrictive (administrator) first. On that one only administrators will succeed. The next display has the authenticated users, etc.",
+    "If you edit PHP code, please work with E_NOTICE turned on!!!",
+    "Tue, 2010-09-14 02:09 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Best Practices",
+    "It's a Drupal and PHP best practice to develop with E_NOTICE turned on. Please do.",
+    "I installed a new contrib project from Drupal.org yesterday and found a whole bunch of warnings emitted to the screen. It turned out that the developer of the project had not (apparently) been working with E_NOTICE properly enabled in their development environment and so had never seen these. Two of them were actually obvious logic failures. You want to know when PHP is complaining about your code! (Make sure you have error/warning reporting to screen turned on during development too!)",
+    "So here's the deal: PHP has a flag called E_NOTICE. In release version of Drupal it's ignored (in includes/common.inc, drupal_error_handler()). In dev versions of Drupal and in Pressflow it's enabled. Anybody who ever edits PHP code during development should have this turned on. So you can",
+    "Want to help the Drupal Testing Infrastructure? Provide a testbot!",
+    "Thu, 2010-09-09 06:37 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Edit: This initiative wasn't really successful, but since this was written the testbots migrated onto the OSUOSL Supercell infrastructure. The center for information about the testbots is the Testbot project and issue queue.",
+    "Do you have some spare computing power, or want to provide some to the Drupal testing infrastructure?",
+    "You probably know that every commit and every patch submitted to Drupal 7 Core gets a full test (more than 20,000 assertions) taking 25 minutes on non-trivial computer hardware. So we can generally use more computing power. For the code sprint at Drupalcon Copenhagen, we had 13 machines testing patches so that everybody could get the fastest possible turnaround.",
+    "Anyway, it's not hard to do it. You can either install a machine with Debian 5 and go through a simple setup, or just use the free Virtualbox program with a pre-set configuration. That way you don't have to blow away an existing machine's configuration, and you can still return it to its old life after it's served as a PIFR client for awhile. (PIFR is Project Issue File Review).",
+    "Form API Changes for Drupal 7, Part 2: AJAX/AHAH Changes",
+    "Tue, 2010-09-07 03:41 by rfay",
+    "Topics:",
+    "AJAX",
+    "Planet Drupal",
+    "Forms",
+    "Continuing from Form API Changes for Drupal 7, Part 1: $form_state changes.",
+    "One of the many pleasant improvements to the Drupal Form API is that AJAX Forms are now really easy. Really easy. We used to call them AHAH forms, and the concept was the same, but they were so complicated that few people attempted them. In D7 we even changed the name to distance ourselves from \"AHAH\" :-)",
+    "In Drupal 6 you had to make a menu entry in hook_menu() that pointed to an AJAX callback handler that was complete black magic. (See a sanitized example.) People did this part differently, and it was hard to figure out the right way. (If you're doing D6 AHAH, the gory details and resources are here.)",
+    "In Drupal 7 there is none of that. But we still have to start with the basics so that you'll understand what's going on:",
+    "Drupal 7 File API Changes",
+    "Mon, 2010-09-06 10:38 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Drupal 7 has had a major (read huge, life-altering) change to its file API. Hopefully it's all good, but you definitely need to understand it if you're porting or developing any D7 modules.",
+    "There are two key changes, which I'll deal with one at at time:",
+    "Quick guide to wildcard Apache vhosts",
+    "Tue, 2010-08-24 15:06 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "[Edit: Added wildcard DNS section at the end, also link to dnsmasq setup instructions; also quick info on nginx defaults]",
+    "After my Debugging Drupal talk at Copenhagen today a lot of people wanted to know how to use a wildcard virtualhost, so I promised a quick writeup.",
+    "The purpose here is to be able to deploy new virtualhost-style Drupal sites on your localhost without doing any apache configuration (or /etc/hosts, if you deploy a nameserver).",
+    "Most of the time Drupal works better (and more like your production site) if you run it as a production site. If I have a site like debugging_example.com, I run it locally as debugging_example.l. That's way better than localhost/debugging_example, because all the URLs work right, and it's clean URLs.",
+    "The basic idea of what you have to do:",
+    "Enable mod_vhost_alias in Apache",
+    "Configure a catchall virtualhost",
+    "Tweak your .htaccess by uncommenting one line",
+    "Make an entry in your /etc/hosts",
+    "Here's the quick version of how to do it:",
+    "Cygwin Quickstart for Drupal Users",
+    "Sun, 2010-08-15 23:16 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Cygwin is a great set of Unix/Linux utilities for Windows. Here are quickstart instructions for using it in a Drupal context (for git, patch, ssh, or whatever)",
+    "Eclipse Debugging with Zend Debugging Extension for PHP 5.3: New location for downloads",
+    "Thu, 2010-07-22 18:13 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "New URL for Zend debugging plugin (now called Studio Web Debugger)",
+    "If you're a user of Eclipse with the Zend Debugging Extension and you've tried to use PHP 5.3, you may have noticed that the traditional download location doesn't have it.",
+    "The new location for downloading the Zend debugging extension is http://www.zend.com/products/studio/downloads. Get the \"Studio Web Debugger\" for your platform and architecture (requires registration). (Note that the old location for this was http://downloads.zend.com/pdt/server-debugger/, which is still referred to on many places on the web. This old location has libraries only up through PHP 5.2, but if that's all you need, will work fine.)",
+    "Basic debugging with Eclipse Galileo is covered in http://drupal.org/node/157609.",
+    "Form API Changes for Drupal 7, Part 1: $form_state changes",
+    "Tue, 2010-06-15 18:33 by rfay",
+    "Topics:",
+    "Drupal",
+    "Planet Drupal",
+    "Forms",
+    "You may know that lots of delicious things have happened to Drupal's Form API in Drupal 7. (Only a geek can say \"delicious\" and \"Form API\" in the same sentence. Try it!) The finest minds in the business have been working on it, I can assure you. Give effulgentsia, fago, frando, and chx a big hug when you see them, because Form API is much improved. (Sorry to those of you I forgot to name, but THANKS!)",
+    "I'm going to do a series covering Form API changes, starting with this one. I won't attempt to cover the deep details, just the things that ordinary developers might use:",
+    "$form_state changes and form builder function signature changes",
+    "AJAX Forms changes",
+    "New properties (#attached and many friends)",
+    "Let me know if you have other topics to suggest.",
+    "OK, to business. This article is mostly parroted from the api.drupal.org topic: Form Generation. Thanks to Alex Bronstein (effulgentsia) for his reviews and contributions to that doc.",
+    "Translatable Regions Module: For user-contributed content in many languages",
+    "Thu, 2010-06-10 14:18 by rfay",
+    "Topics:",
+    "Drupal",
+    "Planet Drupal",
+    "Drupal is great at handling multilingual situations, but how do you make user-contributed content in multiple languages accessible to those who can't read them?",
+    "The Translatable Regions module tackles this by using the automated Google AJAX Language API via the jquery-translate plugin.",
+    "What do you have to do?",
+    "Install the module.",
+    "Decide what selectors you want to have translation buttons.",
+    "Configure the selectors at admin/settings/translatableregions.",
+    "Whenever those selectors appear on the page, a button is added offering to translate to many languages, the default being the browser language.",
+    "Here's an example of the use on user profiles on http://warmshowers.org.",
+    "New Queue and Menu Examples for Examples Project",
+    "Fri, 2010-06-04 10:12 by rfay",
+    "Topics:",
+    "Drupal",
+    "Planet Drupal",
+    "The Examples for Developers Project aims to provide high-quality, well-documented API examples for a broad range of Drupal core functionality. You can download the code from the project page, view it on api.drupal.org, or experience it (for several of them) at drupalexamples.info.",
+    "Recently, we've added two new example suites:",
+    "PHP 5.2 on Ubuntu 10.04 Lucid Lynx (Seems to work for 12.04 too)",
+    "Mon, 2010-05-31 20:08 by rfay",
+    "Topics:",
+    "Drupal",
+    "Planet Drupal",
+    "Edit 2012-11-12: If you're interested in the newer problem of running PHP 5.3 on Ubuntu 12.10 Quantal, try this recipe.",
+    "Edit 2012-09-21: Isn't it about time you moved to PHP 5.3? Even though these instructions seem to work even for Ubuntu 12.04, it's really time for people to move on to PHP 5.3. If you're a Drupal user on Drupal 6, Drupal core and nearly all contrib are now just fine with 5.3.",
+    "Edit 2011-11-23: Since Ubuntu 9.10 (Karmic) is now out of support, the repositories to use for it have changed to old-releases.ubuntu.com. I've changed the karmic.list files attached. Please be aware that although 10.04LTS is still supported for years still, 9.10 is out of the support window, meaning that security issues in these packages will not be fixed.",
+    "Update: Look here to solve same problem with Ubuntu 10.10.",
+    "Lots of us are starting to run Drupal on Ubuntu 10.04 Lucid Lynx, and of course, Lucid comes with PHP 5.3, for which Drupal 6 is not yet ready.",
+    "Examples Project Code Sprint",
+    "Wed, 2010-04-21 22:52 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Tomorrow (Thursday, 22 April) we'll be working 9-5 US Pacific time on the Examples Project. A list of tasks is posted on groups.drupal.org and there's plenty of fun for everybody. We'd love to have you join us wherever you are in the world, or physically at the Drupalcon sprint location.",
+    "Drupalcon: D7 Advanced Form API Session!",
+    "Tue, 2010-04-20 21:12 by rfay",
+    "Topics:",
+    "Planet Drupal",
+    "Alex Bronstein, (effulgentsia) one of the maintainers of the Form API, will be doing an off-Broadway session on D7 Advanced Form API tomorrow (Wednesday) at 4:15pm in room 252. This is an exciting chance to catch up on all the great simplifications (and changes) in D7 FAPI.",
+    "Topics will be:",
+    "What's changed in D7 FAPI",
+    "The FAPI pipeline",
+    "Pipeline hooks and #properties",
+    "The essential $form_state keys (and the ones that are gone now)",
+    "AJAX Integration",
+    "And much, much more, of course",
+    "Check out the slides in advance",
+    "If you care about the Form API, BE THERE!",
+    "DrupalCon: Drupal 7 AJAX and Javascript",
+    "Wed, 2010-04-14 13:24 by rfay",
+    "Topics:",
+    "Drupal",
+    "Planet Drupal",
+    "Rob Loach, Kat Bailey and I will be presenting Drupal 7 AJAX and Javascript Monday, 3-4pm, in room 307.",
+    "Here are the basics:",
+    "The new AJAX Framework",
+    "AJAX forms, with a complete how-to and sample, easy to understand code.",
+    "The fantastic new #states feature for dynamic forms.",
+    "D7 Javascript changes from D6.",
+    "Using Javascript Libraries.",
+    "We've made great strides in Drupal 7. Come and hear about it.",
+    "If you used AHAH in D6, you're probably afraid of AJAX forms. But if you never used #ahah, you'll walk out of the room feeling competent to try out #ajax. You can't believe how easy it is now.",
+    "D8 Software Process Improvement Discussions at Core Dev Summit",
+    "Wed, 2010-04-14 08:27 by rfay",
+    "Topics:",
+    "Drupal",
+    "Planet Drupal",
+    "We can substantially improve our core software development process with some simple steps in Drupal 8.",
+    "<",
+    "ol>",
+    "Improve our issue queue setup on drupal.org.",
+    "Our issue queue works the way it does because Drupal worked that way a long time ago. We can do better than that.",
+    "Each core issue should have an issue summary, and the issue summary should be correct and complete before commit.",
+    "An issue should have links to related and dependent issues.",
+    "There should be checkoffs for docs, usability, security, etc.",
+    "Of course we know how to do this with Drupal. Let's do it. Related issues: Improve the workflow for documentation of core API changes and Provide a mechanism for issue meta discussions",
+    "Pages",
+    "« first",
+    "‹ previous",
+    "1",
+    "2",
+    "3",
+    "next ›",
+    "last »",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [
+    {
+      "src": "http://randyfay.com/files/translatable_regions_screenshot.png",
+      "name": "translatable_regions_screenshot.png",
+      "alt": ""
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/review-drupal-7-visual-quickstart-guide",
+      "text": "Review of Drupal 7: Visual QuickStart Guide"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/book-reviews",
+      "text": "Book Reviews"
+    },
+    {
+      "internal": true,
+      "key": "content/reference-cache-repositories-speed-clones-git-clone-reference",
+      "text": "Reference (cache) repositories to speed up clones: git clone --reference"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/119",
+      "text": "this update on my experience"
+    },
+    {
+      "internal": false,
+      "key": "http://www.randyfay.com/comment/1028#comment-1028",
+      "text": "in the comment below"
+    },
+    {
+      "internal": true,
+      "key": "content/resetting-drupal-passwords-drupal-7-drush-or-without",
+      "text": "Resetting Drupal Passwords in Drupal 7 with Drush or Without"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/comment/1990#comment-1990",
+      "text": "below"
+    },
+    {
+      "internal": true,
+      "key": "content/rebase-workflow-git",
+      "text": "A Rebase Workflow for Git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/git-rebase",
+      "text": "git rebase"
+    },
+    {
+      "internal": false,
+      "key": "https://help.github.com/articles/using-pull-requests",
+      "text": "Pull Request workflow"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/103",
+      "text": "This followup article"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/comment/1093#comment-1093",
+      "text": "described by joachim below"
+    },
+    {
+      "internal": true,
+      "key": "content/differences-between-drupal-community-and-microsoft-kingdom",
+      "text": "Differences Between the Drupal Community and The Microsoft Kingdom"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/avoiding-git-disasters-gory-story",
+      "text": "Avoiding Git Disasters: A Gory Story"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://git-scm.drupal.org",
+      "text": "Git source control management system"
+    },
+    {
+      "internal": true,
+      "key": "content/content-translation-field-translation-drupal-7-first-steps",
+      "text": "Content Translation (field translation) in Drupal 7: First steps"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics",
+      "text": "Gábor Hojtsy's excellent series on translation in D7"
+    },
+    {
+      "internal": false,
+      "key": "http://www.evolvingweb.ca/story/drupal-7-multilingual-whats-new-i18n",
+      "text": "Drupal 7 Multilingual: What's new in I18N"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/i18n",
+      "text": "i18n"
+    },
+    {
+      "internal": true,
+      "key": "content/review-drupal-7-module-development",
+      "text": "Review of Drupal 7 Module Development"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "https://www.packtpub.com/drupal-7-module-development/book",
+      "text": "Drupal 7 Module Development"
+    },
+    {
+      "internal": true,
+      "key": "content/starting-work-commerce-guys",
+      "text": "Starting work for Commerce Guys!"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/stashing-data-d7-user-object-or-no-more-magical-fairy-cruft-saving",
+      "text": "Stashing data in the D7 User Object (or... no more magical fairy cruft saving)"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/git-over-ssh-tunnel-through-firewall-or-vpn",
+      "text": "Git over an ssh tunnel (like through a firewall or VPN)"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/ssh",
+      "text": "ssh"
+    },
+    {
+      "internal": true,
+      "key": "content/ok-launched-d7",
+      "text": "OK, launched on D7"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-7-render-arrays-and-new-render-example",
+      "text": "Drupal 7 Render Arrays (and the new Render Example)"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/coolest-modules-and-theme-week",
+      "text": "Coolest modules (and theme) of the week"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/sweaver",
+      "text": "Sweaver"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/context",
+      "text": "Context"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/fontyourface",
+      "text": "@Font-your-face"
+    },
+    {
+      "internal": true,
+      "key": "content/views-making-view-show-different-content-different-users-based-role",
+      "text": "Views: Making a view show different content to different users based on role"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/36762",
+      "text": "greggles"
+    },
+    {
+      "internal": true,
+      "key": "content/if-you-edit-php-code-please-work-enotice-turned",
+      "text": "If you edit PHP code, please work with E_NOTICE turned on!!!"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/best-practices",
+      "text": "Best Practices"
+    },
+    {
+      "internal": false,
+      "key": "http://php.net/manual/en/errorfunc.configuration.php",
+      "text": "E_NOTICE"
+    },
+    {
+      "internal": true,
+      "key": "content/want-help-drupal-testing-infrastructure-provide-testbot",
+      "text": "Want to help the Drupal Testing Infrastructure? Provide a testbot!"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/99",
+      "text": "migrated onto the OSUOSL Supercell infrastructure"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/testbot",
+      "text": "Testbot project and issue queue"
+    },
+    {
+      "internal": true,
+      "key": "content/form-api-changes-drupal-7-part-2-ajaxahah-changes",
+      "text": "Form API Changes for Drupal 7, Part 2: AJAX/AHAH Changes"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/forms",
+      "text": "Forms"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/66",
+      "text": "Form API Changes for Drupal 7, Part 1: $form_state changes"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ahah_example_callback_helper/6",
+      "text": "sanitized example"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/ahah",
+      "text": "here"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-7-file-api-changes",
+      "text": "Drupal 7 File API Changes"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/quick-guide-wildcard-apache-vhosts",
+      "text": "Quick guide to wildcard Apache vhosts"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://cph2010.drupal.org/sessions/debugging-drupal-hands-techniques",
+      "text": "Debugging Drupal talk at Copenhagen"
+    },
+    {
+      "internal": true,
+      "key": "content/cygwin-quickstart-drupal-users",
+      "text": "Cygwin Quickstart for Drupal Users"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://cygwin.com",
+      "text": "Cygwin"
+    },
+    {
+      "internal": true,
+      "key": "content/eclipse-debugging-zend-debugging-extension-php-53-new-location-downloads",
+      "text": "Eclipse Debugging with Zend Debugging Extension for PHP 5.3: New location for downloads"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://www.zend.com/products/studio/downloads",
+      "text": "http://www.zend.com/products/studio/downloads"
+    },
+    {
+      "internal": false,
+      "key": "http://downloads.zend.com/pdt/server-debugger",
+      "text": "http://downloads.zend.com/pdt/server-debugger/"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/157609",
+      "text": "http://drupal.org/node/157609"
+    },
+    {
+      "internal": true,
+      "key": "content/form-api-changes-drupal-7-part-1-formstate-changes",
+      "text": "Form API Changes for Drupal 7, Part 1: $form_state changes"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/forms",
+      "text": "Forms"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/form_api/7",
+      "text": "Form Generation"
+    },
+    {
+      "internal": true,
+      "key": "content/translatable-regions-module-user-contributed-content-many-languages",
+      "text": "Translatable Regions Module: For user-contributed content in many languages"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/translatableregions",
+      "text": "Translatable Regions"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/apis/ajaxlanguage",
+      "text": "Google AJAX Language API"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/p/jquery-translate",
+      "text": "jquery-translate plugin"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org",
+      "text": "http://warmshowers.org"
+    },
+    {
+      "internal": true,
+      "key": "content/new-queue-and-menu-examples-examples-project",
+      "text": "New Queue and Menu Examples for Examples Project"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers Project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "the project page"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info",
+      "text": "drupalexamples.info"
+    },
+    {
+      "internal": true,
+      "key": "content/php-52-ubuntu-1004-lucid-lynx-seems-work-1204-too",
+      "text": "PHP 5.2 on Ubuntu 10.04 Lucid Lynx (Seems to work for 12.04 too)"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://ubuntuforums.org/showthread.php?t=2074178",
+      "text": "this recipe"
+    },
+    {
+      "internal": false,
+      "key": "http://thejibe.com/blog/10/10/php-5210-debs-ubuntu-1010-maverick",
+      "text": "Look here to solve same problem with Ubuntu 10.10"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-project-code-sprint",
+      "text": "Examples Project Code Sprint"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples Project"
+    },
+    {
+      "internal": false,
+      "key": "http://groups.drupal.org/node/63518",
+      "text": "is posted on groups.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/post-conference-sprint",
+      "text": "physically at the Drupalcon sprint location"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcon-d7-advanced-form-api-session",
+      "text": "Drupalcon: D7 Advanced Form API Session!"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/78040",
+      "text": "effulgentsia"
+    },
+    {
+      "internal": false,
+      "key": "http://docs.google.com/present/view?id=ddsd5sw7_325gmtkddfm",
+      "text": "slides in advance"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcon-drupal-7-ajax-and-javascript",
+      "text": "DrupalCon: Drupal 7 AJAX and Javascript"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "text": "Drupal 7 AJAX and Javascript"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/58",
+      "text": "#states feature"
+    },
+    {
+      "internal": true,
+      "key": "content/d8-software-process-improvement-discussions-core-dev-summit",
+      "text": "D8 Software Process Improvement Discussions at Core Dev Summit"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/648218",
+      "text": "Improve the workflow for documentation of core API changes"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/569552",
+      "text": "Provide a mechanism for issue meta discussions"
+    },
+    {
+      "internal": true,
+      "key": "blogs/rfay",
+      "text": "« first"
+    },
+    {
+      "internal": true,
+      "key": "blogs/rfay",
+      "text": "‹ previous"
+    },
+    {
+      "internal": true,
+      "key": "blogs/rfay",
+      "text": "1"
+    },
+    {
+      "internal": true,
+      "key": "blogs/rfay?page=2",
+      "text": "3"
+    },
+    {
+      "internal": true,
+      "key": "blogs/rfay?page=2",
+      "text": "next ›"
+    },
+    {
+      "internal": true,
+      "key": "blogs/rfay?page=2",
+      "text": "last »"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      }
+    ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org",
+      "http://api.drupal.org/api/function/ahah_example_callback_helper/6",
+      "http://api.drupal.org/api/group/form_api/7",
+      "http://code.google.com/apis/ajaxlanguage",
+      "http://code.google.com/p/jquery-translate",
+      "http://cph2010.drupal.org/sessions/debugging-drupal-hands-techniques",
+      "http://cygwin.com",
+      "http://d7.drupalexamples.info",
+      "http://ddev.com/contact",
+      "http://docs.google.com/present/view?id=ddsd5sw7_325gmtkddfm",
+      "http://downloads.zend.com/pdt/server-debugger",
+      "http://drupal.org/node/157609",
+      "http://drupal.org/node/569552",
+      "http://drupal.org/node/648218",
+      "http://drupal.org/project/context",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/fontyourface",
+      "http://drupal.org/project/i18n",
+      "http://drupal.org/project/sweaver",
+      "http://drupal.org/project/testbot",
+      "http://drupal.org/project/translatableregions",
+      "http://drupal.org/user/36762",
+      "http://drupal.org/user/78040",
+      "http://facebook.com/randyfay",
+      "http://git-scm.drupal.org",
+      "http://groups.drupal.org/node/63518",
+      "http://hobobiker.com",
+      "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics",
+      "http://php.net/manual/en/errorfunc.configuration.php",
+      "http://randyfay.com/ahah",
+      "http://randyfay.com/comment/1093",
+      "http://randyfay.com/comment/1990",
+      "http://randyfay.com/files/translatable_regions_screenshot.png",
+      "http://randyfay.com/node/103",
+      "http://randyfay.com/node/119",
+      "http://randyfay.com/node/58",
+      "http://randyfay.com/node/66",
+      "http://randyfay.com/node/99",
+      "http://sf2010.drupal.org/conference/post-conference-sprint",
+      "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "http://thejibe.com/blog/10/10/php-5210-debs-ubuntu-1010-maverick",
+      "http://ubuntuforums.org/showthread.php?t=2074178",
+      "http://warmshowers.org",
+      "http://www.evolvingweb.ca/story/drupal-7-multilingual-whats-new-i18n",
+      "http://www.randyfay.com/comment/1028",
+      "http://www.zend.com/products/studio/downloads",
+      "https://help.github.com/articles/using-pull-requests",
+      "https://www.packtpub.com/drupal-7-module-development/book"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
+  }
+}

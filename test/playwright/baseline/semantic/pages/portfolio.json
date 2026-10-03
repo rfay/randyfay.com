@@ -167,5 +167,31 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://association.drupal.org",
+      "http://colorado2010.camps.drupal.org/drupalcampcolorado.org/sessions/dynamic-forms-drupal-7-ajax-and-states.html",
+      "http://colorado2010.camps.drupal.org/drupalcampcolorado.org/sessions/site-configuration-management-and-staging-using-features-module.html",
+      "http://cph2010.drupal.org/sessions/debugging-drupal-hands-techniques",
+      "http://ddev.com/contact",
+      "http://drupal.org/project/amazon",
+      "http://drupal.org/project/amazon_store",
+      "http://drupal.org/project/ctools",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/role_change_notify",
+      "http://drupal.org/project/translatableregions",
+      "http://drupal.org/search/apachesolr_search/rfay?filters=uid:30906",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://mariethacker.com/contact-me",
+      "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "http://randyfay.com/sites/default/files/RandyFayResume2012.pdf",
+      "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "http://sparkleshelf.com",
+      "http://sparkleshelf.com/versus/voteresult/smackdown_image",
+      "http://warmshowers.org"
+    ],
+    "internalNonOk": []
   }
 }

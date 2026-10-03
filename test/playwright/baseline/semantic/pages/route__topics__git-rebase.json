@@ -447,5 +447,31 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://darwinweb.net/articles/the-case-for-git-rebase",
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://player.vimeo.com/video/21311829",
+      "http://progit.org/book/ch5-3.html",
+      "http://randyfay.com/comment/1093",
+      "http://randyfay.com/node/103",
+      "http://randyfay.com/node/89",
+      "http://randyfay.com/taxonomy/term/26",
+      "http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html",
+      "http://unethicalblogger.com/node/276",
+      "http://vimeo.com",
+      "http://vimeo.com/21311829",
+      "http://vimeo.com/user5912539",
+      "https://help.github.com/articles/using-pull-requests"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

@@ -375,5 +375,37 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/dcoc",
+      "http://drupal.org/node/1036132",
+      "http://drupal.org/node/1241704",
+      "http://drupal.org/node/1293124",
+      "http://drupal.org/node/1306444",
+      "http://drupal.org/node/424400",
+      "http://drupal.org/node/528682",
+      "http://drupal.org/node/648218",
+      "http://drupal.org/project/issues/projectapplications",
+      "http://drupal.org/project/issues/projectapplications?order=last_comment_timestamp&sort=asc&status=14",
+      "http://drupal.org/project/issues/projectapplications?order=last_comment_timestamp&sort=asc&status=8",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://london2011.drupal.org/coreconversation/1700-1730-burnout",
+      "http://randyfay.com/node/107",
+      "http://randyfay.com/node/109",
+      "http://westendgirl.ca/preventing-and-dealing-burnout",
+      "http://www.amazon.com/Truth-About-Burnout-Organizations-Personal/dp/0787908746",
+      "http://www.helpguide.org/mental/burnout_signs_symptoms.htm",
+      "http://www.scientificamerican.com/article.cfm?id=burned-out",
+      "https://www.youtube.com/embed/0fP2ysjd-40?si=xUovCxn_R5pB4zb6"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

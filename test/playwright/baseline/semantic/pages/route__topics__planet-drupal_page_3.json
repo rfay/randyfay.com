@@ -1,0 +1,737 @@
+{
+  "title": "Planet Drupal | RandyFay.com",
+  "primaryHeading": "Planet Drupal",
+  "contentFound": true,
+  "lines": [
+    "Review of Drupal 7 Module Development",
+    "Sat, 2011-01-15 11:48 by rfay",
+    "Planet Drupal",
+    "Drupal 7 Module Development (Matt Butcher et all, Packt Press, December, 2010) is a great step forward for Drupal 7. It packages up key D7 information about theming, the render system, entities, fields, the Form API, node access, and the File API all in one place. Summary: If you're doing D7 module development, either for the first time or switching moving from Drupal 6, you need this book.",
+    "Some parts of the book were more familiar to me, and as a result less impressive, so I'll focus on the parts that were most useful to me:",
+    "Chapters 3 and 4 on the Render System and theming: This is the first published information on the render subsystem that I've seen, and it's excellent. It's critical for both module developers and themers to understand render arrays in D7 and these chapters do the job.",
+    "Chapters 6 and 7 on Entities and Fields: This is the first published information on entities I've run across, and it looks like a great start, both conceptually and technically. The Examples for Developers project has a field example, but does not yet have an entity example (see the issue though).",
+    "Chapter 9 on Node Access gives great coverage to a relatively obscure topic. I think the Node Access example in Examples should be reviewed in light of this chapter. If anybody would care to do that, the issue is here.",
+    "This is a great book, tremendously useful to developers, and highly recommended.",
+    "My only real complaint is that I want volumes 2 and 3 of this. There is at least three times this much important new material in D7. Yes, I know it couldn't make it into this one. But I'd love to see two more volumes of this quality.",
+    "If you're writing a book, though, I encourage you to adapt/improve the examples in Examples for Developers to meet your needs. That way you get a maintained set of examples that will always be available and where you're not even responsible for the bugs!",
+    "Content Translation (field translation) in Drupal 7: First steps",
+    "Tue, 2011-01-18 09:11 by rfay",
+    "Planet Drupal",
+    "Edit: Please follow Gábor Hojtsy's excellent series on translation in D7, if you're not already following it. It's more up-to-date and more authoritative. You'll probably be interested in Drupal 7 Multilingual: What's new in I18N.",
+    "Drupal has long been a leader in the ability to present a website in multiple languages. In Drupal 7 we continue that tradition: Field translation or \"content translation\" made it into Drupal 7, but it's not obvious from a plain Drupal 7 install how you would use it.",
+    "This article is fundamentally about content translation, not about interface translation, which is a completely different thing in Drupal (and always has been). Interface translation is about prompts, labels, menu entries and the like, all of which are handled by the core locale module and various contrib modules like i18n. I will explain how to import basic interface translation files, however.",
+    "Drupal 6 has a node translation system which basically allows you to make \"translation sets\" of nodes. You start with a node in a source language (and set the language on that node), and then you can create additional translations of that node to other languages. So for example, we might start with a node in English, then use the \"translate\" tab to add additional nodes in different languages that are tied to that original node. That node translation system is still supported in Drupal 7, but it doesn't support translation of CCK fields, and is quite awkward in reality because you're dealing with a number of separate nodes, instead of translations of a single node. Edit: See Gabor's comment below for more on this, and considerations regarding it.",
+    "Drupal 7 got field translation (yay!), also referred to as \"content translation\", which is an entirely different thing. In content translation you have a single node, but with different translations for each field on the node that should be translatable. And the body is a field. Unfortunately the title is not a field, and therefore is not translatable, but more on that later. To restate this: In Drupal 7 \"content translation\" there is just one node, and translatable fields on it are translated to provide the translations, but are still part of that single node. The gotcha in field translation (content translation) though is that in core it didn't get a user interface. As a result the contrib Entity Translation module improves content translation and provides a UI and works alongside the core content translation module, and it's fundamental to the approach described here.",
+    "Here is the process I went through to set up a basic multilingual site:",
+    "The core field translation facilities have no user interface, so you'll need the Entity Translation module. After installing and enabling it (which also enables translation and locale modules), you may need to run update.php.",
+    "You need to enable languages for your site.",
+    "Add languages at admin/config/regional/language",
+    "Download interface translation files from http://localize.drupal.org",
+    "Import interface translations into the configured languages at admin/config/regional/translate/import (under \"Translate Interface\"",
+    "Click \"Enabled\" on the languages you've configured",
+    "At \"Detection and Selection\" (admin/config/regional/language/configure), choose how you want languages to be chosen. My experience is that URL selection is the best approach, so you'll need to configure subdomains or some related approach. Note that when you use URLs you need to enter the full URL including \"http://\". There doesn't seem to be any error checking on this. Also remember to click \"enabled\" on the strategy that you choose.",
+    "On the same \"Detection and Selection\" page, in the lower section of the page under \"Content language detection\" select \"Interface\", so that the same language is chosen for content language detection as for interface language detection.",
+    "Enable translation of nodes and any other entities that should be translatable at admin/config/regional/entity_translation.",
+    "Enable \"Multilingual support: Enabled, with content translation\" on the content type edit form under \"Publishing options\". For example, for a content type named \"example\", this would be at admin/structure/types/manage/example/edit in the \"publishing options\" fieldset.",
+    "For each field that should be translatable, go to field settings and check \"users may translate this field\". For the body field of the \"example\" content type, this would be at admin/structure/types/manage/example/fields/body/field-settings.",
+    "Now you can create and translate fields.",
+    "Create a node and set its language to a specific language.",
+    "When you've saved it a \"Translate\" tab will appear allowing you to translate into other configured languages.",
+    "Click \"Add translation\" to add translations for the fields that have translation enabled.",
+    "Make sure to publish the translation. Publication is unfortunately hidden in the collapsed-by-default \"translation options\" fieldset",
+    "Some gotchas regarding field translation:",
+    "The Title module is required to make titles translatable. This currently only works for nodes, not entities. All the work is actually being done in #924968 so you have to apply the patch from that issue.",
+    "Entities other than nodes are not translatable out of the box. The entity must be specifically enabled to allow its fields to be translated. das-peter will elaborate on this later.",
+    "Since I'm a newbie at the D7 translation scene, I'm sure there are errors or omissions here, so please correct this and I'll update the article based on your corrections.",
+    "Edit: If you're interested in this article you'll want to follow Gabor's series beginning with http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-....",
+    "Avoiding Git Disasters: A Gory Story",
+    "Sun, 2011-01-30 12:10 by rfay",
+    "Planet Drupal",
+    "git",
+    "Edit 2015-08-30: The bottom line years later: Use the (Github's) Pull Request methodology, with a responsible person doing the pulls. You'll never have any of these problems.",
+    "I learned the hard way recently that there are some unexpectedly horrible things that can happen to a project in the Git source control management system due to its distributed nature... that I never would have thought of.",
+    "There is one huge difference between Git and older server-based systems like Subversion and CVS. That difference is that there's no server. There's (usually) an authoritative repository, but it's really fundamentally just a peer repository that gets stuff sent to it. OK, we all knew that. But that has some implications that aren't obvious at first. In Subversion, when you make a change, you just push that change up to the server, and the server handles applying just that change to the master copy of the project. However, in Git, and especially when using the default \"merge workflow\" (I'll write about merge workflow versus rebase workflow in another article), there are times when a single developer may be in charge of (and able to unintentionally break) the entire codebase all at once. So here I'm going to describe two ways that I know of that this can happen.",
+    "Disaster 1: git push --force",
+    "A normal push to the authoritative repository involves taking your new work as new commits and plopping those commits as-is on top of the branch in the repository. However, when a developer's local Git repository is not in sync with (or up-to-date with) the authoritative repository (the one we normally push to), then it can't do a fast-forward merge, and it will balk with an error message.",
+    "The right thing to do in this case is to either merge your code with a git pull or to rebase your code onto the HEAD with git pull --rebase, or to use any number of other similar techniques. The absolutely worst and wrong-est thing in the whole world is something that you can do with the default configuration: git push --force. A forced push overwrites the structure and sequence of commits on the authoritative repository, throwing away other people's commits. Yuck.",
+    "The default configuration in git, that git push --force is allowed. In most cases you should not ever allow that.",
+    "How do you prevent git push --force? (thanks to sdboyer!)",
+    "In the bare authoritative repository,",
+    "git config --system receive.denyNonFastForwards true",
+    "Disaster 2: Merging Without Understanding",
+    "This one is far more insidious. You can't just turn off a switch and prevent it, and if you use the merge workflow you're highly susceptible.",
+    "So let's say that your developers can't do the git push --force or would never consider doing so. But maybe there are 10 developers working hot and heavy on a project using the merge workflow.",
+    "In the merge workflow, everybody does work in their own repository, and then when it comes time to push, they do a git pull (which by default tries to merge into their code everything that's been one on the repository) and then they do a git push to push their work back up to the repo. But in the git pull all the work that has been done is merged on the developer's machine. And the results of that merge are then pushed back up as a potentially huge new commit.",
+    "The problem can come in that merge phase, which can be a big merge, merging in lots of commits. If the developer does not push back a good merge, or alters the merge in some way, then pushes it back, then the altered world that they push back becomes everybody else's HEAD. Yuck.",
+    "Here's the actual scenario that caused an enormous amount of hair pulling.",
+    "The team was using the merge workflow. Lots of people changing things really fast. The typical style was",
+    "Work on your stuff",
+    "Commit it locally",
+    "git pull and hope for no conflicts",
+    "git push as fast as you can before somebody else gets in there",
+    "Many of the team members were using Tortoise Git, which works fine, but they had migrated from Tortoise SVN without understanding the underlying differences between Git and Subversion.",
+    "Merge conflicts happened fairly often because so many people were doing so many things",
+    "One user of Tortoise Git would do a pull, have a merge conflict, resolve the merge conflict, and then look carefully at his list of files to be committed back when he was committing the results. There were lots of files there, and he knew that the merge conflict only involved a couple of files. For his commit, he unchecked all the other files changes that he was not involved in, committed the results and pushed the commit.",
+    "The result: All the commits by other people that had been done between this user's previous commit and this one were discarded",
+    "Oh, that is a very painful story.",
+    "How do you avoid this problem when using git?",
+    "Train your users. And when you train them make sure they understand the fundamental differences between Git and SVN or CVS.",
+    "Don't use the merge workflow. That doesn't solve every possible problem, but it does help because then merging is at the \"merging my changes\" level instead of the \"merging the whole project\" level. Again, I'll write another blog post about the rebase workflow.",
+    "Alternatives to the Merge Workflow",
+    "I know of two alternatives. The first is to rebase commits (locally) so you put your commits as clean commits on top of HEAD, on top of what other people have been doing, resulting in a fast-forward merge, which doesn't have all the merging going on.",
+    "The second alternative is promoted or assumed by Github and used widely by the Linux Core project (where Git came from). In that scenario, you don't let more than one maintainer push to the important branches on the authoritative repository. Users can clone the authoritative repository, but when they have changes to be made they request that the maintainer pull their changes from the contributor's own repository. This is called a \"pull request\". The end result is that you have one person controlling what goes into the repository. That one person can require correct merging behavior from contributors, or can sort it out herself. If a contribution comes in on a pull request that isn't rebased on top of head as a single commit, the maintainer can clean it up before committing it.",
+    "Conclusions",
+    "Avoid the merge workflow, especially if you have many committers or you have less-trained committers.",
+    "Understand how the distributed nature of git changes the game.",
+    "Turn on system receive.denyNonFastForwards on your authoritative repository",
+    "Many of you have far more experience with Git than I do, so I hope you'll chime in to express your opinions about solving these problems.",
+    "Many thanks and huge kudos to Marco Villegas (marvil07), the Git wizard who studied and helped me to understand what was going on in the Tortoise Git disaster. And thanks to our Drupal community Git migration wizard Sam Boyer (sdboyer) who listened with Marco to a number of pained explanations of the whole thing and also contributed to its solution.",
+    "Oh, did I mention I'm a huge fan of Git? Distributed development and topical branches have changed how I think about development. You could say it's changed my life. I love it. We just all have to understand the differences and deal with them realistically.",
+    "Differences Between the Drupal Community and The Microsoft Kingdom",
+    "Wed, 2011-02-02 18:46 by rfay",
+    "Planet Drupal",
+    "Last week I had the wonderful opportunity to spend a few days learning Microsoft's Azure cloud technology (and catching up on lots of Windows Server technology too - it's been a while). Now, admittedly, this was unfamiliar territory for me as I've been away for a few years. You may laugh, but I had a serious case of culture shock as I experienced the difference in empowerment and support between the two environments.",
+    "In the Microsoft world,",
+    "if you have a problem there are ways to get support, but most of them require knowing a bunch of forum-type websites or paying money to somebody.",
+    "If you need free support, how do you find out where you would get it?",
+    "If you discover a bug, what do you do?",
+    "If you know how to solve a bug, how do you get the solution committed?",
+    "If you know how to improve a product, how could you have any confidence that you could influence it?",
+    "In the Drupal world,",
+    "If you have a problem there are lots of (uneven) support venues, including immediate support on IRC, if you can learn how that works socially and technically",
+    "If you need free support, you go to http://drupal.org/support and there are a number of credible support avenues. (However, it also says to go to the forums, which is crazy.)",
+    "If you discover a bug, you file an issue. For free.",
+    "If you know how to solve a bug, you file a patch. And you can lobby for it.",
+    "If you know how to improve something, you can start a discussion and invest in the solution, and maybe you'll succeed. Or maybe you'll be left desolate on a desert island. But you did get to play...",
+    "Essentially, the normal model in the Microsoft world is they give you stuff (sometimes for free) and you take it and that may be good.",
+    "The normal model in the Drupal world is that you participate in making stuff and helping it get better.",
+    "Our Drupal culture is enormously empowering. We have a gem here folks. Sure it is a gem with some warts (have you ever seen a warty gem?) but wow, it's a gem. Keep on making it the beautiful thing it is!",
+    "And I'm really praising Drupal here, not bashing Microsoft. They do lots of things better than we do, and of course the scale and goals of their enterprise are worlds apart. And, if you hadn't noticed, they've been extremely eager to participate and contribute to the Drupal community for the last year or more, and we appreciate that. So please don't take away from this that I was bashing Microsoft - that's not the intent. It's just the wonderful realization of delightful community we have.",
+    "A Rebase Workflow for Git",
+    "Sun, 2011-02-06 13:00 by rfay",
+    "Planet Drupal",
+    "git",
+    "git rebase",
+    "Update October, 2014: Lots of things have gotten easier over the years.",
+    "These days, the easy way to fix this set of things is with the Pull Request workflow, which is essentially the Integration Manager workflow discussed here (probably).",
+    "Use github or bitbucket or somebody that makes the PR workflow easy",
+    "Delegate a person as integration manager, who will pull or comment on the PR",
+    "Require contributors to rebase their own PR branch before pulling if there are conflicts.",
+    "Update: Just for clarification, I'm not opposed to merges. I'm only opposed to unintentional merges (especially with a git pull). This followup article describes a simple way to rebase most of the time without even thinking about it). Also, for local development I love the git merge --squash method described by joachim below.",
+    "In this post I'm going to try to get you to adopt a specific rebase-based workflow, and to avoid (mostly) the merge workflow.",
+    "What is the Merge Workflow?",
+    "The merge workflow consists of:",
+    "git commit -m \"something\"",
+    "git pull # this does a merge from origin and may add a merge commit",
+    "git push # Push back both my commit and the (possible) merge commit",
+    "Note that you normally are forced to do the pull unless you're the only committer and you committed the last commit.",
+    "Why Don't I Want the Merge Workflow?",
+    "As we saw in Avoiding Git Disasters, the multiple-committer merge workflow has very specific perils due to the fact that every committer for a time has responsibility for what the other committers have committed.",
+    "These are the problems with the merge workflow:",
+    "It has the potential for disaster, as that merge and merge commit have to be handled correctly by every committer. That said, most committers will have no trouble with it and will not mess it up. But if you have lots of committers, and they don't all understand Git, or they are using a GUI that hides the actual results from them, watch out.",
+    "Your history becomes a mess. It has all kinds of inexplicable merge commits (which you typically don't look inside to see what's there) and the history (gitk) becomes useless.",
+    "Debugging using git bisect is confused massively due to the merge commits.",
+    "When Is the Merge Workflow OK?",
+    "The merge workflow will do you no damage at all if you",
+    "Only have one committer (or a very small number of committers, and you trust them all)",
+    "and",
+    "You don't care much about reading your history.",
+    "OK, What is Rebasing?",
+    "First, definitions:",
+    "A branch is a separate line of work. You may have seen these before in other VCS's, but in Git they're so easy to use that they're addictive and life-altering. You can expose branches in the public repository (a public branch) or they may never get off of your machine (a topical branch).",
+    "A public branch is one that more than one person pulls from. In Drupal, 7.x-1.x for most modules and themes would be a public branch.",
+    "A topical branch (or feature branch) is a private branch that you alone are using, and will not exposed in the public repository.",
+    "A tracking branch is a local branch that knows where its remote is, and that can push to and pull from that remote. Assuming a remote named \"origin\" and a public branch named \"7.x-1.x\", we could create a tracking branch with git branch --track 7.x-1.x origin/7.x-1.x, or with newer versions of git, git checkout --track origin/7.x-1.x",
+    "The fundamental idea of rebasing is that you make sure that your commits go on top of the \"public\" branch, that you \"rebase\" them so that instead of being related to some commit way back when you started working on this feature, they get reworked a little so they go on top of what's there now.",
+    "Don't do your work on the public branch (Don't work on master or 6.x-1.x or whatever). Instead, work on a \"topical\" or \"feature\" branch, one that's devoted to what you want to do.",
+    "When you're ready to commit something, you rebase onto the public branch, plopping your work onto the very tip of the public branch, as if it were a single patch you were applying.",
+    "Here's the approach. We'll assume that we already have a tracking branch 7.x-1.x for the public 7.x-1.x branch.",
+    "git checkout 7.x-1.x # Check out the \"public\" branch",
+    "git pull # Get the latest version from remote",
+    "git checkout -b comment_broken_links_101026 # topical branch",
+    "... # do stuff here.. Make commits.. test...",
+    "git fetch origin # Update your repository's origin/ branches from remote repo",
+    "git rebase origin/7.x-1.x # Plop our commits on top of everybody else's",
+    "git checkout 7.x-1.x # Switch to the local tracking branch",
+    "git pull # This won't result in a merge commit",
+    "git rebase comment_broken_links_101026 # Pull those commits over to the \"public\" branch",
+    "git push # Push the public branch back up, with my stuff on the top",
+    "There are ways to simplify this, but I wanted to show it explicitly. The fundamental idea is that I as a developer am taking responsibility to make sure that my work goes right in on top of the everybody else's work. And that it \"fits\" there - that it doesn't require any magic or merge commits.",
+    "Using this technique, your work always goes on top of the public branch like a patch that is up-to-date with current HEAD. This is very much like the CVS patch workflow, and results in a clean history.",
+    "For extra credit, you can use git rebase -i and munge your commits into a single commit which has an excellent commit message, but I'm not going to go there today.",
+    "Merging and Merge Conflicts",
+    "Any time you do a rebase, you may have a merge conflict, in which Git doesn't know how to put your work on top of the work others have done. If you and others are working in different spaces and have your responsibilities well separated, this will happen rarely. But still, you have to know how to deal with it.",
+    "Every OS has good merge tools available which work beautifully with Git. Working from the command line you can use git mergetool when you have a conflict to resolve the conflict. We'll save that for another time.",
+    "Branch Cleanup",
+    "You can imagine that, using this workflow, you end up with all kinds of useless, abandoned topical branches. Yes you do. From time to time, clean them up with",
+    "git branch -d comment_broken_links_101026",
+    "or, if you haven't ever merged the topical branch (for example, if you just used it to prepare a patch)",
+    "git branch -D comment_broken_links_101026",
+    "Objections",
+    "If you read the help for git rebase it will tell you \"Be careful. You shouldn't rewrite history that will be exposed publicly because everybody will hate you.\". Note, though, that the way we're using rebase here, we only plop our commit(s) right on top, and then push. It does not change the public history. Of course there are other ways of using rebase that could change publicly-exposed history, and that is frowned upon.",
+    "Conclusion",
+    "This looks more complicated than the merge workflow. It is. It is not hard. It is valuable.",
+    "If you have improvements, suggestions, or alternate workflows to suggest, please post in the comments. If you find errors or things that can be stated more clearly or correctly, I'll fix the post.",
+    "I will follow up before long with a post on the \"integration manager\" workflow, which is essentially the github model. Everybody works in their own repositories, which are pseudo-private, and then when they have their work ready, they rebase it onto the public branch of the integration manager, push their work to the pseudo-private repo, and ask the integration manager to pull from it.",
+    "Resources",
+    "A Rebase-based Workflow",
+    "Pro Git book: Maintaining a Project",
+    "The Case for Git Rebase",
+    "A Git Workflow for Agile teams",
+    "Resetting Drupal Passwords in Drupal 7 with Drush or Without",
+    "Sun, 2011-02-13 09:13 by rfay",
+    "Planet Drupal",
+    "Sometimes, whether in testing or other situations, you need to reset a password (often the admin password) for a Drupal site.",
+    "Edit: The shortest answer is that two wonderful options are built into drush!",
+    "Get an admin login link",
+    "drush uli",
+    "Set the password for any user",
+    "drush upwd admin --password=\"newpassword\"",
+    "(More info on drush uli below.)",
+    "Now for the long version",
+    "In Drupal 6, you could just reset the admin password with:",
+    "cd",
+    "drush sql-cli # or mysql -u -p",
+    "UPDATE users SET name='admin', pass=md5('drupal') WHERE uid=1;",
+    "and then log in with username 'admin' and password 'drupal'.",
+    "But no more. Drupal 7 has a unique hash for each site, which means you can't just use the md5() trick any more. However, there is a script in the scripts directory that will do this.",
+    "cd",
+    "php scripts/password-hash.sh 'drupal'",
+    "Now copy the resultant hash and paste it into the query:",
+    "drush sql-cli",
+    "update users set name='admin', pass='pasted_big_hash_from_above' where uid=1;",
+    "quit",
+    "Reference (cache) repositories to speed up clones: git clone --reference",
+    "Fri, 2011-02-18 12:08 by rfay",
+    "Planet Drupal",
+    "git",
+    "Update: Please read this update on my experience before using the technique in this article.",
+    "Update: See the drush implementation of this approach in the comment below.",
+    "DamZ taught me a great new piece of git trivia today. You can use a local repository as a kind of cache for a git clone.",
+    "Let's create a reference repository for Drupal (and it will be bare, because we don't need any files checked out)",
+    "git clone --mirror git://git.drupal.org/project/drupal.git ~/gitcaches/drupal.reference",
+    "That makes a complete clone of Drupal's full history in ~/gitcaches/drupal.reference",
+    "Now when I need to clone the Drupal project's entire history (as I might do often in testing) I can",
+    "git clone --reference ~/gitcaches/drupal.reference git://git.drupal.org/project/drupal.git",
+    "And the clone time is on the order of 2 seconds instead of several minutes. And yes, it picks up new changes that may have happened in the real remote repository.",
+    "To go beyond this (again from DamZ) we can have a reference repository that has many projects referenced within it.",
+    "mkdir -p ~/gitcaches/reference",
+    "cd ~/gitcaches/reference",
+    "git init --bare",
+    "for repo in drupal views cck examples panels # whatever you want here",
+    "do",
+    "git remote add $repo git://git.drupal.org/project/$repo.git",
+    "done",
+    "git fetch --all",
+    "Now I have just one big bare repo that I can use as a cache. I might update it from time to time with git fetch --all. But I don't have to. And I can use it like this:",
+    "cd /tmp",
+    "git clone --reference ~/gitcaches/reference git://git.drupal.org/project/drupal.git",
+    "git clone --reference ~/gitcaches/reference git://git.drupal.org/project/examples.git",
+    "We'll try to use this technique for the testbots, which do several clean checkouts per patch tested, as it should speed them up by at least a minute per test.",
+    "Edit: Here is the version that I used with the testbots, as it appears as a gist:",
+    "[gist:843423]",
+    "Review of Drupal 7: Visual QuickStart Guide",
+    "Tue, 2011-02-22 10:09 by rfay",
+    "Planet Drupal",
+    "Book Reviews",
+    "(Disclaimer: The book for review was provided gratis by the publisher.)",
+    "Tom Geller's new book Drupal 7: Visual Quickstart Guide is a concise, dense sitebuilder/administrator's guide to Drupal 7. It provides a pretty decent task-oriented overview of D7 sitebuilding and administration. It's a manageable size for almost anybody, about 210 pages of primary content.",
+    "Overall summary: The book does well what it sets out to do, which is provide a user-interface task-oriented introduction to Drupal 7 for sitebuilders and administrators (in a reasonable size package). That approach has innate drawbacks, but so does every other approach, right?",
+    "Some Praise",
+    "The book is connected well to the community, and provides real-world techniques, not just \"search drupal.org\". He mentions great sources of information like drupalmodules.com, and suggests how to use d.o effectively, and mentions key \"everybody knows about them\" contrib modules that a new sitebuilder should know about.",
+    "Great coverage of community issues. The appendix on getting and giving help is wonderful and thoughtful and so necessary in a book like this. It would be easy to leave it out when you're trying for an easy-to-manage book, but it was retained. Thanks. And the \"Drupal Terms and Culture\" glossary is great, although I'm sure it could be expanded.",
+    "Its extensive scope reminded me of some things I'd never used, and some alternate ways to do things.",
+    "I learned how to do web-based module upgrades, which I'd never tried before... and it worked!",
+    "Some Gripes",
+    "There is a fair bit of oversimplification (as there almost has to be in a book this size). It tries to handle installation of Drupal on Windows, Mac, and Linux in simple step-by-step instructions... and of course that usually requires far more background than could possibly be provided in a book of this scope. Another example of oversimplification is installing a module directly from the UI. It works. But Tom chose wysiwyg as an example, which requires advanced stuff after installation. And it doesn't mention that. But still, it's amazing that you can do a web-based module/theme install in D7!",
+    "There is occasional inaccuracy, but nothing huge that I noticed. (It's wrong about the default user creation settings being wide open, but they were changed a long time ago to \"Visitors, but administrator approval is required\". But I know about that because it was my patch. Overall, this seemed balanced, knowledgeable, and correct.",
+    "Most pages are half screenshots and half step-by-step walkthroughs of administration tasks. They take on almost everything in the D7 interface. The screenshots are painfully small in some cases, as if the book had been planned for a larger format.",
+    "Being a user-interface walkthough, it probably doesn't give the background or context for some of the concepts being presented. But really, that's by design. This is one way to learn it.",
+    "Some sections, like \"Creating a New Theme\" and \"Changing Theme Graphics and Typography with CSS\" seem hopelessly tiny for the subjects they tackle in a few paragraphs. However, they do give enough clues to an HTML/CSS-savvy person where they might start, and refer to more advanced material.",
+    "Overall, a difficult job well done.",
+    "Review of Packt's Drupal 7 First Look",
+    "Wed, 2011-02-23 19:03 by rfay",
+    "Planet Drupal",
+    "Book Reviews",
+    "(Disclaimer: The book for review was provided gratis by the publisher.)",
+    "Drupal 7 First Look, by Mark Noble (Packt) should probably be named \"What Drupal 6 Developers Need to Know about Drupal 7\". It would kind of make sense then. If you need a book-length (252-page) introduction to what's changed in D7, this is a lot better than reading the horrendous D7 Module Upgrade Guide. However, I can't recommend it for any purpose other than that. It's not one of the leading books. It's not authoritative or particularly accurate, not well edited, and doesn't have clear scope.",
+    "Here's what I liked: The chapter on the Drupal 7 PDO Database Interface (DBTNG) is really quite good. I don't have enough depth in PDO myself to check it for accuracy, but it seemed to have a very solid tutorial approach, with a lot of detail. Quite nicely done.",
+    "Unfortunately, most of the book is just the Module Developer's Guide, the Theme Developer's Guide and the Drupal 7 Release Notes rehashed in a manner that doesn't add enough value. There are huge swaths of code printouts from templates, lists of changed functions, and the like that don't offer enough value.",
+    "I don't want to beat a dead horse. It's a tremendously difficult thing to write a book like this, and everybody who tries deserves our respect, especially when they take on something as hard and fast moving as D7 was at the end. If you want to go through a careful (though not particularly reliable) rundown of the changes between D6 and D7, buy it. If you want a pretty nice chapter on DBTNG, buy it. Otherwise, spend your money on Packt's absolutely excellent Drupal 7 Module Development and read the online resources.",
+    "Pushing and Deleting Git Topic Branches (Screencast)",
+    "Sun, 2011-02-27 20:23 by rfay",
+    "git",
+    "Planet Drupal",
+    "Creating topic branches (also called \"feature branches\") is easy in Git and",
+    "is one of the best things about Git. Sometimes we also want to get those pushed",
+    "from our local repo for various reasons:",
+    "To make sure it's safe on another server (for backup).",
+    "To let others review it.",
+    "To let others build upon it.",
+    "Here we'll just be dealing with #1 and #2, and not talking about how to collaborate",
+    "on a shared branch. We'll be assuming that only the original author will push to it,",
+    "and that nobody else will be doing work based on that branch.",
+    "Creating a feature branch (using name/name_issue)",
+    "git checkout -b rfay/some_feature_39949494/05",
+    "OR",
+    "git checkout -b rfay/some_feature_39949494",
+    "Pushing it up (with origin xxx)",
+    "git push origin rfay/some_feature_39949494",
+    "Turning a regular branch into a tracking branch (if you like shorter commands)",
+    "git config --global push.default tracking # One time setup.",
+    "git branch --set-upstream foo upstream/foo",
+    "OR just create a new tracking branch and forget all that.",
+    "git branch -m [my_current_branch] junk",
+    "git checkout --track origin/[branch]",
+    "OR if you have commit access to the upstream branch",
+    "git push -u upstream foo",
+    "git push -u origin foo",
+    "When you need to, delete the branch",
+    "Locally",
+    "git branch -d [branch] # If it's been merged",
+    "git branch -D [branch] # unconditionally",
+    "Remote",
+    "git push origin :[branch] # pretty odd syntax",
+    "Pages",
+    "« first",
+    "‹ previous",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "next ›",
+    "last »",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/review-drupal-7-module-development",
+      "text": "Review of Drupal 7 Module Development"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "https://www.packtpub.com/drupal-7-module-development/book",
+      "text": "Drupal 7 Module Development"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/893842",
+      "text": "the issue"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1028162",
+      "text": "here"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers"
+    },
+    {
+      "internal": true,
+      "key": "content/content-translation-field-translation-drupal-7-first-steps",
+      "text": "Content Translation (field translation) in Drupal 7: First steps"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics",
+      "text": "Gábor Hojtsy's excellent series on translation in D7"
+    },
+    {
+      "internal": false,
+      "key": "http://www.evolvingweb.ca/story/drupal-7-multilingual-whats-new-i18n",
+      "text": "Drupal 7 Multilingual: What's new in I18N"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/i18n",
+      "text": "i18n"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/comment/672#comment-672",
+      "text": "Gabor's comment below for more on this, and considerations regarding it"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/entity_translation",
+      "text": "contrib Entity Translation"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/entity_translation",
+      "text": "Entity Translation"
+    },
+    {
+      "internal": false,
+      "key": "http://localize.drupal.org",
+      "text": "http://localize.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/title",
+      "text": "Title module"
+    },
+    {
+      "internal": false,
+      "key": "https://drupal.org/node/924968",
+      "text": "#924968"
+    },
+    {
+      "internal": false,
+      "key": "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics",
+      "text": "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-..."
+    },
+    {
+      "internal": true,
+      "key": "content/avoiding-git-disasters-gory-story",
+      "text": "Avoiding Git Disasters: A Gory Story"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://git-scm.drupal.org",
+      "text": "Git source control management system"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/132175",
+      "text": "Marco Villegas"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/146719",
+      "text": "Sam Boyer"
+    },
+    {
+      "internal": true,
+      "key": "content/differences-between-drupal-community-and-microsoft-kingdom",
+      "text": "Differences Between the Drupal Community and The Microsoft Kingdom"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/support",
+      "text": "http://drupal.org/support"
+    },
+    {
+      "internal": true,
+      "key": "content/rebase-workflow-git",
+      "text": "A Rebase Workflow for Git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/git-rebase",
+      "text": "git rebase"
+    },
+    {
+      "internal": false,
+      "key": "https://help.github.com/articles/using-pull-requests",
+      "text": "Pull Request workflow"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/103",
+      "text": "This followup article"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/comment/1093#comment-1093",
+      "text": "described by joachim below"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/89",
+      "text": "Avoiding Git Disasters"
+    },
+    {
+      "internal": false,
+      "key": "http://unethicalblogger.com/node/276",
+      "text": "A Rebase-based Workflow"
+    },
+    {
+      "internal": false,
+      "key": "http://progit.org/book/ch5-3.html",
+      "text": "Pro Git book: Maintaining a Project"
+    },
+    {
+      "internal": false,
+      "key": "http://darwinweb.net/articles/the-case-for-git-rebase",
+      "text": "The Case for Git Rebase"
+    },
+    {
+      "internal": false,
+      "key": "http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html",
+      "text": "A Git Workflow for Agile teams"
+    },
+    {
+      "internal": true,
+      "key": "content/resetting-drupal-passwords-drupal-7-drush-or-without",
+      "text": "Resetting Drupal Passwords in Drupal 7 with Drush or Without"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/comment/1990#comment-1990",
+      "text": "below"
+    },
+    {
+      "internal": true,
+      "key": "content/reference-cache-repositories-speed-clones-git-clone-reference",
+      "text": "Reference (cache) repositories to speed up clones: git clone --reference"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/119",
+      "text": "this update on my experience"
+    },
+    {
+      "internal": false,
+      "key": "http://www.randyfay.com/comment/1028#comment-1028",
+      "text": "in the comment below"
+    },
+    {
+      "internal": true,
+      "key": "content/review-drupal-7-visual-quickstart-guide",
+      "text": "Review of Drupal 7: Visual QuickStart Guide"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/book-reviews",
+      "text": "Book Reviews"
+    },
+    {
+      "internal": true,
+      "key": "content/review-packts-drupal-7-first-look",
+      "text": "Review of Packt's Drupal 7 First Look"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/book-reviews",
+      "text": "Book Reviews"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/update/modules/6/7",
+      "text": "D7 Module Upgrade Guide"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/update/modules/6/7",
+      "text": "Module Developer's Guide"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/update/themes/6/7",
+      "text": "Theme Developer's Guide"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/drupal-7-released",
+      "text": "the Drupal 7 Release Notes"
+    },
+    {
+      "internal": false,
+      "key": "https://www.packtpub.com/drupal-7-module-development/book",
+      "text": "Drupal 7 Module Development"
+    },
+    {
+      "internal": true,
+      "key": "content/pushing-and-deleting-git-topic-branches-screencast",
+      "text": "Pushing and Deleting Git Topic Branches (Screencast)"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "« first"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=2",
+      "text": "‹ previous"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "1"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=1",
+      "text": "2"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=2",
+      "text": "3"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=4",
+      "text": "5"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=5",
+      "text": "6"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=6",
+      "text": "7"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=4",
+      "text": "next ›"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=6",
+      "text": "last »"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  },
+  "references": {
+    "external": [
+      "http://darwinweb.net/articles/the-case-for-git-rebase",
+      "http://ddev.com/contact",
+      "http://drupal.org/drupal-7-released",
+      "http://drupal.org/node/1028162",
+      "http://drupal.org/node/893842",
+      "http://drupal.org/project/entity_translation",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/i18n",
+      "http://drupal.org/project/title",
+      "http://drupal.org/support",
+      "http://drupal.org/update/modules/6/7",
+      "http://drupal.org/update/themes/6/7",
+      "http://drupal.org/user/132175",
+      "http://drupal.org/user/146719",
+      "http://facebook.com/randyfay",
+      "http://git-scm.drupal.org",
+      "http://hobobiker.com",
+      "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics",
+      "http://localize.drupal.org",
+      "http://progit.org/book/ch5-3.html",
+      "http://randyfay.com/comment/1093",
+      "http://randyfay.com/comment/1990",
+      "http://randyfay.com/comment/672",
+      "http://randyfay.com/node/103",
+      "http://randyfay.com/node/119",
+      "http://randyfay.com/node/89",
+      "http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html",
+      "http://unethicalblogger.com/node/276",
+      "http://www.evolvingweb.ca/story/drupal-7-multilingual-whats-new-i18n",
+      "http://www.randyfay.com/comment/1028",
+      "http://www.screencast-o-matic.com/embed?sc=cXnueyI9A&w=640&v=3",
+      "https://drupal.org/node/924968",
+      "https://help.github.com/articles/using-pull-requests",
+      "https://www.packtpub.com/drupal-7-module-development/book"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
+  }
+}

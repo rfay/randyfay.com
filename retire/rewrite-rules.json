@@ -1,0 +1,24 @@
+{
+  "_comment": "Decisions for making the crawled copy self-contained. Anything the original already had dead or restricted is kept as it was (handled before these rules). See test/playwright/kit/scripts/rewrite-static.mjs.",
+  "hosts": [
+    "randyfay-prep.ddev.site"
+  ],
+  "rules": [
+    {
+      "name": "comment permalinks point at the comment on this archive's page",
+      "match": "^comment/(\\d+)$",
+      "action": "anchor",
+      "anchor": "comment-$1"
+    },
+    {
+      "name": "login, profile, logout and search links are dynamic: link removed, text kept",
+      "match": "^(user|logout|search)(/|\\?|$)",
+      "action": "unwrap"
+    },
+    {
+      "name": "feed-discovery <link> tags removed (a feed is a dynamic feature the static copy does not have)",
+      "match": "(^|/)feed$|^rss\\.xml$",
+      "action": "remove"
+    }
+  ]
+}

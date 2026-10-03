@@ -146,5 +146,16 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/project/comment_notify",
+      "http://drupal.org/project/rules",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://www.cekmagdurlari.com"
+    ],
+    "internalNonOk": []
   }
 }

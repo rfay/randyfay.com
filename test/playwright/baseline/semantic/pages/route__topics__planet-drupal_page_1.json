@@ -1,0 +1,719 @@
+{
+  "title": "Planet Drupal | RandyFay.com",
+  "primaryHeading": "Planet Drupal",
+  "contentFound": true,
+  "lines": [
+    "D8 Software Process Improvement Discussions at Core Dev Summit",
+    "Wed, 2010-04-14 08:27 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "We can substantially improve our core software development process with some simple steps in Drupal 8.",
+    "<",
+    "ol>",
+    "Improve our issue queue setup on drupal.org.",
+    "Our issue queue works the way it does because Drupal worked that way a long time ago. We can do better than that.",
+    "Each core issue should have an issue summary, and the issue summary should be correct and complete before commit.",
+    "An issue should have links to related and dependent issues.",
+    "There should be checkoffs for docs, usability, security, etc.",
+    "Of course we know how to do this with Drupal. Let's do it. Related issues: Improve the workflow for documentation of core API changes and Provide a mechanism for issue meta discussions",
+    "Full functional in-browser testing, including javascript and AJAX. I'll be presenting a brainstorm on this at the Core Dev Summit and there will be a BoF on this topic at 4pm on Monday in room 200. We have to solve our lack of test coverage in this area. AJAX and javascript get essentially no real test coverage, so it's like the old days... somebody has to report that something is broken. Even with things as important as install.php.",
+    "Every feature should have a full, working example in the tests module. We create \"mock modules\" to write tests against... but sometimes features actually go in that nobody knows how to use. A simple remedy: Before commit, there needs to be a comprehensive example in the related mock module in the tests. The comprehensive example can be used as fodder for tests, but it's also there for people to see how to use something. Enable the mock module, try it out. Recently the fantastic #states feature went in with no documentation and essentially no usage examples. And it wasn't testable because we don't have Javascript testing. But if we had the requirement of a comprehensive example, we'd have been fine (and several bugs would have been avoided.)",
+    "What are your suggestions for software process improvements in D8? Let's talk about this at the Core Dev Summit on Saturday!",
+    "DrupalCon: Drupal 7 AJAX and Javascript",
+    "Wed, 2010-04-14 13:24 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Rob Loach, Kat Bailey and I will be presenting Drupal 7 AJAX and Javascript Monday, 3-4pm, in room 307.",
+    "Here are the basics:",
+    "The new AJAX Framework",
+    "AJAX forms, with a complete how-to and sample, easy to understand code.",
+    "The fantastic new #states feature for dynamic forms.",
+    "D7 Javascript changes from D6.",
+    "Using Javascript Libraries.",
+    "We've made great strides in Drupal 7. Come and hear about it.",
+    "If you used AHAH in D6, you're probably afraid of AJAX forms. But if you never used #ahah, you'll walk out of the room feeling competent to try out #ajax. You can't believe how easy it is now.",
+    "Drupalcon: D7 Advanced Form API Session!",
+    "Tue, 2010-04-20 21:12 by rfay",
+    "Planet Drupal",
+    "Alex Bronstein, (effulgentsia) one of the maintainers of the Form API, will be doing an off-Broadway session on D7 Advanced Form API tomorrow (Wednesday) at 4:15pm in room 252. This is an exciting chance to catch up on all the great simplifications (and changes) in D7 FAPI.",
+    "Topics will be:",
+    "What's changed in D7 FAPI",
+    "The FAPI pipeline",
+    "Pipeline hooks and #properties",
+    "The essential $form_state keys (and the ones that are gone now)",
+    "AJAX Integration",
+    "And much, much more, of course",
+    "Check out the slides in advance",
+    "If you care about the Form API, BE THERE!",
+    "Examples Project Code Sprint",
+    "Wed, 2010-04-21 22:52 by rfay",
+    "Planet Drupal",
+    "Tomorrow (Thursday, 22 April) we'll be working 9-5 US Pacific time on the Examples Project. A list of tasks is posted on groups.drupal.org and there's plenty of fun for everybody. We'd love to have you join us wherever you are in the world, or physically at the Drupalcon sprint location.",
+    "PHP 5.2 on Ubuntu 10.04 Lucid Lynx (Seems to work for 12.04 too)",
+    "Mon, 2010-05-31 20:08 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Edit 2012-11-12: If you're interested in the newer problem of running PHP 5.3 on Ubuntu 12.10 Quantal, try this recipe.",
+    "Edit 2012-09-21: Isn't it about time you moved to PHP 5.3? Even though these instructions seem to work even for Ubuntu 12.04, it's really time for people to move on to PHP 5.3. If you're a Drupal user on Drupal 6, Drupal core and nearly all contrib are now just fine with 5.3.",
+    "Edit 2011-11-23: Since Ubuntu 9.10 (Karmic) is now out of support, the repositories to use for it have changed to old-releases.ubuntu.com. I've changed the karmic.list files attached. Please be aware that although 10.04LTS is still supported for years still, 9.10 is out of the support window, meaning that security issues in these packages will not be fixed.",
+    "Update: Look here to solve same problem with Ubuntu 10.10.",
+    "Lots of us are starting to run Drupal on Ubuntu 10.04 Lucid Lynx, and of course, Lucid comes with PHP 5.3, for which Drupal 6 is not yet ready.",
+    "I've seen a couple of fine recipes, but here's mine, with the files you need attached.",
+    "Update: You'll probably want to look at Khalid's more extensive discussion of various ways to do this.",
+    "Essentially, all you have to do is tell the apt system where to find Karmic packages and then tell it that you want it to use Karmic's PHP packages.",
+    "So put the attached karmic.list in /etc/apt/sources.list.d and the attached \"php\" into /etc/apt/preferences.d.",
+    "Then:",
+    "sudo apt-get update",
+    "sudo apt-get remove php5 libapache2-mod-php5 php5-xsl php5-gd php-pear php5-mysql php5-curl php5-memcache",
+    "sudo apt-get install php5 libapache2-mod-php5 php5-xsl php5-gd php-pear php5-mysql php5-curl php5-memcache",
+    "If you had not already installed apache, php, and mysql, you can do that with the above files in place and get the right versions without removing anything:",
+    "sudo apt-get update",
+    "sudo apt-get install apache2 mysql-server php5 libapache2-mod-php5 php5-xsl php5-gd php-pear libapache2-mod-auth-mysql php5-mysql php5-curl php5-memcache",
+    "Note that your php.ini will have been replace, so you have to reset custom settings like memory_limit.",
+    "Attachment",
+    "Size",
+    "php - put into /etc/apt/preferences.d",
+    "0 bytes",
+    "karmic.list - put in /etc/apt/sources.list.d",
+    "0 bytes",
+    "New Queue and Menu Examples for Examples Project",
+    "Fri, 2010-06-04 10:12 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "The Examples for Developers Project aims to provide high-quality, well-documented API examples for a broad range of Drupal core functionality. You can download the code from the project page, view it on api.drupal.org, or experience it (for several of them) at drupalexamples.info.",
+    "Recently, we've added two new example suites:",
+    "Drupal 7 Queue Example, (see the code on api.drupal.org or experience the UI on d7.drupalexamples.info). This Drupal 7 code should also be compatible with the D6 Drupal Queue module, which is a backport. Thanks, coltrane!",
+    "Drupal 6 and Drupal 7 Menu Example. These examples use nearly every feature of the Menu API, and provide easy-to-access examples of tabs, placeholders, and many of the other fairly obscure features of the Menu API. See the code on api.drupal.org or experience the examples at drupalexamples.info.",
+    "Examples for Developers is a community project. Contributions are encouraged (just use the issue queue). If you find a problem, please submit an issue. If you want to fix a problem you find, please submit a patch. It will never be perfect, but if we tend it as a community resource, it should get better all the time.",
+    "Translatable Regions Module: For user-contributed content in many languages",
+    "Thu, 2010-06-10 14:18 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Drupal is great at handling multilingual situations, but how do you make user-contributed content in multiple languages accessible to those who can't read them?",
+    "The Translatable Regions module tackles this by using the automated Google AJAX Language API via the jquery-translate plugin.",
+    "What do you have to do?",
+    "Install the module.",
+    "Decide what selectors you want to have translation buttons.",
+    "Configure the selectors at admin/settings/translatableregions.",
+    "Whenever those selectors appear on the page, a button is added offering to translate to many languages, the default being the browser language.",
+    "Here's an example of the use on user profiles on http://warmshowers.org.",
+    "To see live user-generated content translation, to go The Portuguese-language forums on Warmshowers.org.",
+    "Form API Changes for Drupal 7, Part 1: $form_state changes",
+    "Tue, 2010-06-15 18:33 by rfay",
+    "Drupal",
+    "Planet Drupal",
+    "Forms",
+    "You may know that lots of delicious things have happened to Drupal's Form API in Drupal 7. (Only a geek can say \"delicious\" and \"Form API\" in the same sentence. Try it!) The finest minds in the business have been working on it, I can assure you. Give effulgentsia, fago, frando, and chx a big hug when you see them, because Form API is much improved. (Sorry to those of you I forgot to name, but THANKS!)",
+    "I'm going to do a series covering Form API changes, starting with this one. I won't attempt to cover the deep details, just the things that ordinary developers might use:",
+    "$form_state changes and form builder function signature changes",
+    "AJAX Forms changes",
+    "New properties (#attached and many friends)",
+    "Let me know if you have other topics to suggest.",
+    "OK, to business. This article is mostly parroted from the api.drupal.org topic: Form Generation. Thanks to Alex Bronstein (effulgentsia) for his reviews and contributions to that doc.",
+    "Don't forget that the form builder function signature changed!",
+    "In Drupal 6 the form builder function looked like this:",
+    "function my_module_funky_form(&$form_state) { ... }",
+    "but in Drupal 7 it's",
+    "function my_module_funky_form($form, &$form_state, ... ) { ... }",
+    "$form_state in Drupal 7",
+    "Mostly the members of the $form_state array are the same ones you know and love from Drupal 6:",
+    "$form_state['values']: An associative array of values that have been submitted to the form. The validation and submit functions use this array for nearly all their decisionmaking. (Note that #tree determines whether the values are a flat array or an array whose structure parallels the $form array.) This is nearly the same as it was in D6.",
+    "$form_state['rebuild']: If the submit handler sets $form_state['rebuild'] to TRUE, submission is not completed and instead the form is rebuilt using any information that the submit function has made available to the form builder function via $form_state. This is commonly used for wizard-style multi-step forms, add-more buttons, and the like. For further information see drupal_build_form(). This is the same as D6.",
+    "$form_state['redirect']: a URL that will be used to redirect the form on submission. See drupal_redirect_form() for complete information. This should always be used instead of drupal_goto() in a forms context. Note that $form['#redirect'] went away in Drupal 7 and no longer has any effect.",
+    "$form_state['storage']: $form_state['storage'] is no more! It used to be the place for application-specific values, but now it has no specific meaning. Now nearly all $form_state keys persist in a multi-step form, so the recommended approach is to use $form_state['your_module']['whatever']. ($form_state['storage'] still works for persistent storage, just like $form_state['timbuktu'] works.)",
+    "$form_state['triggering_element': (read-only) The form element that triggered submission. This is the same as the deprecated $form_state['clicked_button']. It is the element that caused submission, which may or may not be a button (in the case of AJAX forms.) This is often used to distinguish between various buttons in a submit handler, and is also used in AJAX handlers.",
+    "$form_state['cache']: The typical form workflow involves two page requests. During the first page request, a form is built and returned for the user to fill in. Then the user fills the form in and submits it, triggering a second page request in which the form must be built and processed. By default, $form and $form_state are built from scratch during each of these page requests. In some special use-cases, it is necessary or desired to persist the $form and $form_state variables from the initial page request to the one that processes the submission. A form builder function can set 'cache' to TRUE to do this. One example where this is needed is to handle AJAX submissions, so ajax_process_form() sets this for all forms that include an element with a #ajax property. (In AJAX, the handler has no way to build the form itself, so must rely on the cached version created on each page load, so it's a classic example of this use case.) Note that the persistence of $form and $form_state across successive submissions of a multi-step form happens automatically regardless of the value for 'cache'. You probably won't need to use $form_state['cache']. And note that $form['#cache'] is gone in D7 and now has no effect on anything.",
+    "$form_state['input']: The array of values as they were submitted by the user. These are raw and unvalidated, so should not be used without a thorough understanding of security implications. In almost all cases, code should use the data in the 'values' array exclusively. The most common use of this key is for multi-step forms that need to clear some of the user input when setting 'rebuild'.",
+    "Drupal 7 FAPI Resources:",
+    "api.drupal.org Form Generation section.",
+    "The Form Example in Examples for Developers project. (on api.drupal.org: http://api.drupal.org/api/drupal/developer--examples--form_example--form...",
+    "D7 Form API Reference",
+    "Next time: Part 2: AJAX forms changes.",
+    "Eclipse Debugging with Zend Debugging Extension for PHP 5.3: New location for downloads",
+    "Thu, 2010-07-22 18:13 by rfay",
+    "Planet Drupal",
+    "New URL for Zend debugging plugin (now called Studio Web Debugger)",
+    "If you're a user of Eclipse with the Zend Debugging Extension and you've tried to use PHP 5.3, you may have noticed that the traditional download location doesn't have it.",
+    "The new location for downloading the Zend debugging extension is http://www.zend.com/products/studio/downloads. Get the \"Studio Web Debugger\" for your platform and architecture (requires registration). (Note that the old location for this was http://downloads.zend.com/pdt/server-debugger/, which is still referred to on many places on the web. This old location has libraries only up through PHP 5.2, but if that's all you need, will work fine.)",
+    "Basic debugging with Eclipse Galileo is covered in http://drupal.org/node/157609.",
+    "That was the main news. But to make sure it actually worked I did a quick runthrough of installing Eclipse Galileo on Ubuntu 10.04 Lucid Lynx from scratch. This is essentially the same as what's in http://drupal.org/node/157609, but with less detail.",
+    "Bonus: Quick install of Eclipse Galileo with debugger on Debian/Ubuntu",
+    "Install the Zend debugging extension obtained above by downloading the correct package for your system and architecture. Follow the instructions in the installation file to install on your architecture. More details are at http://drupal.org/node/157609. Verify that phpinfo shows the \"Zend Debugger\".",
+    "apt-get install eclipse",
+    "In Eclipse, go to Help->Install New Software",
+    "Type \"Galileo\" and choose the Galileo update site",
+    "Expand \"Web, XML, and Java EE development to get to \"PHP Development Tools (PDT)\" and install it.",
+    "Now, add the Drupal PHP extensions (at least *.module, *.theme, *.test) to the PHP content type in Window->Preferences->General->Content Types.",
+    "Now set up a project in an Eclipse workspace:",
+    "(For examples in the below: I let Eclipse create the default ~/workspace, then I installed Drupal in ~/workspace/d7git, and made a virtualhost http://d7git.l that points to it.)",
+    "When you run Eclipse, it asks where you want the workspace. Just let it have its way and put it in ~/workspace.",
+    "Put the project you want to debug in the workspace (I created a Drupal install in ~/workspace/d7git)",
+    "Create a new project with File->New Project->PHP Project and give it the name of the directory of your project in ~/workspace. (I created the project \"d7git\", which absorbed my existing code.)",
+    "Debug Button -> Debug Configurations, Create a new \"PHP Web Page\" configuration.",
+    "Give it a name (I called it d7git)",
+    "For Server Debugger, choose Zend",
+    "If you use virtualhosts like I do, you need to create a new PHP server at this point. Click new, and give it the URL. For example, I created a new PHP server called d7git and used the URL http://d7git.l and pressed \"Finish\".",
+    "For the file, choose index.php",
+    "Uncheck \"Auto Generate\" for the URL and change the URL to http:/// (I changed it to http://d7git.l)",
+    "Click \"Debug\" and if you have succeeded, it will stop on the first line of index.php.",
+    "Pointers to key pages on debugging with Eclipse",
+    "Setting up Eclipse (with Zend plugin) for debugging Drupal",
+    "Basic every-time setup for Eclipse with Drupal",
+    "Cygwin Quickstart for Drupal Users",
+    "Sun, 2010-08-15 23:16 by rfay",
+    "Planet Drupal",
+    "Cygwin is a great set of Unix/Linux utilities for Windows. Here are quickstart instructions for using it in a Drupal context (for git, patch, ssh, or whatever)",
+    "Grab the small setup.exe from http://cygwin.com",
+    "Run it. If you're on Windows Vista or later, you'll want to run the setup with administrative privileges (Right click on setup.exe and \"Run as administrator\")",
+    "Take all the defaults - we'll end up with an install in c:\\cygwin",
+    "When you get to the package selection screen, select at least: openssh, git, rxvt, patch, patchutils, telnet, unzip, nano, vim, rsync, wget, connect-proxy. Then let it download and install.",
+    "Run \"Rxvt Native\" from the start menu. (If on Vista or later, you need to run it as administrator this time because we'll be setting up links in a privileged directory). The first time you do this it will install default profile files for you.",
+    "In rxvt we'll now set up symbolic links to the Windows filesystem. Do this for each drive you have... I'm showing the C: and D: drives here:",
+    "cd /",
+    "ln -s /cygdrive/c",
+    "ln -s /cygdrive/d",
+    "Now you can navigate into the Windows filesystem to wherever your Drupal install is. /c is the root of the C: drive; /d is the root of the D: drive. For example, if you have Acquia's DAMP installed, it might be in /c/Users/rfay/Documents/Sites/acquia-drupal or something like that.",
+    "Using cvs, you could check out the Examples project, for example:",
+    "export CVSROOT=:pserver:anonymous@cvs.drupal.org:/cvs/drupal-contrib",
+    "cvs login (your password is 'anonymous')",
+    "cvs -z6 checkout -d examples-HEAD contributions/modules/examples",
+    "and now you have a HEAD version of Examples.",
+    "Using git you could get Examples from git.drupalfr.org:",
+    "git clone git://git.drupalfr.org/git/contributions-new-date/examples.git",
+    "Or apply a patch using patch.... or create a patch using git diff --no-prefix...",
+    "The world is your oyster. You have the easy-to-use editor nano if you want to edit within Cygwin, but you can just use the Windows editor of your choice as well.",
+    "You may also want to watch the Lullabot video on installing Cygwin, which is old, but still useful and valid.",
+    "Edit: You can now use drush successfully on Windows! See Installing Drush on Windows Using Cygwin.",
+    "Pages",
+    "« first",
+    "‹ previous",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "next ›",
+    "last »",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [
+    {
+      "src": "/core/modules/file/icons/application-octet-stream.png",
+      "name": "application-octet-stream.png",
+      "alt": "Binary Data"
+    },
+    {
+      "src": "/core/modules/file/icons/application-octet-stream.png",
+      "name": "application-octet-stream.png",
+      "alt": "Binary Data"
+    },
+    {
+      "src": "http://randyfay.com/files/translatable_regions_screenshot.png",
+      "name": "translatable_regions_screenshot.png",
+      "alt": ""
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/d8-software-process-improvement-discussions-core-dev-summit",
+      "text": "D8 Software Process Improvement Discussions at Core Dev Summit"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/648218",
+      "text": "Improve the workflow for documentation of core API changes"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/569552",
+      "text": "Provide a mechanism for issue meta discussions"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcon-drupal-7-ajax-and-javascript",
+      "text": "DrupalCon: Drupal 7 AJAX and Javascript"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "text": "Drupal 7 AJAX and Javascript"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/58",
+      "text": "#states feature"
+    },
+    {
+      "internal": true,
+      "key": "content/drupalcon-d7-advanced-form-api-session",
+      "text": "Drupalcon: D7 Advanced Form API Session!"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/78040",
+      "text": "effulgentsia"
+    },
+    {
+      "internal": false,
+      "key": "http://docs.google.com/present/view?id=ddsd5sw7_325gmtkddfm",
+      "text": "slides in advance"
+    },
+    {
+      "internal": true,
+      "key": "content/examples-project-code-sprint",
+      "text": "Examples Project Code Sprint"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples Project"
+    },
+    {
+      "internal": false,
+      "key": "http://groups.drupal.org/node/63518",
+      "text": "is posted on groups.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/post-conference-sprint",
+      "text": "physically at the Drupalcon sprint location"
+    },
+    {
+      "internal": true,
+      "key": "content/php-52-ubuntu-1004-lucid-lynx-seems-work-1204-too",
+      "text": "PHP 5.2 on Ubuntu 10.04 Lucid Lynx (Seems to work for 12.04 too)"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://ubuntuforums.org/showthread.php?t=2074178",
+      "text": "this recipe"
+    },
+    {
+      "internal": false,
+      "key": "http://thejibe.com/blog/10/10/php-5210-debs-ubuntu-1010-maverick",
+      "text": "Look here to solve same problem with Ubuntu 10.10"
+    },
+    {
+      "internal": false,
+      "key": "http://2bits.com/drupal-planet/various-ways-running-php-52-ubuntu-1004-lucid-lynx.html",
+      "text": "more extensive discussion of various ways to do this"
+    },
+    {
+      "internal": true,
+      "key": "sites/default/files/php_1.",
+      "text": "php - put into /etc/apt/preferences.d"
+    },
+    {
+      "internal": true,
+      "key": "sites/default/files/karmic_1.list",
+      "text": "karmic.list - put in /etc/apt/sources.list.d"
+    },
+    {
+      "internal": true,
+      "key": "content/new-queue-and-menu-examples-examples-project",
+      "text": "New Queue and Menu Examples for Examples Project"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers Project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "the project page"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info",
+      "text": "drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--queue_example--queue_example.module/7",
+      "text": "code on api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/queue_example/insert_remove",
+      "text": "d7.drupalexamples.info"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/drupal_queue",
+      "text": "D6 Drupal Queue module"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--menu_example--menu_example.module/6",
+      "text": "code on api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://d7.drupalexamples.info/menu_example",
+      "text": "drupalexamples.info"
+    },
+    {
+      "internal": true,
+      "key": "content/translatable-regions-module-user-contributed-content-many-languages",
+      "text": "Translatable Regions Module: For user-contributed content in many languages"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/translatableregions",
+      "text": "Translatable Regions"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/apis/ajaxlanguage",
+      "text": "Google AJAX Language API"
+    },
+    {
+      "internal": false,
+      "key": "http://code.google.com/p/jquery-translate",
+      "text": "jquery-translate plugin"
+    },
+    {
+      "internal": false,
+      "key": "http://warmshowers.org",
+      "text": "http://warmshowers.org"
+    },
+    {
+      "internal": false,
+      "key": "http://pt.warmshowers.org/content/benvind-ao-warmshowers",
+      "text": "The Portuguese-language forums on Warmshowers.org"
+    },
+    {
+      "internal": true,
+      "key": "content/form-api-changes-drupal-7-part-1-formstate-changes",
+      "text": "Form API Changes for Drupal 7, Part 1: $form_state changes"
+    },
+    {
+      "internal": true,
+      "key": "topics/drupal",
+      "text": "Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/forms",
+      "text": "Forms"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/form_api/7",
+      "text": "Form Generation"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/form_api/7",
+      "text": "Form Generation"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--examples--form_example--form_example_tutorial.inc/7",
+      "text": "http://api.drupal.org/api/drupal/developer--examples--form_example--form..."
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7",
+      "text": "Form API Reference"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/74",
+      "text": "Part 2: AJAX forms changes."
+    },
+    {
+      "internal": true,
+      "key": "content/eclipse-debugging-zend-debugging-extension-php-53-new-location-downloads",
+      "text": "Eclipse Debugging with Zend Debugging Extension for PHP 5.3: New location for downloads"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://www.zend.com/products/studio/downloads",
+      "text": "http://www.zend.com/products/studio/downloads"
+    },
+    {
+      "internal": false,
+      "key": "http://downloads.zend.com/pdt/server-debugger",
+      "text": "http://downloads.zend.com/pdt/server-debugger/"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/157609",
+      "text": "http://drupal.org/node/157609"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/157609",
+      "text": "http://drupal.org/node/157609"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/157609",
+      "text": "http://drupal.org/node/157609"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/157609",
+      "text": "Setting up Eclipse (with Zend plugin) for debugging Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/75242",
+      "text": "Basic every-time setup for Eclipse with Drupal"
+    },
+    {
+      "internal": true,
+      "key": "content/cygwin-quickstart-drupal-users",
+      "text": "Cygwin Quickstart for Drupal Users"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://cygwin.com",
+      "text": "Cygwin"
+    },
+    {
+      "internal": false,
+      "key": "http://cygwin.com",
+      "text": "http://cygwin.com"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/patch",
+      "text": "patch using patch"
+    },
+    {
+      "internal": false,
+      "key": "http://www.lullabot.com/videos/install-cygwin-windows-xp",
+      "text": "the Lullabot video on installing Cygwin"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/1432756",
+      "text": "Installing Drush on Windows Using Cygwin"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "« first"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "‹ previous"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "1"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=2",
+      "text": "3"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=3",
+      "text": "4"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=4",
+      "text": "5"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=5",
+      "text": "6"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=6",
+      "text": "7"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=2",
+      "text": "next ›"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=6",
+      "text": "last »"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  },
+  "references": {
+    "external": [
+      "http://2bits.com/drupal-planet/various-ways-running-php-52-ubuntu-1004-lucid-lynx.html",
+      "http://api.drupal.org",
+      "http://api.drupal.org/api/drupal/developer--examples--form_example--form_example_tutorial.inc/7",
+      "http://api.drupal.org/api/drupal/developer--examples--menu_example--menu_example.module/6",
+      "http://api.drupal.org/api/drupal/developer--examples--queue_example--queue_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7",
+      "http://api.drupal.org/api/group/form_api/7",
+      "http://code.google.com/apis/ajaxlanguage",
+      "http://code.google.com/p/jquery-translate",
+      "http://cygwin.com",
+      "http://d7.drupalexamples.info",
+      "http://d7.drupalexamples.info/menu_example",
+      "http://d7.drupalexamples.info/queue_example/insert_remove",
+      "http://ddev.com/contact",
+      "http://docs.google.com/present/view?id=ddsd5sw7_325gmtkddfm",
+      "http://downloads.zend.com/pdt/server-debugger",
+      "http://drupal.org/node/1432756",
+      "http://drupal.org/node/157609",
+      "http://drupal.org/node/569552",
+      "http://drupal.org/node/648218",
+      "http://drupal.org/node/75242",
+      "http://drupal.org/patch",
+      "http://drupal.org/project/drupal_queue",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/translatableregions",
+      "http://drupal.org/user/78040",
+      "http://facebook.com/randyfay",
+      "http://groups.drupal.org/node/63518",
+      "http://hobobiker.com",
+      "http://pt.warmshowers.org/content/benvind-ao-warmshowers",
+      "http://randyfay.com/files/translatable_regions_screenshot.png",
+      "http://randyfay.com/node/58",
+      "http://randyfay.com/node/74",
+      "http://sf2010.drupal.org/conference/post-conference-sprint",
+      "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
+      "http://thejibe.com/blog/10/10/php-5210-debs-ubuntu-1010-maverick",
+      "http://ubuntuforums.org/showthread.php?t=2074178",
+      "http://warmshowers.org",
+      "http://www.lullabot.com/videos/install-cygwin-windows-xp",
+      "http://www.zend.com/products/studio/downloads"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      },
+      {
+        "key": "sites/default/files/karmic_1.list",
+        "status": 404
+      },
+      {
+        "key": "sites/default/files/php_1.",
+        "status": 404
+      }
+    ]
+  }
+}

@@ -57,5 +57,17 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/node/1028162",
+      "http://drupal.org/node/893842",
+      "http://drupal.org/project/examples",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "https://www.packtpub.com/drupal-7-module-development/book"
+    ],
+    "internalNonOk": []
   }
 }

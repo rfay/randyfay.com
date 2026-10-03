@@ -535,5 +535,64 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://association.drupal.org",
+      "http://asymptomatic.net/2009/03/21/2795/meritocracy-versus-do-ocracy",
+      "http://ddev.com/contact",
+      "http://debian.org",
+      "http://denver2012.drupal.org/content/future-drupal-governance",
+      "http://drupal.org",
+      "http://drupal.org/dcoc",
+      "http://drupal.org/node/1526026",
+      "http://drupal.org/project/governance",
+      "http://drupal.org/project/issues/governance",
+      "http://drupal.org/user/1274",
+      "http://eaves.ca",
+      "http://en.wikipedia.org/wiki/Governance",
+      "http://en.wikipedia.org/wiki/Mark_Shuttleworth",
+      "http://en.wikipedia.org/wiki/Wikipedia:Consensus",
+      "http://en.wikipedia.org/wiki/Wikipedia:Five_pillars",
+      "http://en.wikipedia.org/wiki/Wikipedia:Role_of_Jimmy_Wales",
+      "http://engineeredweb.com/blog/11/1/who-rules-drupal",
+      "http://ev.kde.org",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://kde.org",
+      "http://kde.org/code-of-conduct",
+      "http://kde.org/community/whatiskde/management.php",
+      "http://lb.cm/governance",
+      "http://randyfay.com/content/drupals-governance",
+      "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
+      "http://randyfay.com/node/118",
+      "http://randyfay.com/node/120",
+      "http://randyfay.com/topics/governance",
+      "http://ubuntu.com",
+      "http://wikipedia.org",
+      "http://wordpress.org",
+      "http://wordpress.tv/2010/09/18/jane-wells-how-wordpress-decisions-get-made",
+      "http://www.artofcommunityonline.org/downloads/jonobacon-theartofcommunity-1ed.pdf",
+      "http://www.artofcommunityonline.org/get",
+      "http://www.canonical.com",
+      "http://www.communityleadershipsummit.com",
+      "http://www.communitywiki.org/DoOcracy",
+      "http://www.debian.org/devel/constitution",
+      "http://www.debian.org/social_contract",
+      "http://www.drupalmyths.com/node/226",
+      "http://www.kde.org/community/whatiskde/management.php",
+      "http://www.techforce.com.br/news/linux_blog/scientific_study_about_debian_governance_and_organization",
+      "http://www.ubuntu.com/project/about-ubuntu/conduct",
+      "https://association.drupal.org/about/governance",
+      "https://en.wikipedia.org/wiki/Debian",
+      "https://wiki.ubuntu.com/CommunityCouncil",
+      "https://wiki.ubuntu.com/TechnicalBoard"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

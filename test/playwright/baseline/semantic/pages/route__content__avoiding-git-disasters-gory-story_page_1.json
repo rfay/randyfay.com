@@ -1,0 +1,281 @@
+{
+  "title": "Avoiding Git Disasters: A Gory Story | RandyFay.com",
+  "primaryHeading": "Avoiding Git Disasters: A Gory Story",
+  "contentFound": true,
+  "lines": [
+    "Sun, 2011-01-30 12:10 by rfay",
+    "Planet Drupal",
+    "git",
+    "Edit 2015-08-30: The bottom line years later: Use the (Github's) Pull Request methodology, with a responsible person doing the pulls. You'll never have any of these problems.",
+    "I learned the hard way recently that there are some unexpectedly horrible things that can happen to a project in the Git source control management system due to its distributed nature... that I never would have thought of.",
+    "There is one huge difference between Git and older server-based systems like Subversion and CVS. That difference is that there's no server. There's (usually) an authoritative repository, but it's really fundamentally just a peer repository that gets stuff sent to it. OK, we all knew that. But that has some implications that aren't obvious at first. In Subversion, when you make a change, you just push that change up to the server, and the server handles applying just that change to the master copy of the project. However, in Git, and especially when using the default \"merge workflow\" (I'll write about merge workflow versus rebase workflow in another article), there are times when a single developer may be in charge of (and able to unintentionally break) the entire codebase all at once. So here I'm going to describe two ways that I know of that this can happen.",
+    "Disaster 1: git push --force",
+    "A normal push to the authoritative repository involves taking your new work as new commits and plopping those commits as-is on top of the branch in the repository. However, when a developer's local Git repository is not in sync with (or up-to-date with) the authoritative repository (the one we normally push to), then it can't do a fast-forward merge, and it will balk with an error message.",
+    "The right thing to do in this case is to either merge your code with a git pull or to rebase your code onto the HEAD with git pull --rebase, or to use any number of other similar techniques. The absolutely worst and wrong-est thing in the whole world is something that you can do with the default configuration: git push --force. A forced push overwrites the structure and sequence of commits on the authoritative repository, throwing away other people's commits. Yuck.",
+    "The default configuration in git, that git push --force is allowed. In most cases you should not ever allow that.",
+    "How do you prevent git push --force? (thanks to sdboyer!)",
+    "In the bare authoritative repository,",
+    "git config --system receive.denyNonFastForwards true",
+    "Disaster 2: Merging Without Understanding",
+    "This one is far more insidious. You can't just turn off a switch and prevent it, and if you use the merge workflow you're highly susceptible.",
+    "So let's say that your developers can't do the git push --force or would never consider doing so. But maybe there are 10 developers working hot and heavy on a project using the merge workflow.",
+    "In the merge workflow, everybody does work in their own repository, and then when it comes time to push, they do a git pull (which by default tries to merge into their code everything that's been one on the repository) and then they do a git push to push their work back up to the repo. But in the git pull all the work that has been done is merged on the developer's machine. And the results of that merge are then pushed back up as a potentially huge new commit.",
+    "The problem can come in that merge phase, which can be a big merge, merging in lots of commits. If the developer does not push back a good merge, or alters the merge in some way, then pushes it back, then the altered world that they push back becomes everybody else's HEAD. Yuck.",
+    "Here's the actual scenario that caused an enormous amount of hair pulling.",
+    "The team was using the merge workflow. Lots of people changing things really fast. The typical style was",
+    "Work on your stuff",
+    "Commit it locally",
+    "git pull and hope for no conflicts",
+    "git push as fast as you can before somebody else gets in there",
+    "Many of the team members were using Tortoise Git, which works fine, but they had migrated from Tortoise SVN without understanding the underlying differences between Git and Subversion.",
+    "Merge conflicts happened fairly often because so many people were doing so many things",
+    "One user of Tortoise Git would do a pull, have a merge conflict, resolve the merge conflict, and then look carefully at his list of files to be committed back when he was committing the results. There were lots of files there, and he knew that the merge conflict only involved a couple of files. For his commit, he unchecked all the other files changes that he was not involved in, committed the results and pushed the commit.",
+    "The result: All the commits by other people that had been done between this user's previous commit and this one were discarded",
+    "Oh, that is a very painful story.",
+    "How do you avoid this problem when using git?",
+    "Train your users. And when you train them make sure they understand the fundamental differences between Git and SVN or CVS.",
+    "Don't use the merge workflow. That doesn't solve every possible problem, but it does help because then merging is at the \"merging my changes\" level instead of the \"merging the whole project\" level. Again, I'll write another blog post about the rebase workflow.",
+    "Alternatives to the Merge Workflow",
+    "I know of two alternatives. The first is to rebase commits (locally) so you put your commits as clean commits on top of HEAD, on top of what other people have been doing, resulting in a fast-forward merge, which doesn't have all the merging going on.",
+    "The second alternative is promoted or assumed by Github and used widely by the Linux Core project (where Git came from). In that scenario, you don't let more than one maintainer push to the important branches on the authoritative repository. Users can clone the authoritative repository, but when they have changes to be made they request that the maintainer pull their changes from the contributor's own repository. This is called a \"pull request\". The end result is that you have one person controlling what goes into the repository. That one person can require correct merging behavior from contributors, or can sort it out herself. If a contribution comes in on a pull request that isn't rebased on top of head as a single commit, the maintainer can clean it up before committing it.",
+    "Conclusions",
+    "Avoid the merge workflow, especially if you have many committers or you have less-trained committers.",
+    "Understand how the distributed nature of git changes the game.",
+    "Turn on system receive.denyNonFastForwards on your authoritative repository",
+    "Many of you have far more experience with Git than I do, so I hope you'll chime in to express your opinions about solving these problems.",
+    "Many thanks and huge kudos to Marco Villegas (marvil07), the Git wizard who studied and helped me to understand what was going on in the Tortoise Git disaster. And thanks to our Drupal community Git migration wizard Sam Boyer (sdboyer) who listened with Marco to a number of pained explanations of the whole thing and also contributed to its solution.",
+    "Oh, did I mention I'm a huge fan of Git? Distributed development and topical branches have changed how I think about development. You could say it's changed my life. I love it. We just all have to understand the differences and deal with them realistically.",
+    "Comments",
+    "Xen (not verified)",
+    "Sat, 2015-08-29 14:25",
+    "Permalink",
+    "My Misunderstanding",
+    "You know the funny thing is I've been using Git for a while (not extensively) and I still don't understand, my mind still can't grasp the complexity of this problem. That is to say, I still can't /understand/ why this problem arises in the first place.",
+    "The answer of course lies in that everyone is solely responsible for a correct repo, so the stupid thing is that this \"distributed\" model is now no longer distributed, it is singularly maintained by a central person. And instead of being a server that can accept many clients, it is now a client that can accept many servers!!!!!.",
+    "Have you thought about that? In git there is a client with many servers! It is the client-server model reversed!.",
+    "There is just one client and everyone who has done a pull request becomes a server; the client pulls your work from your server (like, your Github account/fork) and applies it, instead of clients connecting to a single server where it is being resolved.",
+    "Git is the single client model.",
+    "One client, many servers.",
+    "And no one realises this? It flies in the face of what works. It's like having a webserver waiting for pull requests from the 'clients' which would be their data, their input. You, the browser, connect to a website where you wait for the website to contact you back. When it does, it decides whether it wants your input (your choices or browser choices you've made). Then it tries to merge your choices with its internal state. See how incongruent this is? We can't even think like that.",
+    "In such a system what would be the ultimate result is that since the webserver is now a client, it has only a single state; and hence all the servers that correspond with it receive the same data. There is only one state; there are no user accounts, there is not private data. That is the ultimate outcome of this model.",
+    "In Git there is only one version of the repo. There may be clones everywhere but they are not representative or authorative. Since there is only one version, you can destroy it. It is like having only one species of rice; when disaster strikes, all the rice in the world is wiped out. By some virus or whatever.",
+    "There is one client in Git, and a client always has one state. A server has many states; one for each client. In a real world you might also use many servers. As a client you go about and you shop; so too does the git maintainer, he goes about and he shops.",
+    "It's all about him or her. It is a very egocentric model. He is like the consumer who is offered advertisements. When he decides to, when he feels like it, he might buy some.",
+    "But there is only one client and only one state of the system. The states of the servers do not count. Each server still might have many different states, but does are not versions of the software, those are different projects that the server is working on.",
+    "If there is not a single Git mainainer (but the oposite) everyone gets to be this client and you get madness. Since that doesn't work at all, everyone advises to have just a single client and no longer be distributed.",
+    "You ight even say that not a single server maintains a correct version of the repo. The servers just offer bits and pieces just like shops don't offer your entire life, they sell just one project to you. One product. You're now living your life. Supposing you now have two maintainers.",
+    "There are now two clients but in real life when two people try to be the same person, you get madness. Two people, two clients, are going to be individua; it's a server that can maintain many identities for many different people. A server is someone who welcomes the crowd, or more individuals, to become a part or make a home there.",
+    "So you now have two indivdiuals. One indivdiual has made changes. Those may have resulted from servers and obviously they do, even he himself can be a server to himself, to his own client. Anyone who does work in Git is a server, not a client. The client only integrates, consumes.",
+    "Just like you integrate the products of others into your life. You are now an integrater. You are a maintainer and mostly also an a-- integrator. But now you have to integrators. Two of them.",
+    "And they have to agree to live the same life.",
+    "So now one integrator has integrated a bunch of new items and goody goody products. The send integrator has also integrated a buch of new goodies. Now they conflict. Since you now share a life, you have made as hared place: the shared repo. Integrator one has pushed something to the shared repo, but now integrator two wants to do the same. Integrator two has first to get and derive the latest integrations from integrator one and see if he agrees with that. Since merging is a relative thing (think Einstein) we can never know which version is more correct, so ti is now integrator #2's right to claim authority and to throw away changes from integrator #1. This is as far as I can get in understanding this.",
+    "There is no authority, so a merge from #1's repo to the shared repo, is the same thing as a merge from the shared repo to #1's repo. The end result is again a single version of the product that single version is pushed back and replaces the older version. Again, there is now only One Truth. Ad it is the truth they all have to believe in.",
+    "This is as far as I can get in understanding that that history was hiped or made inaccessible.",
+    "Log in to post comments",
+    "rfay",
+    "Sun, 2015-08-30 15:58",
+    "Permalink",
+    "Use pull requests, with a good puller",
+    "The bottom line all these years later: Just use Github's pull request methodology. It solves a lot of problems, including this one.",
+    "Log in to post comments",
+    "Xen (not verified)",
+    "Mon, 2015-08-31 03:53",
+    "Permalink",
+    "Pulling by a single person is",
+    "Pulling by a single person is the only thing that makes sense in Git, but for a large project that puts an increasingly big burden on the maintainer.",
+    "That makes me feel like Git is not meant for large projects. Maybe you can have a cascaded system where each maintainer maintains his own Git repository, but the actual Git repo's are merged on SVN. How then to separate the different repos? You don't. You have an automatic process by which the merges are done. Any merged Git is consistent; there is a mismatch between repos. I believe it would be logically and mathematically possible to resolve any conflict automatically within certain constraints. These contraints apply to a detailed knowledge of the history of the individual Git merge trees. If you don't have to merge just the result, but actually all of the indivdual commits, it becomes possible to auto-merge a very large part, because commits within one repo have already been resolved. The simple case is where the 2nd repo only has one commit to one file. If it can't be auto-merged, it means there has been a change in the same file resulting from another set of commits. If commits are atomic and small, chances are that this will not happen. That is typical knowledge.",
+    "I don't know much about SVN but I don't know what it offers. I think there is something about it that would make this possible.",
+    "Log in to post comments",
+    "Neil (not verified)",
+    "Wed, 2015-10-21 14:09",
+    "Permalink",
+    "Losing commits",
+    "about the discarded commits... the users should all have local repos too. They'd just need to do a pull, merge, and push their changes back up. Git _never_ discards commits unless you specifically tell it to. You can almost certainly undo the damage if you know what the gui did. Git revert (https://git-scm.com/docs/git-revert) would be a good start. It will still have his commit but it will restore HEAD to the point before his commit.",
+    "Also git via gui is a bad idea. You have no idea what the gui programmer is telling git to do, unless the gui pops a dialog with the git command it's about to run, so you can paste it into google and see what it's about to do to your repo (if you don't know)",
+    "Unless you delete your repository, it's nearly impossible to lose code when using git, as long as it was checked in at some point. You'd have to work really hard to lose your stuff.",
+    "-Neil",
+    "Log in to post comments",
+    "rfay",
+    "Wed, 2015-10-21 14:16",
+    "Permalink",
+    "Ah, but you miss the point - it's bad merges going on here",
+    "The problem is not losing commits, it's merges that are done wrong by users or tools that don't understand what they're doing. So we're talking about new commits, which remove info which should have been merged in.",
+    "If you always use the github-style pull request workflow, with a trusted person pulling, you'll not have this. Basically, this article is completely obsolete for teams that use that workflow. The problem described in this article is where many people push into the trusted repo, and they're not all so very git-savvy. Just have one person do it.",
+    "Log in to post comments",
+    "Pages",
+    "« first",
+    "‹ previous",
+    "1",
+    "2",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [],
+  "links": [
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/git",
+      "text": "git"
+    },
+    {
+      "internal": false,
+      "key": "http://git-scm.drupal.org",
+      "text": "Git source control management system"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/132175",
+      "text": "Marco Villegas"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/146719",
+      "text": "Sam Boyer"
+    },
+    {
+      "internal": true,
+      "key": "comment/3581",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3581",
+      "text": "My Misunderstanding"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/89%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3582",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3582",
+      "text": "Use pull requests, with a good puller"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/89%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3583",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3583",
+      "text": "Pulling by a single person is"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/89%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3597",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3597",
+      "text": "Losing commits"
+    },
+    {
+      "internal": false,
+      "key": "https://git-scm.com/docs/git-revert",
+      "text": "https://git-scm.com/docs/git-revert"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/89%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "comment/3598",
+      "text": "Permalink"
+    },
+    {
+      "internal": true,
+      "key": "comment/3598",
+      "text": "Ah, but you miss the point - it's bad merges going on here"
+    },
+    {
+      "internal": true,
+      "key": "user/login?destination=comment/reply/89%23comment-form",
+      "text": "Log in"
+    },
+    {
+      "internal": true,
+      "key": "content/avoiding-git-disasters-gory-story",
+      "text": "« first"
+    },
+    {
+      "internal": true,
+      "key": "content/avoiding-git-disasters-gory-story",
+      "text": "‹ previous"
+    },
+    {
+      "internal": true,
+      "key": "content/avoiding-git-disasters-gory-story",
+      "text": "1"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      },
+      {
+        "text": "Blogs",
+        "key": "blog"
+      },
+      {
+        "text": "rfay's blog",
+        "key": "blogs/rfay"
+      }
+    ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/user/132175",
+      "http://drupal.org/user/146719",
+      "http://facebook.com/randyfay",
+      "http://git-scm.drupal.org",
+      "http://hobobiker.com",
+      "https://git-scm.com/docs/git-revert"
+    ],
+    "internalNonOk": []
+  }
+}

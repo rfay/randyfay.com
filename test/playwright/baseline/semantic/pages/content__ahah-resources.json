@@ -185,5 +185,19 @@
         "key": "ahah"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api/file/developer/topics/forms_api_reference.html/6",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/348475",
+      "http://drupal.org/project/ahah_helper",
+      "http://drupal.org/project/examples",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://www.petercook.com.au",
+      "http://www.petercook.com.au/Drupal6-AHAH-Examples"
+    ],
+    "internalNonOk": []
   }
 }

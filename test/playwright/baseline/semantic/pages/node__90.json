@@ -273,5 +273,24 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://connect.microsoft.com",
+      "http://ddev.com/contact",
+      "http://drupal.org/support",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://iis.net",
+      "http://prodrupal.ru",
+      "http://support.microsoft.com",
+      "http://technet.microsoft.com",
+      "http://www.bing.com/search?q=how+to+report+a+bug+to+microsoft&go=&form=QBLH&qs=n&sk=&sc=1-26",
+      "http://www.blkmtn.org",
+      "http://www.coderintherye.com",
+      "http://www.hookuser.ch",
+      "http://www.iis.net/search.aspx?q=drupal"
+    ],
+    "internalNonOk": []
   }
 }

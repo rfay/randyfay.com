@@ -882,5 +882,28 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://advomatic.com",
+      "http://agaric.com",
+      "http://blog.riff.org",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/820334",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://php.net/manual/en/errorfunc.configuration.php",
+      "http://php.net/set_error_handler",
+      "http://pressflow.org",
+      "http://randyfay.com/files/e_notice.patch",
+      "http://randyfay.com/node/76",
+      "http://randyfay.com/sites/default/files/e_notice.patch",
+      "http://ryanparman.com",
+      "http://www.blakesenftner.com",
+      "http://www.blogthingee.com",
+      "http://www.istos.it",
+      "http://www.php.net/manual/en/errorfunc.constants.php"
+    ],
+    "internalNonOk": []
   }
 }

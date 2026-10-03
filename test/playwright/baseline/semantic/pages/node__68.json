@@ -91,5 +91,17 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://downloads.zend.com/pdt/server-debugger",
+      "http://drupal.org/node/157609",
+      "http://drupal.org/node/75242",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://www.zend.com/products/studio/downloads"
+    ],
+    "internalNonOk": []
   }
 }

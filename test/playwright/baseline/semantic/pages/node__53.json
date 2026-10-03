@@ -112,5 +112,15 @@
         "key": "ajax"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api/function/ajax_example_autocheckboxes/7",
+      "http://d7.drupalexamples.info/examples/ajax_example/autocheckboxes",
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": []
   }
 }

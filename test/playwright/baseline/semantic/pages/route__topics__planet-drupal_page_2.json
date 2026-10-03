@@ -1,0 +1,820 @@
+{
+  "title": "Planet Drupal | RandyFay.com",
+  "primaryHeading": "Planet Drupal",
+  "contentFound": true,
+  "lines": [
+    "Quick guide to wildcard Apache vhosts",
+    "Tue, 2010-08-24 15:06 by rfay",
+    "Planet Drupal",
+    "[Edit: Added wildcard DNS section at the end, also link to dnsmasq setup instructions; also quick info on nginx defaults]",
+    "After my Debugging Drupal talk at Copenhagen today a lot of people wanted to know how to use a wildcard virtualhost, so I promised a quick writeup.",
+    "The purpose here is to be able to deploy new virtualhost-style Drupal sites on your localhost without doing any apache configuration (or /etc/hosts, if you deploy a nameserver).",
+    "Most of the time Drupal works better (and more like your production site) if you run it as a production site. If I have a site like debugging_example.com, I run it locally as debugging_example.l. That's way better than localhost/debugging_example, because all the URLs work right, and it's clean URLs.",
+    "The basic idea of what you have to do:",
+    "Enable mod_vhost_alias in Apache",
+    "Configure a catchall virtualhost",
+    "Tweak your .htaccess by uncommenting one line",
+    "Make an entry in your /etc/hosts",
+    "Here's the quick version of how to do it:",
+    "Enable the mod_vhost_alias Apache module with sudo a2enmod vhost_alias (on Debian/Ubuntu, or however on your environment).",
+    "/etc/init.d/apache2 restart",
+    "Configure your httpd.conf or apache2.conf or whatever to provide a catchall. I use Debian/Ubuntu, and this is done with:",
+    "Create the file /etc/apache2/sites-available/catchall. Here is my catchall. You'll note you have to change the base path.",
+    "a2ensite catchall",
+    "/etc/init.d/apache2/reload",
+    "Make an entry in your hosts file for the virtualhost you want to use.",
+    "In your drupal .htaccess, uncomment the line that says",
+    "# RewriteBase /",
+    "so it says instead:",
+    "RewriteBase /",
+    "And if you are ambitious and don't like adding each entry to /etc/hosts, here's a crude recipe for running bind9 (debian/ubuntu) to automatically resolve anything. I use *.l:",
+    "/etc/bind/named.conf.local, add",
+    "zone \"l\" {",
+    "type master;",
+    "file \"/etc/bind/db.l\";",
+    "notify no;",
+    "};",
+    "Add the file /etc/bind/db.l, adjusted for your use:",
+    "$ttl 38400",
+    "@ IN SOA l.l. admin.l. (",
+    "2009091700",
+    "10800",
+    "3600",
+    "604800",
+    "38400 )",
+    "l. IN NS localhost.",
+    "*.l. IN CNAME localhost",
+    "Change your computer to use localhost to resolve names. You can do this in the network config applet.",
+    "Update 2011-05-03: You might be interested in this article which shows how to do the same thing using dnsmasq, a lighter-weight DNS server.",
+    "Update 2011-05-03: To do the same thing in nginx as we did with Apache, this rule in /etc/nginx/sites-available/default will make nginx recognize any hostname like xxx.l or xxx.b or xxx.bigsony or www.xxx.b and send it to the /home/rfay/workspace/xxx directory.",
+    "server_name ~^(www.)?(?.+).(l|bigsony|b)$;",
+    "root /home/rfay/workspace/$domain;",
+    "Drupal 7 File API Changes",
+    "Mon, 2010-09-06 10:38 by rfay",
+    "Planet Drupal",
+    "Drupal 7 has had a major (read huge, life-altering) change to its file API. Hopefully it's all good, but you definitely need to understand it if you're porting or developing any D7 modules.",
+    "There are two key changes, which I'll deal with one at at time:",
+    "Files are accessed using \"streamwrapper\" or \"scheme\" notation, and your module doesn't even have a way to know where they are located. This means filenames like \"public://my_module/some_file.jpg\", \"private://my_module/some_privately_controlled_file.txt\", or \"temporary://tempfile.txt\".",
+    "The APIs have been split into \"managed\" and \"unmanaged\" versions. So if you're using a file that needs to be tracked in the database, you use the managed version of a function (like file_copy()), but if you're just uploading a file or moving it around and no reference needs to be maintained in the database, you use the unmanaged version (like file_unmanaged_copy()).",
+    "Streamwrappers, schemes, and targets",
+    "A long time ago in a faraway place a decision was made to hide the structure of files from applications using the files. This system was called \"streams\" and was a cornerstone of the Unix system, which is now the Linux system that powers all our webservers. The idea was that you could use one set of functions (system calls) to interact with any kind of filesystem (or things that weren't files) and you'd never know the difference. The idea called \"streams\" has made it into nearly all modern computing, and has been enhanced in PHP with the idea of naming files with a \"streamwrapper\" notation. This just means that the filename has a \"scheme\" followed by \"://\" and then a \"target\", which is essentially the path in the filesystem (assuming there is a filesystem).",
+    "So in Drupal 7 we have switched almost entirely to using streamwrapper notation for filenames. For public files it would be public://something..., for private private://something..., and temporary files are also available. In addition, a Drupal module can implement the DrupalStreamWrapperInterface class to provide more streamwrappers. The File Example module provides session://, which allows file storage in $_SESSION as a demonstration. (Hopefully there's no legitimate use for this.)",
+    "PHP also provides a number of other types of scheme, including file://, ftp://, http://, etc.",
+    "The rules of what functions can access what streamwrappers are basically:",
+    "PHP file functions (like fopen()) can use any streamwrapper file (including Drupal schemes public://, private://, or other Drupal-module-provided schemes)",
+    "Unmanaged Drupal API functions (like file_unmanaged_copy()) can access any streamwrapper filename",
+    "Managed Drupal API functions like (file_copy()) can access only Drupal-provided streamwrapper schemes (including those provided by add-on modules)",
+    "Basically, it's just like the old days, though, you open, copy, or write to a file. It happens that when you open the file you use a streamwrapper-based filename like \"public://\". Most people, most of the time, will just use \"public://something\".",
+    "Managed and Unmanaged Drupal APIs",
+    "There are two \"layers\" of Drupal File APIs now, the \"managed\" and the \"unmanaged\". (And then of course there are the PHP file functions as well.) The \"managed\" APIs maintain an entry in the file_managed table so that the file can be accessed later. Most modules that use a file for more than an immediate one-time need will be using managed files.",
+    "The unmanaged functions do basically the same thing as their underlying PHP counterparts. If you ask file_unmanaged_copy() to copy a file, it does it, which checking permissions and a number of other things. Nothing gets put in the database.",
+    "The File Example in Examples Project",
+    "The new File Example in the Examples for Developers Project demonstrates how to use a number of these APIs. It also implements a full Drupal streamwrapper interface, but that's a topic for another blog post.",
+    "File API Documentation in the Handbook",
+    "Here are some documentation starters for the Drupal 7 File API. More work is needed, of course, so please improve these pages.",
+    "D7 File API entry point",
+    "Important Drupal 7 File API Functions",
+    "File API changes from Drupal 6 to Drupal 7",
+    "API.drupal.org on file functions in Drupal 7",
+    "Form API Changes for Drupal 7, Part 2: AJAX/AHAH Changes",
+    "Tue, 2010-09-07 03:41 by rfay",
+    "AJAX",
+    "Planet Drupal",
+    "Forms",
+    "Continuing from Form API Changes for Drupal 7, Part 1: $form_state changes.",
+    "One of the many pleasant improvements to the Drupal Form API is that AJAX Forms are now really easy. Really easy. We used to call them AHAH forms, and the concept was the same, but they were so complicated that few people attempted them. In D7 we even changed the name to distance ourselves from \"AHAH\" :-)",
+    "In Drupal 6 you had to make a menu entry in hook_menu() that pointed to an AJAX callback handler that was complete black magic. (See a sanitized example.) People did this part differently, and it was hard to figure out the right way. (If you're doing D6 AHAH, the gory details and resources are here.)",
+    "In Drupal 7 there is none of that. But we still have to start with the basics so that you'll understand what's going on:",
+    "The key idea here is that manipulating a form element will make something active happen (usually replacement of a piece of the form) without a full page refresh. For example, changing a select might change the options in the rest of the form, without a page refresh.",
+    "To use AJAX forms, you don't need to know or use or see any javascript. It's all handled for you by the Form API.",
+    "To AJAX-enable a form element (to make it do something active when it's manipulated) you just set the #ajax property on it",
+    "When the form element changes (or is clicked, or whatever) a form submission is done by the client in the background.",
+    "The server-side code rebuilds the form (in the formbuilder function) in a different way",
+    "The #ajax['callback'] function chooses what part of the form to replace on the page",
+    "Replacement HTML is returned to the client javascript code, which replaces a part of the page.",
+    "OK, so here's all you have to do to AJAXify a form:",
+    "In your form, set #ajax on an element, perhaps a select.",
+    "Your formbuilder function should have logic to rebuild differently when the select changes. (See the simple formbuilder in ajax_example_autocheckboxes.)",
+    "#ajax['callback'] will point to a (typically simple) function which often only selects and returns the changed piece of the form. (See the tremendously simple ajax_example_autocheckboxes_callback.)",
+    "That's basically it. Of course you can do lots and lots more than this, but the basic entry point for AJAX forms is mighty easy.",
+    "Submit handler is not called when a non-submit is called",
+    "One key change from Drupal 6 to be aware of is that when you activate a non-submit AJAX-enabled form element, the submit handlers are not called. In Drupal 6, submit handlers were called, and a bit of spaghetti code was typically done there.",
+    "Drupal 7 AJAX Forms Resources",
+    "Drupal.org handbook page on AJAX Forms",
+    "Examples for Developers AJAX Example has many AJAX Form examples, including more complex gracefully-degrading techniques. This is also quickly accessible on api.drupal.org",
+    "Explanation details for the some of the AJAX Examples",
+    "Key D7 AJAX Open Issues",
+    "There are still a few of important open issues for D7 AJAX that you may want to look at:",
+    "Fix drupal_add_js() and drupal_add_css() to work for AJAX requests too by adding lazy-load to AJAX framework (Absolutely critical - add your +1 to this, or help out)",
+    "#type 'link' is not ajaxifiable",
+    "Improve drupalPostAJAX() to be used more easily, leading to better AJAX test coverage",
+    "Next time: Drupal 7 multistep form changes.",
+    "Want to help the Drupal Testing Infrastructure? Provide a testbot!",
+    "Thu, 2010-09-09 06:37 by rfay",
+    "Planet Drupal",
+    "Edit: This initiative wasn't really successful, but since this was written the testbots migrated onto the OSUOSL Supercell infrastructure. The center for information about the testbots is the Testbot project and issue queue.",
+    "Do you have some spare computing power, or want to provide some to the Drupal testing infrastructure?",
+    "You probably know that every commit and every patch submitted to Drupal 7 Core gets a full test (more than 20,000 assertions) taking 25 minutes on non-trivial computer hardware. So we can generally use more computing power. For the code sprint at Drupalcon Copenhagen, we had 13 machines testing patches so that everybody could get the fastest possible turnaround.",
+    "Anyway, it's not hard to do it. You can either install a machine with Debian 5 and go through a simple setup, or just use the free Virtualbox program with a pre-set configuration. That way you don't have to blow away an existing machine's configuration, and you can still return it to its old life after it's served as a PIFR client for awhile. (PIFR is Project Issue File Review).",
+    "There is a new writeup on qa.drupal.org explaining how you too can provide a testbot. Your testbot has to be able to reach the internet (and qa.drupal.org) but it does not have to be reachable from the internet, and it does not have to have a fast internet connection. It just does its work and then returns the results.",
+    "The only thing we ask is that you take care of your testbot. Don't turn it off without first disabling it on qa.drupal.org. Don't forget about it and have it all broken and everything up there. It makes things complicated and it makes a mess on http://qa.drupal.org/pifr/status :-)",
+    "Thanks!",
+    "If you edit PHP code, please work with E_NOTICE turned on!!!",
+    "Tue, 2010-09-14 02:09 by rfay",
+    "Planet Drupal",
+    "Best Practices",
+    "It's a Drupal and PHP best practice to develop with E_NOTICE turned on. Please do.",
+    "I installed a new contrib project from Drupal.org yesterday and found a whole bunch of warnings emitted to the screen. It turned out that the developer of the project had not (apparently) been working with E_NOTICE properly enabled in their development environment and so had never seen these. Two of them were actually obvious logic failures. You want to know when PHP is complaining about your code! (Make sure you have error/warning reporting to screen turned on during development too!)",
+    "So here's the deal: PHP has a flag called E_NOTICE. In release version of Drupal it's ignored (in includes/common.inc, drupal_error_handler()). In dev versions of Drupal and in Pressflow it's enabled. Anybody who ever edits PHP code during development should have this turned on. So you can",
+    "Use a development version of Drupal",
+    "Use Pressflow",
+    "Or apply this patch to your Drupal stable install (works on D6)",
+    "Why does this matter to you? Because if you make a single mistake, like using a misspelled variable, you won't know about it! You might do something like:",
+    "$x = $varable;",
+    "by accident, just a simple typo. If you have E_NOTICE enabled, you'll get a complaint and can fix it right away. If you don't, you've introduced a hard-to-find bug.",
+    "What about contrib modules/themes that have warnings? Well, we need to get them fixed. Please, fix them up. We wouldn't have this problem if all if everybody did what's promoted here. But it's easy enough: Fix the problem and file a patch. That's what I did last night.",
+    "Please everybody: Run your dev environment with E_NOTICE, and fix problems when you find them. Let's make contrib and our site run clean.",
+    "Views: Making a view show different content to different users based on role",
+    "Fri, 2010-09-17 15:50 by rfay",
+    "Planet Drupal",
+    "greggles showed me how to make a view show different content to different users by role the other day, so I thought I'd write it down.",
+    "The goal: Displaying different nodes to administrators than I show to just authenticated users and that different than what anon users see. (In this case, I'll show pages to administrators, stories to authenticated users who are not administrators, and articles to anonymous users.)",
+    "The strategy: Create three different displays in the view, each of which is limited to a particular role, and each of which has its own filter. The administrator display has a filter that chooses pages, auth user one that chooses stories, etc.",
+    "The devil's details: The displays must be ordered by most restrictive to anonymous. The displays are apparently attempted in the order they're shown on the views edit screen. So we need the most restrictive (administrator) first. On that one only administrators will succeed. The next display has the authenticated users, etc.",
+    "I've attached a feature that demonstrates this. It provides a page, story, and article content type (provided in the feature) and a demonstration view. And some content in them. You'll need Features Module to try it out. But if you haven't tried out features yet, your life is draining away before your very eyes, so use this as a chance to try it out.",
+    "Thanks to all of you who pointed out on Twitter other ways to do this (with other tools):",
+    "Panels knows how to do this easily using the CTools context system.",
+    "Content Access and all related node access modules can do it by denying access to content (which we're not doing here; we're just affecting the display).",
+    "(And thanks Greggles for this great working solution.)",
+    "I don't think Context module knows how to change the primary content for a URL. It can do everything with the rest of the stuff on the page. Please correct me!",
+    "Attachment",
+    "Size",
+    "demo_role_content_feature-6.x-1.0.tar_.gz",
+    "0 bytes",
+    "Coolest modules (and theme) of the week",
+    "Sat, 2010-09-18 04:13 by rfay",
+    "Planet Drupal",
+    "I met some incredibly cool new modules (and a theme) this week that have really increased my range as a sitebuilder. You should check them out if you haven't already:",
+    "Sweaver: Incredibly, this lets you adjust your site's appearance easily and intuitively on the fly. Just diddle with the font! Change the background color of a region, or add a background graphic. Incredible.",
+    "Context: Quit procrastinating. Context is easy to use and easy to understand and will vastly increase your ability to configure the appearance and behavior of a page or section. Seriously. You don't have to wait. It just works. It's intuitive. Try it.",
+    "@Font-your-face: You can really have a billion free web fonts that actually work in all modern browsers on all platforms. No more weird graphics creation. So easy to use. Again, this doesn't take any time or effort. Just try it.",
+    "Omega theme: I'm finally being dragged kicking and screaming and naive into the 960gs world. I'm clearly no designer, but Omega's robust capabilities and documentation are going to work for me. And there's even a D7 version already. This one takes a little time to come to terms with, but it's well worth the effort. Lots of great documentation and videos.",
+    "Drupal 7 Render Arrays (and the new Render Example)",
+    "Sun, 2010-10-03 22:25 by rfay",
+    "Planet Drupal",
+    "If you're like me you've heard \"render arrays\" or \"renderable arrays\" over and over again in the Drupal 7 development cycle, but you might not have really understood what it was all about. Here are the results of my own exploration in developing the new Render Example for the Examples project.",
+    "Remember the Form API? Or the content section of a $node or a $user in Drupal 6? Basically now everything is kept in a form like that until the very last minute in D7.",
+    "What's this about \"rendering\"?",
+    "Rendering in the Drupal world means turning structured \"render\" arrays into HTML.",
+    "What is a render array?",
+    "A render array is a classic Drupal structured array that provides data (probably nested) along with hints as to how it should be rendered (properties, like #type). A page array might look like this:",
+    "$page = array(",
+    "'#show_messages' => TRUE,",
+    "'#theme' => 'page',",
+    "'#type' => 'page',",
+    "'content' => array(",
+    "'system_main' => array(...),",
+    "'another_block' => array(...),",
+    "'#sorted' => TRUE,",
+    "),",
+    "'sidebar_first' => array(",
+    "...",
+    "),",
+    "'footer' => array(",
+    "...",
+    "),",
+    "...",
+    ");",
+    "Why was this done?",
+    "Before Drupal 7, we could alter things like forms (with hook_form_alter()), but so many other things that needed to be altered by a module or a theme had already been rendered into HTML before any rational thing could be done with them.",
+    "Now, in Drupal 7, a module or a theme can use hook_page_alter() to change the layout or content of the page at the very last moment. This means that a tidbit of PHP code in a theme can put that block over on the right side on one page when the customer needs it there.",
+    "Altering",
+    "Both blocks and pages can be altered just as forms have been alterable for some time. Many other types are also alterable. With hook_page_alter() we can do things like this:",
+    "function mymodule_page_alter(&$page) {",
+    "// Move search form into the footer.",
+    "$page['footer']['search_form'] = $page['sidebar_first']['search_form'];",
+    "unset($page['sidebar_first']['search_form']);",
+    "// Remove the \"powered by Drupal\" block",
+    "unset($page['footer']['system_powered-by']);",
+    "}",
+    "Creating Content With Arrays",
+    "Unlike in past versions of Drupal, almost any time a module creates content, it should be in the form of a render array. A page callback should return a render array, as should hook_block_view()'s $block['content']. This allows your module and other modules to treat the content as data for as long as possible in the page generation process. This will lead to amazing performance, caching, and micro-rendering techniques as we go forward, as well as the wonderful play-candy we now have with being able to alter everything.",
+    "So a page callback might return this instead of the Drupal 6 method of rendering the data and gathering it as HTML:",
+    "return array(",
+    "'first_para' => array(",
+    "'#type' => 'markup',",
+    "'#markup' => 'A first paragraph',",
+    "),",
+    "'second_para' => array(",
+    "array('first item', 'second item', 'third item'),",
+    "'#theme' => 'item_list',",
+    "),",
+    ");",
+    "Examples of Specific Array Types",
+    "As in the past, every Drupal \"element\" (see hook_element_info(), which was hook_elements() in Drupal 6) is a type. So anything that core exposes as an element or that an installed module exposes is available. Looking through system_element_info() we see a pile of predefined #types, including page, form, html_tag, value, markup, link, fieldset and many more. You can also create types and properties on the fly. It's the Wild West out there.",
+    "Here are three example pulled from the Examples Project's Render Example.",
+    "$demos = array(",
+    "t('Super simple #markup') => array(",
+    "'#markup' => t('Some basic text in a #markup (shows basic markup and how it is rendered)'),",
+    "),",
+    "'prefix_suffix') => array(",
+    "'#markup' => t('This one adds a prefix and suffix, which put a div around the item'),",
+    "'#prefix' => '",
+    "(prefix)",
+    "',",
+    "'#suffix' => '",
+    "(suffix)",
+    "',",
+    "),",
+    "'theme for an element' => array(",
+    "'child' => array(",
+    "t('This is some text that should be put together'),",
+    "t('This is some more text that we need'),",
+    "),",
+    "'#separator' => ' | ', // Made up for this theme function.",
+    "'#theme' => 'render_example_aggregate',",
+    "),",
+    ");",
+    "A Sampling of Properties",
+    "Many, many properties can be applied in a given render array, and they can be created as needed. This will attempt to cover some of the most common.",
+    "Note that many of these properties are documented in the Form API Reference because the Form API has always used Render API properties, but they've traditionally not been documented as Render API properties, which they clearly are now in Drupal 7.",
+    "Property",
+    "Description",
+    "#type",
+    "The Element type. If this array is an element, this will cause the default element properties to be loaded, so in many ways this is shorthand for a set of predefined properties which will have been arranged through hook_element_info().",
+    "#markup",
+    "The simplest property, this simply provides a markup string for #type == 'markup'",
+    "#prefix/#suffix",
+    "A string to be prefixed or suffixed to the element being rendered",
+    "#pre_render",
+    "An array of functions which may alter the actual render array before it is rendered. They can rearrange, remove parts, set #printed = TRUE to prevent further rendering, etc.",
+    "#post_render",
+    "An array of functions which may operate on the rendered HTML after rendering. A #post_render function receives both the rendered HTML and the render array from which it was rendered, and can use those to change the rendered HTML (it could add to it, etc.). This is in many ways the same as #theme_wrappers except that the theming subsystem is not used.",
+    "#theme",
+    "A theme hook (or array of theme hooks, but usually a singleton) which will take full responsibility for rendering this array element, including its children. It has predetermined knowledge of the structure of the element. Note: #theme in Drupal 7 and #theme in Drupal 6 are not really related. If you just stop thinking about Drupal 6 here you will have an easier time.",
+    "#theme_wrappers",
+    "An array of theme hooks which will get the chance to add to the rendering after children have been rendered and placed into #children. This is typically used to add HTML wrappers around rendered children, and is commonly used when the children are being rendered recursively using their own theming information. It is rare to use it with #theme.",
+    "#cache",
+    "Mark the array as cacheable and determine its expiration time, etc. Once the given render array has been rendered, it will not be rendered again until the cache expires. Caching uses standard Drupal cache_get() and cache_set() techniques. This is an array of",
+    "'keys' => an array of keys which will be concatenated to form the cache key.",
+    "'bin' => the name of the cache bin to be used (as in 'cache' or 'cache_page', etc.",
+    "'expire' => a Unix timestamp indicating the expiration time of the cache.",
+    "'granularity' => a bitmask indicating the cache type. This should be DRUPAL_CACHE_PER_PAGE, DRUPAL_CACHE_PER_ROLE, or DRUPAL_CACHE_PER_USER",
+    "Note that items marked with #cache will not be expired until cron runs, regardless of the expiration time used.",
+    "Since every element type can declare its own properties, there are many more. Many of these (often specific to a particular element type) are described on the Form API Reference handbook page.",
+    "Corrections",
+    "I'm not one of the designers or developers of the new Render API, so I'm well aware that there are gaps in my understanding. I'll attempt to update this article with all feedback I receive. More important, the Drupal.org handbook now has a page where this information can be captured.",
+    "Resources",
+    "Render Array Handbook Page on Drupal.org",
+    "Moshe Weitzman's Drupalcon San Francisco Presentation",
+    "The drupal_render() code.",
+    "The Render Example module in the Examples Project is a great way to explore render arrays. It has demonstrations of their use and allows you to explore the actual arrays describing any page.",
+    "Stashing data in the D7 User Object (or... no more magical fairy cruft saving)",
+    "Mon, 2010-12-13 07:27 by rfay",
+    "Planet Drupal",
+    "A unique and surprising feature of the Drupal user object up through Drupal 6 was that you could throw any crap into it you wanted and then run user_save() and it would be there. So in Drupal 6:",
+    "user_save($account, array('some_random_stuff' => 'surprisingly random');",
+    "Well, that always seemed way too easy and it was. After a security problem was discovered with this in way early D7 alpha days, it was decided to make this far more explicit and deliberate. Now you have to have implement hook_user_presave() to actually move your data into the right place and prove that you really wanted to do it.",
+    "Best practice says that we're going to save settings into the user object keyed by the module name. So if my module is named 'mymodule' in Drupal 7:",
+    "...",
+    "$stuff = array('some_random_stuff' => 'surprisingly_random');",
+    "user_save($account, array('mymodule' => $stuff);",
+    "...",
+    "function mymodule_user_presave(&$edit, $account, $category) {",
+    "// Make sure that our form value 'mymodule_foo' is stored as 'mymodule_bar'.",
+    "if (isset($edit['mymodule']['some_random_stuff'])) {",
+    "$edit['data']['mymodule']['some_random_stuff'] = $edit['mymodule']['some_random_stuff'];",
+    "}",
+    "}",
+    "This is demonstrated, but not so well explained, in hook_user_presave(). The issue where this was done is #721436.",
+    "Note that the entire data column in the users table will probably be removed in Drupal 8, so the \"preferred\" storage technique of storing data in a module-owned table may be an appropriate and future-proof approach.",
+    "Starting work for Commerce Guys!",
+    "Fri, 2011-01-14 09:37 by rfay",
+    "Planet Drupal",
+    "I'm thrilled to announce that I'm going to work for Commerce Guys starting tomorrow. Yes, a real job! I'm looking forward to working with some great people on some fun projects, and of course Commerce Guys is well known for promoting contributions to Drupal and the Drupal community.",
+    "My first act will be to participate in the Drupal Commerce code sprint in Paris next week, and wow, am I looking forward to that.",
+    "Woohoo!",
+    "Pages",
+    "« first",
+    "‹ previous",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "next ›",
+    "last »",
+    "Where to find me",
+    "Email me, randy at randyfay.com, Find me on ddev.com, Drupal.org and Slack: rfay, Facebook: randyfay, Hobobiker.com: The story of our 2 1/2 year bike trip.",
+    "Updated 2025-12-03",
+    "Search"
+  ],
+  "images": [
+    {
+      "src": "/core/modules/file/icons/application-octet-stream.png",
+      "name": "application-octet-stream.png",
+      "alt": "Binary Data"
+    }
+  ],
+  "links": [
+    {
+      "internal": true,
+      "key": "content/quick-guide-wildcard-apache-vhosts",
+      "text": "Quick guide to wildcard Apache vhosts"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://cph2010.drupal.org/sessions/debugging-drupal-hands-techniques",
+      "text": "Debugging Drupal talk at Copenhagen"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/sites/default/files/catchall",
+      "text": "Here is my catchall"
+    },
+    {
+      "internal": false,
+      "key": "http://mojahmedia.com/using-dnsmasq-and-virtual-host-wildcards-drupal-development.html",
+      "text": "this article"
+    },
+    {
+      "internal": false,
+      "key": "http://www.xxx.b",
+      "text": "www.xxx.b"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-7-file-api-changes",
+      "text": "Drupal 7 File API Changes"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/file_example/7",
+      "text": "File Example"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers Project"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/555118",
+      "text": "D7 File API entry point"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/877212",
+      "text": "Important Drupal 7 File API Functions"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/877214",
+      "text": "File API changes from Drupal 6 to Drupal 7"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/file/7",
+      "text": "API.drupal.org on file functions in Drupal 7"
+    },
+    {
+      "internal": true,
+      "key": "content/form-api-changes-drupal-7-part-2-ajaxahah-changes",
+      "text": "Form API Changes for Drupal 7, Part 2: AJAX/AHAH Changes"
+    },
+    {
+      "internal": true,
+      "key": "topics/ajax",
+      "text": "AJAX"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/forms",
+      "text": "Forms"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/66",
+      "text": "Form API Changes for Drupal 7, Part 1: $form_state changes"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ahah_example_callback_helper/6",
+      "text": "sanitized example"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/ahah",
+      "text": "here"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7#ajax",
+      "text": "#ajax"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7#ajax",
+      "text": "#ajax"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_autocheckboxes/7",
+      "text": "ajax_example_autocheckboxes"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/ajax_example_autocheckboxes_callback/7",
+      "text": "ajax_example_autocheckboxes_callback"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/752056",
+      "text": "Drupal.org handbook page on AJAX Forms"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples for Developers"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/group/ajax_examples/7",
+      "text": "api.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/ajax",
+      "text": "Explanation details for the some of the AJAX Examples"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/561858",
+      "text": "Fix drupal_add_js() and drupal_add_css() to work for AJAX requests too by adding lazy-load to AJAX framework"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/647228",
+      "text": "#type 'link' is not ajaxifiable"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/789186",
+      "text": "Improve drupalPostAJAX() to be used more easily, leading to better AJAX test coverage"
+    },
+    {
+      "internal": true,
+      "key": "content/want-help-drupal-testing-infrastructure-provide-testbot",
+      "text": "Want to help the Drupal Testing Infrastructure? Provide a testbot!"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/node/99",
+      "text": "migrated onto the OSUOSL Supercell infrastructure"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/testbot",
+      "text": "Testbot project and issue queue"
+    },
+    {
+      "internal": false,
+      "key": "http://qa.drupal.org/node/84",
+      "text": "new writeup on qa.drupal.org"
+    },
+    {
+      "internal": false,
+      "key": "http://qa.drupal.org/pifr/status",
+      "text": "http://qa.drupal.org/pifr/status"
+    },
+    {
+      "internal": true,
+      "key": "content/if-you-edit-php-code-please-work-enotice-turned",
+      "text": "If you edit PHP code, please work with E_NOTICE turned on!!!"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/best-practices",
+      "text": "Best Practices"
+    },
+    {
+      "internal": false,
+      "key": "http://php.net/manual/en/errorfunc.configuration.php",
+      "text": "E_NOTICE"
+    },
+    {
+      "internal": false,
+      "key": "http://pressflow.org",
+      "text": "Pressflow"
+    },
+    {
+      "internal": false,
+      "key": "http://randyfay.com/sites/default/files/e_notice.patch",
+      "text": "this patch"
+    },
+    {
+      "internal": true,
+      "key": "content/views-making-view-show-different-content-different-users-based-role",
+      "text": "Views: Making a view show different content to different users based on role"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/user/36762",
+      "text": "greggles"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/features",
+      "text": "Features Module"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/panels",
+      "text": "Panels"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/content_access",
+      "text": "Content Access"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/context",
+      "text": "Context module"
+    },
+    {
+      "internal": true,
+      "key": "sites/default/files/demo_role_content_feature-6.x-1.0.tar_.gz",
+      "text": "demo_role_content_feature-6.x-1.0.tar_.gz"
+    },
+    {
+      "internal": true,
+      "key": "content/coolest-modules-and-theme-week",
+      "text": "Coolest modules (and theme) of the week"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/sweaver",
+      "text": "Sweaver"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/context",
+      "text": "Context"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/fontyourface",
+      "text": "@Font-your-face"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/omega",
+      "text": "Omega theme"
+    },
+    {
+      "internal": true,
+      "key": "content/drupal-7-render-arrays-and-new-render-example",
+      "text": "Drupal 7 Render Arrays (and the new Render Example)"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples Project's"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7",
+      "text": "Form API Reference"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/930760",
+      "text": "a page where this information can be captured"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/930760",
+      "text": "Render Array Handbook Page"
+    },
+    {
+      "internal": false,
+      "key": "http://sf2010.drupal.org/conference/sessions/page-render-drill-down-drupal-7",
+      "text": "Moshe Weitzman's Drupalcon San Francisco Presentation"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/function/drupal_render/7",
+      "text": "drupal_render() code"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/project/examples",
+      "text": "Examples Project"
+    },
+    {
+      "internal": true,
+      "key": "content/stashing-data-d7-user-object-or-no-more-magical-fairy-cruft-saving",
+      "text": "Stashing data in the D7 User Object (or... no more magical fairy cruft saving)"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": false,
+      "key": "http://api.drupal.org/api/drupal/modules--user--user.api.php/function/hook_user_presave/7",
+      "text": "hook_user_presave()"
+    },
+    {
+      "internal": false,
+      "key": "http://drupal.org/node/721436",
+      "text": "#721436"
+    },
+    {
+      "internal": true,
+      "key": "content/starting-work-commerce-guys",
+      "text": "Starting work for Commerce Guys!"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "Planet Drupal"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "« first"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=1",
+      "text": "‹ previous"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal",
+      "text": "1"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=1",
+      "text": "2"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=3",
+      "text": "4"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=4",
+      "text": "5"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=5",
+      "text": "6"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=6",
+      "text": "7"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=3",
+      "text": "next ›"
+    },
+    {
+      "internal": true,
+      "key": "topics/planet-drupal?page=6",
+      "text": "last »"
+    },
+    {
+      "internal": false,
+      "key": "http://ddev.com/contact",
+      "text": "ddev.com"
+    },
+    {
+      "internal": false,
+      "key": "http://facebook.com/randyfay",
+      "text": "randyfay"
+    },
+    {
+      "internal": false,
+      "key": "http://hobobiker.com",
+      "text": "Hobobiker.com"
+    }
+  ],
+  "menus": {
+    "breadcrumb": [
+      {
+        "text": "Home",
+        "key": ""
+      }
+    ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7",
+      "http://api.drupal.org/api/drupal/modules--user--user.api.php/function/hook_user_presave/7",
+      "http://api.drupal.org/api/function/ahah_example_callback_helper/6",
+      "http://api.drupal.org/api/function/ajax_example_autocheckboxes/7",
+      "http://api.drupal.org/api/function/ajax_example_autocheckboxes_callback/7",
+      "http://api.drupal.org/api/function/drupal_render/7",
+      "http://api.drupal.org/api/group/ajax_examples/7",
+      "http://api.drupal.org/api/group/file/7",
+      "http://api.drupal.org/api/group/file_example/7",
+      "http://cph2010.drupal.org/sessions/debugging-drupal-hands-techniques",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/555118",
+      "http://drupal.org/node/561858",
+      "http://drupal.org/node/647228",
+      "http://drupal.org/node/721436",
+      "http://drupal.org/node/752056",
+      "http://drupal.org/node/789186",
+      "http://drupal.org/node/877212",
+      "http://drupal.org/node/877214",
+      "http://drupal.org/node/930760",
+      "http://drupal.org/project/content_access",
+      "http://drupal.org/project/context",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/features",
+      "http://drupal.org/project/fontyourface",
+      "http://drupal.org/project/omega",
+      "http://drupal.org/project/panels",
+      "http://drupal.org/project/sweaver",
+      "http://drupal.org/project/testbot",
+      "http://drupal.org/user/36762",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://mojahmedia.com/using-dnsmasq-and-virtual-host-wildcards-drupal-development.html",
+      "http://php.net/manual/en/errorfunc.configuration.php",
+      "http://pressflow.org",
+      "http://qa.drupal.org/node/84",
+      "http://qa.drupal.org/pifr/status",
+      "http://randyfay.com/ahah",
+      "http://randyfay.com/ajax",
+      "http://randyfay.com/node/66",
+      "http://randyfay.com/node/99",
+      "http://randyfay.com/sites/default/files/catchall",
+      "http://randyfay.com/sites/default/files/e_notice.patch",
+      "http://sf2010.drupal.org/conference/sessions/page-render-drill-down-drupal-7",
+      "http://www.xxx.b"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      },
+      {
+        "key": "sites/default/files/demo_role_content_feature-6.x-1.0.tar_.gz",
+        "status": 404
+      }
+    ]
+  }
+}

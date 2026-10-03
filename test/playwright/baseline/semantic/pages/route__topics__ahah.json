@@ -566,5 +566,29 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api/file/developer/topics/forms_api_reference.html/6",
+      "http://d6.drupalexamples.info/examples/ahah_example/autocheckboxes",
+      "http://d6.drupalexamples.info/examples/ahah_example/autotextfields",
+      "http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah",
+      "http://d6.drupalexamples.info/examples/ahah_example/simplest_ahah/callback",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/348475",
+      "http://drupal.org/project/ahah_helper",
+      "http://drupal.org/project/amazon_store",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/quicktabs",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://randyfay.com/ajax"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

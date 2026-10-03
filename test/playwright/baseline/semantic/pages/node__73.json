@@ -137,5 +137,21 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api/group/file/7",
+      "http://api.drupal.org/api/group/file_example/7",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/555118",
+      "http://drupal.org/node/877212",
+      "http://drupal.org/node/877214",
+      "http://drupal.org/project/examples",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://michaelshadle.com",
+      "http://www.bywombats.com"
+    ],
+    "internalNonOk": []
   }
 }

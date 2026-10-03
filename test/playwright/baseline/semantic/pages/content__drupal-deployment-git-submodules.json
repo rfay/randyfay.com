@@ -1137,5 +1137,32 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ao2.it",
+      "http://barraponto.blog.br",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/1158510",
+      "http://drupal.org/node/1372442",
+      "http://drupal.org/project/git_deploy",
+      "http://drupal.org/user/397127",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://kitenet.net/~joey/code/mr",
+      "http://penyaskito.com",
+      "http://player.vimeo.com/video/33997865?title=0&byline=0&portrait=0",
+      "http://player.vimeo.com/video/34029489?title=0&byline=0&portrait=0",
+      "http://progit.org",
+      "http://progit.org/book/ch6-6.html",
+      "http://rocafuerte.se",
+      "http://rowlandsgroup.com",
+      "http://stackoverflow.com/questions/6500524/git-subtree-or-gitslave-if-switch-away-from-git-submodules",
+      "http://www.cdfotos.com",
+      "http://www.colorado.edu",
+      "http://www.motorproductions.ch",
+      "https://projects.commerceguys.com/projects/general/wiki/GitForDrupal"
+    ],
+    "internalNonOk": []
   }
 }

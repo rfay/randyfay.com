@@ -40,5 +40,15 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://paris2009.drupalcon.org/session/debugging-drupal",
+      "http://paris2009.drupalcon.org/session/howto-creating-ctools-plugins-panels-and-related-modules"
+    ],
+    "internalNonOk": []
   }
 }

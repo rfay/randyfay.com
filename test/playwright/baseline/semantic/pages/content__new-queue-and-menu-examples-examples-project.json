@@ -159,5 +159,23 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org",
+      "http://api.drupal.org/api/drupal/developer--examples--menu_example--menu_example.module/6",
+      "http://api.drupal.org/api/drupal/developer--examples--queue_example--queue_example.module/7",
+      "http://d7.drupalexamples.info",
+      "http://d7.drupalexamples.info/menu_example",
+      "http://d7.drupalexamples.info/queue_example/insert_remove",
+      "http://ddev.com/contact",
+      "http://druler.com",
+      "http://drupal.org/project/drupal_queue",
+      "http://drupal.org/project/examples",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://www.nicklewis.org"
+    ],
+    "internalNonOk": []
   }
 }

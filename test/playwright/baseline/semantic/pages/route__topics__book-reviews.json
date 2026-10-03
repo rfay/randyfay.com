@@ -116,5 +116,22 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/drupal-7-released",
+      "http://drupal.org/update/modules/6/7",
+      "http://drupal.org/update/themes/6/7",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "https://www.packtpub.com/drupal-7-module-development/book"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

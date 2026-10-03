@@ -33,5 +33,15 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://association.drupal.org",
+      "http://ddev.com/contact",
+      "http://drupal.org/files/images/DA-individual-120.png",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": []
   }
 }

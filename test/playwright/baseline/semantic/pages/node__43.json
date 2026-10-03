@@ -162,5 +162,32 @@
         "key": "debugging"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://2bits.com/articles/resources-and-links-on-debugging-tracing-and-profiling-drupal.html",
+      "http://ar.to/2006/12/easier-drupal-debugging-with-trace",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/157609",
+      "http://drupal.org/node/75242",
+      "http://drupal.org/project/devel",
+      "http://drupal.org/project/drush",
+      "http://drupal.org/project/reroute_email",
+      "http://drupal.org/project/smtp",
+      "http://drupal.org/project/trace",
+      "http://drupal.org/setting-up-development-environment",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://krimson.be/en/debugging-drupal-6-using-xdebug",
+      "http://ratatosk.backpackit.com/pub/1836982-debugging-drupal",
+      "http://ratatosk.backpackit.com/pub/1842524-drupal-on-ubuntu",
+      "http://www.activestate.com/komodo",
+      "http://www.archive.org/details/DebuggingDrupal",
+      "http://www.eclipse.org/pdt",
+      "http://www.krimson.be/en/debugging-drupal-6-using-xdebug",
+      "http://www.netbeans.org",
+      "http://www.zend.com/en"
+    ],
+    "internalNonOk": []
   }
 }

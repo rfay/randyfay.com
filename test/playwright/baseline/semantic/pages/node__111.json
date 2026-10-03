@@ -273,5 +273,19 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://drupal.org/getting-involved",
+      "http://drupal.org/getting-involved-guide",
+      "http://drupal.org/node/1244152",
+      "http://drupal.org/project/issues/projectapplications",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://www.tsvenson.com",
+      "https://www.youtube.com/embed/0fP2ysjd-40?si=xUovCxn_R5pB4zb6"
+    ],
+    "internalNonOk": []
   }
 }

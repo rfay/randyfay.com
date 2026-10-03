@@ -57,5 +57,17 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://alonovo.com/amazon_store",
+      "http://ddev.com/contact",
+      "http://drupal.org/project/amazon_store",
+      "http://drupalcampcolorado.org",
+      "http://drupalcampcolorado.org/sessions/cooler-forms-ahah-asynchronous-html-and-http",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": []
   }
 }

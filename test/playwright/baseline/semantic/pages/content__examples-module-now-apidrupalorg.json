@@ -164,5 +164,36 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://api.drupal.org/api.7",
+      "http://api.drupal.org/api/drupal/developer--examples--batch_example--batch_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--block_example--block_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--dbtng_example--dbtng_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--email_example--email_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--field_example--field_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--form_example--form_example_tutorial.inc/7",
+      "http://api.drupal.org/api/drupal/developer--examples--image_example--image_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--node_example--node_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--page_example--page_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--simpletest_example--simpletest_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--token_example--token_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--trigger_example--trigger_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--vertical_tabs_example--vertical_tabs_example.module/7",
+      "http://api.drupal.org/api/drupal/developer--examples--xmlrpc_example--xmlrpc_example.module/7",
+      "http://api.drupal.org/api/group/ajax_examples/7",
+      "http://api.drupal.org/api/search/7/example",
+      "http://api.drupal.org/api/search/7/examples",
+      "http://api.drupal.org/api/search/7/js_example",
+      "http://d7.drupalexamples.info",
+      "http://ddev.com/contact",
+      "http://drupal.org/project/examples",
+      "http://drupal.org/project/issues/examples",
+      "http://drupal.org/user/3064",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": []
   }
 }

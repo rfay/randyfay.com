@@ -311,5 +311,25 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://backdropcms.org",
+      "http://ddev.com/contact",
+      "http://en.wikipedia.org/wiki/The_Hitchhiker's_Guide_to_the_Galaxy_(fictional)",
+      "http://facebook.com/randyfay",
+      "http://facingworlds.com",
+      "http://gothamcitydrupal.com",
+      "http://hobobiker.com",
+      "http://migratetowp.com/wp-content/uploads/LearningCurveCMS.png",
+      "http://randyfay.com/topics/burnout",
+      "http://superpowerplanet.com",
+      "http://willvincent.com",
+      "http://www.compubase.nl",
+      "http://www.paragon-es.de",
+      "https://groups.drupal.org/drupal-lts",
+      "https://www.warmshowers.org"
+    ],
+    "internalNonOk": []
   }
 }

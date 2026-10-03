@@ -379,5 +379,16 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ao2.it",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/1054616",
+      "http://drupal.org/project/issues/great_git_migration",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com"
+    ],
+    "internalNonOk": []
   }
 }

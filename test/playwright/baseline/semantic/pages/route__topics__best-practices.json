@@ -162,5 +162,33 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://php.net/manual/en/errorfunc.configuration.php",
+      "http://pressflow.org",
+      "http://randyfay.com/sites/default/files/e_notice.patch",
+      "https://ddev.com/blog/claude-code-ai-pr-for-ddev-contributor-training",
+      "https://ddev.com/blog/contributing-to-ddev-com",
+      "https://ddev.com/blog/ddev-on-linux-in-10-minutes",
+      "https://ddev.com/blog/ddev-upsun-platformsh-addon",
+      "https://ddev.com/blog/watch-ddev-local-from-scratch-with-windows-wsl2",
+      "https://ddev.com/blog/watch-new-windows-installer",
+      "https://docs.google.com/presentation/d/1JBSXLP59E8DSzkvxqPPKuceQ_fSMXoW_tySs_jXe8Pg/edit?usp=sharing",
+      "https://rfay.github.io/ddev-from-beginning",
+      "https://rfay.github.io/presentation-ddev-upsun",
+      "https://rfay.github.io/presentation-new-ddev-features",
+      "https://rfay.github.io/presentation-upsun-mcp",
+      "https://www.youtube.com/watch?v=3-Wj2lJLVt0"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

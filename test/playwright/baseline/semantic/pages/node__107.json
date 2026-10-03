@@ -262,5 +262,19 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://heartwoodtmn.org",
+      "http://hobobiker.com",
+      "http://london2011.drupal.org/coreconversation/1700-1730-burnout",
+      "http://randyfay.com/node/109",
+      "http://www.amazon.com/Truth-About-Burnout-Organizations-Personal/dp/0787908746",
+      "http://www.helpguide.org/mental/burnout_signs_symptoms.htm",
+      "http://www.scientificamerican.com/article.cfm?id=burned-out"
+    ],
+    "internalNonOk": []
   }
 }

@@ -778,5 +778,44 @@
         "key": ""
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://darwinweb.net/articles/the-case-for-git-rebase",
+      "http://ddev.com/contact",
+      "http://drupal.org/node/917492",
+      "http://drupal.org/user/132175",
+      "http://drupal.org/user/146719",
+      "http://drupalcode.org/project/drupal.git/blob_plain/refs/heads/7.x:/.gitignore",
+      "http://facebook.com/randyfay",
+      "http://git-scm.com",
+      "http://git-scm.drupal.org",
+      "http://hobobiker.com",
+      "http://player.vimeo.com/video/21311829",
+      "http://progit.org/book/ch5-3.html",
+      "http://randyfay.com/comment/1093",
+      "http://randyfay.com/node/103",
+      "http://randyfay.com/node/119",
+      "http://randyfay.com/node/89",
+      "http://randyfay.com/taxonomy/term/26",
+      "http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html",
+      "http://unethicalblogger.com/node/276",
+      "http://vimeo.com",
+      "http://vimeo.com/21311829",
+      "http://vimeo.com/user5912539",
+      "http://www.google.com/search?client=ubuntu&channel=fs&q=ssh+tunnel&ie=utf-8&oe=utf-8",
+      "http://www.kernel.org/pub/software/scm/git/docs/git-bisect.html",
+      "http://www.randyfay.com/comment/1028",
+      "http://www.revsys.com/writings/quicktips/ssh-tunnel.html",
+      "http://www.screencast-o-matic.com/embed?sc=cXnueyI9A&w=640&v=3",
+      "https://help.github.com/articles/using-pull-requests",
+      "https://www.youtube.com/v/mbbIKXopkWI&hl=en_US&fs=1&rel=0"
+    ],
+    "internalNonOk": [
+      {
+        "key": "admin/content",
+        "status": 403
+      }
+    ]
   }
 }

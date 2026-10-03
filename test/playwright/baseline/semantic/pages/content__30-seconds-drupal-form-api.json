@@ -129,5 +129,19 @@
         "key": "ajax"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://www.christopherstevens.cc"
+    ],
+    "internalNonOk": [
+      {
+        "key": "ahah_demo/simple_form",
+        "status": 404
+      }
+    ]
   }
 }

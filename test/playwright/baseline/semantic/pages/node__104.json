@@ -522,5 +522,35 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://amariotti.com",
+      "http://anarcat.koumbit.org",
+      "http://cleaver.ca",
+      "http://ddev.com/contact",
+      "http://drupal.org/community-initiatives/drupalorg",
+      "http://drupal.org/node/1006562",
+      "http://drupal.org/node/1036132",
+      "http://drupal.org/node/1133956",
+      "http://drupal.org/node/1165240",
+      "http://drupal.org/node/1165246",
+      "http://facebook.com/randyfay",
+      "http://groups.drupal.org/node/139814",
+      "http://groups.drupal.org/node/150649",
+      "http://groups.drupal.org/prairie-initiative",
+      "http://growingventuresolutions.com",
+      "http://hobobiker.com",
+      "http://room271.net",
+      "http://vacilando.org",
+      "http://www.drupal.org/node/144574",
+      "http://www.drupal.org/node/144584",
+      "http://www.drupal.org/node/144594",
+      "http://www.myplanetdigital.com/blog",
+      "http://www.propdrop.com",
+      "http://www.undpaul.de",
+      "https://drupal.org/node/34496"
+    ],
+    "internalNonOk": []
   }
 }

@@ -55,5 +55,20 @@
         "key": "blogs/rfay"
       }
     ]
+  },
+  "references": {
+    "external": [
+      "http://ddev.com/contact",
+      "http://facebook.com/randyfay",
+      "http://hobobiker.com",
+      "http://twitter.com/randyfay",
+      "http://www.randyfay.com/files/rfay.pub"
+    ],
+    "internalNonOk": [
+      {
+        "key": "contact",
+        "status": 403
+      }
+    ]
   }
 }
