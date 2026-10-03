@@ -28,8 +28,29 @@ production.
 ## Ground rules
 
 - We are reproducing the site, not fixing it. Record inconsistencies in `HANDOFF.md`
-  (and `DISCOVERIES.md` once it exists) instead of repairing them. Read the "Strategies"
+  and `DISCOVERIES.md` instead of repairing them. Read the "Strategies"
   section of `HANDOFF.md` first.
 - The test strategy is in `PLAYWRIGHT_TESTING.md`. Current-revision node queries must join
   `node_revision` on `node.vid = node_revision.vid`.
 - Unpublished nodes must keep returning 403 to anonymous users; do not "fix" that.
+
+## Sibling projects and the retirement pipeline
+
+Two more DDEV projects sit next to this one on this workspace. They are for the static-HTML rehearsal and are
+disposable; this project is still the reference and the pipeline never modifies it.
+
+- `~/workspace/randyfay-prep`: a copy that is rebuilt from a pristine database dump on every run, then changed
+  by scripts. **Destructive changes are allowed here and only here.** Every destructive script refuses to run
+  unless the project's name contains `prep`.
+- `~/workspace/randyfay-static`: the crawled HTML (`public/`) served as a static site. Not a git repository.
+- `retire/run.sh` runs the whole pipeline (restore, prepare, crawl, rewrite, verify). All three projects must be
+  running; the script checks first. `retire/00-snapshot-pristine.sh` takes the pristine dump (kept outside every
+  repository). See `HANDOFF.md`, "Retirement rehearsal".
+- Tests are run **inside** this project's container; a host-side `TEST_BASE_URL=...` is not forwarded. Name the
+  kind of target with `MIGRATION_TARGET` (for example `static`).
+- **A workspace restart stops every DDEV project.** Start each one you need (`ddev start` in its directory); the
+  pipeline checks and says which is down.
+- **`randyfay-d11` is coming** (a Drupal 11 target, set up by the user). It is not built yet. When it is, run the
+  same suite against it with `MIGRATION_TARGET=drupal11`, so the static-only decisions do not apply to it.
+- **Never make a request to `randyfay.com`.** The test suite resolves references to that domain against the
+  target being tested. Do not add anything that fetches it.

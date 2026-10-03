@@ -30,13 +30,13 @@ documentation, `test/playwright/kit/docs/semantic-tier.md`, covers the semantic 
 ## What Playwright is for
 
 Most of what this suite checks needs no browser. It fetches pages as text and parses them with
-cheerio (a Node library that gives jQuery-style queries over an HTML string), and checks 244 pages in
+cheerio (a Node library that gives jQuery-style queries over an HTML string), and checks 267 pages in
 about three seconds. Playwright earns its place for the things that need a real browser, and as the
 runner for everything else.
 
 | Need | Why Playwright | Status |
 |---|---|---|
-| **Text a visitor can actually read.** Text can be in the HTML yet hidden by CSS, or exist only after a script runs (hobobiker's `document.write()` email obfuscation on node 3804, lightbox galleries, anything the old theme builds in the browser). A text fetch sees only the HTML, so it cannot tell. | A real browser runs the scripts and `innerText` returns only what is visible | **Built** (`visible:` tier, opt-in: 244 pages in about 11 seconds). Not yet tried against script-built content, since this site has little. |
+| **Text a visitor can actually read.** Text can be in the HTML yet hidden by CSS, or exist only after a script runs (hobobiker's `document.write()` email obfuscation on node 3804, lightbox galleries, anything the old theme builds in the browser). A text fetch sees only the HTML, so it cannot tell. | A real browser runs the scripts and `innerText` returns only what is visible | **Built** (`visible:` tier, opt-in: 267 pages in about 14 seconds). Not yet tried against script-built content, since this site has little. |
 | **Embeds that render as nothing.** Dead Flash `<object>` tags and dead script widgets look fine in the HTML and show a blank box in a browser. | Render the page; check for a visible, non-empty element | Not built yet |
 | **Failures a visitor can see.** Failed image or script requests, JavaScript exceptions, console errors. | `page.on('console')` and `page.on('requestfailed')` | Not built yet |
 | **How it looks.** A curated sample of pages as screenshots, for a human to review. A migration may intentionally change the theme, so this is informational, never a pass/fail gate. | `toHaveScreenshot`, full-page, masked dynamic regions | Built (6 pages) |
@@ -172,3 +172,11 @@ ddev exec -d /var/www/html/test/playwright \
 | `test/playwright/baseline/assets/`, `baseline/manifest.json` | asset bytes and hashes; unpublished-node statuses |
 | `test/playwright/tests/` | `semantic.spec.ts`, `regression-access.spec.ts`, `regression-assets.spec.ts`, `visual.spec.ts` |
 | `DISCOVERIES.md` | inconsistencies found; none were fixed |
+| `retire/` | the retirement pipeline: restore a prep copy, prepare it, crawl it into a static project, rewrite it, verify (see `HANDOFF.md`, "Retirement rehearsal") |
+
+## Retiring to static HTML
+
+The static-HTML path (a prepared copy, crawled, made self-contained, then checked with the tiers above and
+`MIGRATION_TARGET=static`) is described in `HANDOFF.md` under "Retirement rehearsal" and, in general form, in
+the kit's `docs/retirement-approach.md` and `docs/static-self-containment.md`. It builds on Karen Stevenson's
+Lullabot series on retiring Drupal sites.

@@ -28,8 +28,10 @@ export default {
   // comment thread. Follow it. Any other query string (login redirects and the like) is dynamic.
   discover: { exclude: ['^comment/', '^user/'], queryParams: ['page'] },
 
-  // The site's own public domain. Old content hardcodes http://randyfay.com/... in places; those
-  // references are preserved as written and recorded in the baseline for triage (DISCOVERIES.md).
+  // Hosts that ARE this site. Old content hardcodes http://randyfay.com/... in places. The production
+  // domain is this site, so those are internal links: the baseline records them as such, discovery follows
+  // them, and an archive makes them relative. Inventory: DISCOVERIES.md (generated). A test run never
+  // requests this domain; it resolves such references against the target.
   ownDomains: ['randyfay.com'],
 
   // Hosts a static copy must never refer to (the original's own host is always forbidden for a

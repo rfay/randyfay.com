@@ -1,4 +1,4 @@
 site-migration-kit
 ref:    HEAD
-commit: 27a77a418ff50108270772e81582ad9568086a81
+commit: 1819071ac9bf2b8f4bd9684ee2b71b86ca5d4a1a
 vendored by scripts/vendor-into.sh -- do not edit this directory; change the kit and vendor again.

@@ -7,6 +7,7 @@
 #                                  container and serve it there for the length of the run
 source "$(dirname "$0")/lib.sh"
 GREP='semantic:|visible:|access:|asset:|static:'
+if [ "${LOCAL_SERVE:-0}" = 1 ]; then require_running "$ORIGINAL"; else require_running "$ORIGINAL" "$STATIC"; fi
 cd "$ORIGINAL"
 if [ "${LOCAL_SERVE:-0}" = 1 ]; then
   ddev exec 'rm -rf /tmp/site-static-prep && mkdir -p /tmp/site-static-prep'

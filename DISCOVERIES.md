@@ -43,7 +43,7 @@ Links to some of these remain in published content (404 on the source today).
   They are now discovered (20 pages). On the static copy a page number that does not exist (`blog?page=9`)
   falls back to page 0, where the original shows an empty list.
 - **A crawl is not self-contained.** See `test/playwright/kit/docs/static-self-containment.md`: 4,084
-  references on 242 of 244 pages still pointed at the crawled site, and no content check noticed.
+  references on 242 of the 244 pages then in the baseline still pointed at the crawled site, and no content check noticed.
 - **The original has links of its own that are dead or restricted** beyond the ones listed above: for example
   `admin/content` (403) is linked from two listing pages. The baseline records every such reference per page,
   and the static copy keeps them as they were.

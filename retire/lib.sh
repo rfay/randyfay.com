@@ -22,3 +22,16 @@ guard_prep() {
   [ "$(cd "$PREP" && pwd)" != "$(cd "$ORIGINAL" && pwd)" ] || { echo "Refusing: PREP is the original project." >&2; exit 2; }
   case "$(basename "$PREP")" in *prep*) ;; *) echo "Refusing: '$PREP' does not look like a prep copy (name must contain 'prep')." >&2; exit 2;; esac
 }
+
+# Fail fast and clearly if a project is not running. Without this, a stopped static project makes every
+# test fail to connect and the run takes minutes to report hundreds of failures.
+require_running() {
+  local d status
+  for d in "$@"; do
+    status=$(cd "$d" && ddev describe -j 2>/dev/null | jq -r '.raw.status // "unknown"')
+    [ "$status" = running ] || {
+      echo "Project $(basename "$d") is '$status', not running. Start it with: (cd $d && ddev start)" >&2
+      exit 1
+    }
+  done
+}

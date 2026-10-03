@@ -15,6 +15,18 @@ vendored here into `test/playwright/kit/` — see "Semantic tier and the kit" at
 `AGENTS.md` describes this checkout as a disposable development copy. `DISCOVERIES.md` is the log of
 inconsistencies found.
 
+## Start here
+
+This file is long because it records a lot of investigation. To find your way:
+
+| You want | Read |
+|---|---|
+| The current state and what is open | "Test strategy and the kit", "Retirement rehearsal", and "Open items and next steps" at the end |
+| Why the method is shaped this way | "Strategies for a real test setup and migration" just below |
+| How the tests are built and run | `PLAYWRIGHT_TESTING.md`, then the kit's `docs/how-it-works.md` |
+| What was found wrong with the site | `DISCOVERIES.md` (none of it was fixed, on purpose) |
+| The upstream and tooling investigations (ddev-playwright, coder-ddev, Mutagen, `ddev pull`) | the sections between, which are history and mostly resolved |
+
 ## Strategies for a "real" test setup and migration
 
 This randyfay.com work is explicitly a rehearsal — the actual target is a public 3-part
@@ -393,7 +405,7 @@ Production runs DDEV from this repo with primary URL `https://randyfay.com`; eve
 - **A fresh dev clone takes two starts.** DDEV reads `config.*.yaml` before pre-start hooks run, so
   the add-on's config is not active on the start that installs it. The first start installs and
   prints "run `ddev restart` once"; the second enables the image build and activates everything.
-  Verified by removing the add-on and restarting twice: the full suite passed (533 tests at the time; 318 after the raw-HTML tier was removed).
+  Verified by removing the add-on and restarting twice: the full suite passed.
 - Docker Compose profiles don't fit here: Playwright is baked into the `web` image via
   `web-build/Dockerfile.*`, not a separate compose service like xhgui. A possible upstream
   issue: a real enable/disable switch in ddev-playwright (today only `Dockerfile.playwright`
@@ -416,109 +428,121 @@ Production runs DDEV from this repo with primary URL `https://randyfay.com`; eve
   site-migration-kit repo. **Not yet filed**; revised 2026-10-02 to lead with the php-fpm finding, name the
   version tested (v0.5.8, files identical on v0.5.9), quote the README's opt-in design and link #32.
 
-## Semantic tier and the kit (2026-10-02)
+## Test strategy and the kit: current state (as of 2026-10-03)
 
-- **Why:** the first content tier compared normalized HTML, which only passes when the target is the
-  same platform. It has been deleted (2026-10-02: `regression-content.spec.ts`, `lib/normalize.mjs`,
-  `baseline/pages/`); the semantic tier replaces it. The semantic tier records what a visitor sees (content lines, images, links, menus,
-  routes, assets) and checks nothing is missing from a target, so one suite judges both a static export
-  and a Drupal 11 rebuild. Docs: `test/playwright/kit/docs/semantic-tier.md`.
-- **Layout:** generic code is in the kit repo and vendored here as **plain files** in
-  `test/playwright/kit/` (`KIT_VERSION` records the commit). Not a git submodule, deliberately:
-  submodules need clone flags and don't update on pull, and this repo's `.gitmodules` already carries two
-  dead entries. Never edit `kit/` here; change the kit, then `scripts/vendor-into.sh <site>/test/playwright`.
-  Site-specific: `test/playwright/migration.config.mjs`, `expected-differences.json`, `baseline/semantic/`.
-- **Run:** `ddev playwright test --grep "semantic:"` (select by title; tests register from the kit file, so
-  a file path filter finds nothing). Export the baseline with
-  `node kit/scripts/export-semantic-baseline.mjs` from `test/playwright` (set `NODE_EXTRA_CA_CERTS` to
-  mkcert's root CA for host-side node).
-- **Gotcha: `TEST_BASE_URL=... ddev playwright ...` does NOT work.** ddev runs the command inside the
-  container and host env vars are not forwarded, so it silently tests the development site again. Use
-  `ddev exec -d /var/www/html/test/playwright 'TEST_BASE_URL=<target> npx playwright test --grep "semantic:"'`.
-- **Rehearsal results:** 246 semantic tests pass against the development site and 246 of 246 against a
-  `wget` static mirror (`kit/scripts/mirror-static.mjs` + `serve-static.mjs`), and negative controls
-  (delete a paragraph, an image, a linked file) are each caught and named. Full suite: 318 tests after the raw-HTML tier was deleted (562 once the visible tier was added).
-  Testing a second target found five bugs in the *suite*: routes missing from the content list (home,
-  listings, taxonomy), link presence vs. resolution, a root `index.html` normalizer bug, assets the DB lists
-  but the server 404s, and the env-forwarding false pass.
-- **Added 2026-10-02, each verified with a negative control:** the `visible:` tier (real browser, hidden
-  text), the additions report, the source-drift check (`kit/scripts/check-source-drift.mjs`), and
-  `strict: { order, alt }` options (on here). `serve-static.mjs --run` starts, tests and stops a static
-  target in one command. Plain-language overview: `kit/docs/how-it-works.md`. Full suite: 562 tests.
-- **Not done:** the access, hash and visual tiers are still site-local (not in the kit); redirects are not
-  modeled; the auto-mode classifier rehearsal (`kit/docs/safe-demo-environment.md`) has not been run;
-  untested against hobobiker's D6 specifics (PHP-evaluated nodes, render-time macros, comments invisible to
-  anonymous users).
+- **Strategy document:** `PLAYWRIGHT_TESTING.md`. **Plain-language overview:** `test/playwright/kit/docs/how-it-works.md`.
+- **Where the reusable code lives:** the [site-migration-kit](https://github.com/rfay/site-migration-kit) repo,
+  vendored here as plain files in `test/playwright/kit/` (`KIT_VERSION` records the commit). Not a git submodule,
+  deliberately: submodules need clone flags and don't update on pull, and this repo's `.gitmodules` already carries
+  two dead entries. **Never edit `kit/` here.** Change the kit, then run `scripts/vendor-into.sh <site>/test/playwright`.
+- **What is specific to this site:** `test/playwright/migration.config.mjs` (content selectors, the content listing,
+  `discover`, `ownDomains`, `static.forbiddenHosts`, `strict`), `expected-differences.json` (reviewed decisions),
+  `baseline/` (frozen), `data/manifest.json` (a snapshot of the database).
+- **The baseline:** 267 pages (158 blog, 7 page, 48 book, 2 story, and 52 discovered routes: home, listings,
+  taxonomy pages and `?page=N` pages), 27 assets (7 more are listed in the database but missing on the server),
+  and, per page, the content lines, images, links, menus, and every external or dead reference the original made.
+- **Tiers, selected by test title with `--grep`:** `semantic:` 269, `visible:` 267, `static:` 267, `access:` 40,
+  `asset:` 26, `visual:` 6 (875 tests; all pass against the original). Against the static archive the first five
+  pass: 869 checks.
+- **Run:** `ddev playwright test --grep "semantic:"`. Export the baseline with
+  `node kit/scripts/export-semantic-baseline.mjs` from `test/playwright` (set `NODE_EXTRA_CA_CERTS` to mkcert's root
+  CA for node on the host). Check the original has not moved since the freeze: `node kit/scripts/check-source-drift.mjs`.
+- **Gotchas that cost time:**
+  - `TEST_BASE_URL=... ddev playwright ...` does NOT work: ddev runs the command inside the container and host
+    environment variables are not forwarded, so it silently tests the development site again. Use
+    `ddev exec -d /var/www/html/test/playwright 'TEST_BASE_URL=<target> npx playwright test --grep "semantic:"'`.
+  - The kit registers the tests, so Playwright attributes them to the kit file: select by title, not file path.
+  - Name the kind of target with `MIGRATION_TARGET` (for example `static`), so decisions recorded for that target
+    in `expected-differences.json` apply and no other target's do.
+  - `ddev bee eval` passes its arguments to the shell unquoted and mangles PHP: write the PHP to a file and use
+    `bee php-script`.
+  - The suite never requests `randyfay.com`: references to it are resolved against the target being tested.
+  - The baseline exporter writes to a temporary directory and swaps it in only on success (a bug once emptied the
+    committed baseline mid-run; git had it).
+- **Every tier has been seen to fail.** Negative controls are recorded in the kit docs: deleted text, a deleted
+  image or file, a leaked private page, a CSS-hidden paragraph, swapped paragraphs, changed alt text, a leaked
+  link back to the source, a new dead link, a new external link, and an external script.
 
-## Retirement rehearsal: three sites and a pipeline (2026-10-02)
+## Retirement rehearsal (static HTML): current state (as of 2026-10-03)
 
-Static-HTML path, following Karen Stevenson's Lullabot series on retiring Drupal sites (credit and links in
+Follows Karen Stevenson's three-part Lullabot series on retiring Drupal sites (credit and links in
 `test/playwright/kit/docs/retirement-approach.md`). Three sibling DDEV projects on this Coder workspace:
 
 | Project | Role |
 |---|---|
-| `randyfay` (this one) | The original and reference. The retirement pipeline never modifies it. |
-| `randyfay-prep` | A copy rebuilt from a pristine restore, then prepared by scripts. |
-| `randyfay-static` | The crawled HTML of the prep copy. |
+| `randyfay` (this one) | The original and the reference. The pipeline never modifies it. |
+| `randyfay-prep` | A copy rebuilt from a pristine database dump on every run, then changed by scripts. |
+| `randyfay-static` | The crawled HTML (`public/`) served as a static site. Not a git repository. |
 
-- **Pipeline:** `retire/` in this repo. `00-snapshot-pristine.sh` once (database dump to
-  `~/workspace/randyfay-artifacts/`, outside every repository), then `retire/run.sh`: restore prep, prepare
-  (`retire/prep/*.sh`, each prints a count), crawl into `randyfay-static/public/`, verify. About 45 seconds;
-  556 checks pass. Until the static project's docroot is changed to `public/`, run it as
-  `LOCAL_SERVE=1 retire/run.sh`. All destructive steps refuse to run unless the target project's name
-  contains `prep`.
-- **Prep steps and why:** close the 12 still-open comment threads (keeps all 670 comments' text; do not
-  disable comments, that would delete content), and remove the search block from both layouts (a form cannot
-  work statically). Reviewed differences this causes are in `test/playwright/expected-differences.json`
-  (the "Search" heading on listing pages; and, for the static target only, a private page answering 404
-  instead of 403).
-- **Run the suite against the static copy** with `MIGRATION_TARGET=static` (set inside the container; see the
-  `TEST_BASE_URL` gotcha above), so the static-only decisions apply and a Drupal 11 target is still held to 403.
-- **Static project setup (done, 2026-10-02):** `ddev config --docroot=public`, plus the nginx snippet in
-  `randyfay-static/.ddev/nginx/static-urls.conf` (a copy lives in the kit as `templates/static-urls.nginx.conf`)
-  so extensionless URLs resolve. `retire/run.sh` now verifies through the real URL
-  (`https://randyfay-static.ddev.site`): 556 pass in about 43 seconds, and four deliberate breaks in the
-  served files were each caught by the right tier. `LOCAL_SERVE=1` is only needed before the static project is
-  set up. The static project is not a git repository; recreate it from the kit template and the crawl.
-- **The crawl was not self-contained; now it is, and a tier enforces it (2026-10-03).** 4,084 references on 242
-  of 244 pages pointed at the crawled site and nothing noticed. New: `rewrite-static.mjs` (rules in
-  `retire/rewrite-rules.json`, run by `retire/35-rewrite.sh`: comment permalinks become same-page anchors, login
-  and search links are unwrapped, feed tags removed, references the original had dead are kept dead) and the
-  `static:` tier (no reference to the source/prep host, to an internal URL that does not resolve unless the
-  original had it dead, or to an external URL the original page did not itself have). Negative controls: an
-  injected leak, dead link, new external link, external script and leaked image were each caught; an external
-  link the original really has was allowed. Pipeline ended at 860 passing at that point (see below for the current number).
-- **Pagination was a baseline gap.** `?page=N` pages (listings, long comment threads) were never captured; the
-  exporter now follows `config.discover.queryParams` (`['page']`) transitively: 264 baseline pages, up from 244.
-  The static nginx rule serves them at their original URLs (`templates/static-urls.nginx.conf`; the live copy
-  is in `randyfay-static/.ddev/nginx/`).
-- **The production domain is this site, so its links are internal and become relative (2026-10-03).**
-  `config.ownDomains = ['randyfay.com']`: 41 hardcoded link targets and 7 image sources (on 91 pages) are recorded
-  in the baseline as internal links, discovery follows them (found `taxonomy/term/26`, `taxonomy/term/27`,
-  `node/99for`), the crawl fetches the images and files they point at, and the rewrite makes them relative; ones
-  the original already had dead stay dead. The static tier fails any own-domain reference left in an archive, and
-  resolves them against the target, never the domain (a test run must not contact production). Inventory in
-  `DISCOVERIES.md` (generated by `kit/scripts/own-domain-report.mjs`). A non-HTML 200 found by discovery is a
-  file, not a page (`/files/rfay.pub`).
-- **Decision (2026-10-03): "Log in to post comments" stays as plain text.** On the original, "Log in" is a link to
-  the login page, shown under every comment (50 times on one page). In the archive the link is removed by the
-  `login, profile, logout and search links` rule and the words stay. Not removed in prep and not stripped from
-  the HTML: the wording is identical, so the content checks need no expected-differences entry. Revisit only if
-  the dead-looking prompt is judged worth a prep step (a small prep-only module that stops comment links
-  rendering).
-- **Pipeline now:** 869 passing checks against the archive, about 49 s end to end; the whole suite against the
-  original is 875 of 875. `run.sh` stops on the first failing step and `30-crawl.sh` shows the real error.
-- **The baseline exporter now swaps in a temp directory only on success.** A bug in a new exporter edit once
-  emptied the baseline directory mid-run; it was recoverable from git, but should not have been possible.
-- **ddev-playwright removed from `randyfay-prep` (2026-10-03).** Done in this order, because a restart
-  runs the pre-start hook: `ddev add-on remove ddev-playwright`, delete the copied reinstall hook
-  (`.ddev/config.dev-tools.yaml`, `.ddev/commands/host/dev-tools`) and `.ddev/.env.web`, delete the copied
-  `test/` suite (prep only prepares; tests run from the original), then `ddev restart`. Verified: site 200, 126
-  nodes, `backdrop-bee` is the only add-on, PHP-FPM back to the default `pm.max_children = 8`, no Playwright
-  or VNC routes, the hook did not return, the original is unaffected, and `retire/run.sh` still gives 556
-  passing. The router logs a few "service does not exist" errors for about 30 seconds during any project
-  restart; they stop on their own. Prep's git working tree now shows those deletions; that clone is a
-  throwaway and is not committed anywhere.
-- **Lesson for making a prep copy:** it was made by copying the whole directory, which carried along the
-  original's committed hooks and its gitignored runtime files (stale `randyfay.*` certificates and config
-  in `.ddev/traefik/`, harmless but noisy). A fresh `git clone` plus a database import would not.
+**Run it.** `retire/00-snapshot-pristine.sh` once (the dump goes to `~/workspace/randyfay-artifacts/`, outside every
+repository), then `retire/run.sh`: restore prep, prepare, crawl, rewrite, verify. About 50 seconds, ending at 869
+passing checks. **All three projects must be running**; the script checks first and says how to start one. A
+workspace restart stops every DDEV project (that is how a run once failed 868 tests at once). Every destructive
+step refuses to run unless the target project's name contains `prep`. `LOCAL_SERVE=1` verifies from the original's
+container and needs no static project.
+
+**Prep steps (`retire/prep/`, each prints a count):**
+1. Close the 12 comment threads that were still open. All 670 comments' text stays; disabling comments would have
+   deleted content.
+2. Remove the search block from both layouts (a form cannot work statically).
+
+**Crawl (`retire/30-crawl.sh`)** uses `wget` on the prepared copy. The page list is the baseline's, plus the assets,
+plus the images and files that old content hardcodes at `randyfay.com` (a crawler will not follow another host).
+
+**Rewrite (`retire/35-rewrite.sh`, rules in `retire/rewrite-rules.json`)** makes the crawl self-contained. Counts
+from the last run: 2,428 comment permalinks point at the comment on the same page and 18 at the right other page of
+a thread; 1,851 login, profile, logout and search links are unwrapped (link removed, text kept); 262 references
+whose target is in the copy are made relative; 100 references the original already had dead stay dead (relative);
+49 feed-discovery tags are removed. The production domain is this site, so its links and images become relative.
+
+**Decisions recorded** (change them in the rules or in `expected-differences.json`, not in code):
+- Comments are closed, not disabled. The search block is removed.
+- "Log in to post comments" stays as plain text. On the original "Log in" is a link under every comment; in the
+  archive the link is removed and the words stay, so no expected-differences entry is needed. Revisit only if a prep
+  step that stops comment links rendering is judged worth it.
+- Private pages answer 404 in the archive where the original answered 403 (entry scoped to
+  `MIGRATION_TARGET=static`, so another target is still held to 403). A private page that leaks in still fails.
+- The "Search" heading is missing from listing pages (entry scoped to the static target, exact match).
+- Feeds are removed, not mirrored.
+
+**The static project's setup** (it is not in any repository): `ddev config --docroot=public`, plus
+`.ddev/nginx/static-urls.conf` (a copy is in the kit as `templates/static-urls.nginx.conf`) so extensionless URLs
+and `?page=N` pages are served at their original URLs. `public/` is emptied and refilled by every crawl.
+
+**What the rehearsal found about the method** (each is in the kit docs): a crawl is not self-contained and the
+content checks cannot see it (4,084 references on 242 of the 244 pages then in the baseline pointed at the crawled
+site); paginated pages were missing from both the baseline and the archive; "unless the original did explicitly"
+needs the original's whole page, not only its content region; a site's own production domain is the site; a
+non-HTML response found by discovery is a file, not a page; a failed baseline export must never empty the baseline.
+
+**Lessons about the sibling projects.** `randyfay-prep` was made by copying the directory, which carried along the
+original's committed hooks and gitignored runtime files (stale `randyfay.*` certificates in `.ddev/traefik/`,
+harmless but noisy), so the Playwright add-on had to be removed from it, in this order because a restart runs the
+pre-start hook: `ddev add-on remove ddev-playwright`, delete the copied reinstall hook (`.ddev/config.dev-tools.yaml`,
+`.ddev/commands/host/dev-tools`) and `.ddev/.env.web`, delete the copied `test/`, then `ddev restart`. A fresh
+`git clone` plus a database import would avoid all of it. The router logs "service does not exist" errors for about
+30 seconds during any project restart; they stop on their own. `retire/` is committed in this repository, which
+production also runs; it is inert there.
+
+## Open items and next steps
+
+1. **`randyfay-d11` (coming, set up by the user, not built yet): the Drupal 11 target for Part 3.** Run the same suite
+   with `MIGRATION_TARGET=drupal11`. The `static`-scoped decisions then do not apply, so private pages must answer
+   403 and the "Search" heading must be present, unless a Drupal 11 decision is recorded. The `static:` tier is for
+   static archives; for Drupal 11 it is the semantic, visible-text, access and asset tiers that judge the result.
+2. **hobobiker.com is the real test of the method.** Untested against its Drupal 6 specifics: PHP-evaluated nodes,
+   render-time macros, comments invisible to anonymous users, 85 nodes that render empty, Flash and script-built
+   content (the visible-text tier has not met any of that). Its notes are in `~/workspace/hobobiker/MIGRATION_PREP.md`.
+3. **Not yet in the kit:** the access, hash and visual tiers (still site-local); a generalized pipeline (`retire/` is
+   randyfay's worked example); redirects are not modeled; the stage prompts and the plan/discoveries templates.
+4. **Not checked by any test:** URLs inside CSS (`url(...)`) and inline scripts, anything built by JavaScript at run
+   time, and whether an external URL the original linked to still works.
+5. **Not rehearsed:** running Part 1's prompts in auto mode and recording classifier blocks
+   (`kit/docs/safe-demo-environment.md`).
+6. **Upstream:** the ddev-playwright issue (enable/disable switch; the ungated PHP-FPM script is the headline) is
+   drafted in the kit (`docs/upstream/ddev-playwright-enable-switch.md`) and deliberately deferred until there is
+   more experience with the add-on. `dev-tools` pins add-on v0.5.8; upstream is v0.5.9.
+7. **Small known gaps:** on the static copy a page number that does not exist (`blog?page=9`) falls back to page 0,
+   where the original shows an empty list; creating `randyfay-prep` and `randyfay-static` is not scripted
+   (a `retire/00-create-*.sh` would make the three-site setup repeatable); the two `config/active` Color-module files
+   and root `package.json` show as modified and are known, not part of this work.
