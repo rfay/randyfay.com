@@ -91,8 +91,10 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/topics/burnout",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/topics/burnout",
+      "key": "topics/burnout",
       "text": "burnout"
     },
     {
@@ -322,7 +324,6 @@
       "http://gothamcitydrupal.com",
       "http://hobobiker.com",
       "http://migratetowp.com/wp-content/uploads/LearningCurveCMS.png",
-      "http://randyfay.com/topics/burnout",
       "http://superpowerplanet.com",
       "http://willvincent.com",
       "http://www.compubase.nl",

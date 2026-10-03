@@ -615,18 +615,24 @@
       "text": "Pull Request workflow"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/103",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/103",
+      "key": "node/103",
       "text": "This followup article"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/comment/1093#comment-1093",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/comment/1093#comment-1093",
+      "key": "comment/1093",
       "text": "described by joachim below"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/89",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/89",
+      "key": "node/89",
       "text": "Avoiding Git Disasters"
     },
     {
@@ -1405,8 +1411,10 @@
       "text": "Simpler rebasing..."
     },
     {
-      "internal": false,
-      "key": "http://www.randyfay.com/content/simpler-rebasing-avoiding-unintentional-merge-commits",
+      "internal": true,
+      "own": true,
+      "url": "http://www.randyfay.com/content/simpler-rebasing-avoiding-unintentional-merge-commits",
+      "key": "content/simpler-rebasing-avoiding-unintentional-merge-commits",
       "text": "certainly agree with you"
     },
     {
@@ -1555,15 +1563,6 @@
       "http://hobobiker.com",
       "http://progit.org/2010/03/08/rerere.html",
       "http://progit.org/book/ch5-3.html",
-      "http://randyfay.com/comment/1093",
-      "http://randyfay.com/node/103",
-      "http://randyfay.com/node/89",
-      "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_002.png",
-      "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_003.png",
-      "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_004.png",
-      "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_005.png",
-      "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_006.png",
-      "http://randyfay.com/sites/default/files/rfay_dell_gazelle_Selection_007.png",
       "http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html",
       "http://unethicalblogger.com/node/276",
       "http://www.alexweber.com.br",
@@ -1573,7 +1572,6 @@
       "http://www.exsyshost.com/clients/knowledgebase/142/Using-Gitolite-to-securely-deploy-a-website-with-version-control-based-on-the-GitHub-Flow.html",
       "http://www.garfieldtech.com",
       "http://www.papayasoft.com",
-      "http://www.randyfay.com/content/simpler-rebasing-avoiding-unintentional-merge-commits",
       "http://yannesposito.com",
       "https://github.com/najamelan",
       "https://help.github.com/articles/using-pull-requests"

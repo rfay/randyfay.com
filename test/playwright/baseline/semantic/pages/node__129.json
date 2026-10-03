@@ -70,8 +70,10 @@
       "text": "inbound webhooks"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/content/my-new-development-computer-amazon-ec2-instance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/content/my-new-development-computer-amazon-ec2-instance",
+      "key": "content/my-new-development-computer-amazon-ec2-instance",
       "text": "easy enough to do"
     },
     {
@@ -130,7 +132,6 @@
       "http://help.mandrill.com/entries/22092308-What-is-the-format-of-inbound-email-webhooks-",
       "http://hobobiker.com",
       "http://mandrill.com",
-      "http://randyfay.com/content/my-new-development-computer-amazon-ec2-instance",
       "http://www.jetbrains.com/phpstorm",
       "http://www.jetbrains.com/phpstorm/webhelp/debugging-php-applications.html",
       "http://xdebug.org/docs-dbgp.php",

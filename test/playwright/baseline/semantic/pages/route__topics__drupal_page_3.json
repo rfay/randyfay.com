@@ -511,8 +511,10 @@
       "text": "Drupal 7 AJAX and Javascript"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/58",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/58",
+      "key": "node/58",
       "text": "#states feature"
     },
     {
@@ -768,8 +770,6 @@
       "http://groups.drupal.org/contrib-development-best-practices",
       "http://hobobiker.com",
       "http://pt.warmshowers.org/content/benvind-ao-warmshowers",
-      "http://randyfay.com/files/translatable_regions_screenshot.png",
-      "http://randyfay.com/node/58",
       "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
       "http://sf2010.drupal.org/conference/sessions/best-practices-contrib-development-and-support",
       "http://thejibe.com/blog/10/10/php-5210-debs-ubuntu-1010-maverick",

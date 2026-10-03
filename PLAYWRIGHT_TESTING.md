@@ -157,8 +157,8 @@ ddev exec -d /var/www/html/test/playwright \
   paragraph is caught only by the visible-text tier; two swapped paragraphs and a changed alt text are
   caught only by the strict options; a leaked-macro line appears only in the additions report; and a
   tampered baseline copy is flagged page by page by the drift check, which returns exit code 1.
-- The full suite is 866 tests (266 semantic, 264 visible, 264 static, 40 access, 26 asset, 6 visual). Against
-  the retired copy, the five target tiers pass 860 checks in about 15 seconds. The semantic export takes about 25 seconds; the semantic suite about 3.
+- The full suite is 875 tests (269 semantic, 267 visible, 267 static, 40 access, 26 asset, 6 visual) and passes
+  against the original. Against the retired copy, the five target tiers pass 869 checks in about 15 seconds. The semantic export takes about 25 seconds; the semantic suite about 3.
 
 ## Where things are
 

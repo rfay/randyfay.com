@@ -108,13 +108,17 @@
       "text": "git"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/119",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/119",
+      "key": "node/119",
       "text": "this update on my experience"
     },
     {
-      "internal": false,
-      "key": "http://www.randyfay.com/comment/1028#comment-1028",
+      "internal": true,
+      "own": true,
+      "url": "http://www.randyfay.com/comment/1028#comment-1028",
+      "key": "comment/1028",
       "text": "in the comment below"
     },
     {
@@ -262,8 +266,6 @@
       "http://drupal.org/sandbox/mfer/1074256",
       "http://facebook.com/randyfay",
       "http://hobobiker.com",
-      "http://randyfay.com/node/119",
-      "http://www.randyfay.com/comment/1028",
       "https://example.org/git/repo-name.git",
       "https://gist.github.com/8839519ec5b823e047bf",
       "https://github.com/Seb35/git-cache"

@@ -556,18 +556,24 @@
       "text": "Pull Request workflow"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/103",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/103",
+      "key": "node/103",
       "text": "This followup article"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/comment/1093#comment-1093",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/comment/1093#comment-1093",
+      "key": "comment/1093",
       "text": "described by joachim below"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/89",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/89",
+      "key": "node/89",
       "text": "Avoiding Git Disasters"
     },
     {
@@ -606,13 +612,17 @@
       "text": "git"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/119",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/119",
+      "key": "node/119",
       "text": "this update on my experience"
     },
     {
-      "internal": false,
-      "key": "http://www.randyfay.com/comment/1028#comment-1028",
+      "internal": true,
+      "own": true,
+      "url": "http://www.randyfay.com/comment/1028#comment-1028",
+      "key": "comment/1028",
       "text": "in the comment below"
     },
     {
@@ -731,13 +741,17 @@
       "text": "git"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/taxonomy/term/26",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/taxonomy/term/26",
+      "key": "taxonomy/term/26",
       "text": "rebasing and why to do it"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/89",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/89",
+      "key": "node/89",
       "text": "Git disasters"
     },
     {
@@ -793,11 +807,6 @@
       "http://hobobiker.com",
       "http://player.vimeo.com/video/21311829",
       "http://progit.org/book/ch5-3.html",
-      "http://randyfay.com/comment/1093",
-      "http://randyfay.com/node/103",
-      "http://randyfay.com/node/119",
-      "http://randyfay.com/node/89",
-      "http://randyfay.com/taxonomy/term/26",
       "http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html",
       "http://unethicalblogger.com/node/276",
       "http://vimeo.com",
@@ -805,7 +814,6 @@
       "http://vimeo.com/user5912539",
       "http://www.google.com/search?client=ubuntu&channel=fs&q=ssh+tunnel&ie=utf-8&oe=utf-8",
       "http://www.kernel.org/pub/software/scm/git/docs/git-bisect.html",
-      "http://www.randyfay.com/comment/1028",
       "http://www.revsys.com/writings/quicktips/ssh-tunnel.html",
       "http://www.screencast-o-matic.com/embed?sc=cXnueyI9A&w=640&v=3",
       "https://help.github.com/articles/using-pull-requests",

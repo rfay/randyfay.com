@@ -45,8 +45,10 @@
       "text": "http://randyfay.com/contact"
     },
     {
-      "internal": false,
-      "key": "http://www.randyfay.com/files/rfay.pub",
+      "internal": true,
+      "own": true,
+      "url": "http://www.randyfay.com/files/rfay.pub",
+      "key": "files/rfay.pub",
       "text": "ssh public key"
     },
     {
@@ -78,8 +80,7 @@
       "http://ddev.com/contact",
       "http://facebook.com/randyfay",
       "http://hobobiker.com",
-      "http://twitter.com/randyfay",
-      "http://www.randyfay.com/files/rfay.pub"
+      "http://twitter.com/randyfay"
     ],
     "internalNonOk": [
       {

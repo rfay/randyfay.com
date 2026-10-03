@@ -9,8 +9,10 @@
   "images": [],
   "links": [
     {
-      "internal": false,
-      "key": "https://randyfay.com/sites/default/files/Randy%20Fay%20Resume%202016.pdf",
+      "internal": true,
+      "own": true,
+      "url": "https://randyfay.com/sites/default/files/Randy%20Fay%20Resume%202016.pdf",
+      "key": "sites/default/files/Randy Fay Resume 2016.pdf",
       "text": "resume as pdf"
     }
   ],
@@ -26,8 +28,7 @@
     "external": [
       "http://ddev.com/contact",
       "http://facebook.com/randyfay",
-      "http://hobobiker.com",
-      "https://randyfay.com/sites/default/files/Randy%20Fay%20Resume%202016.pdf"
+      "http://hobobiker.com"
     ],
     "internalNonOk": []
   }

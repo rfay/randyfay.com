@@ -67,8 +67,10 @@
       "text": "Ubuntu's model"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/taxonomy/term/27",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/taxonomy/term/27",
+      "key": "taxonomy/term/27",
       "text": "Burnout in the community"
     },
     {
@@ -201,7 +203,6 @@
       "http://drupal.org/user/36762",
       "http://facebook.com/randyfay",
       "http://hobobiker.com",
-      "http://randyfay.com/taxonomy/term/27",
       "http://room271.net",
       "http://www.ubuntu.com/community/conduct"
     ],

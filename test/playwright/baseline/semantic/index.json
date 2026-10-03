@@ -1,26 +1,27 @@
 {
-  "generatedAt": "2026-10-03T15:28:11.415Z",
+  "generatedAt": "2026-10-03T15:43:41.018Z",
   "baseUrl": "https://randyfay.ddev.site",
   "counts": {
-    "pages": 264,
+    "pages": 267,
     "skipped": 0,
-    "assets": 26,
+    "assets": 27,
     "missingAssets": 7,
     "byType": {
       "blog": 158,
       "page": 7,
       "book": 48,
       "story": 2,
-      "route": 49
+      "route": 52
     },
-    "lines": 22960,
+    "lines": 23392,
     "images": 62,
-    "links": 8987,
+    "links": 9085,
     "menuItems": 571,
-    "discoveredRoutes": 49,
+    "discoveredRoutes": 52,
+    "discoveredFiles": 1,
     "ownDomainLinks": 41,
     "ownDomainImages": 7,
-    "brokenOrRestrictedLinks": 8
+    "brokenOrRestrictedLinks": 14
   },
   "pages": [
     {
@@ -1814,6 +1815,36 @@
       "file": "pages/route__content__rebase-workflow-git_page_1.json"
     },
     {
+      "path": "node/99for",
+      "id": "route:node/99for",
+      "type": "route",
+      "title": "Drupal Testbots are now running on the OSUOSL Supercell",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__node__99for.json"
+    },
+    {
+      "path": "taxonomy/term/26",
+      "id": "route:taxonomy/term/26",
+      "type": "route",
+      "title": "git rebase",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__taxonomy__term__26.json"
+    },
+    {
+      "path": "taxonomy/term/27",
+      "id": "route:taxonomy/term/27",
+      "type": "route",
+      "title": "Burnout",
+      "tags": [
+        "route"
+      ],
+      "file": "pages/route__taxonomy__term__27.json"
+    },
+    {
       "path": "topics/ahah",
       "id": "route:topics/ahah",
       "type": "route",
@@ -2280,7 +2311,8 @@
     "/sites/default/files/RandyFayResume2016.pdf",
     "/sites/default/files/Randy Fay Resume 2016.pdf",
     "/sites/default/files/rfay.pub_.txt",
-    "/sites/default/files/blog_image/ddev.png"
+    "/sites/default/files/blog_image/ddev.png",
+    "/files/rfay.pub"
   ],
   "missingAssets": [
     {
@@ -2445,6 +2477,7 @@
     "debugging",
     "debugging_drupal",
     "drupal_debugging",
+    "files/rfay.pub",
     "node",
     "node/10",
     "node/100",
@@ -2572,6 +2605,7 @@
     "node/97",
     "node/98",
     "node/99",
+    "node/99for",
     "node?page=1",
     "node?page=2",
     "portfolio",
@@ -2606,6 +2640,8 @@
     "sites/default/files/rfay_dell_gazelle_Selection_007.png",
     "something/else/here",
     "states",
+    "taxonomy/term/26",
+    "taxonomy/term/27",
     "topics/ahah",
     "topics/ajax",
     "topics/amazon-ec2",
@@ -2656,6 +2692,16 @@
       ]
     },
     {
+      "key": "sites/default/files/catchall",
+      "status": 404,
+      "uses": 4,
+      "from": [
+        "node/71",
+        "node/71",
+        "content/quick-guide-wildcard-apache-vhosts"
+      ]
+    },
+    {
       "key": "ahah_demo/simple_form",
       "status": 404,
       "uses": 2,
@@ -2665,12 +2711,57 @@
       ]
     },
     {
+      "key": "files/e_notice.patch",
+      "status": 404,
+      "uses": 2,
+      "from": [
+        "node/76",
+        "content/if-you-edit-php-code-please-work-enotice-turned"
+      ]
+    },
+    {
+      "key": "files/php",
+      "status": 404,
+      "uses": 2,
+      "from": [
+        "node/63",
+        "content/php-52-ubuntu-1004-lucid-lynx-seems-work-1204-too"
+      ]
+    },
+    {
+      "key": "files/php_0",
+      "status": 404,
+      "uses": 2,
+      "from": [
+        "node/63",
+        "content/php-52-ubuntu-1004-lucid-lynx-seems-work-1204-too"
+      ]
+    },
+    {
+      "key": "sites/default/files/RandyFayResume2012.pdf",
+      "status": 404,
+      "uses": 2,
+      "from": [
+        "node/19",
+        "portfolio"
+      ]
+    },
+    {
       "key": "sites/default/files/demo_role_content_feature-6.x-1.0.tar_.gz",
       "status": 404,
       "uses": 2,
       "from": [
         "node/77",
         "content/views-making-view-show-different-content-different-users-based-role"
+      ]
+    },
+    {
+      "key": "sites/default/files/e_notice.patch",
+      "status": 404,
+      "uses": 2,
+      "from": [
+        "node/76",
+        "content/if-you-edit-php-code-please-work-enotice-turned"
       ]
     },
     {
@@ -2757,6 +2848,7 @@
           "content/rebase-workflow-git?page=1",
           "node/91",
           "node?page=1",
+          "taxonomy/term/26",
           "topics/git",
           "topics/git-rebase",
           "topics/planet-drupal?page=3"
@@ -2860,6 +2952,7 @@
           "content/rebase-workflow-git?page=1",
           "node/91",
           "node?page=1",
+          "taxonomy/term/26",
           "topics/git",
           "topics/git-rebase",
           "topics/planet-drupal?page=3"
@@ -2876,6 +2969,7 @@
           "node",
           "node/109",
           "node/110",
+          "taxonomy/term/27",
           "topics/burnout",
           "topics/planet-drupal?page=5"
         ]
@@ -2891,6 +2985,7 @@
           "node",
           "node/107",
           "node/110",
+          "taxonomy/term/27",
           "topics/burnout",
           "topics/planet-drupal?page=4",
           "topics/planet-drupal?page=5"
@@ -2998,6 +3093,7 @@
           "content/simpler-rebasing-avoiding-unintentional-merge-commits",
           "node/103",
           "node/91",
+          "taxonomy/term/26",
           "topics/git",
           "topics/git-rebase",
           "topics/planet-drupal?page=3",
@@ -3077,6 +3173,7 @@
           "content/simpler-rebasing-avoiding-unintentional-merge-commits",
           "node",
           "node/103",
+          "taxonomy/term/26",
           "topics/git",
           "topics/git-rebase",
           "topics/planet-drupal?page=4"

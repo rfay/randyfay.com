@@ -119,18 +119,24 @@
       "text": "Pull Request workflow"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/103",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/103",
+      "key": "node/103",
       "text": "This followup article"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/comment/1093#comment-1093",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/comment/1093#comment-1093",
+      "key": "comment/1093",
       "text": "described by joachim below"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/89",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/89",
+      "key": "node/89",
       "text": "Avoiding Git Disasters"
     },
     {
@@ -227,9 +233,6 @@
       "http://facebook.com/randyfay",
       "http://hobobiker.com",
       "http://progit.org/book/ch5-3.html",
-      "http://randyfay.com/comment/1093",
-      "http://randyfay.com/node/103",
-      "http://randyfay.com/node/89",
       "http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html",
       "http://unethicalblogger.com/node/276",
       "https://help.github.com/articles/syncing-a-fork",

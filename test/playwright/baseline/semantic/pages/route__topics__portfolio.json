@@ -152,8 +152,10 @@
       "text": "Drupal Association"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/sites/default/files/RandyFayResume2012.pdf",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/sites/default/files/RandyFayResume2012.pdf",
+      "key": "sites/default/files/RandyFayResume2012.pdf",
       "text": "resume is attached"
     },
     {
@@ -203,7 +205,6 @@
       "http://hobobiker.com",
       "http://mariethacker.com/contact-me",
       "http://paris2009.drupalcon.org/session/debugging-drupal",
-      "http://randyfay.com/sites/default/files/RandyFayResume2012.pdf",
       "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
       "http://sparkleshelf.com",
       "http://sparkleshelf.com/versus/voteresult/smackdown_image",
@@ -213,6 +214,10 @@
       {
         "key": "admin/content",
         "status": 403
+      },
+      {
+        "key": "sites/default/files/RandyFayResume2012.pdf",
+        "status": 404
       }
     ]
   }

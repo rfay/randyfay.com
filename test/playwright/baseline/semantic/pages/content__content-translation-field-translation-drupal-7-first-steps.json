@@ -280,8 +280,10 @@
       "text": "i18n"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/comment/672#comment-672",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/comment/672#comment-672",
+      "key": "comment/672",
       "text": "Gabor's comment below for more on this, and considerations regarding it"
     },
     {
@@ -615,8 +617,10 @@
       "text": "Hmm.. I thought Plach's note"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/comment/864#comment-864",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/comment/864#comment-864",
+      "key": "comment/864",
       "text": "Plach's note"
     },
     {
@@ -882,8 +886,6 @@
       "http://liquidvisual.ca",
       "http://localize.drupal.org",
       "http://nuazul.net",
-      "http://randyfay.com/comment/672",
-      "http://randyfay.com/comment/864",
       "http://www.cai.org",
       "http://www.comm-press.de",
       "http://www.drupalcommerce.org/questions/10452/multilingual-product-title-shopping-cart",

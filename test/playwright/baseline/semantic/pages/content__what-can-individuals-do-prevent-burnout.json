@@ -90,8 +90,10 @@
       "text": "Burnout core conversation at Drupalcon London"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/107",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/107",
+      "key": "node/107",
       "text": "what burnout is"
     },
     {
@@ -262,7 +264,6 @@
       "http://hobobiker.com",
       "http://london2011.drupal.org/coreconversation/1700-1730-burnout",
       "http://pragprog.com/magazines/2011-08/how-virtuous-is-your-code",
-      "http://randyfay.com/node/107",
       "http://rickmanelius.com",
       "http://technosophos.com",
       "http://westendgirl.ca/preventing-and-dealing-burnout",

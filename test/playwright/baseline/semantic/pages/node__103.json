@@ -148,13 +148,17 @@
       "text": "git"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/taxonomy/term/26",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/taxonomy/term/26",
+      "key": "taxonomy/term/26",
       "text": "rebasing and why to do it"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/89",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/89",
+      "key": "node/89",
       "text": "Git disasters"
     },
     {
@@ -193,8 +197,10 @@
       "text": "The question: Is it worth exposing your topic branch"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/91",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/91",
+      "key": "node/91",
       "text": "serious rebasing"
     },
     {
@@ -427,9 +433,6 @@
       "http://facebook.com/randyfay",
       "http://hobobiker.com",
       "http://paul.stadig.name/2010/12/thou-shalt-not-lie-git-rebase-ammend.html",
-      "http://randyfay.com/node/89",
-      "http://randyfay.com/node/91",
-      "http://randyfay.com/taxonomy/term/26",
       "http://www.metaltoad.com/people/dylan-tack",
       "https://news.ycombinator.com/item?id=11144061"
     ],

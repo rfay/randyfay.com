@@ -346,13 +346,17 @@
       "text": "git"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/119",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/119",
+      "key": "node/119",
       "text": "this update on my experience"
     },
     {
-      "internal": false,
-      "key": "http://www.randyfay.com/comment/1028#comment-1028",
+      "internal": true,
+      "own": true,
+      "url": "http://www.randyfay.com/comment/1028#comment-1028",
+      "key": "comment/1028",
       "text": "in the comment below"
     },
     {
@@ -366,8 +370,10 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/comment/1990#comment-1990",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/comment/1990#comment-1990",
+      "key": "comment/1990",
       "text": "below"
     },
     {
@@ -396,13 +402,17 @@
       "text": "Pull Request workflow"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/103",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/103",
+      "key": "node/103",
       "text": "This followup article"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/comment/1093#comment-1093",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/comment/1093#comment-1093",
+      "key": "comment/1093",
       "text": "described by joachim below"
     },
     {
@@ -596,8 +606,10 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/99",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/99",
+      "key": "node/99",
       "text": "migrated onto the OSUOSL Supercell infrastructure"
     },
     {
@@ -626,8 +638,10 @@
       "text": "Forms"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/66",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/66",
+      "key": "node/66",
       "text": "Form API Changes for Drupal 7, Part 1: $form_state changes"
     },
     {
@@ -636,8 +650,10 @@
       "text": "sanitized example"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/ahah",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/ahah",
+      "key": "ahah",
       "text": "here"
     },
     {
@@ -891,8 +907,10 @@
       "text": "Drupal 7 AJAX and Javascript"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/58",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/58",
+      "key": "node/58",
       "text": "#states feature"
     },
     {
@@ -998,22 +1016,12 @@
       "http://hobobiker.com",
       "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics",
       "http://php.net/manual/en/errorfunc.configuration.php",
-      "http://randyfay.com/ahah",
-      "http://randyfay.com/comment/1093",
-      "http://randyfay.com/comment/1990",
-      "http://randyfay.com/files/translatable_regions_screenshot.png",
-      "http://randyfay.com/node/103",
-      "http://randyfay.com/node/119",
-      "http://randyfay.com/node/58",
-      "http://randyfay.com/node/66",
-      "http://randyfay.com/node/99",
       "http://sf2010.drupal.org/conference/post-conference-sprint",
       "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
       "http://thejibe.com/blog/10/10/php-5210-debs-ubuntu-1010-maverick",
       "http://ubuntuforums.org/showthread.php?t=2074178",
       "http://warmshowers.org",
       "http://www.evolvingweb.ca/story/drupal-7-multilingual-whats-new-i18n",
-      "http://www.randyfay.com/comment/1028",
       "http://www.zend.com/products/studio/downloads",
       "https://help.github.com/articles/using-pull-requests",
       "https://www.packtpub.com/drupal-7-module-development/book"

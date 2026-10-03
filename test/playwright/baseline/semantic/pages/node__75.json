@@ -64,8 +64,10 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/99",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/99",
+      "key": "node/99",
       "text": "migrated onto the OSUOSL Supercell infrastructure"
     },
     {
@@ -189,8 +191,10 @@
       "text": "Testbot project is info source"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/99for",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/99for",
+      "key": "node/99for",
       "text": "http://randyfay.com/node/99for"
     },
     {
@@ -229,8 +233,6 @@
       "http://michaelshadle.com",
       "http://qa.drupal.org/node/84",
       "http://qa.drupal.org/pifr/status",
-      "http://randyfay.com/node/99",
-      "http://randyfay.com/node/99for",
       "https://docs.google.com/document/d/1s2PG8GdWcovi9z8uCBiiHGBzALFQqt4noqLL4ADUbUw/edit?hl=en_US"
     ],
     "internalNonOk": []

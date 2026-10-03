@@ -148,18 +148,24 @@
       "text": "Future of Drupal Governance core conversation at Drupalcon Denver"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/120",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/120",
+      "key": "node/120",
       "text": "How Do Open Source Communities Organize Themselves?"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/content/drupals-governance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/content/drupals-governance",
+      "key": "content/drupals-governance",
       "text": "Drupal Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
+      "key": "content/future-drupal-governance-resources-and-next-steps",
       "text": "The Future of Drupal Governance"
     },
     {
@@ -208,13 +214,17 @@
       "text": "Drupalcon Denver Core Conversation on The Future of Drupal Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/118",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/118",
+      "key": "node/118",
       "text": "What is Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/topics/governance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/topics/governance",
+      "key": "topics/governance",
       "text": "Read all"
     },
     {
@@ -393,18 +403,24 @@
       "text": "Drupalcon Denver Core Conversation on The Future of Drupal Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/118",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/118",
+      "key": "node/118",
       "text": "What is Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/120",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/120",
+      "key": "node/120",
       "text": "How Do Open Source Communities Govern Themselves?"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/topics/governance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/topics/governance",
+      "key": "topics/governance",
       "text": "Read all"
     },
     {
@@ -493,8 +509,10 @@
       "text": "http://lb.cm/governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/topics/governance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/topics/governance",
+      "key": "topics/governance",
       "text": "http://randyfay.com/topics/governance"
     },
     {
@@ -563,11 +581,6 @@
       "http://kde.org/code-of-conduct",
       "http://kde.org/community/whatiskde/management.php",
       "http://lb.cm/governance",
-      "http://randyfay.com/content/drupals-governance",
-      "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
-      "http://randyfay.com/node/118",
-      "http://randyfay.com/node/120",
-      "http://randyfay.com/topics/governance",
       "http://ubuntu.com",
       "http://wikipedia.org",
       "http://wordpress.org",

@@ -4,7 +4,8 @@
 // frames, forms; head and body) is classified, and a page fails if it refers to:
 //
 //   1. the SOURCE site (or any host in config.static.forbiddenHosts, such as the prepared copy the
-//      crawl was taken from). The archive would depend on a site that is about to disappear.
+//      crawl was taken from), or the site's own public domain (config.ownDomains), which an archive
+//      must reach by a relative URL. The archive would depend on a site that is about to disappear.
 //   2. a dead internal URL: one on the target's own origin that does not resolve. Unless the
 //      original already had that reference dead or restricted (recorded in the baseline), in which
 //      case it must stay that way, because we reproduce the site rather than repair it.
@@ -27,6 +28,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { extractReferences, externalKey, internalKey } from '../lib/references.mjs';
+import { hostKey, ownHostSet } from '../lib/extract.mjs';
 import { applyExpectedDifferences } from '../lib/compare.mjs';
 
 export function registerStaticSuite({ test, expect, config, root }) {
@@ -37,6 +39,8 @@ export function registerStaticSuite({ test, expect, config, root }) {
 
   const sourceHost = new URL(config.source.baseUrl).host;
   const forbidden = new Set([sourceHost, ...(config.static?.forbiddenHosts ?? [])]);
+  // Hosts that ARE this site (config.ownDomains). A link to one should be relative in an archive.
+  const ownHosts = ownHostSet(config.ownDomains ?? []);
 
   // Resolution results are shared by every test in a worker: stylesheets and scripts repeat on
   // every page, and each should be fetched once.
@@ -59,11 +63,18 @@ export function registerStaticSuite({ test, expect, config, root }) {
         const leakHosts = new Set([...forbidden].filter((h) => h !== target.host));
 
         const seen = new Set();
-        for (const r of extractReferences(await res.text(), pageUrl, target.origin)) {
+        for (const r of extractReferences(await res.text(), pageUrl, target.origin, ownHosts)) {
           const id = `${r.url.href}`;
           if (seen.has(id)) continue;
           seen.add(id);
 
+          // The original itself legitimately contains absolute links to its own domain, so this only applies
+          // to a target that is not the source.
+          const ownLeak = target.host !== sourceHost && ownHosts.has(hostKey(r.url.hostname)) && hostKey(r.url.hostname) !== hostKey(target.hostname);
+          if (ownLeak) {
+            diffs.push({ kind: 'static', item: `refers to the site's own public domain (should be relative), <${r.tag} ${r.attr}>: ${r.url.href}` });
+            continue;
+          }
           if (leakHosts.has(r.url.host)) {
             diffs.push({ kind: 'static', item: `refers to the source site, <${r.tag} ${r.attr}>: ${r.url.href}` });
             continue;
@@ -74,10 +85,13 @@ export function registerStaticSuite({ test, expect, config, root }) {
             }
             continue;
           }
-          let status = resolved.get(r.url.href);
+          // A reference to the site's own public domain is resolved against THIS target's origin, never against
+          // the domain itself: the suite must not make requests to a production site.
+          const href = r.own ? new URL(r.url.pathname + r.url.search, target.origin).href : r.url.href;
+          let status = resolved.get(href);
           if (status === undefined) {
-            status = (await request.get(r.url.href)).status();
-            resolved.set(r.url.href, status);
+            status = (await request.get(href)).status();
+            resolved.set(href, status);
           }
           if (status < 200 || status >= 400) {
             if (originalDead.has(internalKey(r.url))) continue; // dead on the original too: kept as it was

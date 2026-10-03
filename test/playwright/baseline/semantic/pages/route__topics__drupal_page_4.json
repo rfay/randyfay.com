@@ -164,8 +164,10 @@
       "text": "Form API Reference"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/74",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/74",
+      "key": "node/74",
       "text": "Part 2: AJAX forms changes."
     },
     {
@@ -272,8 +274,7 @@
       "http://ddev.com/contact",
       "http://drupal.org/project/examples",
       "http://facebook.com/randyfay",
-      "http://hobobiker.com",
-      "http://randyfay.com/node/74"
+      "http://hobobiker.com"
     ],
     "internalNonOk": [
       {

@@ -367,8 +367,10 @@
       "text": "i18n"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/comment/672#comment-672",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/comment/672#comment-672",
+      "key": "comment/672",
       "text": "Gabor's comment below for more on this, and considerations regarding it"
     },
     {
@@ -472,18 +474,24 @@
       "text": "Pull Request workflow"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/103",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/103",
+      "key": "node/103",
       "text": "This followup article"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/comment/1093#comment-1093",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/comment/1093#comment-1093",
+      "key": "comment/1093",
       "text": "described by joachim below"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/89",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/89",
+      "key": "node/89",
       "text": "Avoiding Git Disasters"
     },
     {
@@ -517,8 +525,10 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/comment/1990#comment-1990",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/comment/1990#comment-1990",
+      "key": "comment/1990",
       "text": "below"
     },
     {
@@ -537,13 +547,17 @@
       "text": "git"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/119",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/119",
+      "key": "node/119",
       "text": "this update on my experience"
     },
     {
-      "internal": false,
-      "key": "http://www.randyfay.com/comment/1028#comment-1028",
+      "internal": true,
+      "own": true,
+      "url": "http://www.randyfay.com/comment/1028#comment-1028",
+      "key": "comment/1028",
       "text": "in the comment below"
     },
     {
@@ -712,16 +726,9 @@
       "http://hojtsy.hu/blog/2011-jan-19/drupal-7039s-new-multilingual-systems-part-1-basics",
       "http://localize.drupal.org",
       "http://progit.org/book/ch5-3.html",
-      "http://randyfay.com/comment/1093",
-      "http://randyfay.com/comment/1990",
-      "http://randyfay.com/comment/672",
-      "http://randyfay.com/node/103",
-      "http://randyfay.com/node/119",
-      "http://randyfay.com/node/89",
       "http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html",
       "http://unethicalblogger.com/node/276",
       "http://www.evolvingweb.ca/story/drupal-7-multilingual-whats-new-i18n",
-      "http://www.randyfay.com/comment/1028",
       "http://www.screencast-o-matic.com/embed?sc=cXnueyI9A&w=640&v=3",
       "https://drupal.org/node/924968",
       "https://help.github.com/articles/using-pull-requests",

@@ -322,8 +322,10 @@
       "text": "AHAH Changes for Drupal 7 (It's now called #AJAX)"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/ajax",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/ajax",
+      "key": "ajax",
       "text": "http://randyfay.com/ajax"
     },
     {
@@ -622,8 +624,10 @@
       "text": "Forms"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/66",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/66",
+      "key": "node/66",
       "text": "Form API Changes for Drupal 7, Part 1: $form_state changes"
     },
     {
@@ -632,8 +636,10 @@
       "text": "sanitized example"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/ahah",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/ahah",
+      "key": "ahah",
       "text": "here"
     },
     {
@@ -672,8 +678,10 @@
       "text": "api.drupal.org"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/ajax",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/ajax",
+      "key": "ajax",
       "text": "Explanation details for the some of the AJAX Examples"
     },
     {
@@ -738,10 +746,7 @@
       "http://drupal.org/project/quicktabs",
       "http://drupalexamples.info/examples/ajax_example",
       "http://facebook.com/randyfay",
-      "http://hobobiker.com",
-      "http://randyfay.com/ahah",
-      "http://randyfay.com/ajax",
-      "http://randyfay.com/node/66"
+      "http://hobobiker.com"
     ],
     "internalNonOk": [
       {

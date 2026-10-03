@@ -614,8 +614,10 @@
       "text": "inbound webhooks"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/content/my-new-development-computer-amazon-ec2-instance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/content/my-new-development-computer-amazon-ec2-instance",
+      "key": "content/my-new-development-computer-amazon-ec2-instance",
       "text": "easy enough to do"
     },
     {
@@ -684,8 +686,10 @@
       "text": "PHPStorm"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/130",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/130",
+      "key": "node/130",
       "text": "my related article on remote command-line debugging"
     },
     {
@@ -709,13 +713,17 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "https://randyfay.com/node/130",
+      "internal": true,
+      "own": true,
+      "url": "https://randyfay.com/node/130",
+      "key": "node/130",
       "text": "Remote Drupal/PHP Debugging with Xdebug and PHPStorm"
     },
     {
-      "internal": false,
-      "key": "https://randyfay.com/node/130",
+      "internal": true,
+      "own": true,
+      "url": "https://randyfay.com/node/130",
+      "key": "node/130",
       "text": "Remote Drupal/PHP Debugging with Xdebug and PHPStorm"
     },
     {
@@ -782,8 +790,6 @@
       "http://krimson.be/en/debugging-drupal-6-using-xdebug",
       "http://mandrill.com",
       "http://matthardy.net/blog/configuring-phpstorm-xdebug-dbgp-proxy-settings-remote-debugging-multiple-users",
-      "http://randyfay.com/content/my-new-development-computer-amazon-ec2-instance",
-      "http://randyfay.com/node/130",
       "http://ratatosk.backpackit.com/pub/1836982-debugging-drupal",
       "http://ratatosk.backpackit.com/pub/1842524-drupal-on-ubuntu",
       "http://warmshowers.org/changelog",
@@ -800,8 +806,7 @@
       "http://xdebug.org",
       "http://xdebug.org/docs-dbgp.php",
       "http://xdebug.org/docs/remote",
-      "https://drupal.org/node/1476800",
-      "https://randyfay.com/node/130"
+      "https://drupal.org/node/1476800"
     ],
     "internalNonOk": [
       {

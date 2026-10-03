@@ -160,8 +160,10 @@
       "text": "PHPStorm"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/130",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/130",
+      "key": "node/130",
       "text": "my related article on remote command-line debugging"
     },
     {
@@ -230,8 +232,10 @@
       "text": "Cygwin, Git bash, any ssh client, putty"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/content/cygwin-quickstart-drupal-users",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/content/cygwin-quickstart-drupal-users",
+      "key": "content/cygwin-quickstart-drupal-users",
       "text": "http://randyfay.com/content/cygwin-quickstart-drupal-users"
     },
     {
@@ -313,8 +317,6 @@
       "http://git-scm.com/downloads",
       "http://hobobiker.com",
       "http://matthardy.net/blog/configuring-phpstorm-xdebug-dbgp-proxy-settings-remote-debugging-multiple-users",
-      "http://randyfay.com/content/cygwin-quickstart-drupal-users",
-      "http://randyfay.com/node/130",
       "http://www.jetbrains.com/phpstorm",
       "http://xdebug.org"
     ],

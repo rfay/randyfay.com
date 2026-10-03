@@ -65,8 +65,10 @@
       "text": "Pressflow"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/sites/default/files/e_notice.patch",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/sites/default/files/e_notice.patch",
+      "key": "sites/default/files/e_notice.patch",
       "text": "this patch"
     },
     {
@@ -170,7 +172,6 @@
       "http://hobobiker.com",
       "http://php.net/manual/en/errorfunc.configuration.php",
       "http://pressflow.org",
-      "http://randyfay.com/sites/default/files/e_notice.patch",
       "https://ddev.com/blog/claude-code-ai-pr-for-ddev-contributor-training",
       "https://ddev.com/blog/contributing-to-ddev-com",
       "https://ddev.com/blog/ddev-on-linux-in-10-minutes",
@@ -188,6 +189,10 @@
       {
         "key": "admin/content",
         "status": 403
+      },
+      {
+        "key": "sites/default/files/e_notice.patch",
+        "status": 404
       }
     ]
   }

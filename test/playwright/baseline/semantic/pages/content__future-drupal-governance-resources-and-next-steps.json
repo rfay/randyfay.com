@@ -81,8 +81,10 @@
       "text": "http://lb.cm/governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/topics/governance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/topics/governance",
+      "key": "topics/governance",
       "text": "http://randyfay.com/topics/governance"
     },
     {
@@ -127,7 +129,6 @@
       "http://facebook.com/randyfay",
       "http://hobobiker.com",
       "http://lb.cm/governance",
-      "http://randyfay.com/topics/governance",
       "http://www.communityleadershipsummit.com"
     ],
     "internalNonOk": []

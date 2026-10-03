@@ -65,8 +65,10 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/93",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/93",
+      "key": "node/93",
       "text": "blog post explaining how to use git clone --reference"
     },
     {
@@ -135,8 +137,7 @@
     "external": [
       "http://ddev.com/contact",
       "http://facebook.com/randyfay",
-      "http://hobobiker.com",
-      "http://randyfay.com/node/93"
+      "http://hobobiker.com"
     ],
     "internalNonOk": []
   }

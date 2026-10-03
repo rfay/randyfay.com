@@ -215,8 +215,10 @@
       "text": "Debugging Drupal talk at Copenhagen"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/sites/default/files/catchall",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/sites/default/files/catchall",
+      "key": "sites/default/files/catchall",
       "text": "Here is my catchall"
     },
     {
@@ -530,8 +532,10 @@
       "text": "Thanks for letting me know. I"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/sites/default/files/catchall",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/sites/default/files/catchall",
+      "key": "sites/default/files/catchall",
       "text": "http://randyfay.com/sites/default/files/catchall"
     },
     {
@@ -570,12 +574,16 @@
       "http://kybest.hu/blog/gyors-fejlesztesi-kornyezet",
       "http://mavimo.org",
       "http://mojahmedia.com/using-dnsmasq-and-virtual-host-wildcards-drupal-development.html",
-      "http://randyfay.com/sites/default/files/catchall",
       "http://tiger-fish.com",
       "http://www.blogthingee.com",
       "http://www.texturecase.com",
       "http://www.xxx.b"
     ],
-    "internalNonOk": []
+    "internalNonOk": [
+      {
+        "key": "sites/default/files/catchall",
+        "status": 404
+      }
+    ]
   }
 }

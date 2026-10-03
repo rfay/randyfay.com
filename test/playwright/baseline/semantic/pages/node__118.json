@@ -33,18 +33,24 @@
       "text": "Future of Drupal Governance core conversation at Drupalcon Denver"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/120",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/120",
+      "key": "node/120",
       "text": "How Do Open Source Communities Organize Themselves?"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/content/drupals-governance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/content/drupals-governance",
+      "key": "content/drupals-governance",
       "text": "Drupal Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
+      "key": "content/future-drupal-governance-resources-and-next-steps",
       "text": "The Future of Drupal Governance"
     },
     {
@@ -97,9 +103,6 @@
       "http://en.wikipedia.org/wiki/Governance",
       "http://facebook.com/randyfay",
       "http://hobobiker.com",
-      "http://randyfay.com/content/drupals-governance",
-      "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
-      "http://randyfay.com/node/120",
       "http://www.artofcommunityonline.org/downloads/jonobacon-theartofcommunity-1ed.pdf",
       "http://www.artofcommunityonline.org/get"
     ],

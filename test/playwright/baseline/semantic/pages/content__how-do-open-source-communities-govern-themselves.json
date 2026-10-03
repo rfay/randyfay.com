@@ -121,13 +121,17 @@
       "text": "Drupalcon Denver Core Conversation on The Future of Drupal Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/118",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/118",
+      "key": "node/118",
       "text": "What is Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/topics/governance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/topics/governance",
+      "key": "topics/governance",
       "text": "Read all"
     },
     {
@@ -527,8 +531,6 @@
       "http://kde.org/code-of-conduct",
       "http://kde.org/community/whatiskde/management.php",
       "http://osm.gryph.de/2012/04/learn-from-wikipedia",
-      "http://randyfay.com/node/118",
-      "http://randyfay.com/topics/governance",
       "http://ubuntu.com",
       "http://wikipedia.org",
       "http://wordpress.org",

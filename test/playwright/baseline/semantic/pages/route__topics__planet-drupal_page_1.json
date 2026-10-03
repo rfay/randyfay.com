@@ -265,8 +265,10 @@
       "text": "Drupal 7 AJAX and Javascript"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/58",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/58",
+      "key": "node/58",
       "text": "#states feature"
     },
     {
@@ -500,8 +502,10 @@
       "text": "Form API Reference"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/74",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/74",
+      "key": "node/74",
       "text": "Part 2: AJAX forms changes."
     },
     {
@@ -690,9 +694,6 @@
       "http://groups.drupal.org/node/63518",
       "http://hobobiker.com",
       "http://pt.warmshowers.org/content/benvind-ao-warmshowers",
-      "http://randyfay.com/files/translatable_regions_screenshot.png",
-      "http://randyfay.com/node/58",
-      "http://randyfay.com/node/74",
       "http://sf2010.drupal.org/conference/post-conference-sprint",
       "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
       "http://thejibe.com/blog/10/10/php-5210-debs-ubuntu-1010-maverick",

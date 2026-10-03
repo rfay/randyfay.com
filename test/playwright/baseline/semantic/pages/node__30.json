@@ -15,8 +15,10 @@
   "images": [],
   "links": [
     {
-      "internal": false,
-      "key": "http://randyfay.com/ajax",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/ajax",
+      "key": "ajax",
       "text": "http://randyfay.com/ajax"
     },
     {
@@ -67,8 +69,7 @@
       "http://ddev.com/contact",
       "http://drupal.org/project/examples",
       "http://facebook.com/randyfay",
-      "http://hobobiker.com",
-      "http://randyfay.com/ajax"
+      "http://hobobiker.com"
     ],
     "internalNonOk": []
   }

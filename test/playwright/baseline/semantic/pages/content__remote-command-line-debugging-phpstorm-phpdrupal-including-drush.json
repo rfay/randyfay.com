@@ -124,13 +124,17 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "https://randyfay.com/node/130",
+      "internal": true,
+      "own": true,
+      "url": "https://randyfay.com/node/130",
+      "key": "node/130",
       "text": "Remote Drupal/PHP Debugging with Xdebug and PHPStorm"
     },
     {
-      "internal": false,
-      "key": "https://randyfay.com/node/130",
+      "internal": true,
+      "own": true,
+      "url": "https://randyfay.com/node/130",
+      "key": "node/130",
       "text": "Remote Drupal/PHP Debugging with Xdebug and PHPStorm"
     },
     {
@@ -324,8 +328,7 @@
       "http://xdebug.org/docs/remote",
       "http://zbw.eu/labs/user/19",
       "https://drupal.org/node/2152077",
-      "https://github.com/drush-ops/drush/issues/1534",
-      "https://randyfay.com/node/130"
+      "https://github.com/drush-ops/drush/issues/1534"
     ],
     "internalNonOk": []
   }

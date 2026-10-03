@@ -287,8 +287,10 @@
       "text": "Pressflow"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/sites/default/files/e_notice.patch",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/sites/default/files/e_notice.patch",
+      "key": "sites/default/files/e_notice.patch",
       "text": "this patch"
     },
     {
@@ -382,8 +384,10 @@
       "text": "Edited the article to show exactly what to do"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/files/e_notice.patch",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/files/e_notice.patch",
+      "key": "files/e_notice.patch",
       "text": "provide a patch"
     },
     {
@@ -417,8 +421,10 @@
       "text": "Settings.php?"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/76#comment-192",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/76#comment-192",
+      "key": "node/76",
       "text": "http://randyfay.com/node/76#comment-192"
     },
     {
@@ -895,15 +901,21 @@
       "http://php.net/manual/en/errorfunc.configuration.php",
       "http://php.net/set_error_handler",
       "http://pressflow.org",
-      "http://randyfay.com/files/e_notice.patch",
-      "http://randyfay.com/node/76",
-      "http://randyfay.com/sites/default/files/e_notice.patch",
       "http://ryanparman.com",
       "http://www.blakesenftner.com",
       "http://www.blogthingee.com",
       "http://www.istos.it",
       "http://www.php.net/manual/en/errorfunc.constants.php"
     ],
-    "internalNonOk": []
+    "internalNonOk": [
+      {
+        "key": "files/e_notice.patch",
+        "status": 404
+      },
+      {
+        "key": "sites/default/files/e_notice.patch",
+        "status": 404
+      }
+    ]
   }
 }

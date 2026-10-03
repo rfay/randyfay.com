@@ -41,8 +41,10 @@
       "text": "Drupal 7 AJAX and Javascript"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/58",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/58",
+      "key": "node/58",
       "text": "#states feature"
     },
     {
@@ -87,7 +89,6 @@
       "http://ddev.com/contact",
       "http://facebook.com/randyfay",
       "http://hobobiker.com",
-      "http://randyfay.com/node/58",
       "http://sf2010.drupal.org/conference/sessions/ajax-and-javascript-drupal7-developers",
       "http://www.davereid.net"
     ],

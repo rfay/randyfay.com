@@ -335,8 +335,10 @@
       "text": "Debugging Drupal talk at Copenhagen"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/sites/default/files/catchall",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/sites/default/files/catchall",
+      "key": "sites/default/files/catchall",
       "text": "Here is my catchall"
     },
     {
@@ -410,8 +412,10 @@
       "text": "Forms"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/66",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/66",
+      "key": "node/66",
       "text": "Form API Changes for Drupal 7, Part 1: $form_state changes"
     },
     {
@@ -420,8 +424,10 @@
       "text": "sanitized example"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/ahah",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/ahah",
+      "key": "ahah",
       "text": "here"
     },
     {
@@ -460,8 +466,10 @@
       "text": "api.drupal.org"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/ajax",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/ajax",
+      "key": "ajax",
       "text": "Explanation details for the some of the AJAX Examples"
     },
     {
@@ -490,8 +498,10 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/99",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/99",
+      "key": "node/99",
       "text": "migrated onto the OSUOSL Supercell infrastructure"
     },
     {
@@ -535,8 +545,10 @@
       "text": "Pressflow"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/sites/default/files/e_notice.patch",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/sites/default/files/e_notice.patch",
+      "key": "sites/default/files/e_notice.patch",
       "text": "this patch"
     },
     {
@@ -797,12 +809,6 @@
       "http://pressflow.org",
       "http://qa.drupal.org/node/84",
       "http://qa.drupal.org/pifr/status",
-      "http://randyfay.com/ahah",
-      "http://randyfay.com/ajax",
-      "http://randyfay.com/node/66",
-      "http://randyfay.com/node/99",
-      "http://randyfay.com/sites/default/files/catchall",
-      "http://randyfay.com/sites/default/files/e_notice.patch",
       "http://sf2010.drupal.org/conference/sessions/page-render-drill-down-drupal-7",
       "http://www.xxx.b"
     ],
@@ -812,7 +818,15 @@
         "status": 403
       },
       {
+        "key": "sites/default/files/catchall",
+        "status": 404
+      },
+      {
         "key": "sites/default/files/demo_role_content_feature-6.x-1.0.tar_.gz",
+        "status": 404
+      },
+      {
+        "key": "sites/default/files/e_notice.patch",
         "status": 404
       }
     ]

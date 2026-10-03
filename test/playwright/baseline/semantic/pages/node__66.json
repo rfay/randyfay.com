@@ -234,8 +234,10 @@
       "text": "Form API Reference"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/74",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/74",
+      "key": "node/74",
       "text": "Part 2: AJAX forms changes."
     },
     {
@@ -624,7 +626,6 @@
       "http://drupal.stackexchange.com/questions/3633/ajax-form-that-changes-a-button-value",
       "http://facebook.com/randyfay",
       "http://hobobiker.com",
-      "http://randyfay.com/node/74",
       "http://stackoverflow.com/questions/6520775/why-is-the-the-triggering-element-in-form-state-is-the-last-button-on-the-for",
       "http://www.unleashedmind.com"
     ],

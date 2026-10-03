@@ -306,13 +306,17 @@
       "text": "Drupalcon Denver Core Conversation on The Future of Drupal Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/118",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/118",
+      "key": "node/118",
       "text": "What is Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/topics/governance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/topics/governance",
+      "key": "topics/governance",
       "text": "Read all"
     },
     {
@@ -491,18 +495,24 @@
       "text": "Drupalcon Denver Core Conversation on The Future of Drupal Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/118",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/118",
+      "key": "node/118",
       "text": "What is Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/120",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/120",
+      "key": "node/120",
       "text": "How Do Open Source Communities Govern Themselves?"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/topics/governance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/topics/governance",
+      "key": "topics/governance",
       "text": "Read all"
     },
     {
@@ -591,8 +601,10 @@
       "text": "http://lb.cm/governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/topics/governance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/topics/governance",
+      "key": "topics/governance",
       "text": "http://randyfay.com/topics/governance"
     },
     {
@@ -621,8 +633,10 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/topics/burnout",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/topics/burnout",
+      "key": "topics/burnout",
       "text": "burnout"
     },
     {
@@ -666,8 +680,10 @@
       "text": "inbound webhooks"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/content/my-new-development-computer-amazon-ec2-instance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/content/my-new-development-computer-amazon-ec2-instance",
+      "key": "content/my-new-development-computer-amazon-ec2-instance",
       "text": "easy enough to do"
     },
     {
@@ -736,8 +752,10 @@
       "text": "PHPStorm"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/130",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/130",
+      "key": "node/130",
       "text": "my related article on remote command-line debugging"
     },
     {
@@ -761,13 +779,17 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "https://randyfay.com/node/130",
+      "internal": true,
+      "own": true,
+      "url": "https://randyfay.com/node/130",
+      "key": "node/130",
       "text": "Remote Drupal/PHP Debugging with Xdebug and PHPStorm"
     },
     {
-      "internal": false,
-      "key": "https://randyfay.com/node/130",
+      "internal": true,
+      "own": true,
+      "url": "https://randyfay.com/node/130",
+      "key": "node/130",
       "text": "Remote Drupal/PHP Debugging with Xdebug and PHPStorm"
     },
     {
@@ -883,12 +905,6 @@
       "http://lb.cm/governance",
       "http://mandrill.com",
       "http://matthardy.net/blog/configuring-phpstorm-xdebug-dbgp-proxy-settings-remote-debugging-multiple-users",
-      "http://randyfay.com/content/my-new-development-computer-amazon-ec2-instance",
-      "http://randyfay.com/node/118",
-      "http://randyfay.com/node/120",
-      "http://randyfay.com/node/130",
-      "http://randyfay.com/topics/burnout",
-      "http://randyfay.com/topics/governance",
       "http://ubuntu.com",
       "http://wikipedia.org",
       "http://wordpress.org",
@@ -912,7 +928,6 @@
       "https://association.drupal.org/about/governance",
       "https://drupal.org/node/1476800",
       "https://en.wikipedia.org/wiki/Debian",
-      "https://randyfay.com/node/130",
       "https://wiki.ubuntu.com/CommunityCouncil",
       "https://wiki.ubuntu.com/TechnicalBoard",
       "https://www.warmshowers.org"

@@ -341,8 +341,10 @@
       "text": "Burnout core conversation at Drupalcon London"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/107",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/107",
+      "key": "node/107",
       "text": "what burnout is"
     },
     {
@@ -376,13 +378,17 @@
       "text": "Burnout core conversation at Drupalcon London"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/107",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/107",
+      "key": "node/107",
       "text": "what burnout is"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/109",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/109",
+      "key": "node/109",
       "text": "about what individuals can do about burnout"
     },
     {
@@ -466,8 +472,10 @@
       "text": "Ubuntu's model"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/taxonomy/term/27",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/taxonomy/term/27",
+      "key": "taxonomy/term/27",
       "text": "Burnout in the community"
     },
     {
@@ -676,18 +684,24 @@
       "text": "Future of Drupal Governance core conversation at Drupalcon Denver"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/120",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/120",
+      "key": "node/120",
       "text": "How Do Open Source Communities Organize Themselves?"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/content/drupals-governance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/content/drupals-governance",
+      "key": "content/drupals-governance",
       "text": "Drupal Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
+      "key": "content/future-drupal-governance-resources-and-next-steps",
       "text": "The Future of Drupal Governance"
     },
     {
@@ -731,8 +745,10 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/93",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/93",
+      "key": "node/93",
       "text": "blog post explaining how to use git clone --reference"
     },
     {
@@ -840,13 +856,6 @@
       "http://player.vimeo.com/video/37284355",
       "http://progit.org",
       "http://progit.org/book/ch6-6.html",
-      "http://randyfay.com/content/drupals-governance",
-      "http://randyfay.com/content/future-drupal-governance-resources-and-next-steps",
-      "http://randyfay.com/node/107",
-      "http://randyfay.com/node/109",
-      "http://randyfay.com/node/120",
-      "http://randyfay.com/node/93",
-      "http://randyfay.com/taxonomy/term/27",
       "http://westendgirl.ca/preventing-and-dealing-burnout",
       "http://www.amazon.com/Truth-About-Burnout-Organizations-Personal/dp/0787908746",
       "http://www.artofcommunityonline.org/downloads/jonobacon-theartofcommunity-1ed.pdf",

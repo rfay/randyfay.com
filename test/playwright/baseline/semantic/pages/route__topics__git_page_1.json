@@ -233,8 +233,10 @@
       "text": "Planet Drupal"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/93",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/93",
+      "key": "node/93",
       "text": "blog post explaining how to use git clone --reference"
     },
     {
@@ -287,7 +289,6 @@
       "http://player.vimeo.com/video/37284355",
       "http://progit.org",
       "http://progit.org/book/ch6-6.html",
-      "http://randyfay.com/node/93",
       "http://xjm.drupalgardens.com/blog/rerolling-drupal-8-core-patches",
       "https://projects.commerceguys.com/projects/general/wiki/GitForDrupal"
     ],

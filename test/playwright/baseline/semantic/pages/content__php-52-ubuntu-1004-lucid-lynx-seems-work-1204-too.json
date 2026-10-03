@@ -372,13 +372,17 @@
       "text": "Thanks for the instructions,"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/files/php_0",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/files/php_0",
+      "key": "files/php_0",
       "text": "http://randyfay.com/files/php_0"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/files/php",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/files/php",
+      "key": "files/php",
       "text": "http://randyfay.com/files/php"
     },
     {
@@ -826,8 +830,6 @@
       "http://kirkhings.com",
       "http://old-releases.ubuntu.com",
       "http://packages.ubuntu.com/karmic/i386/php5-mcrypt/download",
-      "http://randyfay.com/files/php",
-      "http://randyfay.com/files/php_0",
       "http://security.ubuntu.com",
       "http://smirkstudio.com",
       "http://superuser.com",
@@ -843,6 +845,14 @@
       "https://bugs.launchpad.net/ubuntu/+source/php5/+bug/281979/comments/3"
     ],
     "internalNonOk": [
+      {
+        "key": "files/php",
+        "status": 404
+      },
+      {
+        "key": "files/php_0",
+        "status": 404
+      },
       {
         "key": "sites/default/files/karmic_1.list",
         "status": 404

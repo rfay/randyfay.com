@@ -1,7 +1,9 @@
 {
-  "_comment": "Decisions for making the crawled copy self-contained. Anything the original already had dead or restricted is kept as it was (handled before these rules). See test/playwright/kit/scripts/rewrite-static.mjs.",
+  "_comment": "Decisions for making the crawled copy self-contained. 'hosts' are the sites being rewritten: the prepared copy the crawl came from, and the production domain (randyfay.com), which is this site. Anything the original already had dead or restricted is kept as it was (handled before these rules). See test/playwright/kit/scripts/rewrite-static.mjs.",
   "hosts": [
-    "randyfay-prep.ddev.site"
+    "randyfay-prep.ddev.site",
+    "randyfay.com",
+    "www.randyfay.com"
   ],
   "rules": [
     {

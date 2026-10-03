@@ -137,18 +137,24 @@
       "text": "Drupalcon Denver Core Conversation on The Future of Drupal Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/118",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/118",
+      "key": "node/118",
       "text": "What is Governance"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/120",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/120",
+      "key": "node/120",
       "text": "How Do Open Source Communities Govern Themselves?"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/topics/governance",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/topics/governance",
+      "key": "topics/governance",
       "text": "Read all"
     },
     {
@@ -375,9 +381,6 @@
       "http://engineeredweb.com/blog/11/1/who-rules-drupal",
       "http://facebook.com/randyfay",
       "http://hobobiker.com",
-      "http://randyfay.com/node/118",
-      "http://randyfay.com/node/120",
-      "http://randyfay.com/topics/governance",
       "http://technosophos.com",
       "http://www.communitywiki.org/DoOcracy",
       "http://www.drupalmyths.com/node/226",

@@ -158,8 +158,10 @@
       "text": "Forms"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/66",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/66",
+      "key": "node/66",
       "text": "Form API Changes for Drupal 7, Part 1: $form_state changes"
     },
     {
@@ -168,8 +170,10 @@
       "text": "sanitized example"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/ahah",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/ahah",
+      "key": "ahah",
       "text": "here"
     },
     {
@@ -208,8 +212,10 @@
       "text": "api.drupal.org"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/ajax",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/ajax",
+      "key": "ajax",
       "text": "Explanation details for the some of the AJAX Examples"
     },
     {
@@ -298,8 +304,10 @@
       "text": "Callback gets everything"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/node/66",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/node/66",
+      "key": "node/66",
       "text": "http://randyfay.com/node/66"
     },
     {
@@ -393,8 +401,10 @@
       "text": "All work goes on in the form builder function"
     },
     {
-      "internal": false,
-      "key": "http://randyfay.com/ajax",
+      "internal": true,
+      "own": true,
+      "url": "http://randyfay.com/ajax",
+      "key": "ajax",
       "text": "My AJAX tutorial"
     },
     {
@@ -493,10 +503,7 @@
       "http://drupal.org/project/examples",
       "http://facebook.com/randyfay",
       "http://hobobiker.com",
-      "http://p51labs.com",
-      "http://randyfay.com/ahah",
-      "http://randyfay.com/ajax",
-      "http://randyfay.com/node/66"
+      "http://p51labs.com"
     ],
     "internalNonOk": []
   }

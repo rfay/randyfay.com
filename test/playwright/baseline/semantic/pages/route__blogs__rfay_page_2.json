@@ -495,8 +495,10 @@
       "text": "http://randyfay.com/contact"
     },
     {
-      "internal": false,
-      "key": "http://www.randyfay.com/files/rfay.pub",
+      "internal": true,
+      "own": true,
+      "url": "http://www.randyfay.com/files/rfay.pub",
+      "key": "files/rfay.pub",
       "text": "ssh public key"
     },
     {
@@ -754,7 +756,6 @@
       "http://twitter.com/randyfay",
       "http://warmshowers.org",
       "http://www.kernel.org/pub/software/scm/git/docs/git-bisect.html",
-      "http://www.randyfay.com/files/rfay.pub",
       "https://www.youtube.com/v/mbbIKXopkWI&hl=en_US&fs=1&rel=0"
     ],
     "internalNonOk": [
